@@ -74,56 +74,69 @@ export default function AdminMenuEditorPage() {
   const addCategory = async () => {
     if (!newCat.name.trim()) return;
     setSavingCat(true);
-    const res = await fetch('/api/menu', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'category', name: newCat.name.trim(), emoji: newCat.emoji }),
-    });
-    if (res.ok) {
-      setNewCat({ name: '', emoji: '🍽️' });
-      setShowAddCat(false);
-      await load();
-    } else {
-      const d = await res.json();
-      setError(d.error ?? 'Помилка');
+    try {
+      const res = await fetch('/api/menu', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'category', name: newCat.name.trim(), emoji: newCat.emoji }),
+      });
+      if (res.ok) {
+        setNewCat({ name: '', emoji: '🍽️' });
+        setShowAddCat(false);
+        await load();
+      } else {
+        const d = await res.json();
+        setError(d.error ?? 'Помилка');
+      }
+    } catch (err: any) {
+      setError(`Мережева помилка: ${err.message}`);
     }
     setSavingCat(false);
   };
 
   const deleteCategory = async (id: string) => {
     if (!confirm('Видалити категорію та всі її страви?')) return;
-    await fetch('/api/menu', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'category', id }),
-    });
-    await load();
+    try {
+      const res = await fetch('/api/menu', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'category', id }),
+      });
+      if (!res.ok) throw new Error('Failed to delete');
+      await load();
+    } catch (err: any) {
+      setError(`Мережева помилка: ${err.message}`);
+    }
   };
 
   /* ─── Item actions ─── */
   const addItem = async (categoryId: string) => {
     if (!newItem.name.trim() || !newItem.price) return;
     setSavingItem(true);
-    const res = await fetch('/api/menu', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        type: 'item',
-        category_id: categoryId,
-        name: newItem.name.trim(),
-        price: Number(newItem.price),
-        weight: newItem.weight.trim(),
-        description: newItem.description.trim() || null,
-        image: newItem.image.trim() || '/pizza.png',
-      }),
-    });
-    if (res.ok) {
-      setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '' });
-      setAddItemFor(null);
-      await load();
-    } else {
-      const d = await res.json();
-      setError(d.error ?? 'Помилка');
+    try {
+      const res = await fetch('/api/menu', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'item',
+          category_id: categoryId,
+          name: newItem.name.trim(),
+          price: Number(newItem.price),
+          weight: newItem.weight.trim(),
+          description: newItem.description.trim() || null,
+          image: newItem.image.trim() || '/pizza.png',
+        }),
+      });
+      if (res.ok) {
+        setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '' });
+        setAddItemFor(null);
+        await load();
+      } else {
+        const d = await res.json();
+        setError(d.error ?? 'Помилка');
+      }
+    } catch (err: any) {
+      setError(`Мережева помилка: ${err.message}`);
     }
     setSavingItem(false);
   };

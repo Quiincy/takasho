@@ -24,6 +24,15 @@ const MOBILE_GRID = [
 
 /* ─── Component ─────────────────────────────────────────────────────── */
 
+/* ── shared background decorations ── */
+const Blobs = () => (
+  <>
+    <div style={{ position: 'absolute', top: '5%',  left: '-8%',  width: 560, height: 560, borderRadius: '50%', background: 'radial-gradient(circle, rgba(230,57,70,0.13) 0%, transparent 70%)', pointerEvents: 'none' }} />
+    <div style={{ position: 'absolute', bottom: '-8%', right: '5%', width: 480, height: 480, borderRadius: '50%', background: 'radial-gradient(circle, rgba(230,57,70,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
+    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.013) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.013) 1px,transparent 1px)', backgroundSize: '60px 60px' }} />
+  </>
+);
+
 export default function Hero() {
   const [active, setActive] = useState(0);
   const [visible, setVisible] = useState(false);
@@ -38,15 +47,6 @@ export default function Hero() {
   const scrollToMenu = () => {
     document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
-
-  /* ── shared background decorations ── */
-  const Blobs = () => (
-    <>
-      <div style={{ position: 'absolute', top: '5%',  left: '-8%',  width: 560, height: 560, borderRadius: '50%', background: 'radial-gradient(circle, rgba(230,57,70,0.13) 0%, transparent 70%)', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', bottom: '-8%', right: '5%', width: 480, height: 480, borderRadius: '50%', background: 'radial-gradient(circle, rgba(230,57,70,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.013) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.013) 1px,transparent 1px)', backgroundSize: '60px 60px' }} />
-    </>
-  );
 
   return (
     <section style={{

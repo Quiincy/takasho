@@ -18,6 +18,7 @@ export default function Header() {
 
   useEffect(() => {
     if (totalItems > 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCartAnimated(true);
       const t = setTimeout(() => setCartAnimated(false), 300);
       return () => clearTimeout(t);
