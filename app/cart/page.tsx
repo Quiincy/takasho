@@ -32,6 +32,7 @@ export default function CartPage() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [comment, setComment] = useState('');
+  const [deliveryMethod, setDeliveryMethod] = useState<'delivery' | 'pickup'>('delivery');
   const [deliveryInfo, setDeliveryInfo] = useState<{ km: number; cost: number } | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
@@ -42,8 +43,8 @@ export default function CartPage() {
     setDeliveryInfo({ km, cost });
   }, []);
 
-  const finalTotal = totalPrice + (deliveryInfo?.cost ?? 0);
-  const isReady = name.trim() && phone.trim() && address.trim() && items.length > 0;
+  const finalTotal = totalPrice + (deliveryMethod === 'delivery' ? (deliveryInfo?.cost ?? 0) : 0);
+  const isReady = name.trim() && phone.trim() && (deliveryMethod === 'pickup' || address.trim()) && items.length > 0;
 
   const handleOrder = async () => {
     setSubmitting(true);
@@ -55,12 +56,12 @@ export default function CartPage() {
         body: JSON.stringify({
           customer_name: name.trim(),
           customer_phone: phone.trim(),
-          delivery_address: address.trim(),
+          delivery_address: deliveryMethod === 'pickup' ? 'Самовивіз' : address.trim(),
           comment: comment.trim() || null,
           items: items.map(i => ({ id: i.id, name: i.name, quantity: i.quantity, price: i.price, weight: i.weight })),
           total_price: totalPrice,
-          delivery_cost: deliveryInfo?.cost ?? 0,
-          distance_km: deliveryInfo?.km ?? null,
+          delivery_cost: deliveryMethod === 'delivery' ? (deliveryInfo?.cost ?? 0) : 0,
+          distance_km: deliveryMethod === 'delivery' ? (deliveryInfo?.km ?? null) : null,
         }),
       });
       const data = await res.json();
@@ -336,12 +337,47 @@ export default function CartPage() {
               borderRadius: 16,
               padding: 20,
             }}>
-              <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>📦 Деталі доставки</h2>
+              <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>📦 Деталі замовлення</h2>
+              
+              <div style={{
+                display: 'flex', gap: 6, marginBottom: 18,
+                background: 'rgba(255,255,255,0.05)', padding: 6, borderRadius: 12,
+              }}>
+                <button
+                  type="button"
+                  onClick={() => setDeliveryMethod('delivery')}
+                  style={{
+                    flex: 1, padding: '10px', fontSize: 14, fontWeight: 600,
+                    borderRadius: 8, border: 'none', cursor: 'pointer',
+                    background: deliveryMethod === 'delivery' ? 'var(--bg-primary)' : 'transparent',
+                    color: deliveryMethod === 'delivery' ? 'var(--text-primary)' : 'var(--text-muted)',
+                    boxShadow: deliveryMethod === 'delivery' ? '0 2px 8px rgba(0,0,0,0.3)' : 'none',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  🚚 Доставка
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDeliveryMethod('pickup')}
+                  style={{
+                    flex: 1, padding: '10px', fontSize: 14, fontWeight: 600,
+                    borderRadius: 8, border: 'none', cursor: 'pointer',
+                    background: deliveryMethod === 'pickup' ? 'var(--bg-primary)' : 'transparent',
+                    color: deliveryMethod === 'pickup' ? 'var(--text-primary)' : 'var(--text-muted)',
+                    boxShadow: deliveryMethod === 'pickup' ? '0 2px 8px rgba(0,0,0,0.3)' : 'none',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  🏃 Самовивіз
+                </button>
+              </div>
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {[
                   { id: 'delivery-name', label: "Ваше ім'я *", value: name, setter: setName, placeholder: 'Олексій', type: 'text' },
                   { id: 'delivery-phone', label: 'Телефон *', value: phone, setter: setPhone, placeholder: '+380 XX XXX XX XX', type: 'tel' },
-                  { id: 'delivery-address', label: 'Вулиця та будинок *', value: address, setter: setAddress, placeholder: 'вул. Героїв Дніпра, 12', type: 'text' },
+                  ...(deliveryMethod === 'delivery' ? [{ id: 'delivery-address', label: 'Вулиця та будинок *', value: address, setter: setAddress, placeholder: 'вул. Героїв Дніпра, 12', type: 'text' }] : []),
                   { id: 'delivery-comment', label: 'Коментар (необов&apos;язково)', value: comment, setter: setComment, placeholder: 'Квартира, домофон...', type: 'text' },
                 ].map(field => (
                   <div key={field.id}>
@@ -380,16 +416,33 @@ export default function CartPage() {
           {/* RIGHT col: Map + Summary */}
           <div className="cart-sticky" style={{ display: 'flex', flexDirection: 'column', gap: 16, position: 'sticky', top: 100 }}>
 
-            {/* Map */}
-            <div style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border)',
-              borderRadius: 16,
-              padding: 16,
-            }}>
-              <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 14 }}>🗺️ Зона доставки</h2>
-              <DeliveryMap onDistanceChange={handleDistanceChange} address={address} />
-            </div>
+            {/* Map (only for delivery) */}
+            {deliveryMethod === 'delivery' ? (
+              <div style={{
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border)',
+                borderRadius: 16,
+                padding: 16,
+              }}>
+                <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 14 }}>🗺️ Зона доставки</h2>
+                <DeliveryMap onDistanceChange={handleDistanceChange} address={address} />
+              </div>
+            ) : (
+              <div style={{
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border)',
+                borderRadius: 16,
+                padding: 16,
+              }}>
+                <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 8 }}>📍 Де забирати?</h2>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 12 }}>
+                  Вул. Едуарда Вільде, 10Б (Київ)
+                </p>
+                <div style={{ height: 120, borderRadius: 12, background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
+                  🏪
+                </div>
+              </div>
+            )}
 
             {/* Order summary */}
             <div style={{
@@ -406,8 +459,8 @@ export default function CartPage() {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)', fontSize: 14 }}>
                   <span>Доставка</span>
-                  <span style={{ color: deliveryInfo?.cost === 0 ? '#48c774' : 'var(--text-primary)', fontWeight: 600 }}>
-                    {deliveryInfo === null ? '—' : deliveryInfo.cost === 0 ? 'БЕЗКОШТОВНО' : `${deliveryInfo.cost} ₴`}
+                  <span style={{ color: deliveryMethod === 'pickup' || deliveryInfo?.cost === 0 ? '#48c774' : 'var(--text-primary)', fontWeight: 600 }}>
+                    {deliveryMethod === 'pickup' ? 'САМОВИВІЗ' : (deliveryInfo === null ? '—' : deliveryInfo.cost === 0 ? 'БЕЗКОШТОВНО' : `${deliveryInfo.cost} ₴`)}
                   </span>
                 </div>
                 <div style={{
