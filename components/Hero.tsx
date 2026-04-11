@@ -335,17 +335,41 @@ export default function Hero() {
       </div>
 
       {/* Scroll cue */}
-      <a href="#menu" style={{
-        position: 'absolute', bottom: 28, left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
-        color: 'var(--text-muted)', textDecoration: 'none', fontSize: 11,
-        animation: 'float 2.5s ease-in-out infinite',
-        letterSpacing: '0.05em', fontWeight: 500,
-      }}>
+      <button
+        onClick={() => {
+          const el = document.getElementById('menu');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }}
+        style={{
+          position: 'absolute',
+          bottom: 28,
+          left: 0,
+          right: 0,
+          margin: '0 auto',
+          width: 'fit-content',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 4,
+          color: 'var(--text-muted)',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          fontSize: 11,
+          animation: 'float 2.5s ease-in-out infinite',
+          letterSpacing: '0.05em',
+          fontWeight: 600,
+          padding: '8px 16px',
+          borderRadius: 100,
+          transition: 'color 0.2s',
+          zIndex: 10,
+        }}
+        onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent)')}
+        onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}
+      >
         МЕНЮ
         <ChevronDown size={18} strokeWidth={1.5} />
-      </a>
+      </button>
 
       <style>{`
         @keyframes pulse {
