@@ -61,7 +61,7 @@ export default function AdminMenuEditorPage() {
 
   const load = useCallback(async () => {
     setLoading(true);
-    const res = await fetch('/api/menu');
+    const res = await fetch('/api/menu', { cache: 'no-store' });
     const data = await res.json();
     setCategories(data.categories ?? []);
     setItems(data.items ?? []);
