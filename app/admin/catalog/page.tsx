@@ -163,22 +163,66 @@ export default function AdminMenuEditorPage() {
           <h1 style={{ fontSize: 24, fontWeight: 800, letterSpacing: '-.02em', marginBottom: 4 }}>📋 Редактор меню</h1>
           <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>{categories.length} категорій · {items.length} страв</p>
         </div>
-        <button
-          onClick={() => setShowAddCat(v => !v)}
-          style={{
-            display: 'flex', alignItems: 'center', gap: 6,
-            padding: '10px 18px', background: 'var(--accent)', color: 'white',
-            border: 'none', borderRadius: 10, fontWeight: 700, fontSize: 14, cursor: 'pointer',
-          }}
-        >
-          <Plus size={16} /> Нова категорія
-        </button>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button
+            onClick={() => { setShowAddCat(v => !v); setAddItemFor(null); }}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 6,
+              padding: '10px 16px', background: 'var(--bg-secondary)', color: 'var(--text-primary)',
+              border: '1px solid var(--border)', borderRadius: 10, fontWeight: 600, fontSize: 13, cursor: 'pointer',
+            }}
+          >
+            <Plus size={16} /> Нова категорія
+          </button>
+          {categories.length > 0 && (
+            <button
+              onClick={() => { setAddItemFor('global'); setShowAddCat(false); setNewItem({ name: '', price: '', weight: '', description: '', image: '' }); }}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 6,
+                padding: '10px 16px', background: 'var(--accent)', color: 'white',
+                border: 'none', borderRadius: 10, fontWeight: 600, fontSize: 13, cursor: 'pointer',
+              }}
+            >
+              <Plus size={16} /> Нова страва
+            </button>
+          )}
+        </div>
       </div>
 
       {error && (
         <div style={{ padding: '12px 16px', background: 'rgba(230,57,70,.1)', border: '1px solid rgba(230,57,70,.3)', borderRadius: 10, color: 'var(--accent)', fontSize: 14, marginBottom: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           ❌ {error}
           <button onClick={() => setError('')} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--accent)' }}><X size={16} /></button>
+        </div>
+      )}
+
+      {/* Global Add Item form */}
+      {addItemFor === 'global' && (
+        <div style={{ background: 'var(--bg-card)', border: '1px solid var(--accent)', borderRadius: 14, padding: 20, marginBottom: 20, boxShadow: '0 4px 12px rgba(230,57,70,0.1)' }}>
+          <p style={{ fontSize: 14, fontWeight: 700, marginBottom: 14 }}>➕ Нова страва</p>
+          <div style={{ marginBottom: 14 }}>
+            <label style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 600, display: 'block', marginBottom: 6 }}>Категорія *</label>
+            <select
+              value={newItem.category_id || categories[0]?.id}
+              onChange={e => setNewItem(p => ({ ...p, category_id: e.target.value }))}
+              style={{ width: '100%', padding: '10px 14px', background: 'var(--bg-secondary)', border: '1px solid var(--border)', borderRadius: 9, color: 'var(--text-primary)', fontSize: 14, outline: 'none' }}
+            >
+              {categories.map(c => <option key={c.id} value={c.id}>{c.emoji} {c.name}</option>)}
+            </select>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 10 }}>
+            <Field label="Назва *" value={newItem.name} onChange={v => setNewItem(p => ({ ...p, name: v }))} placeholder="Піца Маргарита" />
+            <Field label="Ціна (₴) *" type="number" value={newItem.price} onChange={v => setNewItem(p => ({ ...p, price: v }))} placeholder="280" />
+            <Field label="Вага/обсяг" value={newItem.weight} onChange={v => setNewItem(p => ({ ...p, weight: v }))} placeholder="450 г" />
+            <Field label="Зображення (шлях)" value={newItem.image} onChange={v => setNewItem(p => ({ ...p, image: v }))} placeholder="/pizza.png" />
+          </div>
+          <Field label="Опис" value={newItem.description} onChange={v => setNewItem(p => ({ ...p, description: v }))} placeholder="Томатний соус, моцарела..." />
+          <div style={{ display: 'flex', gap: 8, marginTop: 14 }}>
+            <button onClick={() => addItem(newItem.category_id || categories[0]?.id)} disabled={savingItem} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '9px 18px', background: 'var(--accent)', border: 'none', borderRadius: 8, color: 'white', fontWeight: 700, fontSize: 14, cursor: 'pointer' }}>
+              <Plus size={16} /> {savingItem ? '⏳' : 'Додати страву'}
+            </button>
+            <button onClick={() => setAddItemFor(null)} style={{ padding: '9px 16px', background: 'none', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text-muted)', fontSize: 14, cursor: 'pointer' }}>Скасувати</button>
+          </div>
         </div>
       )}
 
