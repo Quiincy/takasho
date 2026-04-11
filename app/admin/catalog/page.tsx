@@ -52,7 +52,7 @@ export default function AdminMenuEditorPage() {
 
   // add item form
   const [addItemFor, setAddItemFor] = useState<string | null>(null);
-  const [newItem, setNewItem] = useState({ name: '', price: '', weight: '', description: '', image: '' });
+  const [newItem, setNewItem] = useState({ name: '', price: '', weight: '', description: '', image: '', category_id: '' });
   const [savingItem, setSavingItem] = useState(false);
 
   // edit item
@@ -118,7 +118,7 @@ export default function AdminMenuEditorPage() {
       }),
     });
     if (res.ok) {
-      setNewItem({ name: '', price: '', weight: '', description: '', image: '' });
+      setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '' });
       setAddItemFor(null);
       await load();
     } else {
@@ -176,7 +176,7 @@ export default function AdminMenuEditorPage() {
           </button>
           {categories.length > 0 && (
             <button
-              onClick={() => { setAddItemFor('global'); setShowAddCat(false); setNewItem({ name: '', price: '', weight: '', description: '', image: '' }); }}
+              onClick={() => { setAddItemFor('global'); setShowAddCat(false); setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '' }); }}
               style={{
                 display: 'flex', alignItems: 'center', gap: 6,
                 padding: '10px 16px', background: 'var(--accent)', color: 'white',
@@ -354,7 +354,7 @@ export default function AdminMenuEditorPage() {
                       </div>
                     ) : (
                       <button
-                        onClick={() => { setAddItemFor(cat.id); setNewItem({ name: '', price: '', weight: '', description: '', image: '' }); }}
+                        onClick={() => { setAddItemFor(cat.id); setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '' }); }}
                         style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 14px', background: 'none', border: '1px dashed var(--border)', borderRadius: 8, color: 'var(--text-muted)', fontSize: 13, cursor: 'pointer', width: '100%', justifyContent: 'center' }}
       >
                         <Plus size={14} /> Додати страву до «{cat.name}»
