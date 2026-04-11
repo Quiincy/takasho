@@ -1,32 +1,37 @@
 'use client';
 
-import { menuItems, categories } from '@/lib/menu-data';
 import MenuCard from '@/components/MenuCard';
 import CategoryFilter from '@/components/CategoryFilter';
 import { useState, useMemo } from 'react';
 import { Search } from 'lucide-react';
+import { DbCategory, DbMenuItem } from '@/lib/supabase';
 
-export default function MenuSection() {
+interface Props {
+  initialCategories: DbCategory[];
+  initialItems: DbMenuItem[];
+}
+
+export default function MenuSection({ initialCategories, initialItems }: Props) {
   const [activeCategory, setActiveCategory] = useState('all');
   const [search, setSearch] = useState('');
 
   const filtered = useMemo(() => {
-    let items = menuItems;
+    let items = initialItems;
     if (activeCategory !== 'all') {
-      items = items.filter(i => i.category === activeCategory);
+      items = items.filter(i => i.category_id === activeCategory);
     }
     if (search.trim()) {
       const s = search.toLowerCase();
       items = items.filter(
-        i => i.name.toLowerCase().includes(s) || i.description.toLowerCase().includes(s)
+        i => i.name.toLowerCase().includes(s) || (i.description && i.description.toLowerCase().includes(s))
       );
     }
     return items;
-  }, [activeCategory, search]);
+  }, [activeCategory, search, initialItems]);
 
   const catName = activeCategory === 'all'
     ? 'Все меню'
-    : categories.find(c => c.id === activeCategory)?.name ?? '';
+    : initialCategories.find(c => c.id === activeCategory)?.name ?? '';
 
   return (
     <section
@@ -60,7 +65,7 @@ export default function MenuSection() {
           Замовляйте що завгодно
         </h2>
         <p style={{ color: 'var(--text-secondary)', fontSize: 16 }}>
-          {menuItems.length} страв на будь-який смак — суші, піца, бургери та більше
+          {initialItems.length} страв на будь-який смак — суші, піца, бургери та більше
         </p>
       </div>
 
@@ -100,7 +105,7 @@ export default function MenuSection() {
 
       {/* Categories */}
       <div style={{ marginBottom: 36 }}>
-        <CategoryFilter activeCategory={activeCategory} onSelect={setActiveCategory} />
+        <CategoryFilter categories={initialCategories} activeCategory={activeCategory} onSelect={setActiveCategory} />
       </div>
 
       {/* Results count */}

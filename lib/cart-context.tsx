@@ -1,15 +1,15 @@
 'use client';
 
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import { MenuItem } from '@/lib/menu-data';
+import { DbMenuItem } from '@/lib/supabase';
 
-export interface CartItem extends MenuItem {
+export interface CartItem extends DbMenuItem {
   quantity: number;
 }
 
 interface CartContextType {
   items: CartItem[];
-  addItem: (item: MenuItem) => void;
+  addItem: (item: DbMenuItem) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
@@ -22,7 +22,7 @@ const CartContext = createContext<CartContextType | null>(null);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
 
-  const addItem = useCallback((item: MenuItem) => {
+  const addItem = useCallback((item: DbMenuItem) => {
     setItems(prev => {
       const existing = prev.find(i => i.id === item.id);
       if (existing) {

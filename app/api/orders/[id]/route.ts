@@ -4,10 +4,10 @@ import { OrderStatus } from '@/lib/supabase';
 
 export async function PATCH(
   request: NextRequest,
-  ctx: RouteContext<'/api/orders/[id]'>
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await ctx.params;
+    const { id } = await params;
     const { status } = await request.json() as { status: OrderStatus };
 
     const validStatuses: OrderStatus[] = ['new', 'preparing', 'delivering', 'delivered', 'cancelled'];

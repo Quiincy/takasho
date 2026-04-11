@@ -1,8 +1,25 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import MenuSection from '@/components/MenuSection';
+import { createClient } from '@supabase/supabase-js';
+import { DbCategory, DbMenuItem } from '@/lib/supabase';
 
-export default function HomePage() {
+export const revalidate = 60; // ISR revalidation every 60 seconds
+
+export default async function HomePage() {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+
+  const [catRes, itemRes] = await Promise.all([
+    supabase.from('menu_categories').select('*').order('sort_order'),
+    supabase.from('menu_items').select('*').eq('is_available', true).order('sort_order'),
+  ]);
+
+  const categories = (catRes.data as DbCategory[]) ?? [];
+  const items = (itemRes.data as DbMenuItem[]) ?? [];
+
   return (
     <main>
       <Header />
@@ -68,7 +85,7 @@ export default function HomePage() {
       </section>
 
 
-      <MenuSection />
+      <MenuSection initialCategories={categories} initialItems={items} />
 
       {/* Footer */}
       <footer style={{

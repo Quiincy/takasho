@@ -2,20 +2,14 @@
 
 import Image from 'next/image';
 import { Plus, Check } from 'lucide-react';
-import { MenuItem } from '@/lib/menu-data';
+import { DbMenuItem } from '@/lib/supabase';
 import { useCart } from '@/lib/cart-context';
 import { useState } from 'react';
 
 interface Props {
-  item: MenuItem;
+  item: DbMenuItem;
   index?: number;
 }
-
-const badgeConfig = {
-  hit: { label: '🔥 Хіт', className: 'badge-hit' },
-  new: { label: '✨ Нове', className: 'badge-new' },
-  special: { label: '⭐ Шеф', className: 'badge-special' },
-};
 
 export default function MenuCard({ item, index = 0 }: Props) {
   const { addItem, items } = useCart();
@@ -84,14 +78,6 @@ export default function MenuCard({ item, index = 0 }: Props) {
           background: 'linear-gradient(to top, rgba(26,26,26,0.9) 0%, transparent 100%)',
         }} />
 
-        {/* Badge */}
-        {item.badge && (
-          <div style={{ position: 'absolute', top: 12, left: 12 }}>
-            <span className={`badge ${badgeConfig[item.badge].className}`}>
-              {badgeConfig[item.badge].label}
-            </span>
-          </div>
-        )}
 
         {/* Cart quantity indicator */}
         {cartItem && (

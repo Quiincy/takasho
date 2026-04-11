@@ -1,15 +1,16 @@
 'use client';
 
-import { categories } from '@/lib/menu-data';
+import { DbCategory } from '@/lib/supabase';
 
 interface Props {
+  categories: DbCategory[];
   activeCategory: string;
   onSelect: (id: string) => void;
 }
 
-export default function CategoryFilter({ activeCategory, onSelect }: Props) {
-  return (
-    <div className="category-scroll" style={{ paddingBottom: 8 }}>
+export default function CategoryFilter({ categories, activeCategory, onSelect }: Props) {
+    return (
+      <div className="category-scroll" style={{ paddingBottom: 8 }}>
       <div style={{
         display: 'flex',
         gap: 8,
