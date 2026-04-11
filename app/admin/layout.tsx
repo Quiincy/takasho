@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { ShoppingBag, LayoutGrid, LogOut, ChevronRight, Bell } from 'lucide-react';
+import { ShoppingBag, LayoutGrid, LogOut, ChevronRight, BookOpen } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -45,8 +45,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   const navItems = [
-    { href: '/admin/orders', label: 'Замовлення', icon: <ShoppingBag size={18} /> },
-    { href: '/admin/menu', label: 'Стоп-лист', icon: <LayoutGrid size={18} /> },
+    { href: '/admin/orders',  label: 'Замовлення',    icon: <ShoppingBag size={18} /> },
+    { href: '/admin/menu',    label: 'Стоп-лист',     icon: <LayoutGrid size={18} /> },
+    { href: '/admin/catalog', label: 'Редактор меню', icon: <BookOpen size={18} /> },
   ];
 
   return (

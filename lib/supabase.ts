@@ -40,6 +40,27 @@ export interface StopListItem {
   updated_at: string;
 }
 
+export interface DbCategory {
+  id: string;
+  name: string;
+  emoji: string;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface DbMenuItem {
+  id: string;
+  category_id: string;
+  name: string;
+  description: string | null;
+  price: number;
+  weight: string;
+  image: string;
+  is_available: boolean;
+  sort_order: number;
+  created_at: string;
+}
+
 // ---------- SQL to run in Supabase SQL Editor ----------
 /*
 create table if not exists orders (
@@ -74,8 +95,33 @@ create policy "Allow anon select own" on orders for select to anon using (true);
 -- Allow all for authenticated (admin)
 create policy "Allow admin all" on orders for all to authenticated using (true);
 
--- Stop list: anon can read, authenticated can write
-alter table menu_stop_list enable row level security;
-create policy "Anon read stop list" on menu_stop_list for select to anon using (true);
-create policy "Admin manage stop list" on menu_stop_list for all to authenticated using (true);
+-- ========= MENU MANAGEMENT =========
+create table if not exists menu_categories (
+  id text primary key,
+  name text not null,
+  emoji text not null default '🍽️',
+  sort_order integer not null default 0,
+  created_at timestamptz default now()
+);
+
+create table if not exists menu_items (
+  id text primary key,
+  category_id text references menu_categories(id) on delete cascade,
+  name text not null,
+  description text,
+  price integer not null,
+  weight text not null default '',
+  image text not null default '/pizza.png',
+  is_available boolean not null default true,
+  sort_order integer not null default 0,
+  created_at timestamptz default now()
+);
+
+alter table menu_categories enable row level security;
+create policy "Anon read categories" on menu_categories for select to anon using (true);
+create policy "Admin manage categories" on menu_categories for all to authenticated using (true);
+
+alter table menu_items enable row level security;
+create policy "Anon read items" on menu_items for select to anon using (true);
+create policy "Admin manage items" on menu_items for all to authenticated using (true);
 */
