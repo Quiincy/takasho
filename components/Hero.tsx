@@ -157,7 +157,7 @@ export default function Hero() {
       <div className="hero-mobile" style={{ display: 'none', position: 'relative', zIndex: 1, minHeight: '100svh', flexDirection: 'column' }}>
 
         {/* Top: big food photo with overlay */}
-        <div style={{ position: 'relative', height: '52vw', minHeight: 220, maxHeight: 320, overflow: 'hidden' }}>
+        <div style={{ position: 'relative', width: '100%', aspectRatio: '4/3', overflow: 'hidden' }}>
           {SLIDES.map((s, i) => (
             <div key={i} style={{ position: 'absolute', inset: 0, opacity: i === active ? 1 : 0, transition: 'opacity .7s ease' }}>
               <Image src={s.src} alt={s.label} fill priority={i === 0} style={{ objectFit: 'cover' }} />
