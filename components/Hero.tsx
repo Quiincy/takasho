@@ -6,10 +6,19 @@ import { ArrowRight, Star, Clock, Bike, ChevronDown } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 const FOOD_CARDS = [
-  { src: '/sushi_set2.png',       label: 'Преміум Сет',     price: '1500 ₴', cat: '🍣 Суші' },
+  { src: '/sushi_set2.png',        label: 'Преміум Сет',     price: '1500 ₴', cat: '🍣 Суші' },
   { src: '/pizza_shotlandska.png', label: 'Шотландська',     price: '280 ₴',  cat: '🍕 Піца' },
-  { src: '/sushi_baked.png',      label: 'Запечений рол',   price: '400 ₴',  cat: '🍣 Роли' },
-  { src: '/pizza_bbq.png',        label: 'Барбекю',         price: '290 ₴',  cat: '🍕 Піца' },
+  { src: '/sushi_baked.png',       label: 'Запечений рол',   price: '400 ₴',  cat: '🍣 Роли' },
+  { src: '/pizza_bbq.png',         label: 'Барбекю',         price: '290 ₴',  cat: '🍕 Піца' },
+];
+
+const MOBILE_STRIP = [
+  { src: '/sushi_dragon.png',      label: 'Дракон',          price: '420 ₴',  cat: '🍣' },
+  { src: '/pizza_pepperoni.png',   label: 'Пепероні',        price: '270 ₴',  cat: '🍕' },
+  { src: '/sushi_california.png',  label: 'Каліфорнія',      price: '350 ₴',  cat: '🍣' },
+  { src: '/sushi_hot.png',         label: 'Гарячий рол',     price: '380 ₴',  cat: '🍣' },
+  { src: '/pizza_four_cheese.png', label: 'Чотири сири',     price: '290 ₴',  cat: '🍕' },
+  { src: '/sushi_kyiv.png',        label: 'Київський',       price: '390 ₴',  cat: '🍣' },
 ];
 
 export default function Hero() {
@@ -180,6 +189,7 @@ export default function Hero() {
           </div>
         </div>
 
+
         {/* RIGHT: Food showcase */}
         <div style={{
           position: 'relative',
@@ -334,6 +344,59 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* MOBILE ONLY: horizontal food strip — outside grid */}
+      <div className="hero-mobile-strip" style={{ display: 'none', position: 'relative', zIndex: 2 }}>
+        <div style={{
+          display: 'flex',
+          gap: 12,
+          overflowX: 'auto',
+          scrollbarWidth: 'none',
+          paddingBottom: 8,
+          paddingLeft: 24,
+          paddingRight: 24,
+          marginTop: -20,
+          marginBottom: 60,
+        } as React.CSSProperties}>
+          {MOBILE_STRIP.map((card, i) => (
+            <div key={i} style={{
+              flexShrink: 0,
+              width: 140,
+              borderRadius: 16,
+              overflow: 'hidden',
+              border: '1px solid rgba(255,255,255,0.1)',
+              background: 'rgba(26,26,26,0.85)',
+              backdropFilter: 'blur(12px)',
+              boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+            }}>
+              <div style={{ position: 'relative', height: 110 }}>
+                <Image
+                  src={card.src}
+                  alt={card.label}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                />
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%)',
+                }} />
+                <div style={{
+                  position: 'absolute', bottom: 8, left: 10,
+                  fontSize: 14, fontWeight: 700,
+                }}>{card.cat}</div>
+              </div>
+              <div style={{ padding: '10px 12px 14px' }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 4 }}>
+                  {card.label}
+                </div>
+                <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--accent)' }}>
+                  {card.price}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Scroll cue */}
       <button
         onClick={() => {
@@ -381,19 +444,16 @@ export default function Hero() {
             grid-template-columns: 1fr !important;
             text-align: center;
           }
-          .hero-grid .hero-visual {
-            max-width: 380px;
-            margin: 0 auto;
+          .hero-visual {
+            display: none !important;
           }
-          .hero-grid [style*="max-width: 480px"] {
-            max-width: 100% !important;
-            margin: 0 auto;
+          .hero-mobile-strip {
+            display: block !important;
           }
-          .hero-grid [style*="justify-content: center"],
-          .hero-grid [style*="gap: 12px"],
-          .hero-grid [style*="gap: 12"] {
-            justify-content: center;
+          .hero-mobile-strip [style*="display: flex"] {
+            justify-content: flex-start;
           }
+          .hero-mobile-strip::-webkit-scrollbar { display: none; }
         }
       `}</style>
     </section>
