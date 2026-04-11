@@ -55,7 +55,7 @@ export default function Header() {
         width: '100%',
       }}>
         🚀 Безкоштовна доставка в радіусі 5 км <span className="hide-mobile">&nbsp;|&nbsp;
-        <span style={{ opacity: 0.9 }}>Понад 5 км — 50% вартості таксі</span></span>
+          <span style={{ opacity: 0.9 }}>Понад 5 км — 50% вартості таксі</span></span>
       </div>
 
       <div style={{
