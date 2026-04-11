@@ -156,30 +156,47 @@ export default function Hero() {
          ══════════════════════════════════════════ */}
       <div className="hero-mobile" style={{ display: 'none', position: 'relative', zIndex: 1, minHeight: '100svh', flexDirection: 'column' }}>
 
-        {/* Top: big food photo with overlay */}
-        <div style={{ position: 'relative', width: '100%', aspectRatio: '4/3', overflow: 'hidden' }}>
+        {/* Top: big food photo with overlay — clickable, scrolls to menu */}
+        <div style={{ position: 'relative', width: '100%', aspectRatio: '3/2', overflow: 'hidden' }}>
+          {/* clickable overlay per slide */}
           {SLIDES.map((s, i) => (
-            <div key={i} style={{ position: 'absolute', inset: 0, opacity: i === active ? 1 : 0, transition: 'opacity .7s ease' }}>
+            <button
+              key={i}
+              onClick={scrollToMenu}
+              style={{
+                position: 'absolute', inset: 0,
+                opacity: i === active ? 1 : 0,
+                transition: 'opacity .7s ease',
+                border: 'none', padding: 0, cursor: 'pointer',
+                background: 'none', display: 'block', width: '100%',
+              }}
+              aria-label={`Перейти до меню — ${s.label}`}
+            >
               <Image src={s.src} alt={s.label} fill priority={i === 0} style={{ objectFit: 'cover' }} />
-            </div>
+            </button>
           ))}
           {/* dark gradient bottom */}
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 30%, rgba(13,13,13,1) 100%)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 35%, rgba(13,13,13,.95) 100%)', pointerEvents: 'none' }} />
 
           {/* slide dots */}
-          <div style={{ position: 'absolute', bottom: 14, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 6 }}>
+          <div style={{ position: 'absolute', bottom: 16, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 6, pointerEvents: 'none' }}>
             {SLIDES.map((_, i) => (
-              <button key={i} onClick={() => setActive(i)} style={{ width: i === active ? 20 : 7, height: 7, borderRadius: 100, background: i === active ? 'var(--accent)' : 'rgba(255,255,255,.4)', border: 'none', cursor: 'pointer', padding: 0, transition: 'all .3s' }} />
+              <div key={i} style={{ width: i === active ? 22 : 7, height: 7, borderRadius: 100, background: i === active ? 'var(--accent)' : 'rgba(255,255,255,.45)', transition: 'all .3s' }} />
             ))}
           </div>
 
           {/* active slide label */}
-          <div style={{ position: 'absolute', bottom: 30, left: 16 }}>
+          <div style={{ position: 'absolute', bottom: 34, left: 18, pointerEvents: 'none' }}>
             <span style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, letterSpacing: '.07em', display: 'block', marginBottom: 2 }}>{SLIDES[active].cat}</span>
-            <span style={{ fontSize: 18, fontWeight: 800, color: 'white' }}>{SLIDES[active].label}</span>
+            <span style={{ fontSize: 20, fontWeight: 800, color: 'white' }}>{SLIDES[active].label}</span>
           </div>
-          <div style={{ position: 'absolute', bottom: 34, right: 16, background: 'rgba(230,57,70,.95)', borderRadius: 10, padding: '6px 14px', color: 'white', fontWeight: 800, fontSize: 16 }}>
+          <div style={{ position: 'absolute', bottom: 38, right: 16, background: 'rgba(230,57,70,.95)', borderRadius: 10, padding: '6px 14px', color: 'white', fontWeight: 800, fontSize: 16, pointerEvents: 'none' }}>
             {SLIDES[active].price}
+          </div>
+
+          {/* tap hint */}
+          <div style={{ position: 'absolute', top: 14, right: 14, background: 'rgba(0,0,0,.45)', backdropFilter: 'blur(6px)', borderRadius: 20, padding: '4px 10px', fontSize: 11, color: 'rgba(255,255,255,.8)', fontWeight: 600, pointerEvents: 'none' }}>
+            Натисни → меню
           </div>
         </div>
 
