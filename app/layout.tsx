@@ -76,9 +76,11 @@ export default function RootLayout({
           <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
             height="0" width="0" style={{ display: 'none', visibility: 'hidden' }} />
         </noscript>
-        <CartProvider>
-          {children}
-        </CartProvider>
+        <div style={{ overflowX: 'hidden', width: '100%', minHeight: '100vh' }}>
+          <CartProvider>
+            {children}
+          </CartProvider>
+        </div>
       </body>
     </html>
   );
