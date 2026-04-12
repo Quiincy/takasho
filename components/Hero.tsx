@@ -154,7 +154,7 @@ export default function Hero() {
       {/* ══════════════════════════════════════════
           MOBILE hero  (hidden on desktop via CSS)
          ══════════════════════════════════════════ */}
-      <div className="hero-mobile" style={{ display: 'none', position: 'relative', zIndex: 1, minHeight: '100svh', flexDirection: 'column' }}>
+      <div className="hero-mobile" style={{ display: 'none', position: 'relative', zIndex: 1, minHeight: '100svh', flexDirection: 'column', paddingTop: 'var(--header-h, 88px)' }}>
 
         {/* Top: big food photo with overlay — clickable, scrolls to menu */}
         <div style={{ position: 'relative', width: '100%', aspectRatio: '3/2', overflow: 'hidden' }}>

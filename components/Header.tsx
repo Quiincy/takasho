@@ -32,19 +32,32 @@ export default function Header() {
   };
 
   return (
-    <header style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100vw',
-      maxWidth: '100%',
-      zIndex: 1000,
-      transition: 'all 0.3s ease',
-      background: scrolled ? 'rgba(13,13,13,0.95)' : 'transparent',
-      backdropFilter: scrolled ? 'blur(20px)' : 'none',
-      WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-      borderBottom: scrolled ? '1px solid var(--border)' : 'none',
-    }}>
+    <header
+      className={scrolled ? 'header-scrolled' : 'header-top'}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        maxWidth: '100%',
+        zIndex: 1000,
+        transition: 'all 0.3s ease',
+        background: scrolled ? 'rgba(13,13,13,0.95)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(20px)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+        borderBottom: scrolled ? '1px solid var(--border)' : 'none',
+      }}
+    >
+      <style>{`
+        @media (max-width: 768px) {
+          .header-top, .header-scrolled {
+            background: rgba(13,13,13,0.97) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-bottom: 1px solid var(--border) !important;
+          }
+        }
+      `}</style>
       {/* Top promo bar */}
       <div className="header-promo-bar" style={{
         background: 'linear-gradient(90deg, var(--accent) 0%, #c1121f 100%)',
