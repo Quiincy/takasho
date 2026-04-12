@@ -6,10 +6,8 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'unpkg.com',
+      },
     ],
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
