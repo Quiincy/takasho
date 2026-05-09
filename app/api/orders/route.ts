@@ -1,6 +1,8 @@
 import { supabase } from '@/lib/supabase';
 import { NextRequest } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -33,18 +35,20 @@ export async function POST(request: NextRequest) {
     try {
       const { data: settings } = await supabase.from('site_settings').select('*');
       if (settings) {
-        const botToken = settings.find(s => s.key === 'telegram_bot_token')?.value;
-        const chatId = settings.find(s => s.key === 'telegram_chat_id')?.value;
+        const botToken = settings.find(s => s.key === 'telegram_bot_token')?.value?.trim();
+        const chatId = settings.find(s => s.key === 'telegram_chat_id')?.value?.trim();
         
         if (botToken && chatId) {
-          const itemsList = items.map((item: any) => `• ${item.name} x${item.quantity} — ${item.price * item.quantity} ₴`).join('\n');
+          const escapeHtml = (text: string) => text ? text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+          
+          const itemsList = items.map((item: any) => `• ${escapeHtml(item.name)} x${item.quantity} — ${item.price * item.quantity} ₴`).join('\n');
           const message = `
 🟢 <b>Нове замовлення #${data.id.split('-')[0]}</b>
 
-👤 <b>Клієнт:</b> ${customer_name}
-📞 <b>Телефон:</b> ${customer_phone}
-📍 <b>Адреса:</b> ${delivery_address}
-${comment ? `💬 <b>Коментар:</b> ${comment}\n` : ''}
+👤 <b>Клієнт:</b> ${escapeHtml(customer_name)}
+📞 <b>Телефон:</b> ${escapeHtml(customer_phone)}
+📍 <b>Адреса:</b> ${escapeHtml(delivery_address)}
+${comment ? `💬 <b>Коментар:</b> ${escapeHtml(comment)}\n` : ''}
 🛒 <b>Кошик:</b>
 ${itemsList}
 
@@ -53,8 +57,7 @@ ${itemsList}
 💵 <b>Разом:</b> ${total_price + delivery_cost} ₴
           `.trim();
 
-          // Background request, don't block response
-          fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -62,7 +65,12 @@ ${itemsList}
               text: message,
               parse_mode: 'HTML'
             })
-          }).catch(err => console.error('Telegram API error:', err));
+          });
+          
+          if (!res.ok) {
+            const errorText = await res.text();
+            console.error('Telegram API error:', res.status, errorText);
+          }
         }
       }
     } catch (telegramErr) {

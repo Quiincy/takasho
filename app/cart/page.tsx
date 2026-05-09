@@ -38,6 +38,7 @@ export default function CartPage() {
   const [submitError, setSubmitError] = useState('');
   const [orderId, setOrderId] = useState<string | null>(null);
   const [showMonoInfo, setShowMonoInfo] = useState(false);
+  const [confirmedTotal, setConfirmedTotal] = useState<number>(0);
 
   const handleDistanceChange = useCallback((km: number, cost: number) => {
     setDeliveryInfo({ km, cost });
@@ -68,6 +69,7 @@ export default function CartPage() {
       if (!res.ok) throw new Error(data.error ?? 'Помилка');
 
       setOrderId(data.order?.id ?? null);
+      setConfirmedTotal(finalTotal);
       clearCart();
 
       if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -160,7 +162,7 @@ export default function CartPage() {
               </div>
               <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>
                 <strong style={{ color: 'var(--text-primary)' }}>Сума:</strong>{' '}
-                {finalTotal} ₴
+                {confirmedTotal} ₴
                 {deliveryInfo && deliveryInfo.cost > 0 && (
                   <span style={{ color: 'var(--text-muted)', fontSize: 13 }}> (доставка {deliveryInfo.cost} ₴)</span>
                 )}
@@ -258,8 +260,9 @@ export default function CartPage() {
               </div>
 
               {items.map((item, idx) => (
-                <div key={item.id} style={{
+                <div key={item.id} className="cart-item-row" style={{
                   display: 'flex',
+                  flexWrap: 'wrap',
                   gap: 12,
                   padding: '14px 16px',
                   borderBottom: idx < items.length - 1 ? '1px solid var(--border)' : 'none',
@@ -279,7 +282,7 @@ export default function CartPage() {
                   </div>
 
                   {/* Controls — on mobile they wrap below */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6, flexShrink: 0 }}>
+                  <div className="cart-item-controls" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6, flexShrink: 0 }}>
                     <div style={{ fontWeight: 700, color: 'var(--accent)', fontSize: 15 }}>
                       {item.price * item.quantity} ₴
                     </div>

@@ -235,7 +235,6 @@ export default function AdminOrdersPage() {
                   borderColor: order.status === 'new' ? 'rgba(230,57,70,0.3)' : 'var(--border)',
                   borderRadius: 14,
                   padding: '20px 24px',
-                  animation: order.status === 'new' ? 'pulse-ring 2s ease infinite' : 'none',
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 14 }}>

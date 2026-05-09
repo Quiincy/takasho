@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowRight, Star, Clock, Bike, ChevronDown } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useCart } from '@/lib/cart-context';
 
 /* ─── Data ──────────────────────────────────────────────────────────── */
 
@@ -17,10 +18,10 @@ const SLIDES = [
 
 // 4 cards shown in a 2×2 grid on mobile
 const MOBILE_GRID = [
-  { src: '/sushi_dragon.png',      label: 'Дракон',        price: '420 ₴' },
-  { src: '/pizza_pepperoni.png',   label: 'Пепероні',      price: '270 ₴' },
-  { src: '/sushi_california.png',  label: 'Каліфорнія',    price: '350 ₴' },
-  { src: '/sushi_hot.png',         label: 'Гарячий рол',   price: '380 ₴' },
+  { id: 'dragon', src: '/sushi_dragon.png',      label: 'Дракон',        price: 420 },
+  { id: 'pepperoni', src: '/pizza_pepperoni.png',   label: 'Пепероні',      price: 270 },
+  { id: 'california', src: '/sushi_california.png',  label: 'Каліфорнія',    price: 350 },
+  { id: 'hot', src: '/sushi_hot.png',         label: 'Гарячий рол',   price: 380 },
 ];
 
 /* ─── Component ─────────────────────────────────────────────────────── */
@@ -34,11 +35,12 @@ const Blobs = () => (
   </>
 );
 
-export default function Hero() {
+export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
   const [active, setActive] = useState(0);
   const [visible, setVisible] = useState(false);
   const timer = useRef<NodeJS.Timeout | null>(null);
   const router = useRouter();
+  const { addItem } = useCart();
 
   useEffect(() => {
     setTimeout(() => setVisible(true), 80);
@@ -53,6 +55,26 @@ export default function Hero() {
   const handleSlideClick = (query: string) => {
     router.push(`/?categoryName=${encodeURIComponent(query)}`);
   };
+
+  const handleMobileGridClick = (card: any) => {
+    addItem({
+      id: card.id,
+      name: card.label,
+      price: card.price,
+      image: card.src,
+      weight: card.weight || '1 порція',
+      category_id: '',
+      description: null,
+      is_available: true,
+      sort_order: 0,
+      created_at: new Date().toISOString()
+    });
+    router.push('/cart');
+  };
+
+  const displayItems = popularItems.length > 0 
+    ? popularItems.map(i => ({ id: i.id, src: i.image, label: i.name, price: i.price, weight: i.weight }))
+    : MOBILE_GRID;
 
   return (
     <section style={{
@@ -128,11 +150,11 @@ export default function Hero() {
             ))}
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 50%)', pointerEvents: 'none', zIndex: 10 }} />
             <div style={{ position: 'absolute', bottom: 20, left: 20, pointerEvents: 'none', zIndex: 10 }}>
-              <span style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', display: 'block', marginBottom: 2 }}>{SLIDES[active].cat}</span>
-              <span style={{ fontSize: 22, fontWeight: 800, color: 'white', letterSpacing: '-.02em' }}>{SLIDES[active].label}</span>
-            </div>
-            <div style={{ position: 'absolute', bottom: 20, right: 20, background: 'rgba(230,57,70,.9)', backdropFilter: 'blur(10px)', borderRadius: 12, padding: '8px 16px', color: 'white', fontWeight: 800, fontSize: 18, pointerEvents: 'none', zIndex: 10 }}>
-              {SLIDES[active].price}
+              <span style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', display: 'block', marginBottom: 4 }}>{SLIDES[active].cat}</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <span style={{ fontSize: 24, fontWeight: 800, color: 'white', letterSpacing: '-.02em' }}>{SLIDES[active].label}</span>
+                <span style={{ background: 'rgba(230,57,70,.95)', backdropFilter: 'blur(10px)', borderRadius: 8, padding: '4px 10px', color: 'white', fontWeight: 800, fontSize: 16 }}>{SLIDES[active].price}</span>
+              </span>
             </div>
             <div style={{ position: 'absolute', top: 14, right: 14, display: 'flex', gap: 5, zIndex: 10 }}>
               {SLIDES.map((_, i) => (
@@ -142,15 +164,15 @@ export default function Hero() {
           </div>
 
           {/* floating badges — desktop only */}
-          <div className="hide-mobile" style={{ position: 'absolute', top: -16, left: -20, background: 'rgba(26,26,26,.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 16, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10, boxShadow: '0 20px 40px rgba(0,0,0,.4)', animation: 'float 4s ease-in-out infinite' }}>
+          <div className="hide-mobile" style={{ position: 'absolute', top: -16, left: -20, zIndex: 20, background: 'rgba(26,26,26,.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 16, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10, boxShadow: '0 20px 40px rgba(0,0,0,.4)', animation: 'float 4s ease-in-out infinite' }}>
             <div style={{ width: 40, height: 40, borderRadius: 10, overflow: 'hidden', position: 'relative', flexShrink: 0 }}><Image src="/sushi_dragon.png" alt="dragon" fill style={{ objectFit: 'cover' }} /></div>
             <div><div style={{ fontSize: 13, fontWeight: 700 }}>Золотий Дракон</div><div style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 600 }}>420 ₴ • 🍣 Суші</div></div>
           </div>
-          <div className="hide-mobile" style={{ position: 'absolute', bottom: -16, right: -20, background: 'rgba(26,26,26,.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 16, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10, boxShadow: '0 20px 40px rgba(0,0,0,.4)', animation: 'float 4s ease-in-out infinite 2s' }}>
+          <div className="hide-mobile" style={{ position: 'absolute', bottom: -16, right: -20, zIndex: 20, background: 'rgba(26,26,26,.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 16, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10, boxShadow: '0 20px 40px rgba(0,0,0,.4)', animation: 'float 4s ease-in-out infinite 2s' }}>
             <div style={{ width: 42, height: 42, borderRadius: 12, background: 'linear-gradient(135deg,var(--accent),#c1121f)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0 }}>🚴</div>
             <div><div style={{ fontSize: 13, fontWeight: 700 }}>Безкоштовна доставка</div><div style={{ fontSize: 11, color: '#48c774', fontWeight: 600 }}>в радіусі 5 км від нас</div></div>
           </div>
-          <div className="hide-mobile" style={{ position: 'absolute', top: -16, right: -10, background: 'rgba(26,26,26,.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 16, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 6, boxShadow: '0 20px 40px rgba(0,0,0,.4)' }}>
+          <div className="hide-mobile" style={{ position: 'absolute', top: -16, right: -10, zIndex: 20, background: 'rgba(26,26,26,.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 16, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 6, boxShadow: '0 20px 40px rgba(0,0,0,.4)' }}>
             <span style={{ fontSize: 18 }}>⭐️</span>
             <div><div style={{ fontSize: 14, fontWeight: 800 }}>4.9</div><div style={{ fontSize: 10, color: 'var(--text-muted)', fontWeight: 500 }}>200+ відгуків</div></div>
           </div>
@@ -253,12 +275,12 @@ export default function Hero() {
         <div style={{ padding: '0 16px 28px' }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.08em', color: 'var(--text-muted)', textAlign: 'center', marginBottom: 12, textTransform: 'uppercase' }}>Популярне</p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-            {MOBILE_GRID.map((card, i) => (
-              <div key={i} style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(255,255,255,.08)', background: 'rgba(255,255,255,.03)' }}>
+            {displayItems.map((card, i) => (
+              <div key={i} onClick={() => handleMobileGridClick(card)} style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(255,255,255,.08)', background: 'rgba(255,255,255,.03)', cursor: 'pointer' }}>
                 <div style={{ position: 'relative', height: 100 }}>
                   <Image src={card.src} alt={card.label} fill style={{ objectFit: 'cover' }} />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,.65) 0%, transparent 55%)' }} />
-                  <div style={{ position: 'absolute', bottom: 8, right: 10, background: 'rgba(230,57,70,.92)', borderRadius: 8, padding: '3px 9px', color: 'white', fontWeight: 800, fontSize: 13 }}>{card.price}</div>
+                  <div style={{ position: 'absolute', bottom: 8, right: 10, background: 'rgba(230,57,70,.92)', borderRadius: 8, padding: '3px 9px', color: 'white', fontWeight: 800, fontSize: 13 }}>{card.price} ₴</div>
                 </div>
                 <div style={{ padding: '9px 10px 11px' }}>
                   <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-primary)' }}>{card.label}</div>

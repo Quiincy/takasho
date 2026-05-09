@@ -48,6 +48,7 @@ export async function POST(req: NextRequest) {
       weight: data.weight || '',
       image: data.image || '/pizza.png',
       is_available: true,
+      is_popular: data.is_popular || false,
       sort_order: data.sort_order ?? 0,
     });
     if (error) return NextResponse.json({ error: error.message }, { status: 400 });

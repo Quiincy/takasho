@@ -21,12 +21,13 @@ export default async function HomePage() {
 
   const categories = (catRes.data as DbCategory[]) ?? [];
   const items = (itemRes.data as DbMenuItem[]) ?? [];
+  const popularItems = items.filter(i => i.is_popular).slice(0, 4);
 
   return (
     <AnimatedPage>
       <main>
         <Header />
-        <Hero />
+        <Hero popularItems={popularItems} />
 
         {/* ── Marquee ticker ── */}
         <Marquee />

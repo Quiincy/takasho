@@ -274,6 +274,18 @@ body {
   }
 }
 
+@media (max-width: 500px) {
+  .cart-item-controls {
+    flex-direction: row !important;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center !important;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed rgba(255,255,255,0.05);
+  }
+}
+
 /* Hero buttons full width on small screens */
 @media (max-width: 480px) {
   .hero-buttons {

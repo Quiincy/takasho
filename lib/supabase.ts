@@ -57,6 +57,7 @@ export interface DbMenuItem {
   weight: string;
   image: string;
   is_available: boolean;
+  is_popular?: boolean;
   sort_order: number;
   created_at: string;
 }

@@ -113,7 +113,7 @@ export default function AdminMenuEditorPage() {
 
   // add item form
   const [addItemFor, setAddItemFor] = useState<string | null>(null);
-  const [newItem, setNewItem] = useState({ name: '', price: '', weight: '', description: '', image: '', category_id: '' });
+  const [newItem, setNewItem] = useState({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false });
   const [savingItem, setSavingItem] = useState(false);
 
   // edit item
@@ -186,10 +186,11 @@ export default function AdminMenuEditorPage() {
           weight: newItem.weight.trim(),
           description: newItem.description.trim() || null,
           image: newItem.image.trim() || '/pizza.png',
+          is_popular: newItem.is_popular,
         }),
       });
       if (res.ok) {
-        setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '' });
+        setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false });
         setAddItemFor(null);
         await load();
       } else {
@@ -250,7 +251,7 @@ export default function AdminMenuEditorPage() {
           </button>
           {categories.length > 0 && (
             <button
-              onClick={() => { setAddItemFor('global'); setShowAddCat(false); setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '' }); }}
+              onClick={() => { setAddItemFor('global'); setShowAddCat(false); setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false }); }}
               style={{
                 display: 'flex', alignItems: 'center', gap: 6,
                 padding: '10px 16px', background: 'var(--accent)', color: 'white',
@@ -291,6 +292,10 @@ export default function AdminMenuEditorPage() {
             <ImageUploadField value={newItem.image} onChange={v => setNewItem(p => ({ ...p, image: v }))} />
           </div>
           <Field label="Опис" value={newItem.description} onChange={v => setNewItem(p => ({ ...p, description: v }))} placeholder="Томатний соус, моцарела..." />
+          <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', marginTop: 10, color: 'var(--text-primary)' }}>
+            <input type="checkbox" checked={newItem.is_popular} onChange={e => setNewItem(p => ({ ...p, is_popular: e.target.checked }))} />
+            Популярна страва (показувати на головній)
+          </label>
           <div style={{ display: 'flex', gap: 8, marginTop: 14 }}>
             <button onClick={() => addItem(newItem.category_id || categories[0]?.id)} disabled={savingItem} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '9px 18px', background: 'var(--accent)', border: 'none', borderRadius: 8, color: 'white', fontWeight: 700, fontSize: 14, cursor: 'pointer' }}>
               <Plus size={16} /> {savingItem ? '⏳' : 'Додати страву'}
@@ -380,7 +385,7 @@ export default function AdminMenuEditorPage() {
                             }}>
                               <img src={item.image} alt={item.name} style={{ width: 44, height: 44, borderRadius: 8, objectFit: 'cover', flexShrink: 0 }} onError={e => { (e.target as HTMLImageElement).src = '/pizza.png'; }} />
                               <div style={{ flex: 1, minWidth: 0 }}>
-                                <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 1 }}>{item.name}</div>
+                                <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 1 }}>{item.name} {item.is_popular && <span title="Популярна страва" style={{ marginLeft: 4 }}>🔥</span>}</div>
                                 <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{item.weight && `${item.weight} · `}{item.price} ₴</div>
                               </div>
                               <button onClick={() => setEditingItem(item)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: editingItem?.id === item.id ? 'var(--accent)' : 'var(--text-muted)', padding: 6, borderRadius: 6, display: 'flex' }}>
@@ -405,6 +410,10 @@ export default function AdminMenuEditorPage() {
                                   <ImageUploadField value={editingItem.image} onChange={v => setEditingItem(p => p ? { ...p, image: v } : p)} />
                                 </div>
                                 <Field label="Опис" value={editingItem.description ?? ''} onChange={v => setEditingItem(p => p ? { ...p, description: v } : p)} placeholder="Короткий опис страви..." />
+                                <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', marginTop: 10, color: 'var(--text-primary)' }}>
+                                  <input type="checkbox" checked={editingItem.is_popular ?? false} onChange={e => setEditingItem(p => p ? { ...p, is_popular: e.target.checked } : p)} />
+                                  Популярна страва (показувати на головній)
+                                </label>
                                 <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
                                   <button onClick={saveEdit} disabled={savingEdit} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', background: '#48c774', border: 'none', borderRadius: 7, color: 'white', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
                                     <Check size={14} /> Зберегти
@@ -429,6 +438,10 @@ export default function AdminMenuEditorPage() {
                           <ImageUploadField value={newItem.image} onChange={v => setNewItem(p => ({ ...p, image: v }))} />
                         </div>
                         <Field label="Опис" value={newItem.description} onChange={v => setNewItem(p => ({ ...p, description: v }))} placeholder="Томатний соус, моцарела..." />
+                        <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', marginTop: 10, color: 'var(--text-primary)' }}>
+                          <input type="checkbox" checked={newItem.is_popular} onChange={e => setNewItem(p => ({ ...p, is_popular: e.target.checked }))} />
+                          Популярна страва (показувати на головній)
+                        </label>
                         <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
                           <button onClick={() => addItem(cat.id)} disabled={savingItem} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', background: 'var(--accent)', border: 'none', borderRadius: 7, color: 'white', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
                             <Plus size={14} /> {savingItem ? '⏳' : 'Додати страву'}
@@ -438,7 +451,7 @@ export default function AdminMenuEditorPage() {
                       </div>
                     ) : (
                       <button
-                        onClick={() => { setAddItemFor(cat.id); setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '' }); }}
+                        onClick={() => { setAddItemFor(cat.id); setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false }); }}
                         style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 14px', background: 'none', border: '1px dashed var(--border)', borderRadius: 8, color: 'var(--text-muted)', fontSize: 13, cursor: 'pointer', width: '100%', justifyContent: 'center' }}
       >
                         <Plus size={14} /> Додати страву до «{cat.name}»
