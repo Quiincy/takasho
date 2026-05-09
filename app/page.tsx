@@ -1,5 +1,6 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
+import { Suspense } from 'react';
 import MenuSection from '@/components/MenuSection';
 import AnimatedPage, { Marquee, ScrollToTop } from '@/components/AnimatedPage';
 import { createClient } from '@supabase/supabase-js';
@@ -125,7 +126,9 @@ export default async function HomePage() {
 
         {/* ── Menu section ── */}
         <div className="reveal">
-          <MenuSection initialCategories={categories} initialItems={items} />
+          <Suspense fallback={<div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-muted)' }}>Завантаження меню...</div>}>
+            <MenuSection initialCategories={categories} initialItems={items} />
+          </Suspense>
         </div>
 
         {/* ── Footer ── */}
