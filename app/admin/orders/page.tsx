@@ -142,7 +142,7 @@ export default function AdminOrdersPage() {
   };
 
   return (
-    <div style={{ padding: '32px', minHeight: '100vh', overflow: 'hidden', maxWidth: '100%', boxSizing: 'border-box' }}>
+    <div className="admin-page-container">
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 28, flexWrap: 'wrap', gap: 12 }}>
         <div>

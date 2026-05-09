@@ -2,8 +2,9 @@
 
 import MenuCard from '@/components/MenuCard';
 import CategoryFilter from '@/components/CategoryFilter';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Search } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 import { DbCategory, DbMenuItem } from '@/lib/supabase';
 
 interface Props {
@@ -12,8 +13,32 @@ interface Props {
 }
 
 export default function MenuSection({ initialCategories, initialItems }: Props) {
-  const [activeCategory, setActiveCategory] = useState('all');
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get('category');
+  const categoryNameParam = searchParams.get('categoryName');
+
+  const initialCatId = useMemo(() => {
+    if (categoryParam) return categoryParam;
+    if (categoryNameParam) {
+      const match = initialCategories.find(c => c.name.toLowerCase().includes(categoryNameParam.toLowerCase()));
+      if (match) return match.id;
+    }
+    return 'all';
+  }, [categoryParam, categoryNameParam, initialCategories]);
+
+  const [activeCategory, setActiveCategory] = useState(initialCatId);
   const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    if (categoryParam || categoryNameParam) {
+      setActiveCategory(initialCatId);
+      // Optional: smooth scroll to menu if a category is selected via URL
+      const el = document.getElementById('menu');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [initialCatId, categoryParam, categoryNameParam]);
 
   const filtered = useMemo(() => {
     let items = initialItems;

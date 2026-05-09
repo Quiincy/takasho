@@ -1,14 +1,18 @@
 'use client';
 
 import Link from 'next/link';
-import { ShoppingCart, Phone, MapPin, Clock } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Menu, ShoppingCart, Phone } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
 import { useState, useEffect } from 'react';
+import MobileMenu from './MobileMenu';
 
 export default function Header() {
   const { totalItems, totalPrice } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const [cartAnimated, setCartAnimated] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -25,11 +29,6 @@ export default function Header() {
     }
   }, [totalItems]);
 
-  const workHours = () => {
-    const now = new Date();
-    const h = now.getHours();
-    return h >= 11 && h < 23;
-  };
 
   return (
     <header
@@ -96,7 +95,7 @@ export default function Header() {
           }}>🍣</div>
           <div>
             <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
-              ТАК А ШО
+              ENOT SUSHI
             </div>
             <div style={{ fontSize: 10, color: 'var(--text-muted)', letterSpacing: '0.08em', fontWeight: 500, textTransform: 'uppercase' }}>
               Доставка їжі
@@ -104,19 +103,25 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* Center info — hidden on mobile */}
-        <div className="header-center-info" style={{ display: 'flex', alignItems: 'center', gap: 20, flex: 1, justifyContent: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--text-secondary)', fontSize: 13 }}>
-            <MapPin size={14} style={{ color: 'var(--accent)', flexShrink: 0 }} />
-            <span>вул. Едуарда Вільде, 10Б</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--text-secondary)', fontSize: 13 }}>
-            <Clock size={14} style={{ color: workHours() ? '#48c774' : 'var(--text-muted)', flexShrink: 0 }} />
-            <span style={{ color: workHours() ? '#48c774' : 'var(--text-muted)', whiteSpace: 'nowrap' }}>
-              {workHours() ? 'Відчинено' : 'Зачинено'} • 11:00–23:00
-            </span>
-          </div>
-        </div>
+        {/* Center nav links — hidden on mobile */}
+        <nav className="header-center-info" style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1, justifyContent: 'center' }}>
+          {[
+            { href: '/', label: 'Меню' },
+            { href: '/delivery', label: 'Доставка' },
+            { href: '/contacts', label: 'Контакти' },
+          ].map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`nav-link ${isActive ? 'active' : ''}`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </nav>
 
         {/* Right: Phone + Cart */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
@@ -139,6 +144,7 @@ export default function Header() {
             <Phone size={18} />
           </a>
 
+          {/* Cart Button */}
           <Link href="/cart" style={{ textDecoration: 'none' }}>
             <button
               id="cart-button"
@@ -179,8 +185,29 @@ export default function Header() {
               )}
             </button>
           </Link>
+
+          {/* Hamburger Menu - visible on mobile only via inline or media query class */}
+          <button
+            className="show-mobile"
+            onClick={() => setIsMobileMenuOpen(true)}
+            style={{
+              display: 'none', // Hidden by default, shown via media query .show-mobile
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'transparent',
+              border: 'none',
+              color: 'var(--text-primary)',
+              cursor: 'pointer',
+              padding: '8px',
+              marginLeft: '4px',
+            }}
+          >
+            <Menu size={24} />
+          </button>
         </div>
       </div>
+
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
     </header>
   );
 }

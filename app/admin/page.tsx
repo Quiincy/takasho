@@ -18,7 +18,7 @@ export default function AdminLoginPage() {
 
     await new Promise(r => setTimeout(r, 400)); // UX delay
 
-    const correct = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ?? 'takasho2024';
+    const correct = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ?? 'enotsushi2024';
     if (password === correct) {
       localStorage.setItem('tks_admin', btoa(password + Date.now()));
       router.push('/admin/orders');
@@ -60,7 +60,7 @@ export default function AdminLoginPage() {
             marginBottom: 16,
             boxShadow: '0 8px 24px rgba(230,57,70,0.4)',
           }}>🍣</div>
-          <h1 style={{ fontSize: 22, fontWeight: 800, marginBottom: 4 }}>Так а Шо</h1>
+          <h1 style={{ fontSize: 22, fontWeight: 800, marginBottom: 4 }}>Enot Sushi</h1>
           <p style={{ color: 'var(--text-muted)', fontSize: 14, display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center' }}>
             <ShieldCheck size={14} />
             Панель адміністратора

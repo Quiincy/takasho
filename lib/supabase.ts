@@ -61,6 +61,12 @@ export interface DbMenuItem {
   created_at: string;
 }
 
+export interface DbSiteSetting {
+  key: string;
+  value: string;
+  updated_at: string;
+}
+
 // ---------- SQL to run in Supabase SQL Editor ----------
 /*
 create table if not exists orders (
@@ -124,4 +130,40 @@ create policy "Admin manage categories" on menu_categories for all to authentica
 alter table menu_items enable row level security;
 create policy "Anon read items" on menu_items for select to anon using (true);
 create policy "Admin manage items" on menu_items for all to authenticated using (true);
+
+-- ========= SETTINGS =========
+create table if not exists site_settings (
+  key text primary key,
+  value text not null default '',
+  updated_at timestamptz default now()
+);
+
+alter table site_settings enable row level security;
+create policy "Anon read settings" on site_settings for select to anon using (true);
+create policy "Admin manage settings" on site_settings for all to authenticated using (true);
+
+-- ========= STORAGE (menu_images) =========
+-- In Supabase Dashboard:
+-- 1. Create a public bucket named 'menu_images'
+-- 2. Run the following SQL to enable policies:
+
+/*
+create policy "Public Access"
+  on storage.objects for select
+  using ( bucket_id = 'menu_images' );
+
+create policy "Admin Insert"
+  on storage.objects for insert
+  to authenticated
+  with check ( bucket_id = 'menu_images' );
+
+create policy "Admin Update"
+  on storage.objects for update
+  to authenticated
+  using ( bucket_id = 'menu_images' );
+
+create policy "Admin Delete"
+  on storage.objects for delete
+  to authenticated
+  using ( bucket_id = 'menu_images' );
 */

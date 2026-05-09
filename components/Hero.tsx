@@ -4,14 +4,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Star, Clock, Bike, ChevronDown } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 /* ─── Data ──────────────────────────────────────────────────────────── */
 
 const SLIDES = [
-  { src: '/sushi_set2.png',        label: 'Преміум Сет',   price: '1500 ₴', cat: '🍣 Суші' },
-  { src: '/pizza_shotlandska.png', label: 'Шотландська',   price: '280 ₴',  cat: '🍕 Піца' },
-  { src: '/sushi_baked.png',       label: 'Запечений рол', price: '400 ₴',  cat: '🍣 Роли' },
-  { src: '/pizza_bbq.png',         label: 'Барбекю',       price: '290 ₴',  cat: '🍕 Піца' },
+  { src: '/sushi_set2.png',        label: 'Преміум Сет',   price: '1500 ₴', cat: '🍣 Суші', query: 'Суші' },
+  { src: '/pizza_shotlandska.png', label: 'Шотландська',   price: '280 ₴',  cat: '🍕 Піца', query: 'Піца' },
+  { src: '/sushi_baked.png',       label: 'Запечений рол', price: '400 ₴',  cat: '🍣 Роли', query: 'Роли' },
+  { src: '/pizza_bbq.png',         label: 'Барбекю',       price: '290 ₴',  cat: '🍕 Піца', query: 'Піца' },
 ];
 
 // 4 cards shown in a 2×2 grid on mobile
@@ -37,6 +38,7 @@ export default function Hero() {
   const [active, setActive] = useState(0);
   const [visible, setVisible] = useState(false);
   const timer = useRef<NodeJS.Timeout | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     setTimeout(() => setVisible(true), 80);
@@ -46,6 +48,10 @@ export default function Hero() {
 
   const scrollToMenu = () => {
     document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const handleSlideClick = (query: string) => {
+    router.push(`/?categoryName=${encodeURIComponent(query)}`);
   };
 
   return (
@@ -85,14 +91,14 @@ export default function Hero() {
 
           <p style={{ fontSize: 'clamp(15px,1.8vw,18px)', color: 'var(--text-secondary)', lineHeight: 1.75, marginBottom: 36, maxWidth: 480 }}>
             Свіжо, гаряче, смачно. Безкоштовна доставка в радіусі&nbsp;5&nbsp;км.
-            Онлайн оплата Monobank. Від 30 хвилин до дверей.
+            Онлайн оплата Monobank. Від 1 години до дверей.
           </p>
 
           {/* stats */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 36 }}>
             {[
               { icon: <Star size={14} />, text: '60+ страв' },
-              { icon: <Clock size={14} />, text: 'Від 30 хв' },
+              { icon: <Clock size={14} />, text: 'Від 1 год' },
               { icon: <Bike size={14} />, text: 'Безкоштовно до 5 км' },
             ].map(s => (
               <div key={s.text} style={{ display: 'flex', alignItems: 'center', gap: 7, background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 100, padding: '7px 14px', color: 'var(--text-secondary)', fontSize: 13, fontWeight: 500 }}>
@@ -116,19 +122,19 @@ export default function Hero() {
         <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)', transition: 'all .8s cubic-bezier(.16,1,.3,1) .15s' }}>
           <div style={{ position: 'relative', width: '100%', maxWidth: 520, aspectRatio: '4/3', borderRadius: 24, overflow: 'hidden', border: '1px solid rgba(255,255,255,.08)', boxShadow: '0 40px 80px rgba(0,0,0,.5)' }}>
             {SLIDES.map((s, i) => (
-              <div key={i} style={{ position: 'absolute', inset: 0, opacity: i === active ? 1 : 0, transform: i === active ? 'scale(1)' : 'scale(1.04)', transition: 'opacity .7s ease, transform .7s ease' }}>
+              <button key={i} onClick={() => handleSlideClick(s.query)} style={{ position: 'absolute', inset: 0, opacity: i === active ? 1 : 0, transform: i === active ? 'scale(1)' : 'scale(1.04)', transition: 'opacity .7s ease, transform .7s ease', border: 'none', background: 'transparent', padding: 0, cursor: i === active ? 'pointer' : 'default', display: 'block', width: '100%', height: '100%', pointerEvents: i === active ? 'auto' : 'none', zIndex: i === active ? 2 : 1 }}>
                 <Image src={s.src} alt={s.label} fill priority={i === 0} style={{ objectFit: 'cover' }} />
-              </div>
+              </button>
             ))}
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 50%)' }} />
-            <div style={{ position: 'absolute', bottom: 20, left: 20 }}>
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 50%)', pointerEvents: 'none', zIndex: 10 }} />
+            <div style={{ position: 'absolute', bottom: 20, left: 20, pointerEvents: 'none', zIndex: 10 }}>
               <span style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', display: 'block', marginBottom: 2 }}>{SLIDES[active].cat}</span>
               <span style={{ fontSize: 22, fontWeight: 800, color: 'white', letterSpacing: '-.02em' }}>{SLIDES[active].label}</span>
             </div>
-            <div style={{ position: 'absolute', bottom: 20, right: 20, background: 'rgba(230,57,70,.9)', backdropFilter: 'blur(10px)', borderRadius: 12, padding: '8px 16px', color: 'white', fontWeight: 800, fontSize: 18 }}>
+            <div style={{ position: 'absolute', bottom: 20, right: 20, background: 'rgba(230,57,70,.9)', backdropFilter: 'blur(10px)', borderRadius: 12, padding: '8px 16px', color: 'white', fontWeight: 800, fontSize: 18, pointerEvents: 'none', zIndex: 10 }}>
               {SLIDES[active].price}
             </div>
-            <div style={{ position: 'absolute', top: 14, right: 14, display: 'flex', gap: 5 }}>
+            <div style={{ position: 'absolute', top: 14, right: 14, display: 'flex', gap: 5, zIndex: 10 }}>
               {SLIDES.map((_, i) => (
                 <button key={i} onClick={() => setActive(i)} style={{ width: i === active ? 20 : 8, height: 8, borderRadius: 100, background: i === active ? 'var(--accent)' : 'rgba(255,255,255,.3)', border: 'none', cursor: 'pointer', padding: 0, transition: 'all .35s ease' }} />
               ))}
@@ -162,13 +168,15 @@ export default function Hero() {
           {SLIDES.map((s, i) => (
             <button
               key={i}
-              onClick={scrollToMenu}
+              onClick={() => handleSlideClick(s.query)}
               style={{
                 position: 'absolute', inset: 0,
                 opacity: i === active ? 1 : 0,
                 transition: 'opacity .7s ease',
-                border: 'none', padding: 0, cursor: 'pointer',
+                border: 'none', padding: 0, cursor: i === active ? 'pointer' : 'default',
                 background: 'none', display: 'block', width: '100%',
+                pointerEvents: i === active ? 'auto' : 'none',
+                zIndex: i === active ? 2 : 1
               }}
               aria-label={`Перейти до меню — ${s.label}`}
             >
@@ -176,26 +184,26 @@ export default function Hero() {
             </button>
           ))}
           {/* dark gradient bottom */}
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 35%, rgba(13,13,13,.95) 100%)', pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 35%, rgba(13,13,13,.95) 100%)', pointerEvents: 'none', zIndex: 10 }} />
 
           {/* slide dots */}
-          <div style={{ position: 'absolute', bottom: 16, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 6, pointerEvents: 'none' }}>
+          <div style={{ position: 'absolute', bottom: 16, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 6, pointerEvents: 'none', zIndex: 10 }}>
             {SLIDES.map((_, i) => (
               <div key={i} style={{ width: i === active ? 22 : 7, height: 7, borderRadius: 100, background: i === active ? 'var(--accent)' : 'rgba(255,255,255,.45)', transition: 'all .3s' }} />
             ))}
           </div>
 
           {/* active slide label */}
-          <div style={{ position: 'absolute', bottom: 34, left: 18, pointerEvents: 'none' }}>
+          <div style={{ position: 'absolute', bottom: 34, left: 18, pointerEvents: 'none', zIndex: 10 }}>
             <span style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, letterSpacing: '.07em', display: 'block', marginBottom: 2 }}>{SLIDES[active].cat}</span>
             <span style={{ fontSize: 20, fontWeight: 800, color: 'white' }}>{SLIDES[active].label}</span>
           </div>
-          <div style={{ position: 'absolute', bottom: 38, right: 16, background: 'rgba(230,57,70,.95)', borderRadius: 10, padding: '6px 14px', color: 'white', fontWeight: 800, fontSize: 16, pointerEvents: 'none' }}>
+          <div style={{ position: 'absolute', bottom: 38, right: 16, background: 'rgba(230,57,70,.95)', borderRadius: 10, padding: '6px 14px', color: 'white', fontWeight: 800, fontSize: 16, pointerEvents: 'none', zIndex: 10 }}>
             {SLIDES[active].price}
           </div>
 
           {/* tap hint */}
-          <div style={{ position: 'absolute', top: 14, right: 14, background: 'rgba(0,0,0,.45)', backdropFilter: 'blur(6px)', borderRadius: 20, padding: '4px 10px', fontSize: 11, color: 'rgba(255,255,255,.8)', fontWeight: 600, pointerEvents: 'none' }}>
+          <div style={{ position: 'absolute', top: 14, right: 14, background: 'rgba(0,0,0,.45)', backdropFilter: 'blur(6px)', borderRadius: 20, padding: '4px 10px', fontSize: 11, color: 'rgba(255,255,255,.8)', fontWeight: 600, pointerEvents: 'none', zIndex: 10 }}>
             Натисни → меню
           </div>
         </div>
@@ -214,14 +222,14 @@ export default function Hero() {
           </h1>
 
           <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: 18 }}>
-            Безкоштовна доставка до 5 км. Від 30 хвилин.
+            Безкоштовна доставка до 5 км. Від 1 години.
           </p>
 
           {/* stats row */}
           <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 20, flexWrap: 'wrap' }}>
             {[
               { icon: <Star size={12} />, text: '60+ страв' },
-              { icon: <Clock size={12} />, text: 'Від 30 хв' },
+              { icon: <Clock size={12} />, text: 'Від 1 год' },
               { icon: <Bike size={12} />, text: 'До 5 км — безкоштовно' },
             ].map(s => (
               <div key={s.text} style={{ display: 'flex', alignItems: 'center', gap: 5, background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 100, padding: '5px 12px', color: 'var(--text-secondary)', fontSize: 12, fontWeight: 500 }}>

@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { Plus, Trash2, Edit2, Check, X, ChevronDown, ChevronUp } from 'lucide-react';
-import type { DbCategory, DbMenuItem } from '@/lib/supabase';
+import { Plus, Trash2, Edit2, Check, X, ChevronDown, ChevronUp, Paperclip, Loader2 } from 'lucide-react';
+import { supabase, type DbCategory, type DbMenuItem } from '@/lib/supabase';
 
 /* ── helpers ── */
 const EMOJI_LIST = ['🍕','🍣','🍔','🌭','🥗','🍲','🔥','⚡','🥩','🍤','🍱','🌮','🍜','🥘'];
@@ -32,6 +32,67 @@ function Field({ label, value, onChange, placeholder, type = 'text' }: {
         onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
         onBlur={e => (e.target.style.borderColor = 'var(--border)')}
       />
+    </div>
+  );
+}
+
+/* ── image upload field ── */
+function ImageUploadField({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const [uploading, setUploading] = useState(false);
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      if (!e.target.files || e.target.files.length === 0) return;
+      const file = e.target.files[0];
+      setUploading(true);
+
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('menu_images')
+        .upload(filePath, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      const { data } = supabase.storage.from('menu_images').getPublicUrl(filePath);
+      onChange(data.publicUrl);
+    } catch (error: any) {
+      alert('Помилка завантаження зображення: ' + error.message);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <label style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 600 }}>Зображення</label>
+      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <input
+          type="text"
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          placeholder="/pizza.png або URL"
+          style={{
+            flex: 1, padding: '9px 13px', background: 'var(--bg-secondary)', border: '1px solid var(--border)',
+            borderRadius: 9, color: 'var(--text-primary)', fontSize: 14, outline: 'none', minWidth: 0,
+            boxSizing: 'border-box'
+          }}
+          onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
+          onBlur={e => (e.target.style.borderColor = 'var(--border)')}
+        />
+        <label style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          width: 38, height: 38, background: 'var(--bg-card)', border: '1px solid var(--border)',
+          borderRadius: 9, cursor: uploading ? 'not-allowed' : 'pointer', flexShrink: 0,
+          color: uploading ? 'var(--text-muted)' : 'var(--text-primary)'
+        }} title="Завантажити з пристрою">
+          {uploading ? <Loader2 size={16} className="animate-spin" style={{ animation: 'spin 1s linear infinite' }} /> : <Paperclip size={16} />}
+          <input type="file" accept="image/*" onChange={handleUpload} disabled={uploading} style={{ display: 'none' }} />
+        </label>
+      </div>
+      <style>{`@keyframes spin { 100% { transform: rotate(360deg); } }`}</style>
     </div>
   );
 }
@@ -169,7 +230,7 @@ export default function AdminMenuEditorPage() {
   if (loading) return <div style={{ padding: 40, textAlign: 'center', color: 'var(--text-muted)' }}>⏳ Завантаження...</div>;
 
   return (
-    <div style={{ padding: '28px 24px', maxWidth: 860, boxSizing: 'border-box' }}>
+    <div className="admin-page-container" style={{ maxWidth: 860 }}>
       {/* header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28, flexWrap: 'wrap', gap: 12 }}>
         <div>
@@ -223,11 +284,11 @@ export default function AdminMenuEditorPage() {
               {categories.map(c => <option key={c.id} value={c.id}>{c.emoji} {c.name}</option>)}
             </select>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 10 }}>
+          <div className="admin-grid-2" style={{ marginBottom: 10 }}>
             <Field label="Назва *" value={newItem.name} onChange={v => setNewItem(p => ({ ...p, name: v }))} placeholder="Піца Маргарита" />
             <Field label="Ціна (₴) *" type="number" value={newItem.price} onChange={v => setNewItem(p => ({ ...p, price: v }))} placeholder="280" />
             <Field label="Вага/обсяг" value={newItem.weight} onChange={v => setNewItem(p => ({ ...p, weight: v }))} placeholder="450 г" />
-            <Field label="Зображення (шлях)" value={newItem.image} onChange={v => setNewItem(p => ({ ...p, image: v }))} placeholder="/pizza.png" />
+            <ImageUploadField value={newItem.image} onChange={v => setNewItem(p => ({ ...p, image: v }))} />
           </div>
           <Field label="Опис" value={newItem.description} onChange={v => setNewItem(p => ({ ...p, description: v }))} placeholder="Томатний соус, моцарела..." />
           <div style={{ display: 'flex', gap: 8, marginTop: 14 }}>
@@ -309,14 +370,39 @@ export default function AdminMenuEditorPage() {
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 14 }}>
                         {catItems.map(item => (
                           <div key={item.id}>
-                            {editingItem?.id === item.id ? (
+                            {/* Item row */}
+                            <div style={{ 
+                              display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', 
+                              background: editingItem?.id === item.id ? 'var(--bg-card)' : (item.is_available ? 'var(--bg-secondary)' : 'rgba(230,57,70,.06)'), 
+                              borderRadius: 10, 
+                              border: editingItem?.id === item.id ? '1px solid var(--accent)' : '1px solid var(--border)',
+                              boxShadow: editingItem?.id === item.id ? '0 0 0 1px var(--accent)' : 'none'
+                            }}>
+                              <img src={item.image} alt={item.name} style={{ width: 44, height: 44, borderRadius: 8, objectFit: 'cover', flexShrink: 0 }} onError={e => { (e.target as HTMLImageElement).src = '/pizza.png'; }} />
+                              <div style={{ flex: 1, minWidth: 0 }}>
+                                <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 1 }}>{item.name}</div>
+                                <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{item.weight && `${item.weight} · `}{item.price} ₴</div>
+                              </div>
+                              <button onClick={() => setEditingItem(item)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: editingItem?.id === item.id ? 'var(--accent)' : 'var(--text-muted)', padding: 6, borderRadius: 6, display: 'flex' }}>
+                                <Edit2 size={14} />
+                              </button>
+                              <button onClick={() => deleteItem(item.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 6, borderRadius: 6, display: 'flex' }}>
+                                <Trash2 size={14} />
+                              </button>
+                            </div>
+
+                            {editingItem?.id === item.id && (
                               /* Edit form */
-                              <div style={{ background: 'var(--bg-secondary)', borderRadius: 10, padding: 14, border: '1px solid rgba(230,57,70,.25)' }}>
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 10 }}>
+                              <div style={{ 
+                                background: 'var(--bg-secondary)', borderRadius: 10, padding: 14, 
+                                border: '1px solid rgba(230,57,70,.25)', marginTop: 8,
+                                animation: 'slideDown 0.2s ease-out'
+                              }}>
+                                <div className="admin-grid-2" style={{ marginBottom: 10 }}>
                                   <Field label="Назва *" value={editingItem.name} onChange={v => setEditingItem(p => p ? { ...p, name: v } : p)} />
                                   <Field label="Ціна (₴) *" type="number" value={editingItem.price} onChange={v => setEditingItem(p => p ? { ...p, price: Number(v) } : p)} />
                                   <Field label="Вага/обсяг" value={editingItem.weight} onChange={v => setEditingItem(p => p ? { ...p, weight: v } : p)} placeholder="450 г" />
-                                  <Field label="Зображення (шлях)" value={editingItem.image} onChange={v => setEditingItem(p => p ? { ...p, image: v } : p)} placeholder="/pizza.png" />
+                                  <ImageUploadField value={editingItem.image} onChange={v => setEditingItem(p => p ? { ...p, image: v } : p)} />
                                 </div>
                                 <Field label="Опис" value={editingItem.description ?? ''} onChange={v => setEditingItem(p => p ? { ...p, description: v } : p)} placeholder="Короткий опис страви..." />
                                 <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
@@ -325,21 +411,6 @@ export default function AdminMenuEditorPage() {
                                   </button>
                                   <button onClick={() => setEditingItem(null)} style={{ padding: '8px 14px', background: 'none', border: '1px solid var(--border)', borderRadius: 7, color: 'var(--text-muted)', fontSize: 13, cursor: 'pointer' }}>Скасувати</button>
                                 </div>
-                              </div>
-                            ) : (
-                              /* Item row */
-                              <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: item.is_available ? 'var(--bg-secondary)' : 'rgba(230,57,70,.06)', borderRadius: 10, border: '1px solid var(--border)' }}>
-                                <img src={item.image} alt={item.name} style={{ width: 44, height: 44, borderRadius: 8, objectFit: 'cover', flexShrink: 0 }} onError={e => { (e.target as HTMLImageElement).src = '/pizza.png'; }} />
-                                <div style={{ flex: 1, minWidth: 0 }}>
-                                  <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 1 }}>{item.name}</div>
-                                  <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{item.weight && `${item.weight} · `}{item.price} ₴</div>
-                                </div>
-                                <button onClick={() => setEditingItem(item)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 6, borderRadius: 6, display: 'flex' }}>
-                                  <Edit2 size={14} />
-                                </button>
-                                <button onClick={() => deleteItem(item.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 6, borderRadius: 6, display: 'flex' }}>
-                                  <Trash2 size={14} />
-                                </button>
                               </div>
                             )}
                           </div>
@@ -351,11 +422,11 @@ export default function AdminMenuEditorPage() {
                     {addItemFor === cat.id ? (
                       <div style={{ background: 'rgba(230,57,70,.05)', border: '1px solid rgba(230,57,70,.2)', borderRadius: 10, padding: 14 }}>
                         <p style={{ fontSize: 13, fontWeight: 700, marginBottom: 10 }}>➕ Нова страва</p>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 10 }}>
+                        <div className="admin-grid-2" style={{ marginBottom: 10 }}>
                           <Field label="Назва *" value={newItem.name} onChange={v => setNewItem(p => ({ ...p, name: v }))} placeholder="Піца Маргарита" />
                           <Field label="Ціна (₴) *" type="number" value={newItem.price} onChange={v => setNewItem(p => ({ ...p, price: v }))} placeholder="280" />
                           <Field label="Вага/обсяг" value={newItem.weight} onChange={v => setNewItem(p => ({ ...p, weight: v }))} placeholder="450 г" />
-                          <Field label="Зображення (шлях)" value={newItem.image} onChange={v => setNewItem(p => ({ ...p, image: v }))} placeholder="/pizza.png" />
+                          <ImageUploadField value={newItem.image} onChange={v => setNewItem(p => ({ ...p, image: v }))} />
                         </div>
                         <Field label="Опис" value={newItem.description} onChange={v => setNewItem(p => ({ ...p, description: v }))} placeholder="Томатний соус, моцарела..." />
                         <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
@@ -380,6 +451,12 @@ export default function AdminMenuEditorPage() {
           })}
         </div>
       )}
+      <style>{`
+        @keyframes slideDown {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { DbCategory } from '@/lib/supabase';
+import { useEffect, useRef } from 'react';
 
 interface Props {
   categories: DbCategory[];
@@ -9,8 +10,22 @@ interface Props {
 }
 
 export default function CategoryFilter({ categories, activeCategory, onSelect }: Props) {
-    return (
-      <div className="category-scroll" style={{ paddingBottom: 8 }}>
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const activeEl = document.getElementById(activeCategory === 'all' ? 'cat-all' : `cat-${activeCategory}`);
+    if (activeEl && scrollRef.current) {
+      const container = scrollRef.current;
+      const scrollLeft = activeEl.offsetLeft - container.offsetWidth / 2 + activeEl.offsetWidth / 2;
+      container.scrollTo({
+        left: scrollLeft,
+        behavior: 'smooth'
+      });
+    }
+  }, [activeCategory]);
+
+  return (
+    <div className="category-scroll" ref={scrollRef} style={{ paddingBottom: 8, position: 'relative' }}>
       <div style={{
         display: 'flex',
         gap: 8,

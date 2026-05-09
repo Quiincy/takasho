@@ -84,7 +84,7 @@ export default function DeliveryMap({ onDistanceChange, address }: Props) {
 
       L.marker([RESTAURANT_LAT, RESTAURANT_LNG], { icon: restIcon })
         .addTo(map)
-        .bindPopup('<b>Так а Шо</b><br>вул. Едуарда Вільде, 10Б');
+        .bindPopup('<b>Enot Sushi</b><br>вул. Едуарда Вільде, 10Б');
 
       // 5km free delivery circle
       circleRef.current = L.circle([RESTAURANT_LAT, RESTAURANT_LNG], {

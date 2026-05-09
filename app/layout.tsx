@@ -1,20 +1,25 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Montserrat } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/lib/cart-context';
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'] });
+const montserrat = Montserrat({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['800', '900'],
+  variable: '--font-montserrat',
+});
 
 export const metadata: Metadata = {
-  title: 'Так а Шо — Доставка їжі в Києві | Суші, Піца, Бургери',
-  description: 'Замовляйте суші, піцу, бургери та інші страви з безкоштовною доставкою в радіусі 5 км від ресторану Так а Шо в Києві. Швидка доставка, онлайн оплата Monobank.',
-  keywords: 'доставка їжі Київ, замовити суші Київ, піца доставка Київ, бургери доставка, Так а Шо, ресторан Вільде, доставка Деснянський',
+  title: 'Enot Sushi — Доставка суші в Києві | Суші, Піца, Бургери',
+  description: 'Замовляйте суші, піцу, бургери та інші страви з безкоштовною доставкою в радіусі 5 км від ресторану Enot Sushi в Києві. Швидка доставка, онлайн оплата Monobank.',
+  keywords: 'доставка їжі Київ, замовити суші Київ, піца доставка Київ, бургери доставка, Enot Sushi, ресторан Вільде, доставка Деснянський',
   openGraph: {
-    title: 'Так а Шо — Доставка їжі в Києві',
+    title: 'Enot Sushi — Доставка суші в Києві',
     description: 'Суші, піца, бургери з безкоштовною доставкою в радіусі 5 км. Онлайн оплата.',
     locale: 'uk_UA',
     type: 'website',
-    siteName: 'Так а Шо Delivery',
+    siteName: 'Enot Sushi Delivery',
   },
   robots: {
     index: true,
@@ -22,7 +27,7 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   alternates: {
-    canonical: 'https://takasho.com.ua',
+    canonical: 'https://enotsushi.com.ua',
   },
   other: {
     'google-site-verification': 'your-google-verification-code',
@@ -50,10 +55,10 @@ export default function RootLayout({
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Restaurant",
-            "name": "Так а Шо",
-            "image": "https://takasho.com.ua/hero.png",
+            "name": "Enot Sushi",
+            "image": "https://enotsushi.com.ua/hero.png",
             "description": "Ресторан доставки їжі: суші, піца, бургери в Києві",
-            "url": "https://takasho.com.ua",
+            "url": "https://enotsushi.com.ua",
             "telephone": "+380957972943",
             "address": {
               "@type": "PostalAddress",
@@ -70,7 +75,7 @@ export default function RootLayout({
           })
         }} />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} ${montserrat.variable}`}>
         {/* GTM noscript */}
         <noscript>
           <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
