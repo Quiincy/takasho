@@ -47,6 +47,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const navItems = [
     { href: '/admin/orders',  label: 'Замовлення',    icon: <ShoppingBag size={18} /> },
     { href: '/admin/catalog', label: 'Редактор меню', icon: <BookOpen size={18} /> },
+    { href: '/admin/banquet', label: 'Банкетне меню', icon: <BookOpen size={18} /> },
     { href: '/admin/settings', label: 'Налаштування', icon: <Settings size={18} /> },
   ];
 

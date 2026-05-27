@@ -8,16 +8,16 @@ export const metadata: Metadata = {
 };
 
 const DELIVERY_ZONES = [
-  { zone: 'До 5 км', price: 'Безкоштовно 🎉', color: '#48c774', bg: 'rgba(72,199,116,0.08)', border: 'rgba(72,199,116,0.25)' },
-  { zone: 'Від 5 до 10 км', price: '50% тарифу таксі', color: 'var(--accent-gold)', bg: 'rgba(244,162,97,0.08)', border: 'rgba(244,162,97,0.25)' },
-  { zone: 'Понад 10 км', price: 'Уточнюйте у менеджера', color: 'var(--text-secondary)', bg: 'var(--bg-card)', border: 'var(--border)' },
+  { zone: 'До 1 км (від 1000 грн)', price: 'Безкоштовно 🎉', color: '#48c774', bg: 'rgba(72,199,116,0.08)', border: 'rgba(72,199,116,0.25)' },
+  { zone: 'Інші замовлення', price: 'За тарифом', color: 'var(--accent-gold)', bg: 'rgba(244,162,97,0.08)', border: 'rgba(244,162,97,0.25)' },
+  { zone: 'Самовивіз', price: 'Безкоштовно', color: 'var(--text-secondary)', bg: 'var(--bg-card)', border: 'var(--border)' },
 ];
 
 const PAYMENT_METHODS = [
   {
     icon: '💳',
-    title: 'Monobank / Visa / Mastercard',
-    desc: 'Онлайн оплата карткою, Apple Pay, Google Pay через захищену форму',
+    title: 'Оплата банк / ФОП',
+    desc: <>Отримувач: ГУЛАК ДМИТРО СЕРГІЙОВИЧ<br/>IBAN: UA493052990000026001046240837<br/>РНОКПП: 3139607532<br/>Призначення: Поповнення рахунку</>,
     badge: 'Рекомендовано',
     badgeColor: '#48c774',
     badgeBg: 'rgba(72,199,116,0.15)',
@@ -35,15 +35,15 @@ const PAYMENT_METHODS = [
 const FAQ = [
   {
     q: 'Яке мінімальне замовлення?',
-    a: 'Мінімальна сума замовлення для доставки — 250 грн.',
+    a: 'Мінімальна сума замовлення для доставки — 500 грн.',
   },
   {
     q: 'Скільки часу займає доставка?',
     a: 'Зазвичай від 1 години з моменту підтвердження замовлення. У години пік може бути довше.',
   },
   {
-    q: 'Як розраховується вартість доставки понад 5 км?',
-    a: 'Беремо середній тариф таксі (~9 грн/км), множимо на кількість км понад 5 км і ділимо навпіл. Ви платите лише 50%.',
+    q: 'Які умови доставки?',
+    a: 'Безкоштовна доставка доступна в радіусі до 1 км при замовленні від 1000 грн. В інших випадках вартість розраховується за тарифом таксі.',
   },
   {
     q: 'Чи можна змінити або скасувати замовлення?',
@@ -78,7 +78,7 @@ export default function DeliveryPage() {
           Доставка та оплата
         </h1>
         <p style={{ fontSize: 16, color: 'var(--text-secondary)', maxWidth: 520, margin: '0 auto' }}>
-          Безкоштовна доставка в радіусі 5 км, швидко і гаряче прямо до вашої двері
+          Безкоштовна доставка до 1 км при замовленні від 1000 грн. Мінімальна сума доставки — 500 грн.
         </p>
       </section>
 
@@ -126,7 +126,7 @@ export default function DeliveryPage() {
             }}
           >
             <AlertCircle size={16} style={{ color: 'var(--accent)', marginTop: 1, flexShrink: 0 }} />
-            Мінімальна сума замовлення для доставки — <strong style={{ color: 'var(--text-primary)' }}>250 грн</strong>. Вартість доставки понад 5 км розраховується автоматично при оформленні замовлення.
+            Мінімальна сума замовлення для доставки — <strong style={{ color: 'var(--text-primary)' }}>500 грн</strong>. Вартість доставки розраховується при оформленні замовлення.
           </div>
         </div>
 
@@ -153,7 +153,7 @@ export default function DeliveryPage() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--text-muted)', fontSize: 13, whiteSpace: 'nowrap' }}>
             <Clock size={16} />
-            Пн – Нд: 11:00 – 23:00
+            Пн – Нд: 10:00 – 21:00
           </div>
         </div>
 
@@ -278,8 +278,8 @@ export default function DeliveryPage() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             <a href="tel:+380957972943" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, fontWeight: 600 }}>📞 +380 95 797 29 43</a>
-            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>📍 вул. Едуарда Вільде, 10Б, Київ</span>
-            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>🕐 Пн-Нд: 11:00 – 23:00</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>📍 вул. Едуарда Вільде, 10Б, Дніпровський район, м. Київ</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>🕐 Пн-Нд: 10:00 – 21:00</span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>© 2026 Enot Sushi. Всі права захищено.</div>

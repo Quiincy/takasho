@@ -45,7 +45,7 @@ export default function CartPage() {
   }, []);
 
   const finalTotal = totalPrice + (deliveryMethod === 'delivery' ? (deliveryInfo?.cost ?? 0) : 0);
-  const isReady = name.trim() && phone.trim() && (deliveryMethod === 'pickup' || address.trim()) && items.length > 0;
+  const isReady = name.trim() && phone.trim() && (deliveryMethod === 'pickup' || (address.trim() && totalPrice >= 500)) && items.length > 0;
 
   const handleOrder = async () => {
     setSubmitting(true);
@@ -99,7 +99,7 @@ export default function CartPage() {
           padding: '140px 20px 60px',
           textAlign: 'center',
         }}>
-          <div style={{ fontSize: 72, marginBottom: 20 }}>🛒</div>
+          <div style={{ fontSize: 80, marginBottom: 20, filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.2))' }}>🛒</div>
           <h1 style={{ fontSize: 26, fontWeight: 800, marginBottom: 10 }}>Кошик порожній</h1>
           <p style={{ color: 'var(--text-secondary)', marginBottom: 28, lineHeight: 1.7, fontSize: 15 }}>
             Додайте страви з меню, щоб оформити замовлення
@@ -153,12 +153,13 @@ export default function CartPage() {
                 Замовлення збережено в системі
               </div>
               <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>
-                Для завершення оплати зателефонуйте або напишіть:
+                Реквізити для оплати:
               </p>
-              <div style={{ fontSize: 'clamp(20px, 5vw, 26px)', fontWeight: 900, color: 'var(--accent)', margin: '10px 0' }}>
-                <a href="tel:+380957972943" style={{ color: 'inherit', textDecoration: 'none' }}>
-                  +380 95 797 29 43
-                </a>
+              <div style={{ fontSize: 14, color: 'var(--text-primary)', margin: '10px 0', lineHeight: 1.6, background: 'rgba(0,0,0,0.2)', padding: '12px', borderRadius: '8px' }}>
+                Отримувач: <strong>ГУЛАК ДМИТРО СЕРГІЙОВИЧ</strong><br/>
+                IBAN: <strong>UA493052990000026001046240837</strong><br/>
+                РНОКПП: <strong>3139607532</strong><br/>
+                Призначення платежу: <strong>Поповнення рахунку</strong>
               </div>
               <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>
                 <strong style={{ color: 'var(--text-primary)' }}>Сума:</strong>{' '}
@@ -211,8 +212,8 @@ export default function CartPage() {
           Повернутись до меню
         </Link>
 
-        <h1 style={{ fontSize: 'clamp(24px, 4vw, 38px)', fontWeight: 900, marginBottom: 24, letterSpacing: '-0.02em' }}>
-          🛒 Ваше замовлення
+        <h1 style={{ fontSize: 'clamp(28px, 5vw, 42px)', fontWeight: 900, marginBottom: 32, letterSpacing: '-0.02em', textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
+          <span style={{ color: 'var(--accent)' }}>🛒</span> Ваше замовлення
         </h1>
 
         {/* Layout */}
@@ -228,14 +229,17 @@ export default function CartPage() {
 
             {/* Cart items */}
             <div style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border)',
-              borderRadius: 16,
+              background: 'linear-gradient(145deg, rgba(30, 30, 30, 0.4) 0%, rgba(20, 20, 20, 0.7) 100%)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              borderRadius: 24,
+              boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
               overflow: 'hidden',
             }}>
               <div style={{
                 padding: '16px 20px',
-                borderBottom: '1px solid var(--border)',
+                borderBottom: '1px solid rgba(255,255,255,0.05)',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -265,12 +269,12 @@ export default function CartPage() {
                   flexWrap: 'wrap',
                   gap: 12,
                   padding: '14px 16px',
-                  borderBottom: idx < items.length - 1 ? '1px solid var(--border)' : 'none',
+                  borderBottom: idx < items.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
                   alignItems: 'center',
                 }}>
                   {/* Image */}
                   <div style={{ position: 'relative', width: 60, height: 60, borderRadius: 10, overflow: 'hidden', flexShrink: 0 }}>
-                    <Image src={item.image} alt={item.name} fill style={{ objectFit: 'cover' }} />
+                    <Image src={item.image} alt={item.name} fill sizes="60px" style={{ objectFit: 'cover' }} />
                   </div>
 
                   {/* Name + weight */}
@@ -290,9 +294,10 @@ export default function CartPage() {
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
                         style={{
-                          width: 32, height: 32, borderRadius: 8,
-                          border: '1px solid var(--border)',
-                          background: 'var(--bg-secondary)',
+                          width: 32, height: 32, borderRadius: 10,
+                          border: '1px solid rgba(255,255,255,0.08)',
+                          background: 'rgba(255,255,255,0.03)',
+                          backdropFilter: 'blur(10px)',
                           color: 'var(--text-primary)',
                           cursor: 'pointer',
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -304,9 +309,10 @@ export default function CartPage() {
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
                         style={{
-                          width: 32, height: 32, borderRadius: 8,
-                          border: '1px solid var(--border)',
-                          background: 'var(--bg-secondary)',
+                          width: 32, height: 32, borderRadius: 10,
+                          border: '1px solid rgba(255,255,255,0.08)',
+                          background: 'rgba(255,255,255,0.03)',
+                          backdropFilter: 'blur(10px)',
                           color: 'var(--text-primary)',
                           cursor: 'pointer',
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -317,7 +323,7 @@ export default function CartPage() {
                       <button
                         onClick={() => removeItem(item.id)}
                         style={{
-                          width: 32, height: 32, borderRadius: 8,
+                          width: 32, height: 32, borderRadius: 10,
                           border: '1px solid rgba(230,57,70,0.2)',
                           background: 'rgba(230,57,70,0.06)',
                           color: 'var(--accent)',
@@ -335,26 +341,29 @@ export default function CartPage() {
 
             {/* Delivery form */}
             <div style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border)',
-              borderRadius: 16,
+              background: 'linear-gradient(145deg, rgba(30, 30, 30, 0.4) 0%, rgba(20, 20, 20, 0.7) 100%)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              borderRadius: 24,
+              boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
               padding: 20,
             }}>
               <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>📦 Деталі замовлення</h2>
               
               <div style={{
                 display: 'flex', gap: 6, marginBottom: 18,
-                background: 'rgba(255,255,255,0.05)', padding: 6, borderRadius: 12,
+                background: 'rgba(0,0,0,0.3)', padding: 6, borderRadius: 16, border: '1px solid rgba(255,255,255,0.05)',
               }}>
                 <button
                   type="button"
                   onClick={() => setDeliveryMethod('delivery')}
                   style={{
                     flex: 1, padding: '10px', fontSize: 14, fontWeight: 600,
-                    borderRadius: 8, border: 'none', cursor: 'pointer',
-                    background: deliveryMethod === 'delivery' ? 'var(--bg-primary)' : 'transparent',
-                    color: deliveryMethod === 'delivery' ? 'var(--text-primary)' : 'var(--text-muted)',
-                    boxShadow: deliveryMethod === 'delivery' ? '0 2px 8px rgba(0,0,0,0.3)' : 'none',
+                    borderRadius: 10, border: 'none', cursor: 'pointer',
+                    background: deliveryMethod === 'delivery' ? 'var(--accent)' : 'transparent',
+                    color: deliveryMethod === 'delivery' ? 'white' : 'var(--text-muted)',
+                    boxShadow: deliveryMethod === 'delivery' ? '0 4px 15px rgba(230,57,70,0.4)' : 'none',
                     transition: 'all 0.2s'
                   }}
                 >
@@ -365,10 +374,10 @@ export default function CartPage() {
                   onClick={() => setDeliveryMethod('pickup')}
                   style={{
                     flex: 1, padding: '10px', fontSize: 14, fontWeight: 600,
-                    borderRadius: 8, border: 'none', cursor: 'pointer',
-                    background: deliveryMethod === 'pickup' ? 'var(--bg-primary)' : 'transparent',
-                    color: deliveryMethod === 'pickup' ? 'var(--text-primary)' : 'var(--text-muted)',
-                    boxShadow: deliveryMethod === 'pickup' ? '0 2px 8px rgba(0,0,0,0.3)' : 'none',
+                    borderRadius: 10, border: 'none', cursor: 'pointer',
+                    background: deliveryMethod === 'pickup' ? 'var(--accent)' : 'transparent',
+                    color: deliveryMethod === 'pickup' ? 'white' : 'var(--text-muted)',
+                    boxShadow: deliveryMethod === 'pickup' ? '0 4px 15px rgba(230,57,70,0.4)' : 'none',
                     transition: 'all 0.2s'
                   }}
                 >
@@ -398,9 +407,10 @@ export default function CartPage() {
                       style={{
                         width: '100%',
                         padding: '12px 14px',
-                        background: 'var(--bg-secondary)',
-                        border: '1px solid var(--border)',
-                        borderRadius: 10,
+                        background: 'rgba(0,0,0,0.25)',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        borderRadius: 14,
+                        boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
                         color: 'var(--text-primary)',
                         fontSize: 15,
                         outline: 'none',
@@ -439,7 +449,7 @@ export default function CartPage() {
               }}>
                 <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 8 }}>📍 Де забирати?</h2>
                 <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 12 }}>
-                  Вул. Едуарда Вільде, 10Б (Київ)
+                  Вул. Едуарда Вільде, 10Б (Дніпровський район, м. Київ)
                 </p>
                 <div style={{ height: 120, borderRadius: 12, background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
                   🏪
@@ -449,9 +459,12 @@ export default function CartPage() {
 
             {/* Order summary */}
             <div style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border)',
-              borderRadius: 16,
+              background: 'linear-gradient(145deg, rgba(30, 30, 30, 0.4) 0%, rgba(20, 20, 20, 0.7) 100%)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              borderRadius: 24,
+              boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
               padding: 20,
             }}>
               <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>💰 Підсумок</h2>
@@ -508,8 +521,10 @@ export default function CartPage() {
               )}
 
               {!isReady && !submitError && (
-                <p style={{ fontSize: 12, color: 'var(--text-muted)', textAlign: 'center', marginTop: 8 }}>
-                  Заповніть ім&apos;я, телефон та адресу
+                <p style={{ fontSize: 12, color: 'var(--accent)', textAlign: 'center', marginTop: 8 }}>
+                  {deliveryMethod === 'delivery' && totalPrice < 500 
+                    ? 'Мінімальна сума для доставки — 500 грн'
+                    : <span style={{color: 'var(--text-muted)'}}>Заповніть ім&apos;я, телефон та адресу</span>}
                 </p>
               )}
 
@@ -517,7 +532,7 @@ export default function CartPage() {
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 gap: 6, marginTop: 12, fontSize: 12, color: 'var(--text-muted)',
               }}>
-                🔒 Безпечна оплата через Monobank
+                🔒 Оплата на рахунок ФОП
               </div>
             </div>
           </div>

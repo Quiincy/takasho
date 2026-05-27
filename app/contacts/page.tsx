@@ -5,14 +5,14 @@ import { MapPin, Phone } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Контакти — Enot Sushi | Доставка суші в Києві',
-  description: 'Адреса ресторану Enot Sushi: вул. Едуарда Вільде, 10Б, Київ. Телефон: +380 95 797 29 43. Працюємо щодня 11:00–23:00.',
+  description: 'Адреса ресторану Enot Sushi: вул. Едуарда Вільде, 10Б, Дніпровський район, м. Київ. Телефон: +380 95 797 29 43. Працюємо щодня 10:00–21:00.',
 };
 
 const INFO_CARDS = [
   {
     icon: '📍',
     title: 'Адреса',
-    lines: ['вул. Едуарда Вільде, 10Б', 'Київ, Деснянський район'],
+    lines: ['вул. Едуарда Вільде, 10Б', 'Дніпровський район, м. Київ'],
     accent: false,
   },
   {
@@ -123,7 +123,7 @@ export default function ContactsPage() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/enot_kava?igsh=b240ZjIyNGwyNTU1"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -142,7 +142,29 @@ export default function ContactsPage() {
                 }}
               >
                 📸
-                @enotsushi
+                @enot_kava
+              </a>
+              <a
+                href="https://www.instagram.com/tak_a_sho_kiev?igsh=eWp4eTV3bGh0d2R1"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  padding: '12px 16px',
+                  borderRadius: 10,
+                  background: 'rgba(225,48,108,0.08)',
+                  border: '1px solid rgba(225,48,108,0.2)',
+                  color: '#e1306c',
+                  textDecoration: 'none',
+                  fontWeight: 600,
+                  fontSize: 14,
+                  transition: 'all 0.2s',
+                }}
+              >
+                📸
+                @tak_a_sho_kiev
               </a>
               <a
                 href="https://t.me/enotsushi"
@@ -190,7 +212,7 @@ export default function ContactsPage() {
                 Безкоштовна доставка
               </div>
               <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                В радіусі 5 км від ресторану — доставка безкоштовна. Понад 5 км — 50% тарифу таксі.
+                Безкоштовна доставка до 1 км при замовленні від 1000 грн. Мінімальна сума замовлення для доставки — 500 грн.
               </p>
             </div>
             <a
@@ -237,7 +259,7 @@ export default function ContactsPage() {
             }}
           >
             <MapPin size={16} style={{ color: 'var(--accent)' }} />
-            вул. Едуарда Вільде, 10Б, Київ
+            вул. Едуарда Вільде, 10Б, Дніпровський район, м. Київ
           </div>
           <ContactMap />
         </div>
@@ -255,8 +277,8 @@ export default function ContactsPage() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             <a href="tel:+380957972943" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, fontWeight: 600 }}>📞 +380 95 797 29 43</a>
-            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>📍 вул. Едуарда Вільде, 10Б, Київ</span>
-            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>🕐 Пн-Нд: 11:00 – 23:00</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>📍 вул. Едуарда Вільде, 10Б, Дніпровський район, м. Київ</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>🕐 Пн-Нд: 10:00 – 21:00</span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>© 2026 Enot Sushi. Всі права захищено.</div>

@@ -23,7 +23,10 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
       );
       supabase.from('menu_categories').select('*').order('sort_order').then(({ data }) => {
-        if (data) setCategories(data as DbCategory[]);
+        if (data) {
+          const filtered = (data as DbCategory[]).filter(c => !c.id.startsWith('banquet-'));
+          setCategories(filtered);
+        }
       });
     }
   }, [isOpen, categories.length]);
@@ -90,6 +93,7 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
           {[
             { href: '/', label: 'Головна', icon: '🏠' },
+            { href: '/banquet', label: 'Банкетне меню', icon: '🥂' },
             { href: '/delivery', label: 'Доставка та оплата', icon: '🚴' },
             { href: '/contacts', label: 'Контакти', icon: '📍' },
           ].map(link => (

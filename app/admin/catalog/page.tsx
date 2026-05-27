@@ -124,7 +124,7 @@ export default function AdminMenuEditorPage() {
     setLoading(true);
     const res = await fetch('/api/menu', { cache: 'no-store' });
     const data = await res.json();
-    setCategories(data.categories ?? []);
+    setCategories((data.categories ?? []).filter((c: DbCategory) => !c.id.startsWith('banquet-')));
     setItems(data.items ?? []);
     setLoading(false);
   }, []);

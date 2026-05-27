@@ -6,7 +6,7 @@ import { MapPin, Bike, AlertCircle } from 'lucide-react';
 
 const RESTAURANT_LAT = 50.5102;
 const RESTAURANT_LNG = 30.6368;
-const FREE_DELIVERY_KM = 5;
+const FREE_DELIVERY_KM = 1;
 const TAXI_RATE_PER_KM = 9; // UAH per km average
 
 function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
@@ -268,7 +268,7 @@ export default function DeliveryMap({ onDistanceChange, address }: Props) {
               paddingTop: 10,
               marginTop: 4,
             }}>
-              💡 Ви поза зоною безкоштовної доставки (5 км). Вартість розраховується як 50% тарифу таксі за зайві {(distance - FREE_DELIVERY_KM).toFixed(1)} км.
+              💡 Ви поза зоною безкоштовної доставки (1 км) або сума замовлення менша за 1000 грн. Вартість розраховується за тарифом таксі.
             </div>
           )}
         </div>
@@ -287,7 +287,7 @@ export default function DeliveryMap({ onDistanceChange, address }: Props) {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--text-muted)' }}>
           <div style={{ width: 12, height: 12, borderRadius: 2, background: 'rgba(230,57,70,0.3)', border: '1px dashed #e63946' }} />
-          Зона безкоштовної доставки (5 км)
+          Зона безкоштовної доставки (1 км)
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--text-muted)' }}>
           <div style={{ width: 12, height: 12, borderRadius: 100, background: '#e63946' }} />

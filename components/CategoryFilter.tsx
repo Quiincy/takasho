@@ -41,15 +41,17 @@ export default function CategoryFilter({ categories, activeCategory, onSelect }:
             padding: '10px 20px',
             borderRadius: 100,
             border: '1px solid',
-            borderColor: activeCategory === 'all' ? 'var(--accent)' : 'var(--border)',
+            borderColor: activeCategory === 'all' ? 'transparent' : 'rgba(255,255,255,0.08)',
             background: activeCategory === 'all'
               ? 'linear-gradient(135deg, var(--accent) 0%, #c1121f 100%)'
-              : 'var(--bg-card)',
+              : 'rgba(255,255,255,0.03)',
             color: activeCategory === 'all' ? 'white' : 'var(--text-secondary)',
+            boxShadow: activeCategory === 'all' ? '0 4px 15px rgba(230,57,70,0.4)' : 'none',
+            backdropFilter: 'blur(10px)',
             fontSize: 14,
             fontWeight: 600,
             cursor: 'pointer',
-            transition: 'all 0.25s ease',
+            transition: 'all 0.3s ease',
             whiteSpace: 'nowrap',
           }}
         >
@@ -68,27 +70,31 @@ export default function CategoryFilter({ categories, activeCategory, onSelect }:
               padding: '10px 20px',
               borderRadius: 100,
               border: '1px solid',
-              borderColor: activeCategory === cat.id ? 'var(--accent)' : 'var(--border)',
+              borderColor: activeCategory === cat.id ? 'transparent' : 'rgba(255,255,255,0.08)',
               background: activeCategory === cat.id
                 ? 'linear-gradient(135deg, var(--accent) 0%, #c1121f 100%)'
-                : 'var(--bg-card)',
+                : 'rgba(255,255,255,0.03)',
               color: activeCategory === cat.id ? 'white' : 'var(--text-secondary)',
+              boxShadow: activeCategory === cat.id ? '0 4px 15px rgba(230,57,70,0.4)' : 'none',
+              backdropFilter: 'blur(10px)',
               fontSize: 14,
               fontWeight: 600,
               cursor: 'pointer',
-              transition: 'all 0.25s ease',
+              transition: 'all 0.3s ease',
               whiteSpace: 'nowrap',
             }}
             onMouseEnter={e => {
               if (activeCategory !== cat.id) {
-                e.currentTarget.style.borderColor = 'var(--accent)';
-                e.currentTarget.style.color = 'var(--accent)';
+                e.currentTarget.style.borderColor = 'rgba(230, 57, 70, 0.5)';
+                e.currentTarget.style.color = 'white';
+                e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
               }
             }}
             onMouseLeave={e => {
               if (activeCategory !== cat.id) {
-                e.currentTarget.style.borderColor = 'var(--border)';
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
                 e.currentTarget.style.color = 'var(--text-secondary)';
+                e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
               }
             }}
           >

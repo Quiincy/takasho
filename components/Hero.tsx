@@ -102,7 +102,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
           {/* badge */}
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(230,57,70,.12)', border: '1px solid rgba(230,57,70,.3)', borderRadius: 100, padding: '7px 18px', marginBottom: 28 }}>
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#48c774', boxShadow: '0 0 6px #48c774', animation: 'pulse 2s ease-in-out infinite', display: 'block' }} />
-            <span style={{ fontSize: 13, color: 'var(--accent)', fontWeight: 600 }}>Доставка їжі в Києві • Вул. Едуарда Вільде, 10Б</span>
+            <span style={{ fontSize: 13, color: 'var(--accent)', fontWeight: 600 }}>Доставка їжі в Києві • Вул. Едуарда Вільде, 10Б, Дніпровський р-н</span>
           </div>
 
           <h1 style={{ fontSize: 'clamp(38px,5.5vw,70px)', fontWeight: 900, lineHeight: 1.04, letterSpacing: '-.03em', marginBottom: 22, color: 'var(--text-primary)' }}>
@@ -112,8 +112,8 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
           </h1>
 
           <p style={{ fontSize: 'clamp(15px,1.8vw,18px)', color: 'var(--text-secondary)', lineHeight: 1.75, marginBottom: 36, maxWidth: 480 }}>
-            Свіжо, гаряче, смачно. Безкоштовна доставка в радіусі&nbsp;5&nbsp;км.
-            Онлайн оплата Monobank. Від 1 години до дверей.
+            Свіжо, гаряче, смачно. Безкоштовна доставка в радіусі&nbsp;1&nbsp;км.
+            Оплата на банківський рахунок або картку ФОП. Від 1 години до дверей.
           </p>
 
           {/* stats */}
@@ -121,7 +121,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
             {[
               { icon: <Star size={14} />, text: '60+ страв' },
               { icon: <Clock size={14} />, text: 'Від 1 год' },
-              { icon: <Bike size={14} />, text: 'Безкоштовно до 5 км' },
+              { icon: <Bike size={14} />, text: 'Безкоштовно до 1 км' },
             ].map(s => (
               <div key={s.text} style={{ display: 'flex', alignItems: 'center', gap: 7, background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 100, padding: '7px 14px', color: 'var(--text-secondary)', fontSize: 13, fontWeight: 500 }}>
                 <span style={{ color: 'var(--accent)' }}>{s.icon}</span>{s.text}
@@ -145,7 +145,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
           <div style={{ position: 'relative', width: '100%', maxWidth: 520, aspectRatio: '4/3', borderRadius: 24, overflow: 'hidden', border: '1px solid rgba(255,255,255,.08)', boxShadow: '0 40px 80px rgba(0,0,0,.5)' }}>
             {SLIDES.map((s, i) => (
               <button key={i} onClick={() => handleSlideClick(s.query)} style={{ position: 'absolute', inset: 0, opacity: i === active ? 1 : 0, transform: i === active ? 'scale(1)' : 'scale(1.04)', transition: 'opacity .7s ease, transform .7s ease', border: 'none', background: 'transparent', padding: 0, cursor: i === active ? 'pointer' : 'default', display: 'block', width: '100%', height: '100%', pointerEvents: i === active ? 'auto' : 'none', zIndex: i === active ? 2 : 1 }}>
-                <Image src={s.src} alt={s.label} fill priority={i === 0} style={{ objectFit: 'cover' }} />
+                <Image src={s.src} alt={s.label} fill sizes="(max-width: 768px) 0vw, 520px" priority={i === 0} style={{ objectFit: 'cover' }} />
               </button>
             ))}
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 50%)', pointerEvents: 'none', zIndex: 10 }} />
@@ -165,12 +165,12 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
 
           {/* floating badges — desktop only */}
           <div className="hide-mobile" style={{ position: 'absolute', top: -16, left: -20, zIndex: 20, background: 'rgba(26,26,26,.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 16, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10, boxShadow: '0 20px 40px rgba(0,0,0,.4)', animation: 'float 4s ease-in-out infinite' }}>
-            <div style={{ width: 40, height: 40, borderRadius: 10, overflow: 'hidden', position: 'relative', flexShrink: 0 }}><Image src="/sushi_dragon.png" alt="dragon" fill style={{ objectFit: 'cover' }} /></div>
+            <div style={{ width: 40, height: 40, borderRadius: 10, overflow: 'hidden', position: 'relative', flexShrink: 0 }}><Image src="/sushi_dragon.png" alt="dragon" fill sizes="40px" style={{ objectFit: 'cover' }} /></div>
             <div><div style={{ fontSize: 13, fontWeight: 700 }}>Золотий Дракон</div><div style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 600 }}>420 ₴ • 🍣 Суші</div></div>
           </div>
           <div className="hide-mobile" style={{ position: 'absolute', bottom: -16, right: -20, zIndex: 20, background: 'rgba(26,26,26,.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 16, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10, boxShadow: '0 20px 40px rgba(0,0,0,.4)', animation: 'float 4s ease-in-out infinite 2s' }}>
             <div style={{ width: 42, height: 42, borderRadius: 12, background: 'linear-gradient(135deg,var(--accent),#c1121f)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0 }}>🚴</div>
-            <div><div style={{ fontSize: 13, fontWeight: 700 }}>Безкоштовна доставка</div><div style={{ fontSize: 11, color: '#48c774', fontWeight: 600 }}>в радіусі 5 км від нас</div></div>
+            <div><div style={{ fontSize: 13, fontWeight: 700 }}>Безкоштовна доставка</div><div style={{ fontSize: 11, color: '#48c774', fontWeight: 600 }}>в радіусі 1 км від нас</div></div>
           </div>
           <div className="hide-mobile" style={{ position: 'absolute', top: -16, right: -10, zIndex: 20, background: 'rgba(26,26,26,.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 16, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 6, boxShadow: '0 20px 40px rgba(0,0,0,.4)' }}>
             <span style={{ fontSize: 18 }}>⭐️</span>
@@ -202,7 +202,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
               }}
               aria-label={`Перейти до меню — ${s.label}`}
             >
-              <Image src={s.src} alt={s.label} fill priority={i === 0} style={{ objectFit: 'cover' }} />
+              <Image src={s.src} alt={s.label} fill sizes="(max-width: 768px) 100vw, 50vw" priority={i === 0} style={{ objectFit: 'cover' }} />
             </button>
           ))}
           {/* dark gradient bottom */}
@@ -234,7 +234,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
         <div style={{ padding: '20px 20px 0', textAlign: 'center', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(20px)', transition: 'all .6s ease .1s' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(230,57,70,.12)', border: '1px solid rgba(230,57,70,.25)', borderRadius: 100, padding: '5px 14px', marginBottom: 14 }}>
             <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#48c774', boxShadow: '0 0 5px #48c774', display: 'block', animation: 'pulse 2s ease-in-out infinite' }} />
-            <span style={{ fontSize: 12, color: 'var(--accent)', fontWeight: 600 }}>Доставка • Вул. Едуарда Вільде, 10Б</span>
+            <span style={{ fontSize: 12, color: 'var(--accent)', fontWeight: 600 }}>Доставка • Вул. Едуарда Вільде, 10Б, Дніпровський р-н</span>
           </div>
 
           <h1 style={{ fontSize: 'clamp(28px,8vw,40px)', fontWeight: 900, lineHeight: 1.08, letterSpacing: '-.03em', marginBottom: 10, color: 'var(--text-primary)' }}>
@@ -244,7 +244,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
           </h1>
 
           <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: 18 }}>
-            Безкоштовна доставка до 5 км. Від 1 години.
+            Безкоштовна доставка до 1 км. Від 1 години.
           </p>
 
           {/* stats row */}
@@ -252,7 +252,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
             {[
               { icon: <Star size={12} />, text: '60+ страв' },
               { icon: <Clock size={12} />, text: 'Від 1 год' },
-              { icon: <Bike size={12} />, text: 'До 5 км — безкоштовно' },
+              { icon: <Bike size={12} />, text: 'До 1 км — безкоштовно' },
             ].map(s => (
               <div key={s.text} style={{ display: 'flex', alignItems: 'center', gap: 5, background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 100, padding: '5px 12px', color: 'var(--text-secondary)', fontSize: 12, fontWeight: 500 }}>
                 <span style={{ color: 'var(--accent)' }}>{s.icon}</span>{s.text}
@@ -278,7 +278,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
             {displayItems.map((card, i) => (
               <div key={i} onClick={() => handleMobileGridClick(card)} style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(255,255,255,.08)', background: 'rgba(255,255,255,.03)', cursor: 'pointer' }}>
                 <div style={{ position: 'relative', height: 100 }}>
-                  <Image src={card.src} alt={card.label} fill style={{ objectFit: 'cover' }} />
+                  <Image src={card.src} alt={card.label} fill sizes="50vw" style={{ objectFit: 'cover' }} />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,.65) 0%, transparent 55%)' }} />
                   <div style={{ position: 'absolute', bottom: 8, right: 10, background: 'rgba(230,57,70,.92)', borderRadius: 8, padding: '3px 9px', color: 'white', fontWeight: 800, fontSize: 13 }}>{card.price} ₴</div>
                 </div>

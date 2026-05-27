@@ -70,40 +70,57 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
       itemType="https://schema.org/Menu"
     >
       {/* Section header */}
-      <div style={{ marginBottom: 36, textAlign: 'center' }}>
+      <div style={{ marginBottom: 40, textAlign: 'center' }}>
         <div style={{
           display: 'inline-flex',
           alignItems: 'center',
           gap: 8,
-          background: 'rgba(230,57,70,0.1)',
+          background: 'linear-gradient(135deg, rgba(230,57,70,0.15) 0%, rgba(230,57,70,0.05) 100%)',
+          backdropFilter: 'blur(10px)',
           border: '1px solid rgba(230,57,70,0.2)',
           borderRadius: 100,
-          padding: '5px 14px',
-          fontSize: 13,
-          color: 'var(--accent)',
-          fontWeight: 600,
-          marginBottom: 12,
+          padding: '6px 16px',
+          fontSize: 14,
+          color: '#ff4d5a',
+          fontWeight: 700,
+          marginBottom: 16,
+          boxShadow: '0 4px 15px rgba(230,57,70,0.2)',
         }}>
           🍽️ Наше меню
         </div>
-        <h2 className="section-title" style={{ marginBottom: 8 }}>
+        <h2 className="section-title" style={{ 
+          marginBottom: 12,
+          background: 'linear-gradient(to right, #ffffff, #aaaaaa)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          textShadow: '0 2px 20px rgba(255,255,255,0.1)'
+        }}>
           Замовляйте що завгодно
         </h2>
-        <p style={{ color: 'var(--text-secondary)', fontSize: 16 }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: 16, maxWidth: 500, margin: '0 auto', lineHeight: 1.6 }}>
           {initialItems.length} страв на будь-який смак — суші, піца, бургери та більше
         </p>
       </div>
 
       {/* Search */}
-      <div style={{ position: 'relative', maxWidth: 480, margin: '0 auto 28px' }}>
+      <div style={{ position: 'relative', maxWidth: 480, margin: '0 auto 32px' }}>
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'var(--accent)',
+          filter: 'blur(15px)',
+          opacity: 0.05,
+          borderRadius: '16px',
+        }} />
         <Search
-          size={18}
+          size={20}
           style={{
             position: 'absolute',
-            left: 16,
+            left: 18,
             top: '50%',
             transform: 'translateY(-50%)',
             color: 'var(--text-muted)',
+            zIndex: 1,
           }}
         />
         <input
@@ -114,17 +131,26 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
           onChange={e => setSearch(e.target.value)}
           style={{
             width: '100%',
-            padding: '13px 16px 13px 48px',
-            background: 'var(--bg-card)',
-            border: '1px solid var(--border)',
-            borderRadius: 'var(--radius-sm)',
+            padding: '16px 16px 16px 52px',
+            background: 'rgba(0,0,0,0.25)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: '16px',
             color: 'var(--text-primary)',
-            fontSize: 15,
+            fontSize: 16,
             outline: 'none',
-            transition: 'border-color 0.2s',
+            transition: 'all 0.3s ease',
+            boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
+            position: 'relative',
+            zIndex: 1,
           }}
-          onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
-          onBlur={e => (e.target.style.borderColor = 'var(--border)')}
+          onFocus={e => {
+            e.target.style.borderColor = 'rgba(230, 57, 70, 0.5)';
+            e.target.style.boxShadow = '0 0 15px rgba(230, 57, 70, 0.2), inset 0 2px 4px rgba(0,0,0,0.2)';
+          }}
+          onBlur={e => {
+            e.target.style.borderColor = 'rgba(255,255,255,0.08)';
+            e.target.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
+          }}
         />
       </div>
 
@@ -179,6 +205,23 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
           ))}
         </div>
       )}
+
+      {/* Disclaimer */}
+      <div style={{
+        marginTop: 40,
+        textAlign: 'center',
+        padding: '16px 20px',
+        background: 'rgba(255, 255, 255, 0.03)',
+        borderRadius: 16,
+        border: '1px dashed rgba(255, 255, 255, 0.1)',
+        color: 'var(--text-secondary)',
+        fontSize: 14,
+        maxWidth: 800,
+        margin: '40px auto 0'
+      }}>
+        <span style={{ color: 'var(--accent)', fontWeight: 600, marginRight: 6 }}>⚠️ Зверніть увагу:</span>
+        фотографії їжі в меню можуть дещо відрізнятися від приготованих страв у нашому ресторані.
+      </div>
     </section>
   );
 }

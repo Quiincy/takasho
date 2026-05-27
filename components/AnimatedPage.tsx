@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 /* ─── Marquee ticker (like takasho.top background text) ─── */
-const TICKER_ITEMS = ['🍣 СУШІ', '🍕 ПІЦА', '🍔 БУРГЕРИ', '🔥 ДОСТАВКА', '⚡ ВІД 1 ГОД', '💳 MONOBANK', '🎉 БЕЗКОШТОВНА ДОСТАВКА В РАДІУСІ 5 КМ'];
+const TICKER_ITEMS = ['🍣 СУШІ', '🍕 ПІЦА', '🍔 БУРГЕРИ', '🔥 ДОСТАВКА', '⚡ ВІД 1 ГОД', '💳 ОПЛАТА ФОП', '🎉 БЕЗКОШТОВНА ДОСТАВКА В РАДІУСІ 1 КМ'];
 
 export function Marquee() {
   const items = [...TICKER_ITEMS, ...TICKER_ITEMS]; // duplicate for seamless loop
@@ -72,7 +72,7 @@ export function useScrollReveal() {
           }
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.02, rootMargin: '0px 0px -40px 0px' }
     );
 
     els.forEach((el) => io.observe(el));

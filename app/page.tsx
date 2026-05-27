@@ -1,17 +1,23 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
+import Image from 'next/image';
 import { Suspense } from 'react';
 import MenuSection from '@/components/MenuSection';
 import AnimatedPage, { Marquee, ScrollToTop } from '@/components/AnimatedPage';
+import ImageGallery from '@/components/ImageGallery';
 import { createClient } from '@supabase/supabase-js';
 import { DbCategory, DbMenuItem } from '@/lib/supabase';
 
-export const revalidate = 60; // ISR revalidation every 60 seconds
+// export const revalidate = 60; // ISR revalidation every 60 seconds
+export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      global: { fetch: (url, init) => fetch(url, { ...init, cache: 'no-store' }) }
+    }
   );
 
   const [catRes, itemRes] = await Promise.all([
@@ -21,6 +27,7 @@ export default async function HomePage() {
 
   const categories = (catRes.data as DbCategory[]) ?? [];
   const items = (itemRes.data as DbMenuItem[]) ?? [];
+  const deliveryCategories = categories.filter(c => !c.id.startsWith('banquet-'));
   const popularItems = items.filter(i => i.is_popular).slice(0, 4);
 
   return (
@@ -78,9 +85,9 @@ export default async function HomePage() {
               }}
             >
               {[
-                { icon: '🚴', title: 'Безкоштовна доставка', desc: 'В радіусі 5 км від ресторану — доставка в подарунок. Понад 5 км — платите лише 50% тарифу таксі.', delay: '' },
-                { icon: '⚡', title: 'Швидко та гаряче',     desc: 'Ми готуємо авіакур\'єром. Від замовлення до вашого порога — від 1 години.',                       delay: 'reveal-delay-1' },
-                { icon: '💳', title: 'Онлайн оплата Mono',   desc: 'Зручна оплата через Monobank. Картка, Apple Pay, Google Pay.',                                       delay: 'reveal-delay-2' },
+                { icon: '🚴', title: 'Безкоштовна доставка', desc: 'Безкоштовна доставка до 1 км при замовленні від 1000 грн. Мінімальна сума замовлення для доставки — 500 грн.', delay: '' },
+                { icon: '⚡', title: 'Швидко та гаряче',     desc: 'Ми доставляємо курʼєром від замовлення до вашого порога - від 1 години.',                       delay: 'reveal-delay-1' },
+                { icon: '💳', title: 'Оплата банк / ФОП',    desc: 'Зручна оплата на банківський рахунок або картку ФОП.',                                       delay: 'reveal-delay-2' },
                 { icon: '🌟', title: 'Свіжі продукти',       desc: 'Лосось, морепродукти та всі інгредієнти — тільки преміальна свіжість.',                             delay: 'reveal-delay-3' },
               ].map(item => (
                 <div
@@ -126,11 +133,145 @@ export default async function HomePage() {
         <Marquee />
 
         {/* ── Menu section ── */}
-        <div className="reveal">
+        <div>
           <Suspense fallback={<div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-muted)' }}>Завантаження меню...</div>}>
-            <MenuSection initialCategories={categories} initialItems={items} />
+            <MenuSection initialCategories={deliveryCategories} initialItems={items} />
           </Suspense>
         </div>
+
+        {/* ── Events & Catering ── */}
+        <section className="reveal" style={{
+          padding: 'clamp(40px, 6vw, 80px) 20px',
+          background: 'linear-gradient(135deg, rgba(20,20,20,1) 0%, rgba(30,30,30,1) 100%)',
+          position: 'relative',
+          overflow: 'hidden',
+          borderTop: '1px solid var(--border)',
+        }}>
+          {/* Decorative glow */}
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '60%',
+            height: '60%',
+            background: 'var(--accent)',
+            filter: 'blur(120px)',
+            opacity: 0.05,
+            pointerEvents: 'none',
+          }} />
+
+          <div style={{ maxWidth: 1000, margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              borderRadius: 100,
+              padding: '6px 16px',
+              fontSize: 14,
+              color: 'var(--text-secondary)',
+              fontWeight: 600,
+              marginBottom: 20,
+            }}>
+              🎉 Організація заходів
+            </div>
+            
+            <h2 className="section-title" style={{ marginBottom: 24, fontSize: 'clamp(28px, 5vw, 42px)' }}>
+              Свято там, де ви захочете
+            </h2>
+            
+            <p style={{ color: 'var(--text-secondary)', fontSize: 'clamp(16px, 2vw, 18px)', lineHeight: 1.7, marginBottom: 40, maxWidth: 800, margin: '0 auto 40px' }}>
+              Ми з радістю допоможемо зробити вашу подію незабутньою! Організуємо неймовірно смачний стіл для будь-якого формату: 
+              дні народження, банкети, весілля, виїзний фуршет чи професійний кейтеринг. 
+            </p>
+
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 16,
+              justifyContent: 'center',
+              marginBottom: 40
+            }}>
+              {['🎂 Дні народження', '🥂 Банкети', '💍 Весілля', '🍱 Кейтеринг', '🚙 Виїзний фуршет'].map(tag => (
+                <div key={tag} style={{
+                  padding: '12px 24px',
+                  background: 'rgba(0,0,0,0.3)',
+                  border: '1px solid rgba(255,255,255,0.05)',
+                  borderRadius: 16,
+                  color: 'var(--text-primary)',
+                  fontWeight: 600,
+                  fontSize: 15,
+                  boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
+                }}>
+                  {tag}
+                </div>
+              ))}
+            </div>
+
+            <a href="tel:+380957972943" className="events-btn" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 10,
+              background: 'linear-gradient(135deg, var(--accent) 0%, #c1121f 100%)',
+              color: 'white',
+              padding: '16px 32px',
+              borderRadius: 100,
+              textDecoration: 'none',
+              fontWeight: 700,
+              fontSize: 16,
+              boxShadow: '0 8px 25px rgba(230, 57, 70, 0.4)',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+            }}>
+              📞 Замовити організацію
+            </a>
+          </div>
+          <style>{`
+            .events-btn:hover {
+              transform: translateY(-3px) !important;
+              box-shadow: 0 12px 30px rgba(230, 57, 70, 0.6) !important;
+            }
+          `}</style>
+        </section>
+
+        {/* ── Visit Us & Raccoon ── */}
+        <section className="reveal" style={{
+          padding: 'clamp(40px, 6vw, 60px) 20px',
+          background: 'var(--bg-primary)',
+          textAlign: 'center',
+          borderTop: '1px solid var(--border)',
+        }}>
+          <div style={{ maxWidth: 800, margin: '0 auto' }}>
+            <h2 className="section-title" style={{ marginBottom: 16, fontSize: 'clamp(24px, 4vw, 36px)' }}>
+              Завжди раді вам у нашому закладі!
+            </h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: 16, lineHeight: 1.6, marginBottom: 24 }}>
+              Ми не лише доставляємо найсмачнішу їжу, а й завжди раді бачити вас в гостях у нашому затишному ресторані. 
+              Завітайте до нас, щоб відчути справжню атмосферу.
+            </p>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 12,
+              background: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              padding: '16px 24px',
+              borderRadius: 20,
+              textAlign: 'left',
+              marginBottom: 24,
+            }}>
+              <div style={{ fontSize: 40 }}>🦝</div>
+              <div>
+                <div style={{ fontWeight: 700, fontSize: 18, color: 'var(--text-primary)' }}>
+                  А ще у нас живе справжній єнот Мотя!
+                </div>
+              </div>
+            </div>
+
+            <ImageGallery images={[1, 2, 3, 4].map(num => `/raccoon/motya-new-${num}.jpg`)} altPrefix="Єнот Мотя" />
+          </div>
+        </section>
 
         {/* ── Footer ── */}
         <footer style={{
@@ -160,8 +301,8 @@ export default async function HomePage() {
               <a href="tel:+380957972943" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, fontWeight: 600 }}>
                 📞 +380 95 797 29 43
               </a>
-              <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>📍 вул. Едуарда Вільде, 10Б, Київ</span>
-              <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>🕐 Пн-Нд: 11:00 – 23:00</span>
+              <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>📍 вул. Едуарда Вільде, 10Б, Дніпровський район, м. Київ</span>
+              <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>🕐 Пн-Нд: 10:00 – 21:00</span>
             </div>
             <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
               <a href="/delivery" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 13 }}>🚴 Доставка та оплата</a>

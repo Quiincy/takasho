@@ -107,6 +107,7 @@ export default function Header() {
         <nav className="header-center-info" style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1, justifyContent: 'center' }}>
           {[
             { href: '/', label: 'Меню' },
+            { href: '/banquet', label: 'Банкетне меню' },
             { href: '/delivery', label: 'Доставка' },
             { href: '/contacts', label: 'Контакти' },
           ].map((link) => {
@@ -154,9 +155,10 @@ export default function Header() {
                 gap: 6,
                 background: totalItems > 0
                   ? 'linear-gradient(135deg, var(--accent) 0%, #c1121f 100%)'
-                  : 'var(--bg-card)',
+                  : 'rgba(255,255,255,0.03)',
+                backdropFilter: 'blur(10px)',
                 border: '1px solid',
-                borderColor: totalItems > 0 ? 'transparent' : 'var(--border)',
+                borderColor: totalItems > 0 ? 'transparent' : 'rgba(255,255,255,0.08)',
                 borderRadius: 10,
                 padding: '8px 14px',
                 cursor: 'pointer',
