@@ -61,6 +61,7 @@ export default function MenuCard({ item, index = 0 }: Props) {
         opacity: 0,
         position: 'relative',
         height: '100%',
+        minWidth: 0,
       }}
       itemScope
       itemType="https://schema.org/MenuItem"
@@ -162,7 +163,7 @@ export default function MenuCard({ item, index = 0 }: Props) {
         zIndex: 1,
         marginTop: '-40px',
       }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, marginBottom: 8 }}>
+        <div className="menu-card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, marginBottom: 8 }}>
           <h3
             itemProp="name"
             className="menu-card-title"
@@ -173,12 +174,13 @@ export default function MenuCard({ item, index = 0 }: Props) {
               color: 'var(--text-primary)',
               letterSpacing: '-0.01em',
               textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+              wordBreak: 'break-word',
             }}
           >
             {item.name}
           </h3>
 
-          <div style={{
+          <div className="menu-card-price" style={{
             fontSize: 22,
             fontWeight: 900,
             color: 'white',
@@ -187,7 +189,7 @@ export default function MenuCard({ item, index = 0 }: Props) {
           }}>
             <span itemProp="offers" itemScope itemType="https://schema.org/Offer">
               <span itemProp="price">{item.price}</span>
-              <span itemProp="priceCurrency" content="UAH" style={{ fontSize: 16, color: 'var(--accent)', marginLeft: 2 }}>₴</span>
+              <span itemProp="priceCurrency" className="menu-card-currency" content="UAH" style={{ fontSize: 16, color: 'var(--accent)', marginLeft: 2 }}>₴</span>
             </span>
           </div>
         </div>

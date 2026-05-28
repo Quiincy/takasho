@@ -155,7 +155,18 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
       </div>
 
       {/* Categories */}
-      <div style={{ marginBottom: 36 }}>
+      <div style={{
+        marginBottom: 36,
+        position: 'sticky',
+        top: 85,
+        zIndex: 40,
+        background: 'rgba(13, 13, 13, 0.85)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        padding: '16px 20px',
+        margin: '0 -20px 24px',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+      }}>
         <CategoryFilter categories={initialCategories} activeCategory={activeCategory} onSelect={setActiveCategory} />
       </div>
 

@@ -27,7 +27,7 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -36,7 +36,7 @@ body {
   min-height: 100vh;
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Scrollbar */
@@ -310,7 +310,17 @@ body {
   .menu-card-content {
     padding: 12px !important;
   }
+  .menu-card-header {
+    flex-direction: column !important;
+    gap: 4px !important;
+  }
   .menu-card-title {
+    font-size: 14px !important;
+  }
+  .menu-card-price {
+    font-size: 18px !important;
+  }
+  .menu-card-currency {
     font-size: 14px !important;
   }
   .menu-card-add-btn {

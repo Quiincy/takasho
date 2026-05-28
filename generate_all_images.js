@@ -34,18 +34,18 @@ function downloadImage(url, dest) {
 }
 
 const categoryPrompts = {
-  pizza: "A delicious professional food photography of a whole pizza, top down view, high quality, dark background, cinematic lighting. Ingredients: ",
-  sushi: "A delicious professional food photography of premium sushi rolls on a dark slate plate, cinematic lighting. Ingredients: ",
-  burgers: "A delicious professional food photography of a gourmet juicy burger on a wooden board, cinematic lighting. Ingredients: ",
-  shawarma: "A delicious professional food photography of a juicy shawarma wrap cut in half, dark background, cinematic lighting. Ingredients: ",
-  soups: "A delicious professional food photography of a bowl of hot soup, top view, cinematic lighting. Ingredients: ",
-  hot_appetizer: "A delicious professional food photography of a hot appetizer dish, cinematic lighting. Ingredients: ",
-  crisps: "A delicious professional food photography of crispy fried snacks, cinematic lighting. Ingredients: ",
-  beer_app: "A delicious professional food photography of beer snacks on a wooden board, cinematic lighting. Ingredients: ",
-  salad: "A delicious professional food photography of a fresh salad in a bowl, cinematic lighting. Ingredients: ",
-  drinks: "A delicious professional food photography of a refreshing drink in a glass, cinematic lighting. Ingredients: ",
-  na_drinks: "A delicious professional food photography of a refreshing non-alcoholic drink with ice, cinematic lighting. Ingredients: ",
-  deserts: "A delicious professional food photography of a sweet dessert on a plate, cinematic lighting. Ingredients: "
+  pizza: "A delicious professional food photography of a whole pizza, top down view, high quality, dark background, cinematic lighting.",
+  sushi: "A delicious professional food photography of premium sushi rolls on a dark slate plate, cinematic lighting.",
+  burgers: "A delicious professional food photography of a gourmet juicy burger on a wooden board, cinematic lighting.",
+  shawarma: "A delicious professional food photography of a juicy shawarma wrap cut in half, dark background, cinematic lighting.",
+  soups: "A delicious professional food photography of a bowl of hot soup, top view, cinematic lighting.",
+  hot_appetizer: "A delicious professional food photography of a hot appetizer dish, cinematic lighting.",
+  crisps: "A delicious professional food photography of crispy fried snacks, cinematic lighting.",
+  beer_app: "A delicious professional food photography of beer snacks on a wooden board, cinematic lighting.",
+  salad: "A delicious professional food photography of a fresh salad in a bowl, cinematic lighting.",
+  drinks: "A delicious professional food photography of a refreshing drink in a glass, cinematic lighting.",
+  na_drinks: "A delicious professional food photography of a refreshing non-alcoholic drink with ice, cinematic lighting.",
+  deserts: "A delicious professional food photography of a sweet dessert on a plate, cinematic lighting."
 };
 
 async function run() {
@@ -61,17 +61,25 @@ async function run() {
       break;
     }
 
-    const fileName = `${item.id}.jpg`;
+    const timestamp = Date.now();
+    const fileName = `${item.id}-${timestamp}.jpg`;
     const dest = path.join(outDir, fileName);
     
-    // Пропускаємо, якщо страва вже має унікальну згенеровану картинку
-    if (fs.existsSync(dest) && item.image === `/dishes/${fileName}`) {
-       continue;
+    // Видаляємо стару картинку, щоб не засмічувати диск
+    if (item.image && item.image.startsWith('/dishes/')) {
+        const oldFile = path.join(__dirname, 'public', item.image);
+        if (fs.existsSync(oldFile)) {
+            try { fs.unlinkSync(oldFile); } catch (e) {}
+        }
     }
 
-    const catPrompt = categoryPrompts[item.category_id] || "Professional food photography of ";
-    const fullPrompt = `${catPrompt} ${item.name}. ${item.description || ''}`;
-    const encodedPrompt = encodeURIComponent(fullPrompt) + '?width=800&height=800&nologo=true';
+    const catPrompt = categoryPrompts[item.category_id] || "Professional food photography of";
+    let fullPrompt = `${catPrompt} ${item.name}.`;
+    if (item.description && item.description.trim() !== '') {
+      fullPrompt += ` Ingredients: ${item.description}.`;
+    }
+    const randomSeed = Math.floor(Math.random() * 1000000);
+    const encodedPrompt = encodeURIComponent(fullPrompt) + `?width=800&height=800&nologo=true&seed=${randomSeed}`;
     const url = `https://image.pollinations.ai/prompt/${encodedPrompt}`;
     
     try {
