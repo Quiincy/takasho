@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, ShoppingCart, Phone } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
@@ -81,18 +82,17 @@ export default function Header() {
       }}>
         {/* Logo */}
         <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
-          <div style={{
-            width: 38,
-            height: 38,
-            background: 'linear-gradient(135deg, var(--accent) 0%, #c1121f 100%)',
-            borderRadius: 10,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: 18,
-            boxShadow: 'var(--shadow-accent)',
-            flexShrink: 0,
-          }}>🍣</div>
+          <Image 
+            src="/logo_red.png" 
+            alt="Enot Sushi Logo" 
+            width={38} 
+            height={38} 
+            style={{ 
+              borderRadius: 10, 
+              objectFit: 'cover',
+              boxShadow: 'var(--shadow-accent)',
+            }} 
+          />
           <div>
             <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
               ENOT SUSHI

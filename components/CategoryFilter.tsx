@@ -25,7 +25,7 @@ export default function CategoryFilter({ categories, activeCategory, onSelect }:
   }, [activeCategory]);
 
   return (
-    <div className="category-scroll" ref={scrollRef} style={{ paddingBottom: 8, position: 'relative' }}>
+    <div className="category-scroll" ref={scrollRef} style={{ paddingBottom: 4, position: 'relative' }}>
       <div style={{
         display: 'flex',
         gap: 8,
@@ -38,7 +38,7 @@ export default function CategoryFilter({ categories, activeCategory, onSelect }:
             display: 'flex',
             alignItems: 'center',
             gap: 8,
-            padding: '8px 16px',
+            padding: '6px 14px',
             borderRadius: 100,
             border: '1px solid',
             borderColor: activeCategory === 'all' ? 'transparent' : 'rgba(255,255,255,0.08)',
@@ -67,7 +67,7 @@ export default function CategoryFilter({ categories, activeCategory, onSelect }:
               display: 'flex',
               alignItems: 'center',
               gap: 8,
-              padding: '8px 16px',
+              padding: '6px 14px',
               borderRadius: 100,
               border: '1px solid',
               borderColor: activeCategory === cat.id ? 'transparent' : 'rgba(255,255,255,0.08)',

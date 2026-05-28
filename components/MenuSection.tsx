@@ -73,6 +73,18 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
         i => i.name.toLowerCase().includes(s) || (i.description && i.description.toLowerCase().includes(s))
       );
     }
+
+    // Sort sets naturally by their name (e.g., Сет 1, Сет 2, Сет 3...)
+    items = [...items].sort((a, b) => {
+      const aIsSet = a.name.toLowerCase().includes('сет');
+      const bIsSet = b.name.toLowerCase().includes('сет');
+      
+      if (aIsSet && bIsSet) {
+        return a.name.localeCompare(b.name, 'uk', { numeric: true, sensitivity: 'base' });
+      }
+      return 0; // Preserve existing order for other items
+    });
+
     return items;
   }, [activeCategory, subCategory, search, initialItems]);
 
@@ -83,7 +95,7 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
     setTimeout(() => {
       const anchor = document.getElementById('menu-grid-anchor');
       if (anchor) {
-        const offset = 150;
+        const offset = 170;
         const elementRect = anchor.getBoundingClientRect().top;
         if (elementRect < offset) {
           window.scrollBy({ top: elementRect - offset, behavior: 'smooth' });
@@ -103,7 +115,7 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
     setTimeout(() => {
       const anchor = document.getElementById('menu-grid-anchor');
       if (anchor) {
-        const offset = 170; // Header height + Sticky filter height
+        const offset = 190; // Header height + Sticky filter height
         const elementRect = anchor.getBoundingClientRect().top;
         
         // Only scroll if the grid is hidden behind the sticky filter (i.e., user scrolled down)
@@ -217,12 +229,12 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
       <div style={{
         marginBottom: 36,
         position: 'sticky',
-        top: 85,
+        top: 96,
         zIndex: 40,
         background: 'rgba(13, 13, 13, 0.85)',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
-        padding: '12px 20px',
+        padding: '4px 20px 8px',
         margin: '0 -20px 16px',
         borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
       }}>
@@ -233,9 +245,9 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
           <div className="sushi-sub-filter" style={{
             display: 'flex',
             gap: 8,
-            marginTop: 12,
+            marginTop: 8,
             overflowX: 'auto',
-            paddingBottom: 4,
+            paddingBottom: 2,
             WebkitOverflowScrolling: 'touch',
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
@@ -255,7 +267,7 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
                   scrollToGrid();
                 }}
                 style={{
-                  padding: '6px 14px',
+                  padding: '4px 12px',
                   borderRadius: 100,
                   fontSize: 13,
                   fontWeight: 600,
