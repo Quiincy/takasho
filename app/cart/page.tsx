@@ -412,7 +412,7 @@ export default function CartPage() {
                         borderRadius: 14,
                         boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
                         color: 'var(--text-primary)',
-                        fontSize: 15,
+                        fontSize: 16,
                         outline: 'none',
                         transition: 'border-color 0.2s',
                         boxSizing: 'border-box',
