@@ -226,10 +226,19 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
       </div>
 
       {/* Categories */}
-      <div style={{
+      <style>{`
+        .sticky-filter-wrapper {
+          position: sticky;
+          top: 96px;
+        }
+        @media (max-width: 768px) {
+          .sticky-filter-wrapper {
+            top: 85px;
+          }
+        }
+      `}</style>
+      <div className="sticky-filter-wrapper" style={{
         marginBottom: 36,
-        position: 'sticky',
-        top: 96,
         zIndex: 40,
         background: 'rgba(13, 13, 13, 0.85)',
         backdropFilter: 'blur(12px)',
