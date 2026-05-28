@@ -79,6 +79,19 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
   const paginatedItems = filtered.slice(0, currentPage * itemsPerPage);
 
+  const scrollToGrid = () => {
+    setTimeout(() => {
+      const anchor = document.getElementById('menu-grid-anchor');
+      if (anchor) {
+        const offset = 150;
+        const elementRect = anchor.getBoundingClientRect().top;
+        if (elementRect < offset) {
+          window.scrollBy({ top: elementRect - offset, behavior: 'smooth' });
+        }
+      }
+    }, 10);
+  };
+
   const catName = activeCategory === 'all'
     ? 'Все меню'
     : initialCategories.find(c => c.id === activeCategory)?.name ?? '';
@@ -209,8 +222,8 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
         background: 'rgba(13, 13, 13, 0.85)',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
-        padding: '16px 20px',
-        margin: '0 -20px 24px',
+        padding: '12px 20px',
+        margin: '0 -20px 16px',
         borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
       }}>
         <CategoryFilter categories={initialCategories} activeCategory={activeCategory} onSelect={handleCategorySelect} />
@@ -220,7 +233,7 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
           <div className="sushi-sub-filter" style={{
             display: 'flex',
             gap: 8,
-            marginTop: 16,
+            marginTop: 12,
             overflowX: 'auto',
             paddingBottom: 4,
             WebkitOverflowScrolling: 'touch',
@@ -237,9 +250,12 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
             ].map((sub) => (
               <button
                 key={sub.id}
-                onClick={() => setSubCategory(sub.id as any)}
+                onClick={() => {
+                  setSubCategory(sub.id as any);
+                  scrollToGrid();
+                }}
                 style={{
-                  padding: '6px 16px',
+                  padding: '6px 14px',
                   borderRadius: 100,
                   fontSize: 13,
                   fontWeight: 600,
