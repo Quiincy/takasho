@@ -3,7 +3,7 @@
 import MenuCard from '@/components/MenuCard';
 import CategoryFilter from '@/components/CategoryFilter';
 import { useState, useMemo, useEffect } from 'react';
-import { Search } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { DbCategory, DbMenuItem } from '@/lib/supabase';
 
@@ -30,6 +30,7 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
   const [subCategory, setSubCategory] = useState<'all' | 'rolls' | 'sets'>('all');
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const itemsPerPage = 12;
 
   useEffect(() => {
@@ -91,17 +92,16 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
   const paginatedItems = filtered.slice(0, currentPage * itemsPerPage);
 
-  const scrollToGrid = () => {
+  const scrollToGrid = (customOffset?: number) => {
     setTimeout(() => {
       const anchor = document.getElementById('menu-grid-anchor');
       if (anchor) {
-        const offset = 170;
-        const elementRect = anchor.getBoundingClientRect().top;
-        if (elementRect < offset) {
-          window.scrollBy({ top: elementRect - offset, behavior: 'smooth' });
-        }
+        // Use 100 for mobile (just header) and 190 for desktop (header + sticky filter)
+        const offset = customOffset ?? (window.innerWidth <= 768 ? 100 : 190);
+        const y = anchor.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
       }
-    }, 10);
+    }, 50);
   };
 
   const catName = activeCategory === 'all'
@@ -110,23 +110,10 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
 
   const handleCategorySelect = (id: string) => {
     setActiveCategory(id);
+    setIsFilterOpen(false);
     
     // Scroll back to the top of the menu grid so the user sees the first items of the new category
-    setTimeout(() => {
-      const anchor = document.getElementById('menu-grid-anchor');
-      if (anchor) {
-        const offset = 190; // Header height + Sticky filter height
-        const elementRect = anchor.getBoundingClientRect().top;
-        
-        // Only scroll if the grid is hidden behind the sticky filter (i.e., user scrolled down)
-        if (elementRect < offset) {
-          window.scrollBy({
-            top: elementRect - offset,
-            behavior: 'smooth'
-          });
-        }
-      }
-    }, 50);
+    scrollToGrid();
   };
 
   return (
@@ -225,19 +212,66 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
         />
       </div>
 
-      {/* Categories */}
+      {/* Categories - Desktop Only */}
       <style>{`
         .sticky-filter-wrapper {
           position: sticky;
           top: 96px;
         }
-        @media (max-width: 768px) {
-          .sticky-filter-wrapper {
-            top: 85px;
-          }
+        
+        .animated-menu-btn {
+          position: fixed;
+          right: 0;
+          top: 105px;
+          z-index: 40;
+          writing-mode: vertical-rl;
+          text-orientation: upright;
+          color: white;
+          padding: 16px 8px;
+          border-radius: 12px 0 0 12px;
+          font-weight: 800;
+          font-size: 14px;
+          letter-spacing: 2px;
+          cursor: pointer;
+          border: none;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          background: var(--bg-card); /* Fallback */
+          box-shadow: -4px 0 15px rgba(230, 57, 70, 0.3);
+        }
+
+        .animated-menu-btn::before {
+          content: '';
+          position: absolute;
+          width: 200%;
+          height: 100%;
+          background: conic-gradient(transparent, transparent 30%, #fff);
+          animation: spin 3s linear infinite;
+          z-index: 0;
+        }
+
+        .animated-menu-btn::after {
+          content: '';
+          position: absolute;
+          inset: 2px;
+          right: 0;
+          border-radius: 10px 0 0 10px;
+          background: linear-gradient(to bottom, var(--accent) 0%, #c1121f 100%);
+          z-index: 1;
+        }
+
+        .animated-menu-btn span {
+          position: relative;
+          z-index: 2;
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
       `}</style>
-      <div className="sticky-filter-wrapper" style={{
+      <div className="sticky-filter-wrapper hide-mobile" style={{
         marginBottom: 36,
         zIndex: 40,
         background: 'rgba(13, 13, 13, 0.85)',
@@ -295,6 +329,143 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
           </div>
         )}
       </div>
+
+      {/* Mobile Vertical Menu Trigger */}
+      <button
+        className="show-mobile animated-menu-btn"
+        onClick={() => setIsFilterOpen(true)}
+      >
+        <span>МЕНЮ</span>
+      </button>
+
+      {/* Mobile Filter Drawer */}
+      {isFilterOpen && (
+        <div className="show-mobile" style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 1000,
+          display: 'none',
+        }}>
+          {/* Backdrop */}
+          <div 
+            style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
+            onClick={() => setIsFilterOpen(false)}
+          />
+          {/* Drawer Panel */}
+          <div style={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            bottom: 0,
+            width: '280px',
+            background: 'var(--bg-primary)',
+            borderLeft: '1px solid var(--border)',
+            boxShadow: '-10px 0 30px rgba(0,0,0,0.5)',
+            display: 'flex',
+            flexDirection: 'column',
+            animation: 'slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+          }}>
+            <div style={{ padding: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border)' }}>
+              <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-primary)' }}>Фільтр меню</h3>
+              <button onClick={() => setIsFilterOpen(false)} style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex', padding: 4 }}>
+                <X size={24} />
+              </button>
+            </div>
+            
+            <div style={{ padding: '20px', overflowY: 'auto', flex: 1, display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <button
+                onClick={() => handleCategorySelect('all')}
+                style={{
+                  padding: '12px 16px',
+                  borderRadius: 12,
+                  fontSize: 15,
+                  fontWeight: 600,
+                  textAlign: 'left',
+                  border: '1px solid',
+                  borderColor: activeCategory === 'all' ? 'transparent' : 'rgba(255,255,255,0.08)',
+                  background: activeCategory === 'all' ? 'linear-gradient(135deg, var(--accent) 0%, #c1121f 100%)' : 'rgba(255,255,255,0.03)',
+                  color: activeCategory === 'all' ? 'white' : 'var(--text-secondary)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                }}
+              >
+                <span>🍽️</span> Все меню
+              </button>
+              
+              {initialCategories.map(cat => (
+                <div key={cat.id} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  <button
+                    onClick={() => {
+                      if (cat.id === 'sushi' && activeCategory !== 'sushi') {
+                        setActiveCategory(cat.id);
+                      } else {
+                        handleCategorySelect(cat.id);
+                      }
+                    }}
+                    style={{
+                      padding: '12px 16px',
+                      borderRadius: 12,
+                      fontSize: 15,
+                      fontWeight: 600,
+                      textAlign: 'left',
+                      border: '1px solid',
+                      borderColor: activeCategory === cat.id ? 'transparent' : 'rgba(255,255,255,0.08)',
+                      background: activeCategory === cat.id ? 'linear-gradient(135deg, var(--accent) 0%, #c1121f 100%)' : 'rgba(255,255,255,0.03)',
+                      color: activeCategory === cat.id ? 'white' : 'var(--text-secondary)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 12,
+                    }}
+                  >
+                    <span>{cat.emoji}</span> {cat.name}
+                  </button>
+                  
+                  {/* Nested Subcategories for Sushi */}
+                  {cat.id === 'sushi' && activeCategory === 'sushi' && (
+                    <div style={{ paddingLeft: 16, display: 'flex', flexDirection: 'column', gap: 8, marginTop: 4, marginBottom: 8 }}>
+                      {[
+                        { id: 'all', label: 'Всі суші' },
+                        { id: 'rolls', label: '🍣 Роли' },
+                        { id: 'sets', label: '🍱 Сети' },
+                      ].map((sub) => (
+                        <button
+                          key={sub.id}
+                          onClick={() => {
+                            setSubCategory(sub.id as any);
+                            setIsFilterOpen(false);
+                            scrollToGrid();
+                          }}
+                          style={{
+                            padding: '10px 16px',
+                            borderRadius: 12,
+                            fontSize: 14,
+                            fontWeight: 600,
+                            textAlign: 'left',
+                            border: '1px solid',
+                            borderColor: subCategory === sub.id ? 'var(--accent)' : 'rgba(255,255,255,0.08)',
+                            background: subCategory === sub.id ? 'rgba(230,57,70,0.1)' : 'rgba(255,255,255,0.03)',
+                            color: subCategory === sub.id ? 'var(--accent)' : 'var(--text-secondary)',
+                            transition: 'all 0.2s',
+                          }}
+                        >
+                          {sub.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+          <style>{`
+            @keyframes slideInRight {
+              from { transform: translateX(100%); }
+              to { transform: translateX(0); }
+            }
+          `}</style>
+        </div>
+      )}
 
       <div id="menu-grid-anchor" style={{ position: 'relative', top: -10 }} />
 

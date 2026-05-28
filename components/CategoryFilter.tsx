@@ -7,9 +7,10 @@ interface Props {
   categories: DbCategory[];
   activeCategory: string;
   onSelect: (id: string) => void;
+  isVertical?: boolean;
 }
 
-export default function CategoryFilter({ categories, activeCategory, onSelect }: Props) {
+export default function CategoryFilter({ categories, activeCategory, onSelect, isVertical = false }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -25,11 +26,12 @@ export default function CategoryFilter({ categories, activeCategory, onSelect }:
   }, [activeCategory]);
 
   return (
-    <div className="category-scroll" ref={scrollRef} style={{ paddingBottom: 4, position: 'relative' }}>
+    <div className={isVertical ? "" : "category-scroll"} ref={scrollRef} style={{ paddingBottom: isVertical ? 0 : 4, position: 'relative' }}>
       <div style={{
         display: 'flex',
+        flexDirection: isVertical ? 'column' : 'row',
         gap: 8,
-        minWidth: 'max-content',
+        minWidth: isVertical ? '100%' : 'max-content',
       }}>
         <button
           id="cat-all"
@@ -53,6 +55,7 @@ export default function CategoryFilter({ categories, activeCategory, onSelect }:
             cursor: 'pointer',
             transition: 'all 0.3s ease',
             whiteSpace: 'nowrap',
+            justifyContent: isVertical ? 'flex-start' : 'center',
           }}
         >
           🍽️ Все меню
@@ -82,6 +85,7 @@ export default function CategoryFilter({ categories, activeCategory, onSelect }:
               cursor: 'pointer',
               transition: 'all 0.3s ease',
               whiteSpace: 'nowrap',
+              justifyContent: isVertical ? 'flex-start' : 'center',
             }}
             onMouseEnter={e => {
               if (activeCategory !== cat.id) {
