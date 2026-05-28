@@ -27,7 +27,18 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
   }, [categoryParam, categoryNameParam, initialCategories]);
 
   const [activeCategory, setActiveCategory] = useState(initialCatId);
+  const [subCategory, setSubCategory] = useState<'all' | 'rolls' | 'sets'>('all');
   const [search, setSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+
+  useEffect(() => {
+    setSubCategory('all');
+  }, [activeCategory]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeCategory, subCategory, search]);
 
   useEffect(() => {
     if (categoryParam || categoryNameParam) {
@@ -45,6 +56,17 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
     if (activeCategory !== 'all') {
       items = items.filter(i => i.category_id === activeCategory);
     }
+    
+    // Subcategory filtering for sushi
+    if (activeCategory === 'sushi' && subCategory !== 'all') {
+      items = items.filter(i => {
+        const isSet = i.name.toLowerCase().includes('сет');
+        if (subCategory === 'sets') return isSet;
+        if (subCategory === 'rolls') return !isSet;
+        return true;
+      });
+    }
+
     if (search.trim()) {
       const s = search.toLowerCase();
       items = items.filter(
@@ -52,7 +74,10 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
       );
     }
     return items;
-  }, [activeCategory, search, initialItems]);
+  }, [activeCategory, subCategory, search, initialItems]);
+
+  const totalPages = Math.ceil(filtered.length / itemsPerPage);
+  const paginatedItems = filtered.slice(0, currentPage * itemsPerPage);
 
   const catName = activeCategory === 'all'
     ? 'Все меню'
@@ -189,6 +214,49 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
         borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
       }}>
         <CategoryFilter categories={initialCategories} activeCategory={activeCategory} onSelect={handleCategorySelect} />
+        
+        {/* Subcategories for Sushi */}
+        {activeCategory === 'sushi' && (
+          <div className="sushi-sub-filter" style={{
+            display: 'flex',
+            gap: 8,
+            marginTop: 16,
+            overflowX: 'auto',
+            paddingBottom: 4,
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+          }}>
+            <style>{`
+              .sushi-sub-filter::-webkit-scrollbar { display: none; }
+            `}</style>
+            {[
+              { id: 'all', label: 'Всі суші' },
+              { id: 'rolls', label: '🍣 Роли' },
+              { id: 'sets', label: '🍱 Сети' },
+            ].map((sub) => (
+              <button
+                key={sub.id}
+                onClick={() => setSubCategory(sub.id as any)}
+                style={{
+                  padding: '6px 16px',
+                  borderRadius: 100,
+                  fontSize: 13,
+                  fontWeight: 600,
+                  whiteSpace: 'nowrap',
+                  border: '1px solid',
+                  borderColor: subCategory === sub.id ? 'var(--accent)' : 'rgba(255,255,255,0.1)',
+                  background: subCategory === sub.id ? 'var(--accent)' : 'transparent',
+                  color: subCategory === sub.id ? 'white' : 'var(--text-secondary)',
+                  transition: 'all 0.2s',
+                  cursor: 'pointer'
+                }}
+              >
+                {sub.label}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       <div id="menu-grid-anchor" style={{ position: 'relative', top: -10 }} />
@@ -226,18 +294,57 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
           <p style={{ fontSize: 14, marginTop: 8 }}>Спробуйте інший запит або категорію</p>
         </div>
       ) : (
-        <div
-          className="menu-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-            gap: 20,
-          }}
-        >
-          {filtered.map((item, idx) => (
-            <MenuCard key={item.id} item={item} index={idx} />
-          ))}
-        </div>
+        <>
+          <div
+            className="menu-grid"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+              gap: 20,
+            }}
+          >
+            {paginatedItems.map((item, idx) => (
+              <MenuCard key={item.id} item={item} index={idx} />
+            ))}
+          </div>
+
+          {/* "Show More" Button */}
+          {currentPage < totalPages && (
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: 40,
+            }}>
+              <button
+                onClick={() => setCurrentPage(p => p + 1)}
+                style={{
+                  padding: '14px 32px',
+                  borderRadius: 100,
+                  border: '1px solid var(--accent)',
+                  background: 'transparent',
+                  color: 'var(--accent)',
+                  fontWeight: 700,
+                  fontSize: 16,
+                  cursor: 'pointer',
+                  transition: 'all 0.3s',
+                  boxShadow: '0 4px 15px rgba(230,57,70,0.1)',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = 'var(--accent)';
+                  e.currentTarget.style.color = 'white';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(230,57,70,0.4)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.color = 'var(--accent)';
+                  e.currentTarget.style.boxShadow = '0 4px 15px rgba(230,57,70,0.1)';
+                }}
+              >
+                Показати ще ↓
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       {/* Disclaimer */}

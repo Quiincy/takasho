@@ -51,6 +51,11 @@ export async function POST() {
     { id:'sushi-15', category_id:'sushi', name:'Хіяші',               price:370,  weight:'280 г',  image:'/sushi_hiyashi.png',          description:'Холодний рол з огірком, авокадо, кунжутом', sort_order:15 },
     { id:'sushi-16', category_id:'sushi', name:'Київський',           price:390,  weight:'290 г',  image:'/sushi_kyiv.png',             description:'Курка по-київськи в ролі: крем-сир, зелень, сир', sort_order:16 },
     { id:'sushi-17', category_id:'sushi', name:'Роял',                price:450,  weight:'310 г',  image:'/sushi_royal.png',            description:'Угор, лосось, авокадо, ікра тобіко двох видів', sort_order:17 },
+    { id:'sushi-set-3', category_id:'sushi', name:'Сет №3',           price:1000, weight:'1500 г', image:'/sushi_set2.png',             description:'Золотий дракон, Філадельфія лосось, Каліфорнія креветка + подарунок вино 1.0 (Кількість суші – 24 шт)', sort_order:18 },
+    { id:'sushi-set-4', category_id:'sushi', name:'Сет №4',           price:1000, weight:'1500 г', image:'/sushi_set2.png',             description:'Запечений рол креветка, Каліфорнія вугор, Філадельфія лосось + подарунок вино 1.0 (Кількість суші – 24 шт)', sort_order:19 },
+    { id:'sushi-set-5', category_id:'sushi', name:'Сет №5',           price:1000, weight:'1500 г', image:'/sushi_set2.png',             description:'Красний дракон, Каліфорнія тунець, Гарячий рол лосось + подарунок вино 1.0 (Кількість суші – 24 шт)', sort_order:20 },
+    { id:'sushi-set-6', category_id:'sushi', name:'Сет №6',           price:1100, weight:'1700 г', image:'/sushi_set2.png',             description:'Філадельфія лосось, Каліфорнія лосось, Київ рол лосось з пармезаном, Нігірі лосось + подарунок вино 1.0 (Кількість суші – 27 шт)', sort_order:21 },
+    { id:'sushi-set-7', category_id:'sushi', name:'Сет №7',           price:1000, weight:'1500 г', image:'/sushi_set2.png',             description:'Якудза рол, Роял рол з печеним лососем, Макі тунець, Макі лосось + подарунок вино 1.0 (Кількість суші – 32 шт)', sort_order:22 },
 
     // BURGERS
     { id:'burger-1', category_id:'burgers', name:'Гамбургер',          price:180, weight:'350 г', image:'/burger_hamburger.png',  description:'Соковита котлета, свіжі овочі, соус Бургер, булочка бріош', sort_order:1 },
