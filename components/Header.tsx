@@ -67,8 +67,8 @@ export default function Header() {
         letterSpacing: '0.02em',
         width: '100%',
       }}>
-        🚀 Безкоштовна доставка в радіусі 5 км <span className="hide-mobile">&nbsp;|&nbsp;
-          <span style={{ opacity: 0.9 }}>Понад 5 км — 50% вартості таксі</span></span>
+        🚀 Безкоштовна доставка до 1 км (від 1000 грн) <span className="hide-mobile">&nbsp;|&nbsp;
+          <span style={{ opacity: 0.9 }}>Понад 1 км — за тарифами таксі</span></span>
       </div>
 
       <div style={{
