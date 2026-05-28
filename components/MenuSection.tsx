@@ -58,6 +58,27 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
     ? 'Все меню'
     : initialCategories.find(c => c.id === activeCategory)?.name ?? '';
 
+  const handleCategorySelect = (id: string) => {
+    setActiveCategory(id);
+    
+    // Scroll back to the top of the menu grid so the user sees the first items of the new category
+    setTimeout(() => {
+      const anchor = document.getElementById('menu-grid-anchor');
+      if (anchor) {
+        const offset = 170; // Header height + Sticky filter height
+        const elementRect = anchor.getBoundingClientRect().top;
+        
+        // Only scroll if the grid is hidden behind the sticky filter (i.e., user scrolled down)
+        if (elementRect < offset) {
+          window.scrollBy({
+            top: elementRect - offset,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }, 50);
+  };
+
   return (
     <section
       id="menu"
@@ -167,8 +188,10 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
         margin: '0 -20px 24px',
         borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
       }}>
-        <CategoryFilter categories={initialCategories} activeCategory={activeCategory} onSelect={setActiveCategory} />
+        <CategoryFilter categories={initialCategories} activeCategory={activeCategory} onSelect={handleCategorySelect} />
       </div>
+
+      <div id="menu-grid-anchor" style={{ position: 'relative', top: -10 }} />
 
       {/* Results count */}
       <div style={{
