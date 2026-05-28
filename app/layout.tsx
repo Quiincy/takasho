@@ -12,15 +12,24 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://enot-six.vercel.app'),
   title: 'Enot Sushi — Доставка суші в Києві | Суші, Піца, Бургери',
-  description: 'Замовляйте суші, піцу, бургери та інші страви з безкоштовною доставкою в радіусі 5 км від ресторану Enot Sushi в Києві. Швидка доставка, онлайн оплата Monobank.',
+  description: 'Замовляйте найсмачніші суші, піцу, бургери та інші страви. Швидка доставка, приємні ціни та зручна онлайн оплата.',
   keywords: 'доставка їжі Київ, замовити суші Київ, піца доставка Київ, бургери доставка, Enot Sushi, ресторан Вільде, доставка Дніпровський',
   openGraph: {
     title: 'Enot Sushi — Доставка суші в Києві',
-    description: 'Суші, піца, бургери з безкоштовною доставкою в радіусі 5 км. Онлайн оплата.',
+    description: 'Найсмачніші суші, піца та бургери. Швидка доставка та онлайн оплата.',
     locale: 'uk_UA',
     type: 'website',
     siteName: 'Enot Sushi Delivery',
+    images: [
+      {
+        url: '/logo.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Enot Sushi Logo',
+      },
+    ],
   },
   robots: {
     index: true,
