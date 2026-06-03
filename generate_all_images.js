@@ -3,10 +3,15 @@ const https = require('https');
 const { createClient } = require('@supabase/supabase-js');
 const path = require('path');
 
-const supabase = createClient(
-  'https://fgwvgdvniinvprkckhri.supabase.co',
-  'sb_publishable_LBB3RuPR6BAG2-NkcRIzmA_9GJXbvJx'
-);
+const env = fs.readFileSync('.env.local', 'utf8').split('\n');
+env.forEach(line => {
+  const match = line.match(/^([^=]+)=(.*)$/);
+  if (match) process.env[match[1]] = match[2];
+});
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const outDir = path.join(__dirname, 'public', 'dishes');
 if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
@@ -49,11 +54,11 @@ const categoryPrompts = {
 };
 
 async function run() {
-  const { data: items } = await supabase.from('menu_items').select('*');
+  const { data: items } = await supabase.from('menu_items').select('*').eq('image', '/pizza.png');
   console.log(`Found ${items.length} items.`);
   
   let successCount = 0;
-  const LIMIT = 10; // Генеруємо рівно по 10 картинок за один запуск
+  const LIMIT = 200; // Генеруємо для всіх нових товарів
   
   for (const item of items) {
     if (successCount >= LIMIT) {

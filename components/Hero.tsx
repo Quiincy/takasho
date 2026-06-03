@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Star, Clock, Bike, ChevronDown } from 'lucide-react';
+import { ArrowRight, Star, Clock, Bike, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/lib/cart-context';
@@ -35,16 +35,49 @@ const Blobs = () => (
   </>
 );
 
+const getCategoryMeta = (id: string) => {
+  switch(id) {
+    case 'pizza': return { cat: '🍕 Піца', query: 'pizza' };
+    case 'sushi': return { cat: '🍣 Суші', query: 'sushi' };
+    case 'burgers': return { cat: '🍔 Бургери', query: 'burgers' };
+    case 'hot_appetizer': return { cat: '🔥 Гарячі', query: 'hot_appetizer' };
+    case 'crisps': return { cat: '🍟 Хрустке', query: 'crisps' };
+    case 'soups': return { cat: '🍲 Супи', query: 'soups' };
+    case 'salad': return { cat: '🥗 Салати', query: 'salad' };
+    case 'drinks': return { cat: '🥤 Напої', query: 'drinks' };
+    case 'deserts': return { cat: '🍰 Десерти', query: 'deserts' };
+    default: return { cat: '🍽️ Меню', query: id };
+  }
+};
+
 export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
   const [active, setActive] = useState(0);
   const [visible, setVisible] = useState(false);
   const timer = useRef<NodeJS.Timeout | null>(null);
+  const touchStartX = useRef<number | null>(null);
   const router = useRouter();
   const { addItem } = useCart();
 
+  const actualSlides = popularItems.length > 0 
+    ? popularItems.map(i => {
+        const meta = getCategoryMeta(i.category_id);
+        return {
+          src: i.image,
+          label: i.name,
+          price: `${i.price} ₴`,
+          cat: meta.cat,
+          query: meta.query,
+          id: i.id,
+          weight: i.weight,
+          rawPrice: i.price,
+          categoryId: i.category_id
+        };
+      })
+    : SLIDES.map(s => ({ ...s, id: 'test', weight: '1 порція', rawPrice: parseInt(s.price), categoryId: '' }));
+
   useEffect(() => {
     setTimeout(() => setVisible(true), 80);
-    timer.current = setInterval(() => setActive(p => (p + 1) % SLIDES.length), 3200);
+    timer.current = setInterval(() => setActive(p => (p + 1) % actualSlides.length), 3200);
     return () => { if (timer.current) clearInterval(timer.current); };
   }, []);
 
@@ -52,8 +85,20 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
     document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const handleSlideClick = (query: string) => {
-    router.push(`/?categoryName=${encodeURIComponent(query)}`);
+  const handleSlideClick = (slide: any) => {
+    addItem({
+      id: slide.id || 'test',
+      name: slide.label,
+      price: slide.rawPrice || parseInt(slide.price),
+      image: slide.src,
+      weight: slide.weight || '1 порція',
+      category_id: slide.categoryId || '',
+      description: null,
+      is_available: true,
+      sort_order: 0,
+      created_at: new Date().toISOString()
+    });
+    router.push('/cart');
   };
 
   const handleMobileGridClick = (card: any) => {
@@ -75,6 +120,27 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
   const displayItems = popularItems.length > 0 
     ? popularItems.map(i => ({ id: i.id, src: i.image, label: i.name, price: i.price, weight: i.weight }))
     : MOBILE_GRID;
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX;
+
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        setActive(p => (p + 1) % actualSlides.length);
+      } else {
+        setActive(p => (p - 1 + actualSlides.length) % actualSlides.length);
+      }
+      if (timer.current) clearInterval(timer.current);
+      timer.current = setInterval(() => setActive(p => (p + 1) % actualSlides.length), 3200);
+    }
+    touchStartX.current = null;
+  };
 
   return (
     <section style={{
@@ -142,40 +208,72 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
 
         {/* Right: slideshow */}
         <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)', transition: 'all .8s cubic-bezier(.16,1,.3,1) .15s' }}>
-          <div style={{ position: 'relative', width: '100%', maxWidth: 520, aspectRatio: '4/3', borderRadius: 24, overflow: 'hidden', border: '1px solid rgba(255,255,255,.08)', boxShadow: '0 40px 80px rgba(0,0,0,.5)' }}>
-            {SLIDES.map((s, i) => (
-              <button key={i} onClick={() => handleSlideClick(s.query)} style={{ position: 'absolute', inset: 0, opacity: i === active ? 1 : 0, transform: i === active ? 'scale(1)' : 'scale(1.04)', transition: 'opacity .7s ease, transform .7s ease', border: 'none', background: 'transparent', padding: 0, cursor: i === active ? 'pointer' : 'default', display: 'block', width: '100%', height: '100%', pointerEvents: i === active ? 'auto' : 'none', zIndex: i === active ? 2 : 1 }}>
+          {/* Desktop left arrow */}
+          <button 
+            className="hide-mobile"
+            onClick={(e) => {
+               e.stopPropagation();
+               setActive(p => (p - 1 + actualSlides.length) % actualSlides.length);
+               if (timer.current) clearInterval(timer.current);
+               timer.current = setInterval(() => setActive(p => (p + 1) % actualSlides.length), 3200);
+            }}
+            style={{ position: 'absolute', left: -50, zIndex: 20, background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.15)', borderRadius: '50%', width: 44, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', cursor: 'pointer', backdropFilter: 'blur(10px)', transition: 'all .2s' }}
+            onMouseEnter={e => e.currentTarget.style.background = 'rgba(230,57,70,.8)'}
+            onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,.05)'}
+          >
+            <ChevronLeft size={24} />
+          </button>
+
+          <div 
+            onTouchStart={handleTouchStart} 
+            onTouchEnd={handleTouchEnd}
+            style={{ position: 'relative', width: '100%', maxWidth: 520, aspectRatio: '4/3', borderRadius: 24, overflow: 'hidden', border: '1px solid rgba(255,255,255,.08)', boxShadow: '0 40px 80px rgba(0,0,0,.5)' }}
+          >
+            <div style={{ position: 'absolute', top: 14, left: 14, background: 'rgba(230,57,70,.9)', backdropFilter: 'blur(10px)', padding: '6px 12px', borderRadius: 10, color: 'white', fontWeight: 800, fontSize: 13, zIndex: 11, display: 'flex', alignItems: 'center', gap: 6, boxShadow: '0 4px 12px rgba(0,0,0,.3)' }}>
+              🔥 Популярне
+            </div>
+            {actualSlides.map((s, i) => (
+              <button key={i} onClick={() => handleSlideClick(s)} style={{ position: 'absolute', inset: 0, opacity: i === active ? 1 : 0, transform: i === active ? 'scale(1)' : 'scale(1.04)', transition: 'opacity .7s ease, transform .7s ease', border: 'none', background: 'transparent', padding: 0, cursor: i === active ? 'pointer' : 'default', display: 'block', width: '100%', height: '100%', pointerEvents: i === active ? 'auto' : 'none', zIndex: i === active ? 2 : 1 }}>
                 <Image src={s.src} alt={s.label} fill sizes="(max-width: 768px) 0vw, 520px" priority={i === 0} style={{ objectFit: 'cover' }} />
               </button>
             ))}
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 50%)', pointerEvents: 'none', zIndex: 10 }} />
             <div style={{ position: 'absolute', bottom: 20, left: 20, pointerEvents: 'none', zIndex: 10 }}>
-              <span style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', display: 'block', marginBottom: 4 }}>{SLIDES[active].cat}</span>
+              <span style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', display: 'block', marginBottom: 4 }}>{actualSlides[active].cat}</span>
               <span style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <span style={{ fontSize: 24, fontWeight: 800, color: 'white', letterSpacing: '-.02em' }}>{SLIDES[active].label}</span>
-                <span style={{ background: 'rgba(230,57,70,.95)', backdropFilter: 'blur(10px)', borderRadius: 8, padding: '4px 10px', color: 'white', fontWeight: 800, fontSize: 16 }}>{SLIDES[active].price}</span>
+                <span style={{ fontSize: 24, fontWeight: 800, color: 'white', letterSpacing: '-.02em' }}>{actualSlides[active].label}</span>
+                <span style={{ background: 'rgba(230,57,70,.95)', backdropFilter: 'blur(10px)', borderRadius: 8, padding: '4px 10px', color: 'white', fontWeight: 800, fontSize: 16 }}>{actualSlides[active].price}</span>
               </span>
             </div>
-            <div style={{ position: 'absolute', top: 14, right: 14, display: 'flex', gap: 5, zIndex: 10 }}>
-              {SLIDES.map((_, i) => (
+            <div style={{ position: 'absolute', top: 14, right: 14, left: 14, display: 'flex', gap: 5, zIndex: 10, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+              {actualSlides.map((_, i) => (
                 <button key={i} onClick={() => setActive(i)} style={{ width: i === active ? 20 : 8, height: 8, borderRadius: 100, background: i === active ? 'var(--accent)' : 'rgba(255,255,255,.3)', border: 'none', cursor: 'pointer', padding: 0, transition: 'all .35s ease' }} />
               ))}
             </div>
           </div>
 
           {/* floating badges — desktop only */}
-          <div className="hide-mobile" style={{ position: 'absolute', top: -16, left: -20, zIndex: 20, background: 'rgba(26,26,26,.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 16, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10, boxShadow: '0 20px 40px rgba(0,0,0,.4)', animation: 'float 4s ease-in-out infinite' }}>
-            <div style={{ width: 40, height: 40, borderRadius: 10, overflow: 'hidden', position: 'relative', flexShrink: 0 }}><Image src="/sushi_dragon.png" alt="dragon" fill sizes="40px" style={{ objectFit: 'cover' }} /></div>
-            <div><div style={{ fontSize: 13, fontWeight: 700 }}>Золотий Дракон</div><div style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 600 }}>420 ₴ • 🍣 Суші</div></div>
-          </div>
           <div className="hide-mobile" style={{ position: 'absolute', bottom: -16, right: -20, zIndex: 20, background: 'rgba(26,26,26,.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 16, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10, boxShadow: '0 20px 40px rgba(0,0,0,.4)', animation: 'float 4s ease-in-out infinite 2s' }}>
             <div style={{ width: 42, height: 42, borderRadius: 12, background: 'linear-gradient(135deg,var(--accent),#c1121f)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0 }}>🚴</div>
             <div><div style={{ fontSize: 13, fontWeight: 700 }}>Безкоштовна доставка</div><div style={{ fontSize: 11, color: '#48c774', fontWeight: 600 }}>в радіусі 1 км від нас</div></div>
           </div>
-          <div className="hide-mobile" style={{ position: 'absolute', top: -16, right: -10, zIndex: 20, background: 'rgba(26,26,26,.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 16, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 6, boxShadow: '0 20px 40px rgba(0,0,0,.4)' }}>
-            <span style={{ fontSize: 18 }}>⭐️</span>
-            <div><div style={{ fontSize: 14, fontWeight: 800 }}>4.9</div><div style={{ fontSize: 10, color: 'var(--text-muted)', fontWeight: 500 }}>200+ відгуків</div></div>
-          </div>
+
+
+          {/* Desktop right arrow */}
+          <button 
+            className="hide-mobile"
+            onClick={(e) => {
+               e.stopPropagation();
+               setActive(p => (p + 1) % actualSlides.length);
+               if (timer.current) clearInterval(timer.current);
+               timer.current = setInterval(() => setActive(p => (p + 1) % actualSlides.length), 3200);
+            }}
+            style={{ position: 'absolute', right: -50, zIndex: 20, background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.15)', borderRadius: '50%', width: 44, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', cursor: 'pointer', backdropFilter: 'blur(10px)', transition: 'all .2s' }}
+            onMouseEnter={e => e.currentTarget.style.background = 'rgba(230,57,70,.8)'}
+            onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,.05)'}
+          >
+            <ChevronRight size={24} />
+          </button>
         </div>
       </div>
 
@@ -185,12 +283,19 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
       <div className="hero-mobile" style={{ display: 'none', position: 'relative', zIndex: 1, minHeight: '100svh', flexDirection: 'column', paddingTop: 'var(--header-h, 88px)' }}>
 
         {/* Top: big food photo with overlay — clickable, scrolls to menu */}
-        <div style={{ position: 'relative', width: '100%', aspectRatio: '3/2', overflow: 'hidden' }}>
+        <div 
+          onTouchStart={handleTouchStart} 
+          onTouchEnd={handleTouchEnd}
+          style={{ position: 'relative', width: '100%', aspectRatio: '3/2', overflow: 'hidden' }}
+        >
+          <div style={{ position: 'absolute', top: 14, left: 16, background: 'rgba(230,57,70,.9)', backdropFilter: 'blur(10px)', padding: '5px 12px', borderRadius: 8, color: 'white', fontWeight: 800, fontSize: 12, zIndex: 11, display: 'flex', alignItems: 'center', gap: 6, boxShadow: '0 4px 12px rgba(0,0,0,.3)' }}>
+            🔥 Популярне
+          </div>
           {/* clickable overlay per slide */}
-          {SLIDES.map((s, i) => (
+          {actualSlides.map((s, i) => (
             <button
               key={i}
-              onClick={() => handleSlideClick(s.query)}
+              onClick={() => handleSlideClick(s)}
               style={{
                 position: 'absolute', inset: 0,
                 opacity: i === active ? 1 : 0,
@@ -209,23 +314,23 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 35%, rgba(13,13,13,.95) 100%)', pointerEvents: 'none', zIndex: 10 }} />
 
           {/* slide dots */}
-          <div style={{ position: 'absolute', bottom: 16, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 6, pointerEvents: 'none', zIndex: 10 }}>
-            {SLIDES.map((_, i) => (
+          <div style={{ position: 'absolute', bottom: 16, left: 0, right: 0, display: 'flex', justifyContent: 'center', flexWrap: 'wrap', padding: '0 20px', gap: 6, pointerEvents: 'none', zIndex: 10 }}>
+            {actualSlides.map((_, i) => (
               <div key={i} style={{ width: i === active ? 22 : 7, height: 7, borderRadius: 100, background: i === active ? 'var(--accent)' : 'rgba(255,255,255,.45)', transition: 'all .3s' }} />
             ))}
           </div>
 
           {/* active slide label */}
           <div style={{ position: 'absolute', bottom: 34, left: 18, pointerEvents: 'none', zIndex: 10 }}>
-            <span style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, letterSpacing: '.07em', display: 'block', marginBottom: 2 }}>{SLIDES[active].cat}</span>
-            <span style={{ fontSize: 20, fontWeight: 800, color: 'white' }}>{SLIDES[active].label}</span>
+            <span style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, letterSpacing: '.07em', display: 'block', marginBottom: 2 }}>{actualSlides[active].cat}</span>
+            <span style={{ fontSize: 20, fontWeight: 800, color: 'white' }}>{actualSlides[active].label}</span>
           </div>
           <div style={{ position: 'absolute', bottom: 38, right: 16, background: 'rgba(230,57,70,.95)', borderRadius: 10, padding: '6px 14px', color: 'white', fontWeight: 800, fontSize: 16, pointerEvents: 'none', zIndex: 10 }}>
-            {SLIDES[active].price}
+            {actualSlides[active].price}
           </div>
 
           {/* tap hint */}
-          <div style={{ position: 'absolute', top: 14, right: 14, background: 'rgba(0,0,0,.45)', backdropFilter: 'blur(6px)', borderRadius: 20, padding: '4px 10px', fontSize: 11, color: 'rgba(255,255,255,.8)', fontWeight: 600, pointerEvents: 'none', zIndex: 10 }}>
+          <div style={{ position: 'absolute', top: 14, right: 64, background: 'rgba(0,0,0,.45)', backdropFilter: 'blur(6px)', borderRadius: 20, padding: '4px 10px', fontSize: 11, color: 'rgba(255,255,255,.8)', fontWeight: 600, pointerEvents: 'none', zIndex: 10 }}>
             Натисни → меню
           </div>
         </div>
@@ -268,25 +373,6 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
             <a href="tel:+380957972943" style={{ textDecoration: 'none', width: '100%' }}>
               <button className="btn-ghost" style={{ fontSize: 15, padding: '14px', width: '100%', borderRadius: 14 }}>📞 Зателефонувати</button>
             </a>
-          </div>
-        </div>
-
-        {/* Bottom: 2×2 food mini-grid */}
-        <div style={{ padding: '0 16px 28px' }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.08em', color: 'var(--text-muted)', textAlign: 'center', marginBottom: 12, textTransform: 'uppercase' }}>Популярне</p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-            {displayItems.map((card, i) => (
-              <div key={i} onClick={() => handleMobileGridClick(card)} style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(255,255,255,.08)', background: 'rgba(255,255,255,.03)', cursor: 'pointer' }}>
-                <div style={{ position: 'relative', height: 100 }}>
-                  <Image src={card.src} alt={card.label} fill sizes="50vw" style={{ objectFit: 'cover' }} />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,.65) 0%, transparent 55%)' }} />
-                  <div style={{ position: 'absolute', bottom: 8, right: 10, background: 'rgba(230,57,70,.92)', borderRadius: 8, padding: '3px 9px', color: 'white', fontWeight: 800, fontSize: 13 }}>{card.price} ₴</div>
-                </div>
-                <div style={{ padding: '9px 10px 11px' }}>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-primary)' }}>{card.label}</div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
 
@@ -334,6 +420,9 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
         @media (min-width: 769px) {
           .hero-mobile { display: none !important; }
         }
+        /* scrollbar hide for mobile carousel */
+        .mobile-carousel::-webkit-scrollbar { display: none; }
+        .mobile-carousel { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
     </section>
   );

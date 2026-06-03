@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import { Trash2, Plus, Minus, ArrowLeft, CreditCard, ShoppingBag, Phone, Info, CheckCircle } from 'lucide-react';
 
 const DeliveryMap = dynamic(() => import('@/components/DeliveryMap'), {
@@ -28,6 +29,7 @@ const DeliveryMap = dynamic(() => import('@/components/DeliveryMap'), {
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, clearCart, totalPrice } = useCart();
+  const router = useRouter();
   const [address, setAddress] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -104,12 +106,10 @@ export default function CartPage() {
           <p style={{ color: 'var(--text-secondary)', marginBottom: 28, lineHeight: 1.7, fontSize: 15 }}>
             Додайте страви з меню, щоб оформити замовлення
           </p>
-          <Link href="/#menu">
-            <button className="btn-primary" style={{ fontSize: 15, padding: '13px 28px', display: 'flex', alignItems: 'center', gap: 8, margin: '0 auto' }}>
-              <ArrowLeft size={16} />
-              До меню
-            </button>
-          </Link>
+          <button onClick={() => router.back()} className="btn-primary" style={{ fontSize: 15, padding: '13px 28px', display: 'flex', alignItems: 'center', gap: 8, margin: '0 auto', border: 'none', cursor: 'pointer' }}>
+            <ArrowLeft size={16} />
+            До меню
+          </button>
         </div>
       </main>
     );
@@ -200,9 +200,10 @@ export default function CartPage() {
         padding: 'clamp(100px, 15vw, 130px) 16px 60px',
       }}>
         {/* Back */}
-        <Link href="/" style={{
+        <button onClick={() => router.back()} style={{
           display: 'inline-flex', alignItems: 'center', gap: 6,
           color: 'var(--text-muted)', textDecoration: 'none',
+          background: 'transparent', border: 'none', cursor: 'pointer', padding: 0,
           fontSize: 14, marginBottom: 24, transition: 'color 0.2s',
         }}
           onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent)')}
@@ -210,7 +211,7 @@ export default function CartPage() {
         >
           <ArrowLeft size={16} />
           Повернутись до меню
-        </Link>
+        </button>
 
         <h1 style={{ fontSize: 'clamp(28px, 5vw, 42px)', fontWeight: 900, marginBottom: 32, letterSpacing: '-0.02em', textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
           <span style={{ color: 'var(--accent)' }}>🛒</span> Ваше замовлення

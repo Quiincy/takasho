@@ -5,6 +5,7 @@ const data = JSON.parse(fs.readFileSync('figma_data_full.json', 'utf8'));
 let texts = [];
 
 function extractText(node, path) {
+  if (node.visible === false) return;
   if (node.type === 'TEXT') {
     texts.push({ 
         path: path + '/' + node.name,

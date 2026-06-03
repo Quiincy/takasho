@@ -30,24 +30,6 @@
     "y": -1710
   },
   {
-    "path": "root/Document/Menu - online/logo dev/Так а шо",
-    "text": "Так а шо",
-    "x": 1481,
-    "y": -1619
-  },
-  {
-    "path": "root/Document/Menu - online/logo dev/Так а",
-    "text": "Так а",
-    "x": 1481,
-    "y": -1619
-  },
-  {
-    "path": "root/Document/Menu - online/logo dev/?",
-    "text": "?",
-    "x": 1543,
-    "y": -1619
-  },
-  {
     "path": "root/Document/Menu - online/Menu Start/renovation/Друзі",
     "text": "Друзі",
     "x": -3640,
@@ -58,12 +40,6 @@
     "text": "Ми переїхали в ЄНОТ КАВА, Вільде 10б Будемо раді зустрічі в новому закладі!",
     "x": -3650,
     "y": -1004
-  },
-  {
-    "path": "root/Document/Menu - online/Menu Start/doner/Шаурма",
-    "text": "Шаурма",
-    "x": -3628,
-    "y": -873
   },
   {
     "path": "root/Document/Menu - online/Menu Start/links/inst/@tak_a_sho_kiev",
@@ -96,34 +72,16 @@
     "y": -679
   },
   {
-    "path": "root/Document/Menu - online/Menu Start/renovation/!ОНОВЛЕННЯ МЕНЮ!",
-    "text": "!ОНОВЛЕННЯ МЕНЮ!",
-    "x": -3640,
-    "y": -648
-  },
-  {
     "path": "root/Document/Menu - online/Menu Start/Pizza/Піца Італійська",
     "text": "Піца Італійська",
     "x": -3628,
     "y": -591
   },
   {
-    "path": "root/Document/Menu - online/Menu Start/renovation/ph/ПІД ЧАС ТЕХНІЧНИХ РОБІТ ЦІНИ ТА ПОЗИЦІЇ МОЖУТЬ БУТИ НЕ АКТУАЛЬНИМИ. ВИБАЧТЕ ЗА ТИМЧАСОВІ НЕЗРУЧНОСТІ.",
-    "text": "ПІД ЧАС ТЕХНІЧНИХ РОБІТ ЦІНИ ТА ПОЗИЦІЇ МОЖУТЬ БУТИ НЕ АКТУАЛЬНИМИ. ВИБАЧТЕ ЗА ТИМЧАСОВІ НЕЗРУЧНОСТІ.",
-    "x": -3630,
-    "y": -558
-  },
-  {
     "path": "root/Document/Menu - online/Menu Start/sushi/Суші",
     "text": "Суші",
     "x": -3628,
     "y": -492
-  },
-  {
-    "path": "root/Document/Menu - online/Menu Start/Beer appetizer/Закуски до пива",
-    "text": "Закуски до пива",
-    "x": -3628,
-    "y": -489
   },
   {
     "path": "root/Document/Menu - online/Menu Start/burgers/Бургери",
@@ -148,12 +106,6 @@
     "text": "Хрустке і швидке",
     "x": -3628,
     "y": -108
-  },
-  {
-    "path": "root/Document/Menu - online/Menu Start/NA Drinks/Б/А Напої",
-    "text": "Б/А Напої",
-    "x": -3628,
-    "y": -95
   },
   {
     "path": "root/Document/Menu - online/- овочі",
@@ -354,12 +306,6 @@
     "y": 834
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/SET 1/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -328,
-    "y": 834
-  },
-  {
     "path": "root/Document/Menu - online/sushi/list/SET 1/price/1400",
     "text": "1400",
     "x": -186,
@@ -393,12 +339,6 @@
     "path": "root/Document/Menu - online/Beer appetizer/list/1/Text/!/Хмизок",
     "text": "Хмизок ",
     "x": 9182,
-    "y": 824
-  },
-  {
-    "path": "root/Document/Menu - online/Beer appetizer/list/1/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 9636,
     "y": 824
   },
   {
@@ -486,12 +426,6 @@
     "y": 888
   },
   {
-    "path": "root/Document/Menu - online/Deserts/list/Icecream/Text/Подається з топінгом та вафелькою",
-    "text": "Подається з топінгом та вафелькою",
-    "x": 15822,
-    "y": 892
-  },
-  {
     "path": "root/Document/Menu - online/Deserts/list/Icecream/Text/Text",
     "text": " ",
     "x": 15822,
@@ -546,12 +480,6 @@
     "y": 984
   },
   {
-    "path": "root/Document/Menu - online/pizza/list/Scotland/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
-    "y": 984
-  },
-  {
     "path": "root/Document/Menu - online/pizza/list/Scotland/price/320",
     "text": "320",
     "x": -1842,
@@ -561,12 +489,6 @@
     "path": "root/Document/Menu - online/burgers/list/Burger/Text/!/Бургер Велетень",
     "text": "Бургер Велетень",
     "x": 882,
-    "y": 984
-  },
-  {
-    "path": "root/Document/Menu - online/burgers/list/Burger/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1334,
     "y": 984
   },
   {
@@ -594,12 +516,6 @@
     "y": 984
   },
   {
-    "path": "root/Document/Menu - online/hot appetizer/list/Derunu scotish/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6316,
-    "y": 984
-  },
-  {
     "path": "root/Document/Menu - online/hot appetizer/list/Derunu scotish/price/200",
     "text": "200",
     "x": 6456,
@@ -621,18 +537,6 @@
     "path": "root/Document/Menu - online/salad/list/Caesar chicken/Text/!/Юлій Цезар",
     "text": "Юлій Цезар ",
     "x": 10842,
-    "y": 984
-  },
-  {
-    "path": "root/Document/Menu - online/salad/list/Caesar chicken/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 11290,
-    "y": 984
-  },
-  {
-    "path": "root/Document/Menu - online/salad/list/Caesar chicken/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 11294,
     "y": 984
   },
   {
@@ -672,12 +576,6 @@
     "y": 1016
   },
   {
-    "path": "root/Document/Menu - online/crisps/list/Midii teryiaki/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 7974,
-    "y": 1016
-  },
-  {
     "path": "root/Document/Menu - online/crisps/list/Midii teryiaki/price/170",
     "text": "170",
     "x": 8118,
@@ -694,12 +592,6 @@
     "text": "60",
     "x": 14758,
     "y": 1024
-  },
-  {
-    "path": "root/Document/Menu - online/Deserts/list/Icecream/Text/Подається з топінгом та вафелькою",
-    "text": "Подається з топінгом та вафелькою",
-    "x": 15822,
-    "y": 1015
   },
   {
     "path": "root/Document/Menu - online/Deserts/list/Icecream/Text/Text",
@@ -736,12 +628,6 @@
     "text": "грн",
     "x": 1478,
     "y": 1048
-  },
-  {
-    "path": "root/Document/Menu - online/soups/list/Mushroom soup/Text/Грибний, брокколі, шпинат або солодкий перець",
-    "text": "Грибний, брокколі, шпинат або солодкий перець",
-    "x": 4202,
-    "y": 1042
   },
   {
     "path": "root/Document/Menu - online/soups/list/Mushroom soup/Text/Печериці, цибуля, вершки",
@@ -882,12 +768,6 @@
     "y": 1154
   },
   {
-    "path": "root/Document/Menu - online/Beer appetizer/list/2/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 9636,
-    "y": 1154
-  },
-  {
     "path": "root/Document/Menu - online/Beer appetizer/list/2/price/50",
     "text": "50",
     "x": 9778,
@@ -942,12 +822,6 @@
     "y": 1199
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/SET 2/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -332,
-    "y": 1199
-  },
-  {
     "path": "root/Document/Menu - online/sushi/list/SET 2/price/1500",
     "text": "1500",
     "x": -190,
@@ -966,18 +840,6 @@
     "y": 1184
   },
   {
-    "path": "root/Document/Menu - online/soups/list/chicken soup/Text/Бульйон, курка, локшина, яйце",
-    "text": "Бульйон, курка, локшина, яйце",
-    "x": 4202,
-    "y": 1224
-  },
-  {
-    "path": "root/Document/Menu - online/Beer appetizer/list/2/Text/100 г",
-    "text": "100 г",
-    "x": 9182,
-    "y": 1212
-  },
-  {
     "path": "root/Document/Menu - online/salad/list/Caesar chicken/Text/300 г",
     "text": "300 г",
     "x": 10842,
@@ -988,30 +850,6 @@
     "text": "80",
     "x": 14758,
     "y": 1191
-  },
-  {
-    "path": "root/Document/Menu - online/soups/list/chicken soup/price/грн",
-    "text": "грн",
-    "x": 4796,
-    "y": 1230
-  },
-  {
-    "path": "root/Document/Menu - online/hot appetizer/list/Derunu 2/Text/!/Деруни з грибами ",
-    "text": "Деруни з грибами ",
-    "x": 5862,
-    "y": 1225
-  },
-  {
-    "path": "root/Document/Menu - online/hot appetizer/list/Derunu 2/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6316,
-    "y": 1225
-  },
-  {
-    "path": "root/Document/Menu - online/hot appetizer/list/Derunu 2/price/150",
-    "text": "150",
-    "x": 6456,
-    "y": 1225
   },
   {
     "path": "root/Document/Menu - online/crisps/list/Potato selyanska/Text/Картопля",
@@ -1026,6 +864,12 @@
     "y": 1219
   },
   {
+    "path": "root/Document/Menu - online/Beer appetizer/list/2/Text/100 г",
+    "text": "100 г",
+    "x": 9182,
+    "y": 1212
+  },
+  {
     "path": "root/Document/Menu - online/Beer appetizer/list/2/price/грн",
     "text": "грн",
     "x": 9778,
@@ -1038,10 +882,10 @@
     "y": 1209
   },
   {
-    "path": "root/Document/Menu - online/burgers/list/Burger/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 882,
-    "y": 1234
+    "path": "root/Document/Menu - online/soups/list/chicken soup/Text/Бульйон, курка, локшина, яйце",
+    "text": "Бульйон, курка, локшина, яйце",
+    "x": 4202,
+    "y": 1224
   },
   {
     "path": "root/Document/Menu - online/doner/list/2/Text/лаваш, соус часниковий, моцарелла, пармезан, чеддер, блакитний сир",
@@ -1050,15 +894,27 @@
     "y": 1241
   },
   {
+    "path": "root/Document/Menu - online/soups/list/chicken soup/price/грн",
+    "text": "грн",
+    "x": 4796,
+    "y": 1230
+  },
+  {
+    "path": "root/Document/Menu - online/hot appetizer/list/Derunu 2/Text/!/Деруни з грибами ",
+    "text": "Деруни з грибами ",
+    "x": 5862,
+    "y": 1225
+  },
+  {
+    "path": "root/Document/Menu - online/hot appetizer/list/Derunu 2/price/150",
+    "text": "150",
+    "x": 6456,
+    "y": 1225
+  },
+  {
     "path": "root/Document/Menu - online/pizza/list/trio/Text/!/Тріо",
     "text": "Тріо",
     "x": -2438,
-    "y": 1263
-  },
-  {
-    "path": "root/Document/Menu - online/pizza/list/trio/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
     "y": 1263
   },
   {
@@ -1098,12 +954,6 @@
     "y": 1263
   },
   {
-    "path": "root/Document/Menu - online/burgers/list/GamBurger/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1334,
-    "y": 1263
-  },
-  {
     "path": "root/Document/Menu - online/burgers/list/GamBurger/price/180",
     "text": "180",
     "x": 1478,
@@ -1116,16 +966,10 @@
     "y": 1266
   },
   {
-    "path": "root/Document/Menu - online/hot appetizer/list/Derunu 2/Text/Картопля, гриби, вершковий соус ",
-    "text": "Картопля, гриби, вершковий соус ",
-    "x": 5862,
-    "y": 1283
-  },
-  {
-    "path": "root/Document/Menu - online/hot appetizer/list/Derunu 2/price/грн",
+    "path": "root/Document/Menu - online/NA Drinks/list/9/price/грн",
     "text": "грн",
-    "x": 6456,
-    "y": 1289
+    "x": 14758,
+    "y": 1255
   },
   {
     "path": "root/Document/Menu - online/crisps/list/Potato selyanska/Text/по-селянськи/фрі",
@@ -1146,39 +990,15 @@
     "y": 1277
   },
   {
-    "path": "root/Document/Menu - online/Beer appetizer/list/4/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 9636,
-    "y": 1277
-  },
-  {
     "path": "root/Document/Menu - online/Beer appetizer/list/4/price/120",
     "text": "120",
     "x": 9778,
     "y": 1277
   },
   {
-    "path": "root/Document/Menu - online/salad/list/Caesar chicken/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 10842,
-    "y": 1276
-  },
-  {
     "path": "root/Document/Menu - online/salad/list/Caesar chicken/Text/!/З лососем гравлакс",
     "text": "З лососем гравлакс",
     "x": 10842,
-    "y": 1267
-  },
-  {
-    "path": "root/Document/Menu - online/salad/list/Caesar chicken/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 11290,
-    "y": 1267
-  },
-  {
-    "path": "root/Document/Menu - online/salad/list/Caesar chicken/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 11294,
     "y": 1267
   },
   {
@@ -1188,10 +1008,16 @@
     "y": 1267
   },
   {
-    "path": "root/Document/Menu - online/NA Drinks/list/9/price/грн",
+    "path": "root/Document/Menu - online/hot appetizer/list/Derunu 2/Text/Картопля, гриби, вершковий соус ",
+    "text": "Картопля, гриби, вершковий соус ",
+    "x": 5862,
+    "y": 1283
+  },
+  {
+    "path": "root/Document/Menu - online/hot appetizer/list/Derunu 2/price/грн",
     "text": "грн",
-    "x": 14758,
-    "y": 1255
+    "x": 6456,
+    "y": 1289
   },
   {
     "path": "root/Document/Menu - online/pizza/list/trio/Text/Салямі, мисливські ковбаски, помідор, сирний соус, сир пармезан, сир моцарелла, сир чеддер",
@@ -1236,16 +1062,16 @@
     "y": 1319
   },
   {
-    "path": "root/Document/Menu - online/soups/list/cold soup/Text/Том-Ям ",
-    "text": "Том-Ям ",
-    "x": 4202,
-    "y": 1348
+    "path": "root/Document/Menu - online/Drinks/list/4/Text/Кола",
+    "text": "Кола",
+    "x": 12502,
+    "y": 1318
   },
   {
-    "path": "root/Document/Menu - online/soups/list/cold soup/price/250",
-    "text": "250",
-    "x": 4796,
-    "y": 1348
+    "path": "root/Document/Menu - online/Drinks/list/4/price/500 мл",
+    "text": "500 мл",
+    "x": 13098,
+    "y": 1318
   },
   {
     "path": "root/Document/Menu - online/Beer appetizer/list/4/Text/70 г",
@@ -1257,6 +1083,18 @@
     "path": "root/Document/Menu - online/salad/list/Caesar chicken/Text/Салат мікс, лосось, чука, крем сир, помідор, соус кунжутний, кунжут, пармезан",
     "text": "Салат мікс, лосось, чука, крем сир, помідор, соус кунжутний, кунжут, пармезан",
     "x": 10842,
+    "y": 1325
+  },
+  {
+    "path": "root/Document/Menu - online/NA Drinks/list/10/Text/Мохіто",
+    "text": "Мохіто",
+    "x": 14162,
+    "y": 1325
+  },
+  {
+    "path": "root/Document/Menu - online/NA Drinks/list/10/price/500 мл",
+    "text": "500 мл",
+    "x": 14758,
     "y": 1325
   },
   {
@@ -1272,28 +1110,16 @@
     "y": 1331
   },
   {
-    "path": "root/Document/Menu - online/Drinks/list/4/Text/Кола",
-    "text": "Кола",
-    "x": 12502,
-    "y": 1318
+    "path": "root/Document/Menu - online/soups/list/cold soup/Text/Том-Ям ",
+    "text": "Том-Ям ",
+    "x": 4202,
+    "y": 1348
   },
   {
-    "path": "root/Document/Menu - online/Drinks/list/4/price/500 мл",
-    "text": "500 мл",
-    "x": 13098,
-    "y": 1318
-  },
-  {
-    "path": "root/Document/Menu - online/NA Drinks/list/10/Text/Мохіто",
-    "text": "Мохіто",
-    "x": 14162,
-    "y": 1325
-  },
-  {
-    "path": "root/Document/Menu - online/NA Drinks/list/10/price/500 мл",
-    "text": "500 мл",
-    "x": 14758,
-    "y": 1325
+    "path": "root/Document/Menu - online/soups/list/cold soup/price/250",
+    "text": "250",
+    "x": 4796,
+    "y": 1348
   },
   {
     "path": "root/Document/Menu - online/Drinks/list/4/price/40",
@@ -1320,18 +1146,6 @@
     "y": 1386
   },
   {
-    "path": "root/Document/Menu - online/crisps/list/potato fri/Text/Картопля фрі",
-    "text": "Картопля фрі",
-    "x": 7522,
-    "y": 1390
-  },
-  {
-    "path": "root/Document/Menu - online/crisps/list/potato fri/price/80",
-    "text": "80",
-    "x": 8118,
-    "y": 1390
-  },
-  {
     "path": "root/Document/Menu - online/NA Drinks/list/10/Text/Лайм, лимон, спрайт, сироп, мята",
     "text": "Лайм, лимон, спрайт, сироп, мята",
     "x": 14162,
@@ -1353,12 +1167,6 @@
     "path": "root/Document/Menu - online/hot appetizer/list/derunu/Text/!/Деруни зі сметаною",
     "text": "Деруни зі сметаною",
     "x": 5862,
-    "y": 1407
-  },
-  {
-    "path": "root/Document/Menu - online/hot appetizer/list/derunu/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6316,
     "y": 1407
   },
   {
@@ -1428,34 +1236,16 @@
     "y": 1450
   },
   {
-    "path": "root/Document/Menu - online/crisps/list/potato fri/Text/150 г",
-    "text": "150 г",
-    "x": 7522,
-    "y": 1448
-  },
-  {
-    "path": "root/Document/Menu - online/hot appetizer/list/derunu/Text/Картопля, цибуля",
-    "text": "Картопля, цибуля",
-    "x": 5862,
-    "y": 1465
+    "path": "root/Document/Menu - online/salad/list/Caesar chicken/Text/300 г",
+    "text": "300 г",
+    "x": 10842,
+    "y": 1443
   },
   {
     "path": "root/Document/Menu - online/hot appetizer/list/derunu/Text/180 г",
     "text": "180 г",
     "x": 5862,
     "y": 1465
-  },
-  {
-    "path": "root/Document/Menu - online/crisps/list/potato fri/price/грн",
-    "text": "грн",
-    "x": 8118,
-    "y": 1454
-  },
-  {
-    "path": "root/Document/Menu - online/salad/list/Caesar chicken/Text/300 г",
-    "text": "300 г",
-    "x": 10842,
-    "y": 1443
   },
   {
     "path": "root/Document/OLD/Frame 2/perfo 3/burg]/Замовляй з собою",
@@ -1473,12 +1263,6 @@
     "path": "root/Document/Menu - online/pizza/list/trio/Text/!/Морська",
     "text": "Морська",
     "x": -2438,
-    "y": 1504
-  },
-  {
-    "path": "root/Document/Menu - online/pizza/list/trio/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
     "y": 1504
   },
   {
@@ -1512,33 +1296,15 @@
     "y": 1485
   },
   {
-    "path": "root/Document/Menu - online/Drinks/list/розділ/Text/Коктейлі",
-    "text": "Коктейлі",
-    "x": 12502,
-    "y": 1494
-  },
-  {
     "path": "root/Document/Menu - online/Drinks/list/5/price/500 мл",
     "text": "500 мл",
     "x": 13098,
     "y": 1485
   },
   {
-    "path": "root/Document/Menu - online/burgers/list/GamBurger/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 882,
-    "y": 1513
-  },
-  {
     "path": "root/Document/Menu - online/burgers/list/Cheeseburger/Text/!/Чізбургер",
     "text": "Чізбургер",
     "x": 882,
-    "y": 1504
-  },
-  {
-    "path": "root/Document/Menu - online/burgers/list/Cheeseburger/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1336,
     "y": 1504
   },
   {
@@ -1602,12 +1368,6 @@
     "y": 1564
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/Tempura shpinat/Text/!/Акція!",
-    "text": " Акція!",
-    "x": -344,
-    "y": 1564
-  },
-  {
     "path": "root/Document/Menu - online/sushi/list/Tempura shpinat/Text/!/Нове!",
     "text": "Нове!",
     "x": -324,
@@ -1636,12 +1396,6 @@
     "text": "100",
     "x": 8116,
     "y": 1551
-  },
-  {
-    "path": "root/Document/Menu - online/salad/list/Caesar chicken/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 10842,
-    "y": 1559
   },
   {
     "path": "root/Document/Menu - online/NA Drinks/list/11/Text/Молоко, морозиво, вершки, топінг",
@@ -1677,12 +1431,6 @@
     "path": "root/Document/Menu - online/hot appetizer/list/Filet/Text/!/Куряче філе",
     "text": "Куряче філе",
     "x": 5862,
-    "y": 1589
-  },
-  {
-    "path": "root/Document/Menu - online/hot appetizer/list/Filet/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 6310,
     "y": 1589
   },
   {
@@ -1956,12 +1704,6 @@
     "y": 1797
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/Tempura shpinat/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": -778,
-    "y": 1814
-  },
-  {
     "path": "root/Document/Menu - online/salad/list/Gourman/Text/Салат мікс, вугор, крем сир, соус кисло-солодкий, помідор, огірок, кунжут, пармезан",
     "text": "Салат мікс, вугор, крем сир, соус кисло-солодкий, помідор, огірок, кунжут, пармезан",
     "x": 10842,
@@ -1998,21 +1740,9 @@
     "y": 1819
   },
   {
-    "path": "root/Document/Menu - online/Drinks/list/12/price/1 л",
-    "text": "1 л",
-    "x": 13138,
-    "y": 1819
-  },
-  {
     "path": "root/Document/Menu - online/burgers/list/Hot-dog/Text/!/Хот-Дог",
     "text": "Хот-Дог",
     "x": 882,
-    "y": 1836
-  },
-  {
-    "path": "root/Document/Menu - online/burgers/list/Hot-dog/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1336,
     "y": 1836
   },
   {
@@ -2052,12 +1782,6 @@
     "y": 1857
   },
   {
-    "path": "root/Document/Menu - online/pizza/list/Philadelphia salmon/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
-    "y": 1857
-  },
-  {
     "path": "root/Document/Menu - online/pizza/list/Philadelphia salmon/price/320",
     "text": "320",
     "x": -1842,
@@ -2067,12 +1791,6 @@
     "path": "root/Document/Menu - online/sushi/list/Tempura Caesar/Text/!/Темпура рол Цезар",
     "text": "Темпура рол Цезар",
     "x": -778,
-    "y": 1859
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Tempura Caesar/Text/!/Акція!",
-    "text": " Акція!",
-    "x": -344,
     "y": 1859
   },
   {
@@ -2100,12 +1818,6 @@
     "y": 1852
   },
   {
-    "path": "root/Document/Menu - online/Drinks/list/12/price/80",
-    "text": "80",
-    "x": 13138,
-    "y": 1851
-  },
-  {
     "path": "root/Document/Menu - online/NA Drinks/list/21/price/40",
     "text": "40",
     "x": 14758,
@@ -2128,12 +1840,6 @@
     "text": "лаваш, лосось, соус спайсі, соус тартар, салат айсберг, помідор, огірок, хіяши вакаме",
     "x": 2542,
     "y": 1892
-  },
-  {
-    "path": "root/Document/Menu - online/hot appetizer/list/Filet/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 5862,
-    "y": 1881
   },
   {
     "path": "root/Document/Menu - online/doner/list/5/price/грн",
@@ -2194,12 +1900,6 @@
     "text": "грн",
     "x": 13138,
     "y": 1916
-  },
-  {
-    "path": "root/Document/Menu - online/Drinks/list/12/price/грн",
-    "text": "грн",
-    "x": 13138,
-    "y": 1915
   },
   {
     "path": "root/Document/Menu - online/burgers/list/Hot-dog/Text/150 г",
@@ -2280,12 +1980,6 @@
     "y": 2018
   },
   {
-    "path": "root/Document/Menu - online/burgers/list/Corn-dog/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1336,
-    "y": 2018
-  },
-  {
     "path": "root/Document/Menu - online/burgers/list/Corn-dog/price/70",
     "text": "70",
     "x": 1476,
@@ -2322,6 +2016,12 @@
     "y": 2015
   },
   {
+    "path": "root/Document/Menu - online/NA Drinks/list/22/price/50",
+    "text": "50",
+    "x": 14758,
+    "y": 2026
+  },
+  {
     "path": "root/Document/OLD/contact card 2 black/links/inst/@tak_a_sho_kiev",
     "text": "@tak_a_sho_kiev",
     "x": 3194,
@@ -2340,12 +2040,6 @@
     "y": 2033
   },
   {
-    "path": "root/Document/Menu - online/NA Drinks/list/22/price/50",
-    "text": "50",
-    "x": 14758,
-    "y": 2026
-  },
-  {
     "path": "root/Document/OLD/Frame 2/perfo 1/main/all/Піца",
     "text": "Піца",
     "x": 15368,
@@ -2358,12 +2052,6 @@
     "y": 2035
   },
   {
-    "path": "root/Document/Menu - online/hot appetizer/list/rebra/Text/Ошийок свинний, лаваш",
-    "text": "Ошийок свинний, лаваш",
-    "x": 5862,
-    "y": 2042
-  },
-  {
     "path": "root/Document/Menu - online/hot appetizer/list/rebra/Text/300 г",
     "text": "300 г",
     "x": 5862,
@@ -2373,12 +2061,6 @@
     "path": "root/Document/Menu - online/pizza/list/DUET/Text/!/Дует",
     "text": "Дует",
     "x": -2438,
-    "y": 2060
-  },
-  {
-    "path": "root/Document/Menu - online/pizza/list/DUET/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
     "y": 2060
   },
   {
@@ -2448,12 +2130,6 @@
     "y": 2118
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/Tempura Caesar/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": -778,
-    "y": 2109
-  },
-  {
     "path": "root/Document/Menu - online/pizza/list/DUET/price/грн",
     "text": "грн",
     "x": -1842,
@@ -2496,21 +2172,15 @@
     "y": 2148
   },
   {
+    "path": "root/Document/Menu - online/Beer appetizer/return/All button/Тицяй, щоб повернутись до переліку розділів",
+    "text": "Тицяй, щоб повернутись до переліку розділів",
+    "x": 9296,
+    "y": 2148
+  },
+  {
     "path": "root/Document/Menu - online/hot appetizer/list/Staik/Text/!/Мясна Пательня",
     "text": "Мясна Пательня ",
     "x": 5862,
-    "y": 2166
-  },
-  {
-    "path": "root/Document/Menu - online/hot appetizer/list/Staik/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 6310,
-    "y": 2166
-  },
-  {
-    "path": "root/Document/Menu - online/hot appetizer/list/Staik/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6314,
     "y": 2166
   },
   {
@@ -2532,12 +2202,6 @@
     "y": 2161
   },
   {
-    "path": "root/Document/Menu - online/Beer appetizer/return/All button/Тицяй, щоб повернутись до переліку розділів",
-    "text": "Тицяй, щоб повернутись до переліку розділів",
-    "x": 9296,
-    "y": 2148
-  },
-  {
     "path": "root/Document/Menu - online/Deserts/return/All button/Тицяй, щоб повернутись до переліку розділів",
     "text": "Тицяй, щоб повернутись до переліку розділів",
     "x": 15936,
@@ -2553,12 +2217,6 @@
     "path": "root/Document/Menu - online/burgers/list/Panini/Text/!/Паніні папероні",
     "text": "Паніні папероні",
     "x": 882,
-    "y": 2200
-  },
-  {
-    "path": "root/Document/Menu - online/burgers/list/Panini/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1336,
     "y": 2200
   },
   {
@@ -2580,22 +2238,10 @@
     "y": 2190
   },
   {
-    "path": "root/Document/Menu - online/Drinks/return/All button/Тицяй, щоб повернутись до переліку розділів",
-    "text": "Тицяй, щоб повернутись до переліку розділів",
-    "x": 12616,
-    "y": 2213
-  },
-  {
     "path": "root/Document/Menu - online/NA Drinks/return/All button/Тицяй, щоб повернутись до переліку розділів",
-    "text": "Тицяй, щоб повернутись до перелі��у розділів",
+    "text": "Тицяй, щоб повернутись до переліку розділів",
     "x": 14276,
     "y": 2200
-  },
-  {
-    "path": "root/Document/Menu - online/pizza/list/DUET/Text/800 г",
-    "text": "800 г",
-    "x": -2438,
-    "y": 2236
   },
   {
     "path": "root/Document/OLD/contact card 2 black/links/time/12:00-22:00",
@@ -2616,6 +2262,18 @@
     "y": 2224
   },
   {
+    "path": "root/Document/Menu - online/Drinks/return/All button/Тицяй, щоб повернутись до переліку розділів",
+    "text": "Тицяй, щоб повернутись до переліку розділів",
+    "x": 12616,
+    "y": 2213
+  },
+  {
+    "path": "root/Document/Menu - online/pizza/list/DUET/Text/800 г",
+    "text": "800 г",
+    "x": -2438,
+    "y": 2236
+  },
+  {
     "path": "root/Document/Menu - online/hot appetizer/list/Staik/price/грн",
     "text": "грн",
     "x": 6458,
@@ -2625,18 +2283,6 @@
     "path": "root/Document/Menu - online/sushi/list/Golden dragon/Text/!/Золотий Дракон",
     "text": "Золотий Дракон",
     "x": -778,
-    "y": 2250
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Golden dragon/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -446,
-    "y": 2250
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Golden dragon/Text/!/Акція!",
-    "text": "Акція!",
-    "x": -330,
     "y": 2250
   },
   {
@@ -2679,12 +2325,6 @@
     "path": "root/Document/Menu - online/pizza/list/1/Text/!/Том-Ям",
     "text": "Том-Ям",
     "x": -2438,
-    "y": 2301
-  },
-  {
-    "path": "root/Document/Menu - online/pizza/list/1/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
     "y": 2301
   },
   {
@@ -2763,12 +2403,6 @@
     "path": "root/Document/Menu - online/burgers/list/Mini pizza/Text/!/Міні піца папероні",
     "text": "Міні піца папероні",
     "x": 882,
-    "y": 2382
-  },
-  {
-    "path": "root/Document/Menu - online/burgers/list/Mini pizza/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1336,
     "y": 2382
   },
   {
@@ -2856,18 +2490,6 @@
     "y": 2446
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/Golden dragon/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": -778,
-    "y": 2462
-  },
-  {
-    "path": "root/Document/Menu - online/hot appetizer/list/Staik/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 5862,
-    "y": 2458
-  },
-  {
     "path": "root/Document/Menu - online/pizza/list/1/Text/800 г",
     "text": "800 г",
     "x": -2438,
@@ -2877,18 +2499,6 @@
     "path": "root/Document/Menu - online/sushi/list/Yakudza /Text/!/Якудза рол",
     "text": "Якудза рол",
     "x": -778,
-    "y": 2491
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Yakudza /Text/!/Нове!",
-    "text": "Нове!",
-    "x": -452,
-    "y": 2491
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Yakudza /Text/!/Акція!",
-    "text": "Акція!",
-    "x": -330,
     "y": 2491
   },
   {
@@ -2988,18 +2598,6 @@
     "y": 2614
   },
   {
-    "path": "root/Document/Menu - online/hot appetizer/list/Staik/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 6310,
-    "y": 2614
-  },
-  {
-    "path": "root/Document/Menu - online/hot appetizer/list/Staik/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6314,
-    "y": 2614
-  },
-  {
     "path": "root/Document/Menu - online/hot appetizer/list/Staik/price/300",
     "text": "300",
     "x": 6458,
@@ -3060,12 +2658,6 @@
     "y": 2692
   },
   {
-    "path": "root/Document/Menu - online/pizza/list/2/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
-    "y": 2692
-  },
-  {
     "path": "root/Document/Menu - online/pizza/list/2/price/320",
     "text": "320",
     "x": -1842,
@@ -3084,27 +2676,9 @@
     "y": 2712
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/Yakudza /Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": -778,
-    "y": 2741
-  },
-  {
     "path": "root/Document/Menu - online/sushi/list/Hiyashi/Text/!/Хіяши рол",
     "text": "Хіяши рол ",
     "x": -778,
-    "y": 2732
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Hiyashi/Text/!/Акція!",
-    "text": "Акція!",
-    "x": -330,
-    "y": 2732
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Hiyashi/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -324,
     "y": 2732
   },
   {
@@ -3162,21 +2736,9 @@
     "y": 2868
   },
   {
-    "path": "root/Document/Menu - online/hot appetizer/list/Staik/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 5862,
-    "y": 2906
-  },
-  {
     "path": "root/Document/Menu - online/pizza/list/5/Text/!/Папероні",
     "text": "Папероні",
     "x": -2438,
-    "y": 2933
-  },
-  {
-    "path": "root/Document/Menu - online/pizza/list/5/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
     "y": 2933
   },
   {
@@ -3190,12 +2752,6 @@
     "text": "450 г",
     "x": -778,
     "y": 2950
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Hiyashi/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": -778,
-    "y": 2948
   },
   {
     "path": "root/Document/Menu - online/pizza/list/5/Text/Cалямі, сир пармезан, сир чеддер, моцарелла, соус пасата",
@@ -3213,18 +2769,6 @@
     "path": "root/Document/Menu - online/sushi/list/Philadelphia/Text/!/Філадельфія",
     "text": "Філадельфія",
     "x": -778,
-    "y": 3015
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Philadelphia/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -466,
-    "y": 3015
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Philadelphia/Text/!/Акція!",
-    "text": " Акція!",
-    "x": -344,
     "y": 3015
   },
   {
@@ -3270,12 +2814,6 @@
     "y": 3136
   },
   {
-    "path": "root/Document/Menu - online/pizza/list/7/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
-    "y": 3136
-  },
-  {
     "path": "root/Document/Menu - online/pizza/list/7/price/300",
     "text": "300",
     "x": -1842,
@@ -3312,12 +2850,6 @@
     "y": 3312
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/Philadelphia/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": -778,
-    "y": 3323
-  },
-  {
     "path": "root/Document/Menu - online/crisps/return/All button/Тицяй, щоб повернутись до переліку розділів",
     "text": "Тицяй, щоб повернутись до переліку розділів",
     "x": 7636,
@@ -3333,18 +2865,6 @@
     "path": "root/Document/Menu - online/sushi/list/California/Text/!/Каліфорнія",
     "text": "Каліфорнія",
     "x": -778,
-    "y": 3448
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/California/Text/!/Акція!",
-    "text": "Акція!",
-    "x": -330,
-    "y": 3448
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/California/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -202,
     "y": 3448
   },
   {
@@ -3369,12 +2889,6 @@
     "path": "root/Document/Menu - online/pizza/list/6/Text/!/4 сира з крем сиром",
     "text": "4 сира з крем сиром",
     "x": -2438,
-    "y": 3527
-  },
-  {
-    "path": "root/Document/Menu - online/pizza/list/6/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
     "y": 3527
   },
   {
@@ -3414,27 +2928,9 @@
     "y": 3703
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/California/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": -778,
-    "y": 3740
-  },
-  {
     "path": "root/Document/Menu - online/sushi/list/California/Text/!/Royal Рол",
     "text": "Royal Рол ",
     "x": -778,
-    "y": 3731
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/California/Text/!/Акція!",
-    "text": "Акція!",
-    "x": -330,
-    "y": 3731
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/California/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -324,
     "y": 3731
   },
   {
@@ -3453,12 +2949,6 @@
     "path": "root/Document/Menu - online/pizza/list/8/Text/!/Гавайська",
     "text": "Гавайська",
     "x": -2438,
-    "y": 3768
-  },
-  {
-    "path": "root/Document/Menu - online/pizza/list/8/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
     "y": 3768
   },
   {
@@ -3516,39 +3006,15 @@
     "y": 3971
   },
   {
-    "path": "root/Document/Menu - online/pizza/list/9/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
-    "y": 3971
-  },
-  {
     "path": "root/Document/Menu - online/pizza/list/9/price/280",
     "text": "280",
     "x": -1842,
     "y": 3971
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/California/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": -778,
-    "y": 4023
-  },
-  {
     "path": "root/Document/Menu - online/sushi/list/Kyiv/Text/!/Рол Київ",
     "text": "Рол Київ",
     "x": -778,
-    "y": 4014
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Kyiv/Text/!/Акція!",
-    "text": "Акція!",
-    "x": -330,
-    "y": 4014
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Kyiv/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -324,
     "y": 4014
   },
   {
@@ -3606,21 +3072,9 @@
     "y": 4232
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/Kyiv/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": -778,
-    "y": 4306
-  },
-  {
     "path": "root/Document/Menu - online/sushi/list/Tom-yam/Text/!/ТОМ Ям рол",
     "text": "ТОМ Ям рол",
     "x": -778,
-    "y": 4297
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Tom-yam/Text/!/Акція!",
-    "text": "Акція!",
-    "x": -330,
     "y": 4297
   },
   {
@@ -3639,12 +3093,6 @@
     "path": "root/Document/Menu - online/pizza/list/10/Text/!/Американа",
     "text": "Американа",
     "x": -2438,
-    "y": 4362
-  },
-  {
-    "path": "root/Document/Menu - online/pizza/list/10/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
     "y": 4362
   },
   {
@@ -3696,12 +3144,6 @@
     "y": 4511
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/Tom-yam/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": -778,
-    "y": 4509
-  },
-  {
     "path": "root/Document/OLD/Frame 2/perfo 2/pizza/menu/Скануй щоб подивитись",
     "text": "Скануй щоб подивитись",
     "x": 19195,
@@ -3732,12 +3174,6 @@
     "y": 4565
   },
   {
-    "path": "root/Document/Menu - online/pizza/list/11/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
-    "y": 4565
-  },
-  {
     "path": "root/Document/Menu - online/pizza/list/11/price/280",
     "text": "280",
     "x": -1842,
@@ -3756,33 +3192,9 @@
     "y": 4629
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/Gounkans/Text/Гункани",
-    "text": "Гункани",
-    "x": -778,
-    "y": 4698
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Gounkans/price/180",
-    "text": "180",
-    "x": -182,
-    "y": 4698
-  },
-  {
     "path": "root/Document/Menu - online/sushi/list/Baked roll/Text/!/Запечений рол",
-    "text": "Запечений р��л",
+    "text": "Запечений рол",
     "x": -778,
-    "y": 4726
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Baked roll/Text/!/Акція!",
-    "text": "Акція!",
-    "x": -330,
-    "y": 4726
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Baked roll/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -324,
     "y": 4726
   },
   {
@@ -3796,18 +3208,6 @@
     "text": "800 г",
     "x": -2438,
     "y": 4741
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Gounkans/Text/Лосось/ тунець/ вугор/ креветка/ хіяши вакаме/ авокадо",
-    "text": "Лосось/ тунець/ вугор/ креветка/ хіяши вакаме/ авокадо",
-    "x": -778,
-    "y": 4756
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Gounkans/price/грн",
-    "text": "грн",
-    "x": -182,
-    "y": 4762
   },
   {
     "path": "root/Document/Menu - online/sushi/list/Baked roll/Text/Лосось/ тунець/ креветка",
@@ -3834,12 +3234,6 @@
     "y": 4806
   },
   {
-    "path": "root/Document/Menu - online/pizza/list/12/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
-    "y": 4806
-  },
-  {
     "path": "root/Document/Menu - online/pizza/list/12/price/350",
     "text": "350",
     "x": -1842,
@@ -3850,12 +3244,6 @@
     "text": "крем сир, огірок,сир моцарелла, ікра тобіка, кунжут, соус унагі, соус сирний, соус спайсі, норі, рис, соєвий соус, васабі, імбір",
     "x": -778,
     "y": 4826
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Gounkans/Text/норі, рис, крем сир, огірок, ікра тобіко",
-    "text": "норі, рис, крем сир, огірок, ікра тобіко",
-    "x": -778,
-    "y": 4836
   },
   {
     "path": "root/Document/Menu - online/pizza/list/12/Text/Шинка, курка, салямі, мисливські ковбаски, помідор, огірок маринований, американський бекон, моцарелла, пармезан, сир чеддер, соус пасата",
@@ -3870,12 +3258,6 @@
     "y": 4870
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/Gounkans/Text/150 г",
-    "text": "150 г",
-    "x": -778,
-    "y": 4878
-  },
-  {
     "path": "root/Document/Menu - online/sushi/list/Baked roll/Text/450 г",
     "text": "450 г",
     "x": -778,
@@ -3888,27 +3270,9 @@
     "y": 5020
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/Baked roll/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": -778,
-    "y": 5018
-  },
-  {
     "path": "root/Document/Menu - online/sushi/list/Hot roll/Text/!/Гарячий рол",
     "text": "Гарячий рол",
     "x": -778,
-    "y": 5047
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Hot roll/Text/!/Акція!",
-    "text": "Акція!",
-    "x": -330,
-    "y": 5047
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Hot roll/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -202,
     "y": 5047
   },
   {
@@ -3921,12 +3285,6 @@
     "path": "root/Document/Menu - online/pizza/list/13/Text/!/4 м’яса",
     "text": "4 м’яса",
     "x": -2438,
-    "y": 5085
-  },
-  {
-    "path": "root/Document/Menu - online/pizza/list/13/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -1986,
     "y": 5085
   },
   {
@@ -3978,21 +3336,9 @@
     "y": 5261
   },
   {
-    "path": "root/Document/Menu - online/sushi/list/Hot roll/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": -778,
-    "y": 5259
-  },
-  {
     "path": "root/Document/Menu - online/sushi/list/Sushi doner/Text/!/Суші шаурма",
     "text": "Суші шаурма",
     "x": -778,
-    "y": 5288
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Sushi doner/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -324,
     "y": 5288
   },
   {
@@ -4048,12 +3394,6 @@
     "text": "Лосось/ тунець/ креветка/ вугор",
     "x": -778,
     "y": 5591
-  },
-  {
-    "path": "root/Document/Menu - online/sushi/list/Sushi burger/Text/!/Нове!",
-    "text": "Нове!",
-    "x": -324,
-    "y": 5587
   },
   {
     "path": "root/Document/Menu - online/sushi/list/Sushi burger/price/грн",
@@ -4999,7 +4339,7 @@
   },
   {
     "path": "root/Document/OLD/A4 - 2/sushi/list/8/Text/Лосось, креветка, тунець, морський гребінець або вугор",
-    "text": "Лосос��, креветка, тунець, морський гребінець або вугор",
+    "text": "Лосось, креветка, тунець, морський гребінець або вугор",
     "x": 874,
     "y": 8008
   },
@@ -5017,7 +4357,7 @@
   },
   {
     "path": "root/Document/OLD/A4 - 2/sushi/list/8/Text/норі, рис, ікра тобіко, крем сир, огірок, хіяши вакаме, горіховий соус, унагі соус, васабі, імбир, соєвий соус, кунжут",
-    "text": "норі, рис, ікра то��іко, крем сир, огірок,\nхіяши вакаме, горіховий соус, унагі соус, васабі, імбир, соєвий соус, кунжут",
+    "text": "норі, рис, ікра тобіко, крем сир, огірок,\nхіяши вакаме, горіховий соус, унагі соус, васабі, імбир, соєвий соус, кунжут",
     "x": 874,
     "y": 8048
   },
@@ -5088,12 +4428,6 @@
     "y": 8123
   },
   {
-    "path": "root/Document/OLD/burgers/43/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6871,
-    "y": 8123
-  },
-  {
     "path": "root/Document/OLD/burgers/43/price/210",
     "text": "210",
     "x": 6942,
@@ -5139,12 +4473,6 @@
     "path": "root/Document/OLD/deserts/4/Text/!!/Сирники",
     "text": "Сирники",
     "x": 14152,
-    "y": 8123
-  },
-  {
-    "path": "root/Document/OLD/deserts/4/Text/!!/Нове!",
-    "text": "Нове!",
-    "x": 14379,
     "y": 8123
   },
   {
@@ -5208,6 +4536,12 @@
     "y": 8152
   },
   {
+    "path": "root/Document/OLD/sushi/23/price/грн",
+    "text": "грн",
+    "x": 6150,
+    "y": 8155
+  },
+  {
     "path": "root/Document/OLD/salad/83/Text/Юлій Цезар індичка",
     "text": "Юлій Цезар індичка",
     "x": 11685,
@@ -5224,12 +4558,6 @@
     "text": "80",
     "x": 13620,
     "y": 8139
-  },
-  {
-    "path": "root/Document/OLD/sushi/23/price/грн",
-    "text": "грн",
-    "x": 6150,
-    "y": 8155
   },
   {
     "path": "root/Document/OLD/deserts/4/Text/Подається з топінгом та сметаною",
@@ -5322,12 +4650,6 @@
     "y": 8177
   },
   {
-    "path": "root/Document/OLD/drinks/29/price/1 л",
-    "text": "1 л",
-    "x": 12723,
-    "y": 8177
-  },
-  {
     "path": "root/Document/OLD/NA drinks/86/price/грн",
     "text": "грн",
     "x": 13620,
@@ -5412,12 +4734,6 @@
     "y": 8190
   },
   {
-    "path": "root/Document/OLD/hot/63/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 9396,
-    "y": 8190
-  },
-  {
     "path": "root/Document/OLD/hot/63/price/280",
     "text": "280",
     "x": 9467,
@@ -5460,12 +4776,6 @@
     "y": 8193
   },
   {
-    "path": "root/Document/OLD/drinks/29/price/80",
-    "text": "80",
-    "x": 12723,
-    "y": 8193
-  },
-  {
     "path": "root/Document/OLD/deserts/2/Text/Мафін в асотрименті",
     "text": "Мафін в асотрименті",
     "x": 14152,
@@ -5502,12 +4812,6 @@
     "y": 8233
   },
   {
-    "path": "root/Document/OLD/soups/59/Text/Баранина",
-    "text": "Баранина",
-    "x": 8321,
-    "y": 8224
-  },
-  {
     "path": "root/Document/OLD/soups/59/price/грн",
     "text": "грн",
     "x": 8619,
@@ -5529,12 +4833,6 @@
     "path": "root/Document/OLD/drinks/29/price/грн",
     "text": "грн",
     "x": 12651,
-    "y": 8225
-  },
-  {
-    "path": "root/Document/OLD/drinks/29/price/грн",
-    "text": "грн",
-    "x": 12723,
     "y": 8225
   },
   {
@@ -5578,12 +4876,6 @@
     "text": "450 г",
     "x": 498,
     "y": 8263
-  },
-  {
-    "path": "root/Document/OLD/salad/83/Text/400 г",
-    "text": "400 г",
-    "x": 11685,
-    "y": 8251
   },
   {
     "path": "root/Document/OLD/drinks/30/Text/Мохіто",
@@ -5634,12 +4926,6 @@
     "y": 8251
   },
   {
-    "path": "root/Document/OLD/deserts/2/price/грн",
-    "text": "грн",
-    "x": 14450,
-    "y": 8237
-  },
-  {
     "path": "root/Document/OLD/hot/63/Text/600 г",
     "text": "600 г",
     "x": 9169,
@@ -5650,6 +4936,18 @@
     "text": "сирна фрі",
     "x": 9993,
     "y": 8253
+  },
+  {
+    "path": "root/Document/OLD/salad/83/Text/400 г",
+    "text": "400 г",
+    "x": 11685,
+    "y": 8251
+  },
+  {
+    "path": "root/Document/OLD/deserts/2/price/грн",
+    "text": "грн",
+    "x": 14450,
+    "y": 8237
   },
   {
     "path": "root/Document/OLD/drinks/30/price/130",
@@ -5706,6 +5004,18 @@
     "y": 8313
   },
   {
+    "path": "root/Document/OLD/sushi/42/Text/Спайсі рол",
+    "text": "Спайсі рол",
+    "x": 5852,
+    "y": 8304
+  },
+  {
+    "path": "root/Document/OLD/sushi/42/price/300",
+    "text": "300",
+    "x": 6150,
+    "y": 8304
+  },
+  {
     "path": "root/Document/OLD/burgers/52/Text/!/Комбо-Меню Баранина",
     "text": "Комбо-Меню Баранина",
     "x": 6644,
@@ -5736,12 +5046,6 @@
     "y": 8291
   },
   {
-    "path": "root/Document/OLD/hot/64/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 9396,
-    "y": 8291
-  },
-  {
     "path": "root/Document/OLD/hot/64/price/230",
     "text": "230",
     "x": 9467,
@@ -5757,12 +5061,6 @@
     "path": "root/Document/OLD/salad/79/Text/!/Італія",
     "text": "Італія",
     "x": 11685,
-    "y": 8283
-  },
-  {
-    "path": "root/Document/OLD/salad/79/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 11912,
     "y": 8283
   },
   {
@@ -5796,28 +5094,10 @@
     "y": 8287
   },
   {
-    "path": "root/Document/OLD/deserts/5/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 14379,
-    "y": 8287
-  },
-  {
     "path": "root/Document/OLD/deserts/5/price/50",
     "text": "50",
     "x": 14450,
     "y": 8287
-  },
-  {
-    "path": "root/Document/OLD/sushi/42/Text/Спайсі рол",
-    "text": "Спайсі рол",
-    "x": 5852,
-    "y": 8304
-  },
-  {
-    "path": "root/Document/OLD/sushi/42/price/300",
-    "text": "300",
-    "x": 6150,
-    "y": 8304
   },
   {
     "path": "root/Document/OLD/soups/59/Text/350 г",
@@ -5826,46 +5106,10 @@
     "y": 8310
   },
   {
-    "path": "root/Document/OLD/sushi/42/Text/Лосось/ тунець / морський гребінець",
-    "text": "Лосось/ тунець / морський гребінець",
-    "x": 5852,
-    "y": 8333
-  },
-  {
-    "path": "root/Document/OLD/hot/64/Text/Баранина",
-    "text": "Баранина",
-    "x": 9169,
-    "y": 8320
-  },
-  {
     "path": "root/Document/OLD/hot/64/Text/ребра, соус томатний, спеції, кунжут, хрустка фунчоза",
     "text": "ребра, соус томатний, спеції, кунжут, хрустка фунчоза",
     "x": 9169,
     "y": 8320
-  },
-  {
-    "path": "root/Document/OLD/sushi/42/price/грн",
-    "text": "грн",
-    "x": 6150,
-    "y": 8336
-  },
-  {
-    "path": "root/Document/OLD/burgers/52/price/грн",
-    "text": "грн",
-    "x": 6942,
-    "y": 8335
-  },
-  {
-    "path": "root/Document/OLD/hot/64/price/грн",
-    "text": "грн",
-    "x": 9467,
-    "y": 8323
-  },
-  {
-    "path": "root/Document/OLD/crisps/75/Text/картопляні кульки",
-    "text": "картопляні кульки",
-    "x": 9993,
-    "y": 8316
   },
   {
     "path": "root/Document/OLD/crisps/75/Text/150 г",
@@ -5884,12 +5128,6 @@
     "text": "грн",
     "x": 11983,
     "y": 8315
-  },
-  {
-    "path": "root/Document/OLD/deserts/5/Text/!!/На вибір:",
-    "text": "На вибір:",
-    "x": 14152,
-    "y": 8316
   },
   {
     "path": "root/Document/OLD/deserts/5/Text/Подається з топінгом та сметаною",
@@ -5928,6 +5166,30 @@
     "y": 8335
   },
   {
+    "path": "root/Document/OLD/sushi/42/Text/Лосось/ тунець / морський гребінець",
+    "text": "Лосось/ тунець / морський гребінець",
+    "x": 5852,
+    "y": 8333
+  },
+  {
+    "path": "root/Document/OLD/sushi/42/price/грн",
+    "text": "грн",
+    "x": 6150,
+    "y": 8336
+  },
+  {
+    "path": "root/Document/OLD/burgers/52/price/грн",
+    "text": "грн",
+    "x": 6942,
+    "y": 8335
+  },
+  {
+    "path": "root/Document/OLD/hot/64/price/грн",
+    "text": "грн",
+    "x": 9467,
+    "y": 8323
+  },
+  {
     "path": "root/Document/OLD/soups/60/Text/Том ЯМ",
     "text": "Том ЯМ",
     "x": 8321,
@@ -5940,12 +5202,6 @@
     "y": 8342
   },
   {
-    "path": "root/Document/OLD/piza OLD/list/Laguna/Text/850 г",
-    "text": "850 г",
-    "x": 5022,
-    "y": 8369
-  },
-  {
     "path": "root/Document/OLD/burgers/52/Text/Бургер Баранина + картопля фрі з кетчупом",
     "text": "Бургер Баранина + картопля фрі з кетчупом",
     "x": 6644,
@@ -5956,24 +5212,6 @@
     "text": "400 г",
     "x": 7512,
     "y": 8361
-  },
-  {
-    "path": "root/Document/OLD/soups/60/Text/Кокосове молоко, креветка, лосось, мідії, гриби, помідори, рис, кінза, лайм, паста том-ям",
-    "text": "Кокосове молоко, креветка, лосось, мідії, гриби, помідори, рис, кінза, лайм, паста том-ям",
-    "x": 8321,
-    "y": 8371
-  },
-  {
-    "path": "root/Document/OLD/soups/60/price/грн",
-    "text": "грн",
-    "x": 8619,
-    "y": 8374
-  },
-  {
-    "path": "root/Document/OLD/hot/64/Text/400 г",
-    "text": "400 г",
-    "x": 9169,
-    "y": 8360
   },
   {
     "path": "root/Document/OLD/crisps/11/Text/!/Печериці фрі",
@@ -6004,12 +5242,6 @@
     "text": "500 мл",
     "x": 12703,
     "y": 8343
-  },
-  {
-    "path": "root/Document/OLD/deserts/5/Text/!!/банан і згущене молоко",
-    "text": "банан і згущене молоко",
-    "x": 14152,
-    "y": 8337
   },
   {
     "path": "root/Document/OLD/deserts/5/Text/180 г",
@@ -6048,6 +5280,36 @@
     "y": 8367
   },
   {
+    "path": "root/Document/OLD/piza OLD/list/Laguna/Text/850 г",
+    "text": "850 г",
+    "x": 5022,
+    "y": 8369
+  },
+  {
+    "path": "root/Document/OLD/sushi/42/Text/авокадо, норі, рис, крем сир, огірок, кунжут, ікра тобіко, спайсі соус, васабі, імбир, соєвий соус",
+    "text": "авокадо, норі, рис, крем сир, огірок, кунжут, ікра тобіко, спайсі соус, васабі, імбир, соєвий соус",
+    "x": 5852,
+    "y": 8373
+  },
+  {
+    "path": "root/Document/OLD/soups/60/Text/Кокосове молоко, креветка, лосось, мідії, гриби, помідори, рис, кінза, лайм, паста том-ям",
+    "text": "Кокосове молоко, креветка, лосось, мідії, гриби, помідори, рис, кінза, лайм, паста том-ям",
+    "x": 8321,
+    "y": 8371
+  },
+  {
+    "path": "root/Document/OLD/soups/60/price/грн",
+    "text": "грн",
+    "x": 8619,
+    "y": 8374
+  },
+  {
+    "path": "root/Document/OLD/hot/64/Text/400 г",
+    "text": "400 г",
+    "x": 9169,
+    "y": 8360
+  },
+  {
     "path": "root/Document/OLD/drinks/31/price/130",
     "text": "130",
     "x": 12703,
@@ -6057,12 +5319,6 @@
     "path": "root/Document/OLD/NA drinks/24/Text/Лимон+апельсин",
     "text": "Лимон+апельсин",
     "x": 13322,
-    "y": 8369
-  },
-  {
-    "path": "root/Document/OLD/NA drinks/24/price/500 мл",
-    "text": "500 мл",
-    "x": 13620,
     "y": 8369
   },
   {
@@ -6078,10 +5334,16 @@
     "y": 8369
   },
   {
-    "path": "root/Document/OLD/deserts/5/Text/!!/полуниця та сир",
-    "text": "полуниця та сир",
-    "x": 14152,
-    "y": 8358
+    "path": "root/Document/OLD/deserts/7/Text/!/Нове!",
+    "text": "Нове!",
+    "x": 14379,
+    "y": 8369
+  },
+  {
+    "path": "root/Document/OLD/deserts/7/price/50",
+    "text": "50",
+    "x": 14450,
+    "y": 8369
   },
   {
     "path": "root/Document/OLD/A4 - 2/sushi/list/12/Text/норі, рис, крем сир, огірок, ікра тобіко",
@@ -6096,22 +5358,16 @@
     "y": 8385
   },
   {
-    "path": "root/Document/OLD/sushi/42/Text/авокадо, норі, рис, крем сир, огірок, кунжут, ікра тобіко, спайсі соус, васабі, імбир, соєвий соус",
-    "text": "авокадо, норі, рис, крем сир, огірок, кунжут, ікра тобіко, спайсі соус, васабі, імбир, соєвий соус",
-    "x": 5852,
-    "y": 8373
-  },
-  {
-    "path": "root/Document/OLD/crisps/11/Text/Баранина",
-    "text": "Баранина",
-    "x": 9993,
-    "y": 8377
-  },
-  {
     "path": "root/Document/OLD/crisps/11/Text/в пивному клярі зі спеціями",
     "text": "в пивному клярі зі спеціями",
     "x": 9993,
     "y": 8377
+  },
+  {
+    "path": "root/Document/OLD/crisps/11/price/грн",
+    "text": "грн",
+    "x": 10291,
+    "y": 8380
   },
   {
     "path": "root/Document/OLD/piza OLD/list/Gavai/Text/Гавайська",
@@ -6168,36 +5424,6 @@
     "y": 8392
   },
   {
-    "path": "root/Document/OLD/crisps/11/price/грн",
-    "text": "грн",
-    "x": 10291,
-    "y": 8380
-  },
-  {
-    "path": "root/Document/OLD/drinks/31/price/грн",
-    "text": "грн",
-    "x": 12703,
-    "y": 8391
-  },
-  {
-    "path": "root/Document/OLD/deserts/5/Text/!!/сир",
-    "text": "сир",
-    "x": 14152,
-    "y": 8379
-  },
-  {
-    "path": "root/Document/OLD/deserts/7/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 14379,
-    "y": 8369
-  },
-  {
-    "path": "root/Document/OLD/deserts/7/price/50",
-    "text": "50",
-    "x": 14450,
-    "y": 8369
-  },
-  {
     "path": "root/Document/OLD/crisps/11/Text/200 г",
     "text": "200 г",
     "x": 9993,
@@ -6210,16 +5436,16 @@
     "y": 8384
   },
   {
-    "path": "root/Document/OLD/salad/80/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 11912,
-    "y": 8384
-  },
-  {
     "path": "root/Document/OLD/salad/80/price/170",
     "text": "170",
     "x": 11983,
     "y": 8384
+  },
+  {
+    "path": "root/Document/OLD/drinks/31/price/грн",
+    "text": "грн",
+    "x": 12703,
+    "y": 8391
   },
   {
     "path": "root/Document/OLD/A4 - 2/sushi/list/12/Text/150 г",
@@ -6240,16 +5466,22 @@
     "y": 8401
   },
   {
-    "path": "root/Document/OLD/deserts/7/Text/Баранина",
-    "text": "Баранина",
-    "x": 14152,
-    "y": 8398
-  },
-  {
     "path": "root/Document/OLD/deserts/7/Text/тістечко трюфель в шоколадіці",
     "text": "тістечко трюфель в шоколадіці ",
     "x": 14152,
     "y": 8398
+  },
+  {
+    "path": "root/Document/OLD/salad/80/Text/Огірок, солодкий перець, помідор, цибуля, салат, сир фета, масліни, соус вінгер, хрустка фунчоза",
+    "text": "Огірок, солодкий перець, помідор, цибуля, салат, сир фета, масліни, соус вінгер, хрустка фунчоза",
+    "x": 11685,
+    "y": 8413
+  },
+  {
+    "path": "root/Document/OLD/deserts/7/price/грн",
+    "text": "грн",
+    "x": 14450,
+    "y": 8401
   },
   {
     "path": "root/Document/OLD/piza OLD/list/Gavai/Text/Курка, ананас, кукурудза, моцарелла, пармезан, орегано, томатний соус",
@@ -6300,10 +5532,16 @@
     "y": 8425
   },
   {
-    "path": "root/Document/OLD/hot/65/Text/Баранина",
-    "text": "Баранина",
-    "x": 9169,
-    "y": 8421
+    "path": "root/Document/OLD/doner/58/Text/лаваш, баранина, помідор, цибуля, зелень, соус часниковий, соус томатний",
+    "text": "лаваш, баранина, помідор, цибуля, зелень, соус часниковий, соус томатний",
+    "x": 7512,
+    "y": 8443
+  },
+  {
+    "path": "root/Document/OLD/soups/60/Text/450 г",
+    "text": "450 г",
+    "x": 8321,
+    "y": 8430
   },
   {
     "path": "root/Document/OLD/hot/65/Text/свинина, яловичина, соус часниковий",
@@ -6318,34 +5556,10 @@
     "y": 8424
   },
   {
-    "path": "root/Document/OLD/salad/80/Text/Огірок, солодкий перець, помідор, цибуля, салат, сир фета, масліни, соус вінгер, хрустка фунчоза",
-    "text": "Огірок, солодкий перець, помідор, цибуля, салат, сир фета, масліни, соус вінгер, хрустка фунчоза",
-    "x": 11685,
-    "y": 8413
-  },
-  {
-    "path": "root/Document/OLD/deserts/5/Text/!!/яблуко",
-    "text": "яблуко",
-    "x": 14152,
-    "y": 8400
-  },
-  {
-    "path": "root/Document/OLD/deserts/7/price/грн",
-    "text": "грн",
-    "x": 14450,
-    "y": 8401
-  },
-  {
-    "path": "root/Document/OLD/doner/58/Text/лаваш, баранина, помідор, цибуля, зелень, соус часниковий, соус томатний",
-    "text": "лаваш, баранина, помідор, цибуля, зелень, соус часниковий, соус томатний",
-    "x": 7512,
-    "y": 8443
-  },
-  {
-    "path": "root/Document/OLD/soups/60/Text/450 г",
-    "text": "450 г",
-    "x": 8321,
-    "y": 8430
+    "path": "root/Document/OLD/hot/65/Text/200 г",
+    "text": "200 г",
+    "x": 9169,
+    "y": 8442
   },
   {
     "path": "root/Document/OLD/crisps/8/Text/Хрусткі мідії",
@@ -6372,6 +5586,18 @@
     "y": 8438
   },
   {
+    "path": "root/Document/OLD/A4 - 2/sushi/list/2/price/80",
+    "text": "80",
+    "x": 398,
+    "y": 8438
+  },
+  {
+    "path": "root/Document/OLD/A4 - 2/sushi/list/14/Text/Макі",
+    "text": "Макі",
+    "x": 498,
+    "y": 8438
+  },
+  {
     "path": "root/Document/OLD/drinks/32/Text/Глінтвейн",
     "text": "Глінтвейн",
     "x": 12405,
@@ -6390,28 +5616,10 @@
     "y": 8419
   },
   {
-    "path": "root/Document/OLD/A4 - 2/sushi/list/2/price/80",
-    "text": "80",
-    "x": 398,
-    "y": 8438
-  },
-  {
-    "path": "root/Document/OLD/A4 - 2/sushi/list/14/Text/Макі",
-    "text": "Макі",
-    "x": 498,
-    "y": 8438
-  },
-  {
     "path": "root/Document/OLD/A4 - 2/sushi/list/14/price/150",
     "text": "150",
     "x": 1150,
     "y": 8438
-  },
-  {
-    "path": "root/Document/OLD/hot/65/Text/200 г",
-    "text": "200 г",
-    "x": 9169,
-    "y": 8442
   },
   {
     "path": "root/Document/OLD/NA drinks/12/Text/Лід",
@@ -6424,6 +5632,12 @@
     "text": "30",
     "x": 13620,
     "y": 8436
+  },
+  {
+    "path": "root/Document/OLD/A4 - 2/sushi/list/2/Text/Огірок, норі, рис, крем сир, васабі, імбир, соєвий соус, спайсі соус",
+    "text": "Огірок, норі, рис, крем сир, васабі, імбир, соєвий соус, спайсі соус",
+    "x": 122,
+    "y": 8467
   },
   {
     "path": "root/Document/OLD/drinks/32/Text/На вині",
@@ -6462,22 +5676,10 @@
     "y": 8451
   },
   {
-    "path": "root/Document/OLD/deserts/6/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 14379,
-    "y": 8451
-  },
-  {
     "path": "root/Document/OLD/deserts/6/price/50",
     "text": "50",
     "x": 14450,
     "y": 8451
-  },
-  {
-    "path": "root/Document/OLD/A4 - 2/sushi/list/2/Text/Огірок, норі, рис, крем сир, васабі, імбир, соєвий соус, спайсі соус",
-    "text": "Огірок, норі, рис, крем сир, васабі, імбир, соєвий соус, спайсі соус",
-    "x": 122,
-    "y": 8467
   },
   {
     "path": "root/Document/OLD/A4 - 2/sushi/list/2/price/грн",
@@ -6516,12 +5718,6 @@
     "y": 8462
   },
   {
-    "path": "root/Document/OLD/soups/61/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 8548,
-    "y": 8462
-  },
-  {
     "path": "root/Document/OLD/soups/61/price/150",
     "text": "150",
     "x": 8619,
@@ -6532,6 +5728,12 @@
     "text": "М’ясо мідій, спеції, панко",
     "x": 9993,
     "y": 8459
+  },
+  {
+    "path": "root/Document/OLD/crisps/8/price/грн",
+    "text": "грн",
+    "x": 10291,
+    "y": 8462
   },
   {
     "path": "root/Document/OLD/burgers/53/Text/Бургер Яловичина + картопля фрі з кетчупом",
@@ -6564,12 +5766,6 @@
     "y": 8474
   },
   {
-    "path": "root/Document/OLD/crisps/8/price/грн",
-    "text": "грн",
-    "x": 10291,
-    "y": 8462
-  },
-  {
     "path": "root/Document/OLD/piza OLD/list/Karbonara/Text/Карбонара",
     "text": "Карбонара",
     "x": 5022,
@@ -6580,12 +5776,6 @@
     "text": "240",
     "x": 5320,
     "y": 8502
-  },
-  {
-    "path": "root/Document/OLD/soups/61/Text/Баранина",
-    "text": "Баранина",
-    "x": 8321,
-    "y": 8491
   },
   {
     "path": "root/Document/OLD/soups/61/Text/Курка, картопля, огірок, редис, яйце, зелень, кефір, гірчиця, хрін",
@@ -6618,7 +5808,7 @@
     "y": 8468
   },
   {
-    "path": "root/Document/OLD/A4 - 2/sushi/list/14/Text/Креветки, норі, ри��, крем сир, васабі, імбир, соєвий соус, спайсі соус",
+    "path": "root/Document/OLD/A4 - 2/sushi/list/14/Text/Креветки, норі, рис, крем сир, васабі, імбир, соєвий соус, спайсі соус",
     "text": "Креветки, норі, рис, крем сир, васабі, імбир, соєвий соус, спайсі соус",
     "x": 498,
     "y": 8488
@@ -6652,12 +5842,6 @@
     "text": "220 г",
     "x": 498,
     "y": 8509
-  },
-  {
-    "path": "root/Document/OLD/hot/66/Text/Баранина",
-    "text": "Баранина",
-    "x": 9169,
-    "y": 8503
   },
   {
     "path": "root/Document/OLD/hot/66/Text/лосось, кабачок, соус тар-тар, лімон",
@@ -6702,6 +5886,18 @@
     "y": 8504
   },
   {
+    "path": "root/Document/OLD/piza OLD/list/Karbonara/Text/Бекон, куряче філе, помідор, цибуля, вершковий соус, печериці, моцарелла, пармезан, часник, орегано",
+    "text": "Бекон, куряче філе, помідор, цибуля, вершковий соус, печериці, моцарелла, пармезан, часник, орегано",
+    "x": 5022,
+    "y": 8531
+  },
+  {
+    "path": "root/Document/OLD/piza OLD/list/Karbonara/price/грн",
+    "text": "грн",
+    "x": 5320,
+    "y": 8534
+  },
+  {
     "path": "root/Document/OLD/burgers/53/Text/550 г",
     "text": "550 г",
     "x": 6644,
@@ -6738,16 +5934,16 @@
     "y": 8501
   },
   {
-    "path": "root/Document/OLD/piza OLD/list/Karbonara/Text/Бекон, куряче філе, помідор, цибуля, вершковий соус, печериці, моцарелла, пармезан, часник, орегано",
-    "text": "Бекон, куряче філе, помідор, цибуля, вершковий соус, печериці, моцарелла, пармезан, часник, орегано",
-    "x": 5022,
-    "y": 8531
+    "path": "root/Document/OLD/doner/55/Text/лаваш, індичка, шпинат, помідор, цибуля, салат айсберг, соус часниковий, соус томатний",
+    "text": "лаваш, індичка, шпинат, помідор, цибуля, салат айсберг, соус часниковий, соус томатний",
+    "x": 7512,
+    "y": 8544
   },
   {
-    "path": "root/Document/OLD/piza OLD/list/Karbonara/price/грн",
-    "text": "грн",
-    "x": 5320,
-    "y": 8534
+    "path": "root/Document/OLD/soups/61/Text/450 г",
+    "text": "450 г",
+    "x": 8321,
+    "y": 8531
   },
   {
     "path": "root/Document/OLD/hot/66/Text/400 г",
@@ -6760,18 +5956,6 @@
     "text": "Шаурма",
     "x": 121,
     "y": 8541
-  },
-  {
-    "path": "root/Document/OLD/doner/55/Text/лаваш, індичка, шпинат, помідор, цибуля, салат айсберг, соус часниковий, соус томатний",
-    "text": "лаваш, індичка, шпинат, помідор, цибуля, салат айсберг, соус часниковий, соус томатний",
-    "x": 7512,
-    "y": 8544
-  },
-  {
-    "path": "root/Document/OLD/soups/61/Text/450 г",
-    "text": "450 г",
-    "x": 8321,
-    "y": 8531
   },
   {
     "path": "root/Document/OLD/crisps/76/Text/Сосиска молочна, cосиска мисливська або кукурудза з сиром",
@@ -6900,16 +6084,16 @@
     "y": 8595
   },
   {
-    "path": "root/Document/OLD/hot/67/Text/Баранина",
-    "text": "Баранина",
-    "x": 9169,
-    "y": 8585
-  },
-  {
     "path": "root/Document/OLD/hot/67/Text/пюре з шпінатом та сиром, томат, салат, зелень, спеції, цибулевий кранч, соус песто",
     "text": "пюре з шпінатом та сиром, томат, салат, зелень, спеції, цибулевий кранч, соус песто",
     "x": 9169,
     "y": 8585
+  },
+  {
+    "path": "root/Document/OLD/hot/67/price/грн",
+    "text": "грн",
+    "x": 9467,
+    "y": 8588
   },
   {
     "path": "root/Document/OLD/crisps/76/Text/кетчуп, гірчиця",
@@ -6981,12 +6165,6 @@
     "path": "root/Document/OLD/A4 - 2/doner/list/3/price/120",
     "text": "120",
     "x": 1149,
-    "y": 8588
-  },
-  {
-    "path": "root/Document/OLD/hot/67/price/грн",
-    "text": "грн",
-    "x": 9467,
     "y": 8588
   },
   {
@@ -7188,7 +6366,19 @@
     "y": 8664
   },
   {
-    "path": "root/Document/OLD/crisps/77/Text/шинка, сир моцапелла, салат, помідор, мариновані огірки, соус тартар",
+    "path": "root/Document/OLD/hot/10/Text/!/Устриці Запичені",
+    "text": "Устриці Запичені ",
+    "x": 9169,
+    "y": 8676
+  },
+  {
+    "path": "root/Document/OLD/hot/10/price/80",
+    "text": "80",
+    "x": 9467,
+    "y": 8676
+  },
+  {
+    "path": "root/Document/OLD/crisps/77/Text/шинка, сир моцапелла, салат, помідор, маринован�� огірки, соус тартар",
     "text": "шинка, сир моцапелла, салат, помідор, мариновані огірки, соус тартар",
     "x": 9993,
     "y": 8663
@@ -7218,12 +6408,6 @@
     "y": 8637
   },
   {
-    "path": "root/Document/OLD/drinks/34/price/1 л",
-    "text": "1 л",
-    "x": 12723,
-    "y": 8637
-  },
-  {
     "path": "root/Document/OLD/NA drinks/13/price/30",
     "text": "30",
     "x": 13620,
@@ -7240,12 +6424,6 @@
     "text": "грн",
     "x": 14450,
     "y": 8647
-  },
-  {
-    "path": "root/Document/OLD/salad/82/price/240",
-    "text": "240",
-    "x": 11983,
-    "y": 8664
   },
   {
     "path": "root/Document/OLD/drinks/34/Text/Червоне, сухе",
@@ -7266,12 +6444,6 @@
     "y": 8653
   },
   {
-    "path": "root/Document/OLD/drinks/34/price/100",
-    "text": "100",
-    "x": 12723,
-    "y": 8653
-  },
-  {
     "path": "root/Document/OLD/A4 - 2/doner/list/2/Text/300 г",
     "text": "300 г",
     "x": 497,
@@ -7284,24 +6456,6 @@
     "y": 8678
   },
   {
-    "path": "root/Document/OLD/hot/10/Text/!/Устриці Запичені",
-    "text": "Устриці Запичені ",
-    "x": 9169,
-    "y": 8676
-  },
-  {
-    "path": "root/Document/OLD/hot/10/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 9396,
-    "y": 8676
-  },
-  {
-    "path": "root/Document/OLD/hot/10/price/80",
-    "text": "80",
-    "x": 9467,
-    "y": 8676
-  },
-  {
     "path": "root/Document/OLD/crisps/77/price/грн",
     "text": "грн",
     "x": 10291,
@@ -7311,6 +6465,12 @@
     "path": "root/Document/OLD/salad/82/Text/Аля Каріда",
     "text": "Аля Каріда",
     "x": 11685,
+    "y": 8664
+  },
+  {
+    "path": "root/Document/OLD/salad/82/price/240",
+    "text": "240",
+    "x": 11983,
     "y": 8664
   },
   {
@@ -7326,22 +6486,28 @@
     "y": 8665
   },
   {
+    "path": "root/Document/OLD/piza OLD/list/Americana/Text/850 г",
+    "text": "850 г",
+    "x": 5022,
+    "y": 8710
+  },
+  {
     "path": "root/Document/OLD/sushi/28/Text/300 г",
     "text": "300 г",
     "x": 5852,
     "y": 8704
   },
   {
-    "path": "root/Document/OLD/hot/10/Text/Баранина",
-    "text": "Баранина",
-    "x": 9169,
-    "y": 8705
-  },
-  {
     "path": "root/Document/OLD/hot/10/Text/сир, тобіка, хіяши вакаме",
     "text": "сир, тобіка, хіяши вакаме",
     "x": 9169,
     "y": 8705
+  },
+  {
+    "path": "root/Document/OLD/hot/10/price/грн",
+    "text": "грн",
+    "x": 9467,
+    "y": 8708
   },
   {
     "path": "root/Document/OLD/crisps/77/Text/180 г",
@@ -7365,12 +6531,6 @@
     "path": "root/Document/OLD/drinks/34/price/грн",
     "text": "грн",
     "x": 12657,
-    "y": 8685
-  },
-  {
-    "path": "root/Document/OLD/drinks/34/price/грн",
-    "text": "грн",
-    "x": 12723,
     "y": 8685
   },
   {
@@ -7410,18 +6570,6 @@
     "y": 8716
   },
   {
-    "path": "root/Document/OLD/piza OLD/list/Americana/Text/850 г",
-    "text": "850 г",
-    "x": 5022,
-    "y": 8710
-  },
-  {
-    "path": "root/Document/OLD/hot/10/price/грн",
-    "text": "грн",
-    "x": 9467,
-    "y": 8708
-  },
-  {
     "path": "root/Document/OLD/burgers/49/Text/Бургер Яловичина",
     "text": "Бургер Яловичина",
     "x": 6644,
@@ -7454,12 +6602,6 @@
   {
     "path": "root/Document/OLD/drinks/35/price/500 мл",
     "text": "500 мл",
-    "x": 12723,
-    "y": 8720
-  },
-  {
-    "path": "root/Document/OLD/drinks/35/price/1 л",
-    "text": "1 л",
     "x": 12723,
     "y": 8720
   },
@@ -7536,22 +6678,10 @@
     "y": 8735
   },
   {
-    "path": "root/Document/OLD/crisps/1/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 10220,
-    "y": 8735
-  },
-  {
     "path": "root/Document/OLD/crisps/1/price/50",
     "text": "50",
     "x": 10291,
     "y": 8735
-  },
-  {
-    "path": "root/Document/OLD/salad/82/Text/250 г",
-    "text": "250 г",
-    "x": 11685,
-    "y": 8752
   },
   {
     "path": "root/Document/OLD/drinks/35/Text/Рожеве, напівсолодке",
@@ -7568,12 +6698,6 @@
   {
     "path": "root/Document/OLD/drinks/35/price/70",
     "text": "70",
-    "x": 12723,
-    "y": 8736
-  },
-  {
-    "path": "root/Document/OLD/drinks/35/price/100",
-    "text": "100",
     "x": 12723,
     "y": 8736
   },
@@ -7612,6 +6736,24 @@
     "text": "1500",
     "x": 9463,
     "y": 8758
+  },
+  {
+    "path": "root/Document/OLD/piza OLD/list/BBQ/price/грн",
+    "text": "грн",
+    "x": 5320,
+    "y": 8774
+  },
+  {
+    "path": "root/Document/OLD/crisps/1/Text/Лаваш, спеції",
+    "text": "Лаваш, спеції",
+    "x": 9993,
+    "y": 8764
+  },
+  {
+    "path": "root/Document/OLD/salad/82/Text/250 г",
+    "text": "250 г",
+    "x": 11685,
+    "y": 8752
   },
   {
     "path": "root/Document/OLD/NA drinks/14/price/грн",
@@ -7656,18 +6798,6 @@
     "y": 8777
   },
   {
-    "path": "root/Document/OLD/piza OLD/list/BBQ/price/грн",
-    "text": "грн",
-    "x": 5320,
-    "y": 8774
-  },
-  {
-    "path": "root/Document/OLD/crisps/1/Text/Лаваш, спеції",
-    "text": "Лаваш, спеції",
-    "x": 9993,
-    "y": 8764
-  },
-  {
     "path": "root/Document/OLD/A4 - 2/doner/list/6/price/грн",
     "text": "грн",
     "x": 1149,
@@ -7692,21 +6822,9 @@
     "y": 8768
   },
   {
-    "path": "root/Document/OLD/drinks/35/price/грн",
-    "text": "грн",
-    "x": 12723,
-    "y": 8768
-  },
-  {
     "path": "root/Document/OLD/sushi/39/Text/!/Світ чілі рол",
     "text": "Світ чілі рол   ",
     "x": 5852,
-    "y": 8796
-  },
-  {
-    "path": "root/Document/OLD/sushi/39/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6079,
     "y": 8796
   },
   {
@@ -7744,12 +6862,6 @@
     "text": "120 мл",
     "x": 13620,
     "y": 8787
-  },
-  {
-    "path": "root/Document/OLD/deserts/Varenuki/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 14152,
-    "y": 8779
   },
   {
     "path": "root/Document/OLD/deserts/Varenuki/Text/!/Вареники з вишнею",
@@ -7794,12 +6906,6 @@
     "y": 8817
   },
   {
-    "path": "root/Document/OLD/crisps/78/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 10220,
-    "y": 8817
-  },
-  {
     "path": "root/Document/OLD/crisps/78/price/50",
     "text": "50",
     "x": 10291,
@@ -7820,12 +6926,6 @@
   {
     "path": "root/Document/OLD/drinks/36/price/500 мл",
     "text": "500 мл",
-    "x": 12723,
-    "y": 8803
-  },
-  {
-    "path": "root/Document/OLD/drinks/36/price/1 л",
-    "text": "1 л",
     "x": 12723,
     "y": 8803
   },
@@ -7862,12 +6962,6 @@
   {
     "path": "root/Document/OLD/drinks/36/price/70",
     "text": "70",
-    "x": 12723,
-    "y": 8819
-  },
-  {
-    "path": "root/Document/OLD/drinks/36/price/100",
-    "text": "100",
     "x": 12723,
     "y": 8819
   },
@@ -7914,12 +7008,6 @@
     "y": 8862
   },
   {
-    "path": "root/Document/OLD/burgers/50/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6871,
-    "y": 8862
-  },
-  {
     "path": "root/Document/OLD/burgers/50/price/200",
     "text": "200",
     "x": 6942,
@@ -7950,27 +7038,9 @@
     "y": 8835
   },
   {
-    "path": "root/Document/OLD/salad/salmon ch/Text/Ікра лососева",
-    "text": "Ікра лососева  ",
-    "x": 11685,
-    "y": 8865
-  },
-  {
-    "path": "root/Document/OLD/salad/salmon ch/Text/50 г",
-    "text": "50 г",
-    "x": 11685,
-    "y": 8865
-  },
-  {
     "path": "root/Document/OLD/drinks/36/price/грн",
     "text": "грн",
     "x": 12657,
-    "y": 8851
-  },
-  {
-    "path": "root/Document/OLD/drinks/36/price/грн",
-    "text": "грн",
-    "x": 12723,
     "y": 8851
   },
   {
@@ -8028,12 +7098,6 @@
     "y": 8894
   },
   {
-    "path": "root/Document/OLD/sushi/39/Text/450 г",
-    "text": "450 г",
-    "x": 5852,
-    "y": 8884
-  },
-  {
     "path": "root/Document/OLD/burgers/50/Text/Котлета з баранини, салат айсберг, помідор, огірок маринований, бекон, цибуля, сир чеддер, соус томатний, соус гірчичний, соус тартар, булочка бріош",
     "text": "Котлета з баранини, салат айсберг, помідор, огірок маринований, бекон, цибуля, сир чеддер, соус томатний, соус гірчичний, соус тартар, булочка бріош",
     "x": 6644,
@@ -8050,6 +7114,12 @@
     "text": "60",
     "x": 10290,
     "y": 8878
+  },
+  {
+    "path": "root/Document/OLD/salad/salmon ch/Text/50 г",
+    "text": "50 г",
+    "x": 11685,
+    "y": 8865
   },
   {
     "path": "root/Document/OLD/salad/salmon ch/price/грн",
@@ -8094,6 +7164,12 @@
     "y": 8897
   },
   {
+    "path": "root/Document/OLD/sushi/39/Text/450 г",
+    "text": "450 г",
+    "x": 5852,
+    "y": 8884
+  },
+  {
     "path": "root/Document/OLD/A4 - 2/doner/list/9/price/грн",
     "text": "грн",
     "x": 1149,
@@ -8124,12 +7200,6 @@
     "y": 8886
   },
   {
-    "path": "root/Document/OLD/drinks/37/price/1 л",
-    "text": "1 л",
-    "x": 12723,
-    "y": 8886
-  },
-  {
     "path": "root/Document/OLD/NA drinks/16/price/35",
     "text": "35",
     "x": 13620,
@@ -8139,12 +7209,6 @@
     "path": "root/Document/OLD/sushi/40/Text/!/Футо макі рол",
     "text": "Футо макі рол",
     "x": 5852,
-    "y": 8916
-  },
-  {
-    "path": "root/Document/OLD/sushi/40/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6079,
     "y": 8916
   },
   {
@@ -8178,16 +7242,16 @@
     "y": 8902
   },
   {
-    "path": "root/Document/OLD/drinks/37/price/100",
-    "text": "100",
-    "x": 12723,
-    "y": 8902
-  },
-  {
     "path": "root/Document/OLD/A4 - 2/doner/list/8/Text/Тортилія, хрустка риба, салат айсберг, цибуля, картопля фрі, морква по корейськи, соус спайсі, соус тартар, хіяші вакаме",
     "text": "Тортилія, хрустка риба, салат айсберг, цибуля, картопля фрі, морква по корейськи, соус спайсі, соус тартар, хіяші вакаме",
     "x": 497,
     "y": 8924
+  },
+  {
+    "path": "root/Document/OLD/piza OLD/list/Margarita/Text/700 г",
+    "text": "700 г",
+    "x": 5022,
+    "y": 8931
   },
   {
     "path": "root/Document/OLD/hot/68/Text/+ подарунок 1л вина",
@@ -8200,12 +7264,6 @@
     "text": "грн",
     "x": 10290,
     "y": 8910
-  },
-  {
-    "path": "root/Document/OLD/piza OLD/list/Margarita/Text/700 г",
-    "text": "700 г",
-    "x": 5022,
-    "y": 8931
   },
   {
     "path": "root/Document/OLD/crisps/churros/Text/120 г",
@@ -8223,12 +7281,6 @@
     "path": "root/Document/OLD/drinks/37/price/грн",
     "text": "грн",
     "x": 12657,
-    "y": 8934
-  },
-  {
-    "path": "root/Document/OLD/drinks/37/price/грн",
-    "text": "грн",
-    "x": 12723,
     "y": 8934
   },
   {
@@ -8299,7 +7351,7 @@
   },
   {
     "path": "root/Document/OLD/piza OLD/list/Paperoni/Text/Салямі, моцарелла, пармезан, часник, орегано, томатний соус",
-    "text": "Салямі, моцарелла, пармезан, часник, орега��о, томатний соус",
+    "text": "Салямі, моцарелла, пармезан, часник, орегано, томатний соус",
     "x": 5022,
     "y": 8992
   },
@@ -8307,12 +7359,6 @@
     "path": "root/Document/OLD/hot/69/Text/!/Сет МЯСНИЙ BBQ",
     "text": "Сет МЯСНИЙ BBQ ",
     "x": 9169,
-    "y": 8978
-  },
-  {
-    "path": "root/Document/OLD/hot/69/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 9392,
     "y": 8978
   },
   {
@@ -8412,12 +7458,6 @@
     "y": 9012
   },
   {
-    "path": "root/Document/OLD/drinks/84/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 12629,
-    "y": 9012
-  },
-  {
     "path": "root/Document/OLD/drinks/84/price/40",
     "text": "40",
     "x": 12700,
@@ -8445,12 +7485,6 @@
     "path": "root/Document/OLD/sushi/41/Text/!/Сирний  рол",
     "text": "Сирний  рол",
     "x": 5852,
-    "y": 9036
-  },
-  {
-    "path": "root/Document/OLD/sushi/41/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6079,
     "y": 9036
   },
   {
@@ -8946,12 +7980,6 @@
     "y": 9293
   },
   {
-    "path": "root/Document/OLD/hot/70/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 9392,
-    "y": 9293
-  },
-  {
     "path": "root/Document/OLD/hot/70/price/1500",
     "text": "1500",
     "x": 9463,
@@ -9246,12 +8274,6 @@
     "y": 9608
   },
   {
-    "path": "root/Document/OLD/hot/9/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 9392,
-    "y": 9608
-  },
-  {
     "path": "root/Document/OLD/hot/9/price/1500",
     "text": "1500",
     "x": 9463,
@@ -9492,12 +8514,6 @@
     "y": 9896
   },
   {
-    "path": "root/Document/OLD/hot/71/Text/Баранина",
-    "text": "Баранина",
-    "x": 9169,
-    "y": 9895
-  },
-  {
     "path": "root/Document/OLD/hot/71/Text/салат, соус вінгер, рис, соус світ-чилі, лимон",
     "text": "салат, соус вінгер, рис, соус світ-чилі, лимон",
     "x": 9169,
@@ -9654,12 +8670,6 @@
     "y": 9998
   },
   {
-    "path": "root/Document/OLD/hot/72/Text/Баранина",
-    "text": "Баранина",
-    "x": 9169,
-    "y": 9996
-  },
-  {
     "path": "root/Document/OLD/hot/72/Text/салат, огірок, помідор, рис, соус унагі, лимон",
     "text": "салат, огірок, помідор, рис, соус унагі, лимон",
     "x": 9169,
@@ -9720,12 +8730,6 @@
     "y": 10062
   },
   {
-    "path": "root/Document/OLD/piza OLD/list/4 meats/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 5249,
-    "y": 10062
-  },
-  {
     "path": "root/Document/OLD/piza OLD/list/4 meats/price/300",
     "text": "300",
     "x": 5320,
@@ -9735,12 +8739,6 @@
     "path": "root/Document/OLD/sushi/list/SET Fujiyama/Text/!/Сет ФУДЗІЯМА",
     "text": "Сет ФУДЗІЯМА",
     "x": 5880,
-    "y": 10054
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/SET Fujiyama/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6103,
     "y": 10054
   },
   {
@@ -9765,12 +8763,6 @@
     "path": "root/Document/OLD/hot/3/Text/!/Чебуреки ",
     "text": "Чебуреки ",
     "x": 9169,
-    "y": 10068
-  },
-  {
-    "path": "root/Document/OLD/hot/3/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 9396,
     "y": 10068
   },
   {
@@ -9966,12 +8958,6 @@
     "y": 10182
   },
   {
-    "path": "root/Document/OLD/piza OLD/list/Venezia/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 5249,
-    "y": 10182
-  },
-  {
     "path": "root/Document/OLD/piza OLD/list/Venezia/price/210",
     "text": "210",
     "x": 5320,
@@ -9993,12 +8979,6 @@
     "path": "root/Document/OLD/hot/73/Text/!/Печена картопля",
     "text": "Печена картопля ",
     "x": 9169,
-    "y": 10192
-  },
-  {
-    "path": "root/Document/OLD/hot/73/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 9396,
     "y": 10192
   },
   {
@@ -10098,12 +9078,6 @@
     "y": 10255
   },
   {
-    "path": "root/Document/OLD/sushi/list/SET Tak-a-sho/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6103,
-    "y": 10255
-  },
-  {
     "path": "root/Document/OLD/sushi/list/SET Tak-a-sho/price/1600",
     "text": "1600",
     "x": 6174,
@@ -10155,12 +9129,6 @@
     "path": "root/Document/OLD/piza OLD/list/Greece/Text/!/Грецька",
     "text": "Грецька",
     "x": 5022,
-    "y": 10283
-  },
-  {
-    "path": "root/Document/OLD/piza OLD/list/Greece/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 5249,
     "y": 10283
   },
   {
@@ -10650,12 +9618,6 @@
     "y": 10660
   },
   {
-    "path": "root/Document/OLD/hot/spagetti carbonara/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 9409,
-    "y": 10660
-  },
-  {
     "path": "root/Document/OLD/hot/spagetti carbonara/price/150",
     "text": "150",
     "x": 9479,
@@ -10677,12 +9639,6 @@
     "path": "root/Document/OLD/sushi/list/Golden dragon/Text/!/Золотий Дракон",
     "text": "Золотий Дракон",
     "x": 5880,
-    "y": 10684
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Golden dragon/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6046,
     "y": 10684
   },
   {
@@ -10782,12 +9738,6 @@
     "y": 10763
   },
   {
-    "path": "root/Document/OLD/piza OLD/list/Avocado/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 5249,
-    "y": 10763
-  },
-  {
     "path": "root/Document/OLD/piza OLD/list/Avocado/price/280",
     "text": "280",
     "x": 5320,
@@ -10860,12 +9810,6 @@
     "y": 10828
   },
   {
-    "path": "root/Document/OLD/sushi/list/Yakudza /Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6043,
-    "y": 10828
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Yakudza /Text/!/Акція!",
     "text": "Акція!",
     "x": 6104,
@@ -10911,12 +9855,6 @@
     "path": "root/Document/OLD/piza OLD/list/Mozarella/Text/!/Моцарелла піца",
     "text": "Моцарелла піца",
     "x": 5022,
-    "y": 10883
-  },
-  {
-    "path": "root/Document/OLD/piza OLD/list/Mozarella/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 5249,
     "y": 10883
   },
   {
@@ -11025,12 +9963,6 @@
     "path": "root/Document/OLD/sushi/list/Green Dragon/Text/!/Акція!",
     "text": "Акція!",
     "x": 6104,
-    "y": 10991
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Green Dragon/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6107,
     "y": 10991
   },
   {
@@ -11442,12 +10374,6 @@
     "y": 11329
   },
   {
-    "path": "root/Document/OLD/sushi/list/California/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6168,
-    "y": 11329
-  },
-  {
     "path": "root/Document/OLD/sushi/list/California/price/350",
     "text": "350",
     "x": 6178,
@@ -11598,12 +10524,6 @@
     "y": 11527
   },
   {
-    "path": "root/Document/OLD/piza OLD/list/14/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 5248,
-    "y": 11527
-  },
-  {
     "path": "root/Document/OLD/piza OLD/list/14/price/260",
     "text": "260",
     "x": 5320,
@@ -11619,12 +10539,6 @@
     "path": "root/Document/OLD/sushi/list/Tak-a-sho aburi/Text/!/Акція!",
     "text": "Акція!",
     "x": 6104,
-    "y": 11513
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Tak-a-sho aburi/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6168,
     "y": 11513
   },
   {
@@ -11718,12 +10632,6 @@
     "y": 11678
   },
   {
-    "path": "root/Document/OLD/sushi/list/Hot roll/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6168,
-    "y": 11678
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Hot roll/price/350",
     "text": "350",
     "x": 6178,
@@ -11790,12 +10698,6 @@
     "y": 11817
   },
   {
-    "path": "root/Document/OLD/sushi/list/Hot roll Big Boy/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6025,
-    "y": 11822
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Hot roll Big Boy/Text/!/Акція!",
     "text": "Акція!",
     "x": 6104,
@@ -11823,18 +10725,6 @@
     "path": "root/Document/OLD/sushi/list/Hot roll Big Boy/Text/!/Гарячий рол Біг-Бой",
     "text": "Гарячий рол Біг-Бой",
     "x": 5880,
-    "y": 11851
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Hot roll Big Boy/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6043,
-    "y": 11851
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Hot roll Big Boy/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 6104,
     "y": 11851
   },
   {
@@ -11880,12 +10770,6 @@
     "y": 11969
   },
   {
-    "path": "root/Document/OLD/piza OLD/list/3/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 5248,
-    "y": 11969
-  },
-  {
     "path": "root/Document/OLD/piza OLD/list/3/price/280",
     "text": "280",
     "x": 5320,
@@ -11910,18 +10794,6 @@
     "y": 12001
   },
   {
-    "path": "root/Document/OLD/sushi/list/Hot roll Big Boy/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6025,
-    "y": 11995
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Hot roll Big Boy/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 6104,
-    "y": 11995
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Hot roll Big Boy/price/450",
     "text": "450",
     "x": 6178,
@@ -11931,18 +10803,6 @@
     "path": "root/Document/OLD/sushi/list/Hot roll Big Boy/Text/!/Гарячий рол Біг-Бой",
     "text": "Гарячий рол Біг-Бой",
     "x": 5880,
-    "y": 12024
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Hot roll Big Boy/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6043,
-    "y": 12024
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Hot roll Big Boy/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 6104,
     "y": 12024
   },
   {
@@ -12000,27 +10860,9 @@
     "y": 12112
   },
   {
-    "path": "root/Document/OLD/sushi/list/Hot roll Big Boy/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 5880,
-    "y": 12130
-  },
-  {
     "path": "root/Document/OLD/sushi/list/King roll/Text/!/KING рол",
     "text": "KING рол",
     "x": 5880,
-    "y": 12144
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/King roll/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6036,
-    "y": 12144
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/King roll/Text/!/Акція!",
-    "text": " Акція!",
-    "x": 6097,
     "y": 12144
   },
   {
@@ -12108,12 +10950,6 @@
     "y": 12251
   },
   {
-    "path": "root/Document/OLD/sushi/list/King roll/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 5880,
-    "y": 12269
-  },
-  {
     "path": "root/Document/OLD/piza OLD/list/Holand/Text/900 г",
     "text": "900 г",
     "x": 5022,
@@ -12129,18 +10965,6 @@
     "path": "root/Document/OLD/sushi/list/Green Dragon/Text/!/Зелений Дракон",
     "text": "Зелений Дракон",
     "x": 5880,
-    "y": 12283
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Green Dragon/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 6104,
-    "y": 12283
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Green Dragon/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6107,
     "y": 12283
   },
   {
@@ -12330,12 +11154,6 @@
     "y": 12391
   },
   {
-    "path": "root/Document/OLD/sushi/list/Green Dragon/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 5880,
-    "y": 12391
-  },
-  {
     "path": "root/Document/OLD/piza OLD/piziolli/carbonara/Text/550 г",
     "text": "550 г",
     "x": 5022,
@@ -12345,18 +11163,6 @@
     "path": "root/Document/OLD/sushi/list/Tak-a-sho aburi/Text/!/ТАК А ШО абурі",
     "text": "ТАК А ШО абурі",
     "x": 5880,
-    "y": 12405
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Tak-a-sho aburi/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 6104,
-    "y": 12405
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Tak-a-sho aburi/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6168,
     "y": 12405
   },
   {
@@ -12624,12 +11430,6 @@
     "y": 12532
   },
   {
-    "path": "root/Document/OLD/sushi/list/Tak-a-sho aburi/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 5880,
-    "y": 12532
-  },
-  {
     "path": "root/Document/OLD/A4 - 4/Drinks/list/Group 1/3/price/грн",
     "text": "грн",
     "x": 273,
@@ -12678,12 +11478,6 @@
     "y": 12546
   },
   {
-    "path": "root/Document/OLD/sushi/list/Baked roll/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6107,
-    "y": 12546
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Baked roll/price/350",
     "text": "350",
     "x": 6178,
@@ -12726,7 +11520,7 @@
     "y": 12578
   },
   {
-    "path": "root/Document/OLD/piza OLD/piziolli/bbq/Text/Мисливські ковбаски, печериці, помідор, моцарелла, сир чеддер, цибулевий кранч, соус барбекю, пармезан, орегано",
+    "path": "root/Document/OLD/piza OLD/piziolli/bbq/Text/Мисливські ковбаски, печериці, помідор, моцарелла, сир чеддер, цибулевий кранч, соус барбекю, парме��ан, орегано",
     "text": "Мисливські ковбаски, печериці, помідор, моцарелла, сир чеддер, цибулевий кранч, соус барбекю, пармезан, орегано",
     "x": 5022,
     "y": 12593
@@ -13170,12 +11964,6 @@
     "y": 12955
   },
   {
-    "path": "root/Document/OLD/sushi/list/Sushi doner/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6107,
-    "y": 12955
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Sushi doner/price/220",
     "text": "220",
     "x": 6178,
@@ -13311,12 +12099,6 @@
     "path": "root/Document/OLD/piza OLD/piziolli/4 meats/Text/!/4 м’яса",
     "text": "4 м’яса",
     "x": 5022,
-    "y": 13063
-  },
-  {
-    "path": "root/Document/OLD/piza OLD/piziolli/4 meats/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 5249,
     "y": 13063
   },
   {
@@ -13650,12 +12432,6 @@
     "y": 13346
   },
   {
-    "path": "root/Document/OLD/sushi/list/MAKI avocado/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6107,
-    "y": 13346
-  },
-  {
     "path": "root/Document/OLD/sushi/list/MAKI avocado/price/100",
     "text": "100",
     "x": 6178,
@@ -13812,22 +12588,10 @@
     "y": 15574
   },
   {
-    "path": "root/Document/OLD/Menu Start/renovation/!ОНОВЛЕННЯ МЕНЮ!",
-    "text": "!ОНОВЛЕННЯ МЕНЮ!",
-    "x": 103,
-    "y": 15629
-  },
-  {
     "path": "root/Document/OLD/Menu Start/Pizza/Піца Італійська",
     "text": "Піца Італійська",
     "x": 109,
     "y": 15618
-  },
-  {
-    "path": "root/Document/OLD/Menu Start/renovation/ph/ПІД ЧАС ТЕХНІЧНИХ РОБІТ ЦІНИ ТА ПОЗИЦІЇ МОЖУТЬ БУТИ НЕ АКТУАЛЬНИМИ. ВИБАЧТЕ ЗА ТИМЧАСОВІ НЕЗРУЧНОСТІ.",
-    "text": "ПІД ЧАС ТЕХНІЧНИХ РОБІТ ЦІНИ ТА ПОЗИЦІЇ МОЖУТЬ БУТИ НЕ АКТУАЛЬНИМИ. ВИБАЧТЕ ЗА ТИМЧАСОВІ НЕЗРУЧНОСТІ.",
-    "x": 108,
-    "y": 15674
   },
   {
     "path": "root/Document/OLD/Menu Start/sushi/Суші",
@@ -13844,12 +12608,6 @@
   {
     "path": "root/Document/OLD/Menu Start/soups/Перші страви",
     "text": "Перші страви",
-    "x": 109,
-    "y": 15764
-  },
-  {
-    "path": "root/Document/OLD/Menu Start/doner/Шаурма",
-    "text": "Шаурма",
     "x": 109,
     "y": 15764
   },
@@ -13878,12 +12636,6 @@
     "y": 15956
   },
   {
-    "path": "root/Document/OLD/Menu Start/Beer appetizer/Закуски до пива",
-    "text": "Закуски до пива",
-    "x": 109,
-    "y": 15956
-  },
-  {
     "path": "root/Document/OLD/Menu Start/NA Drinks/Б/А Напої",
     "text": "Б/А Напої",
     "x": 109,
@@ -13894,12 +12646,6 @@
     "text": "- овочі",
     "x": 974,
     "y": 16167
-  },
-  {
-    "path": "root/Document/OLD/Menu Start/Deserts/Десерти",
-    "text": "Десерти",
-    "x": 109,
-    "y": 16201
   },
   {
     "path": "root/Document/OLD/- мясо",
@@ -14070,12 +12816,6 @@
     "y": 16608
   },
   {
-    "path": "root/Document/OLD/pizza/list/Scotland/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 930,
-    "y": 16608
-  },
-  {
     "path": "root/Document/OLD/pizza/list/Scotland/price/280",
     "text": "280",
     "x": 1002,
@@ -14088,12 +12828,6 @@
     "y": 16608
   },
   {
-    "path": "root/Document/OLD/sushi/list/SET 1/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1759,
-    "y": 16608
-  },
-  {
     "path": "root/Document/OLD/sushi/list/SET 1/price/1300",
     "text": "1300",
     "x": 1830,
@@ -14103,12 +12837,6 @@
     "path": "root/Document/OLD/burgers/list/Burger/Text/!/Бургер Велетень",
     "text": "Бургер Велетень",
     "x": 2364,
-    "y": 16608
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/Burger/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 2590,
     "y": 16608
   },
   {
@@ -14148,12 +12876,6 @@
     "y": 16608
   },
   {
-    "path": "root/Document/OLD/hot appetizer/list/SET 1/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 5079,
-    "y": 16608
-  },
-  {
     "path": "root/Document/OLD/hot appetizer/list/SET 1/price/1500",
     "text": "1500",
     "x": 5150,
@@ -14175,12 +12897,6 @@
     "path": "root/Document/OLD/Beer appetizer/list/1/Text/!/Хмизок",
     "text": "Хмизок ",
     "x": 6514,
-    "y": 16608
-  },
-  {
-    "path": "root/Document/OLD/Beer appetizer/list/1/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6741,
     "y": 16608
   },
   {
@@ -14280,12 +12996,6 @@
     "y": 16640
   },
   {
-    "path": "root/Document/OLD/soups/list/Mushroom soup/Text/Грибний, брокколі, шпинат або солодкий перець",
-    "text": "Грибний, брокколі, шпинат або солодкий перець",
-    "x": 4024,
-    "y": 16637
-  },
-  {
     "path": "root/Document/OLD/soups/list/Mushroom soup/Text/Печериці, цибуля, вершки",
     "text": "Печериці, цибуля, вершки",
     "x": 4024,
@@ -14376,18 +13086,6 @@
     "y": 16651
   },
   {
-    "path": "root/Document/OLD/Drinks/list/1/price/1 л",
-    "text": "1 л",
-    "x": 8492,
-    "y": 16651
-  },
-  {
-    "path": "root/Document/OLD/Deserts/list/Icecream/Text/Подається з топінгом та вафелькою",
-    "text": "Подається з топінгом та вафелькою",
-    "x": 9834,
-    "y": 16637
-  },
-  {
     "path": "root/Document/OLD/Deserts/list/Icecream/Text/100 г",
     "text": "100 г",
     "x": 9834,
@@ -14430,12 +13128,6 @@
     "y": 16667
   },
   {
-    "path": "root/Document/OLD/Drinks/list/1/price/80",
-    "text": "80",
-    "x": 8492,
-    "y": 16667
-  },
-  {
     "path": "root/Document/OLD/NA Drinks/list/1/price/грн",
     "text": "грн",
     "x": 9302,
@@ -14457,12 +13149,6 @@
     "path": "root/Document/OLD/crisps/list/Midii teryiaki/Text/!/Мідії теріякі",
     "text": "Мідії теріякі ",
     "x": 5684,
-    "y": 16699
-  },
-  {
-    "path": "root/Document/OLD/crisps/list/Midii teryiaki/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 5910,
     "y": 16699
   },
   {
@@ -14493,12 +13179,6 @@
     "path": "root/Document/OLD/Drinks/list/1/price/грн",
     "text": "грн",
     "x": 8420,
-    "y": 16699
-  },
-  {
-    "path": "root/Document/OLD/Drinks/list/1/price/грн",
-    "text": "грн",
-    "x": 8492,
     "y": 16699
   },
   {
@@ -14586,12 +13266,6 @@
     "y": 16747
   },
   {
-    "path": "root/Document/OLD/pizza/list/trio/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 930,
-    "y": 16747
-  },
-  {
     "path": "root/Document/OLD/pizza/list/trio/price/260",
     "text": "260",
     "x": 1002,
@@ -14602,54 +13276,6 @@
     "text": "+ подарунок 1л вина",
     "x": 1534,
     "y": 16734
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/Burger/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 2364,
-    "y": 16733
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/SET 1/Text/2 000 г ; Кількість суші – 32 штук",
-    "text": "2 000 г ; Кількість суші – 32 штук",
-    "x": 1534,
-    "y": 16758
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/GamBurger/Text/!/Гамбургер ",
-    "text": "Гамбургер ",
-    "x": 2364,
-    "y": 16747
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/Double burger/Text/!/Дабл Бургер",
-    "text": "Дабл Бургер",
-    "x": 2364,
-    "y": 16747
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/Double burger/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 2587,
-    "y": 16747
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/GamBurger/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 2590,
-    "y": 16747
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/Double burger/price/270",
-    "text": "270",
-    "x": 2661,
-    "y": 16747
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/GamBurger/price/180",
-    "text": "180",
-    "x": 2662,
-    "y": 16747
   },
   {
     "path": "root/Document/OLD/Beer appetizer/list/3/Text/200 г",
@@ -14688,10 +13314,22 @@
     "y": 16734
   },
   {
-    "path": "root/Document/OLD/Drinks/list/3/price/1 л",
-    "text": "1 л",
-    "x": 8492,
-    "y": 16734
+    "path": "root/Document/OLD/sushi/list/SET 1/Text/2 000 г ; Кількість суші – 32 штук",
+    "text": "2 000 г ; Кількість суші – 32 штук",
+    "x": 1534,
+    "y": 16758
+  },
+  {
+    "path": "root/Document/OLD/burgers/list/GamBurger/Text/!/Гамбургер ",
+    "text": "Гамбургер ",
+    "x": 2364,
+    "y": 16747
+  },
+  {
+    "path": "root/Document/OLD/burgers/list/GamBurger/price/180",
+    "text": "180",
+    "x": 2662,
+    "y": 16747
   },
   {
     "path": "root/Document/OLD/doner/list/1/Text/400 г",
@@ -14720,12 +13358,6 @@
   {
     "path": "root/Document/OLD/Drinks/list/3/price/70",
     "text": "70",
-    "x": 8492,
-    "y": 16750
-  },
-  {
-    "path": "root/Document/OLD/Drinks/list/3/price/80",
-    "text": "80",
     "x": 8492,
     "y": 16750
   },
@@ -14760,12 +13392,6 @@
     "y": 16772
   },
   {
-    "path": "root/Document/OLD/Beer appetizer/list/2/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6741,
-    "y": 16772
-  },
-  {
     "path": "root/Document/OLD/Beer appetizer/list/2/price/50",
     "text": "50",
     "x": 6812,
@@ -14784,12 +13410,6 @@
     "y": 16790
   },
   {
-    "path": "root/Document/OLD/sushi/list/SET 2/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1757,
-    "y": 16790
-  },
-  {
     "path": "root/Document/OLD/sushi/list/SET 2/price/1400",
     "text": "1400",
     "x": 1828,
@@ -14800,18 +13420,6 @@
     "text": "Котлета яловичина, огірок маринований, помідор, сир чеддер, соус фірмовий, булочка з кунжутом",
     "x": 2364,
     "y": 16776
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/Double burger/Text/Яловичина, айсберг, американський бекон, помідор, cолоний огірок, сир чеддер, соус фірмовий, булочка",
-    "text": "Яловичина, айсберг, американський бекон, помідор, cолоний огірок, сир чеддер, соус фірмовий, булочка",
-    "x": 2364,
-    "y": 16776
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/Double burger/price/грн",
-    "text": "грн",
-    "x": 2661,
-    "y": 16779
   },
   {
     "path": "root/Document/OLD/burgers/list/GamBurger/price/грн",
@@ -14835,12 +13443,6 @@
     "path": "root/Document/OLD/Drinks/list/3/price/грн",
     "text": "грн",
     "x": 8420,
-    "y": 16782
-  },
-  {
-    "path": "root/Document/OLD/Drinks/list/3/price/грн",
-    "text": "грн",
-    "x": 8492,
     "y": 16782
   },
   {
@@ -14910,12 +13512,6 @@
     "y": 16819
   },
   {
-    "path": "root/Document/OLD/doner/list/2/Text/лаваш, соус часниковий, моцарелла, пармезан, чеддер, блакитний сир",
-    "text": "лаваш, соус часниковий, моцарелла, пармезан, чеддер, блакитний сир",
-    "x": 3194,
-    "y": 16816
-  },
-  {
     "path": "root/Document/OLD/doner/list/2/price/грн",
     "text": "грн",
     "x": 3492,
@@ -14940,14 +13536,14 @@
     "y": 16822
   },
   {
-    "path": "root/Document/OLD/burgers/list/GamBurger/Text/300 г",
-    "text": "300 г",
-    "x": 2364,
-    "y": 16835
+    "path": "root/Document/OLD/doner/list/2/Text/лаваш, соус часниковий, моцарелла, пармезан, чеддер, блакитний сир",
+    "text": "лаваш, соус часниковий, моцарелла, пармезан, чеддер, блакитний сир",
+    "x": 3194,
+    "y": 16816
   },
   {
-    "path": "root/Document/OLD/burgers/list/Double burger/Text/350 г",
-    "text": "350 г",
+    "path": "root/Document/OLD/burgers/list/GamBurger/Text/300 г",
+    "text": "300 г",
     "x": 2364,
     "y": 16835
   },
@@ -14956,12 +13552,6 @@
     "text": "грн",
     "x": 4321,
     "y": 16822
-  },
-  {
-    "path": "root/Document/OLD/hot appetizer/list/SET 1/Text/+ подарунок 1л вина",
-    "text": "+ подарунок 1л вина",
-    "x": 4854,
-    "y": 16829
   },
   {
     "path": "root/Document/OLD/hot appetizer/list/SET 1/Text/2 500 г",
@@ -15000,12 +13590,6 @@
     "y": 16817
   },
   {
-    "path": "root/Document/OLD/Drinks/list/11/price/1 л",
-    "text": "1 л",
-    "x": 8492,
-    "y": 16817
-  },
-  {
     "path": "root/Document/OLD/crisps/list/Potato selyanska/price/грн",
     "text": "грн",
     "x": 5982,
@@ -15015,12 +13599,6 @@
     "path": "root/Document/OLD/Beer appetizer/list/4/Text/!/Бастурма",
     "text": "Бастурма",
     "x": 6514,
-    "y": 16833
-  },
-  {
-    "path": "root/Document/OLD/Beer appetizer/list/4/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 6741,
     "y": 16833
   },
   {
@@ -15038,12 +13616,6 @@
   {
     "path": "root/Document/OLD/Drinks/list/11/price/60",
     "text": "60",
-    "x": 8492,
-    "y": 16833
-  },
-  {
-    "path": "root/Document/OLD/Drinks/list/11/price/80",
-    "text": "80",
     "x": 8492,
     "y": 16833
   },
@@ -15072,46 +13644,22 @@
     "y": 16867
   },
   {
-    "path": "root/Document/OLD/burgers/list/Double burger/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
+    "path": "root/Document/OLD/burgers/list/Mini cheeseburger/Text/!/Міні Чізбургер",
+    "text": "Міні Чізбургер",
     "x": 2364,
-    "y": 16853
+    "y": 16867
   },
   {
-    "path": "root/Document/OLD/burgers/list/Double cheeseburger/Text/!/Дабл Чізбургер",
-    "text": "Дабл Чізбургер",
-    "x": 2364,
-    "y": 16848
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/Double cheeseburger/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 2591,
-    "y": 16848
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/Double cheeseburger/price/140",
-    "text": "140",
+    "path": "root/Document/OLD/burgers/list/Mini cheeseburger/price/90",
+    "text": "90",
     "x": 2661,
-    "y": 16848
+    "y": 16867
   },
   {
     "path": "root/Document/OLD/doner/list/2/Text/300 г",
     "text": "300 г",
     "x": 3194,
     "y": 16856
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/GamBurger/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 2364,
-    "y": 16872
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/Mini cheeseburger/Text/!/Міні Чізбургер",
-    "text": "Міні Чізбургер",
-    "x": 2364,
-    "y": 16867
   },
   {
     "path": "root/Document/OLD/soups/list/cold soup/Text/400 г",
@@ -15123,12 +13671,6 @@
     "path": "root/Document/OLD/hot appetizer/list/SET 2/Text/!/Сет Рибний",
     "text": "Сет Рибний",
     "x": 4854,
-    "y": 16861
-  },
-  {
-    "path": "root/Document/OLD/hot appetizer/list/SET 2/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 5079,
     "y": 16861
   },
   {
@@ -15162,34 +13704,10 @@
     "y": 16848
   },
   {
-    "path": "root/Document/OLD/burgers/list/Double cheeseburger/Text/Подвійна котлета куряча, сир чеддер, соус фірмовий, булочка з кунжутом",
-    "text": "Подвійна котлета куряча, сир чеддер, соус фірмовий, булочка з кунжутом",
-    "x": 2364,
-    "y": 16877
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/Mini cheeseburger/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 2591,
-    "y": 16867
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/Mini cheeseburger/price/90",
-    "text": "90",
-    "x": 2661,
-    "y": 16867
-  },
-  {
     "path": "root/Document/OLD/Beer appetizer/list/4/price/грн",
     "text": "грн",
     "x": 6812,
     "y": 16865
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/Double cheeseburger/price/грн",
-    "text": "грн",
-    "x": 2661,
-    "y": 16880
   },
   {
     "path": "root/Document/OLD/salad/list/Caesar shrimp/Text/Шинка та креветка, салат айсберг, соус “Цезар”, крутони, помідор, яйце, пармезан",
@@ -15201,12 +13719,6 @@
     "path": "root/Document/OLD/Drinks/list/11/price/грн",
     "text": "грн",
     "x": 8420,
-    "y": 16865
-  },
-  {
-    "path": "root/Document/OLD/Drinks/list/11/price/грн",
-    "text": "грн",
-    "x": 8492,
     "y": 16865
   },
   {
@@ -15288,12 +13800,6 @@
     "y": 16893
   },
   {
-    "path": "root/Document/OLD/crisps/list/potato fri/Text/Картопля фрі",
-    "text": "Картопля фрі",
-    "x": 5684,
-    "y": 16891
-  },
-  {
     "path": "root/Document/OLD/crisps/list/mozzarella fri/Text/Моцарелла фрі",
     "text": "Моцарелла фрі",
     "x": 5684,
@@ -15303,12 +13809,6 @@
     "path": "root/Document/OLD/crisps/list/mozzarella fri/price/200",
     "text": "200",
     "x": 5981,
-    "y": 16891
-  },
-  {
-    "path": "root/Document/OLD/crisps/list/potato fri/price/80",
-    "text": "80",
-    "x": 5982,
     "y": 16891
   },
   {
@@ -15330,22 +13830,10 @@
     "y": 16900
   },
   {
-    "path": "root/Document/OLD/Drinks/list/12/price/1 л",
-    "text": "1 л",
-    "x": 8492,
-    "y": 16900
-  },
-  {
     "path": "root/Document/OLD/sushi/list/SET 2/Text/+ подарунок 1л вина",
     "text": "+ подарунок 1л вина",
     "x": 1534,
     "y": 16916
-  },
-  {
-    "path": "root/Document/OLD/burgers/list/Double cheeseburger/Text/270 г",
-    "text": "270 г",
-    "x": 2364,
-    "y": 16917
   },
   {
     "path": "root/Document/OLD/doner/list/3/Text/з картоплею фрі",
@@ -15366,12 +13854,6 @@
     "y": 16916
   },
   {
-    "path": "root/Document/OLD/Drinks/list/12/price/80",
-    "text": "80",
-    "x": 8492,
-    "y": 16916
-  },
-  {
     "path": "root/Document/OLD/NA Drinks/list/5/price/грн",
     "text": "грн",
     "x": 9302,
@@ -15384,13 +13866,7 @@
     "y": 16920
   },
   {
-    "path": "root/Document/OLD/crisps/list/potato fri/Text/150 г",
-    "text": "150 г",
-    "x": 5684,
-    "y": 16920
-  },
-  {
-    "path": "root/Document/OLD/crisps/list/mozzarella fri/Text/Сир моцарелла, спеції, панко",
+    "path": "root/Document/OLD/crisps/list/mozzarella fri/Text/Сир моцарелла, с��еції, панко",
     "text": "Сир моцарелла, спеції, панко",
     "x": 5684,
     "y": 16920
@@ -15405,12 +13881,6 @@
     "path": "root/Document/OLD/crisps/list/mozzarella fri/price/грн",
     "text": "грн",
     "x": 5981,
-    "y": 16923
-  },
-  {
-    "path": "root/Document/OLD/crisps/list/potato fri/price/грн",
-    "text": "грн",
-    "x": 5982,
     "y": 16923
   },
   {
@@ -15444,12 +13914,6 @@
     "y": 16936
   },
   {
-    "path": "root/Document/OLD/Drinks/list/розділ/Text/Коктейлі",
-    "text": "Коктейлі",
-    "x": 8174,
-    "y": 16943
-  },
-  {
     "path": "root/Document/OLD/Drinks/list/12/price/грн",
     "text": "грн",
     "x": 8420,
@@ -15458,12 +13922,6 @@
   {
     "path": "root/Document/OLD/Drinks/list/12/price/Text",
     "text": " ",
-    "x": 8492,
-    "y": 16948
-  },
-  {
-    "path": "root/Document/OLD/Drinks/list/12/price/грн",
-    "text": "грн",
     "x": 8492,
     "y": 16948
   },
@@ -15486,12 +13944,6 @@
     "y": 16968
   },
   {
-    "path": "root/Document/OLD/pizza/list/Philadelphia salmon/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 930,
-    "y": 16968
-  },
-  {
     "path": "root/Document/OLD/pizza/list/Philadelphia salmon/price/280",
     "text": "280",
     "x": 1002,
@@ -15501,12 +13953,6 @@
     "path": "root/Document/OLD/sushi/list/New York/Text/!/Нью-Йорк Рол",
     "text": "Нью-Йорк Рол",
     "x": 1534,
-    "y": 16972
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/New York/Text/!/Акція!",
-    "text": " Акція!",
-    "x": 1751,
     "y": 16972
   },
   {
@@ -15684,27 +14130,9 @@
     "y": 17023
   },
   {
-    "path": "root/Document/OLD/Drinks/list/VIP/price/грн",
-    "text": "грн",
-    "x": 8472,
-    "y": 17045
-  },
-  {
-    "path": "root/Document/OLD/NA Drinks/list/23/price/40",
-    "text": "40",
-    "x": 9302,
-    "y": 17039
-  },
-  {
     "path": "root/Document/OLD/pizza/list/DUET/Text/!/Дует",
     "text": "Дует",
     "x": 704,
-    "y": 17069
-  },
-  {
-    "path": "root/Document/OLD/pizza/list/DUET/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 930,
     "y": 17069
   },
   {
@@ -15726,16 +14154,22 @@
     "y": 17056
   },
   {
+    "path": "root/Document/OLD/Drinks/list/VIP/price/грн",
+    "text": "грн",
+    "x": 8472,
+    "y": 17045
+  },
+  {
+    "path": "root/Document/OLD/NA Drinks/list/23/price/40",
+    "text": "40",
+    "x": 9302,
+    "y": 17039
+  },
+  {
     "path": "root/Document/OLD/doner/list/4/Text/350 г",
     "text": "350 г",
     "x": 3194,
     "y": 17079
-  },
-  {
-    "path": "root/Document/OLD/hot appetizer/list/SET 2/Text/+ подарунок 1л вина",
-    "text": "+ подарунок 1л вина",
-    "x": 4854,
-    "y": 17082
   },
   {
     "path": "root/Document/OLD/crisps/list/squid/Text/Кільця кальмарів",
@@ -15768,21 +14202,9 @@
     "y": 17101
   },
   {
-    "path": "root/Document/OLD/sushi/list/New York/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 1534,
-    "y": 17097
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Brodway/Text/!/Broadway Рол",
     "text": "Broadway Рол",
     "x": 1534,
-    "y": 17094
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Brodway/Text/!/Акція!",
-    "text": " Акція!",
-    "x": 1751,
     "y": 17094
   },
   {
@@ -15876,12 +14298,6 @@
     "y": 17133
   },
   {
-    "path": "root/Document/OLD/hot appetizer/list/ribeye/Text/!/Акція!",
-    "text": " Акція!",
-    "x": 5071,
-    "y": 17133
-  },
-  {
     "path": "root/Document/OLD/hot appetizer/list/ribeye/Text/!/Нове!",
     "text": "Нове!",
     "x": 5080,
@@ -15936,12 +14352,6 @@
     "y": 17189
   },
   {
-    "path": "root/Document/OLD/pizza/list/1/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 930,
-    "y": 17189
-  },
-  {
     "path": "root/Document/OLD/pizza/list/1/price/280",
     "text": "280",
     "x": 1002,
@@ -15984,27 +14394,9 @@
     "y": 17221
   },
   {
-    "path": "root/Document/OLD/sushi/list/Brodway/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 1534,
-    "y": 17219
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Golden dragon/Text/!/Золотий Дракон",
     "text": "Золотий Дракон",
     "x": 1534,
-    "y": 17214
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Golden dragon/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1700,
-    "y": 17214
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Golden dragon/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 1758,
     "y": 17214
   },
   {
@@ -16077,12 +14469,6 @@
     "path": "root/Document/OLD/hot appetizer/list/Salmon/Text/!/Стейк з лосося",
     "text": "Стейк з лосося",
     "x": 4854,
-    "y": 17242
-  },
-  {
-    "path": "root/Document/OLD/hot appetizer/list/Salmon/Text/!/Акція!",
-    "text": " Акція!",
-    "x": 5071,
     "y": 17242
   },
   {
@@ -16218,12 +14604,6 @@
     "y": 17309
   },
   {
-    "path": "root/Document/OLD/pizza/list/2/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 930,
-    "y": 17309
-  },
-  {
     "path": "root/Document/OLD/pizza/list/2/price/260",
     "text": "260",
     "x": 1002,
@@ -16246,12 +14626,6 @@
     "text": "80",
     "x": 9302,
     "y": 17288
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Golden dragon/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 1534,
-    "y": 17320
   },
   {
     "path": "root/Document/OLD/doner/list/6/Text/350 г",
@@ -16284,18 +14658,6 @@
     "y": 17334
   },
   {
-    "path": "root/Document/OLD/sushi/list/Yakudza /Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1697,
-    "y": 17334
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Yakudza /Text/!/Акція!",
-    "text": "Акція!",
-    "x": 1758,
-    "y": 17334
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Yakudza /price/450",
     "text": "450",
     "x": 1832,
@@ -16305,12 +14667,6 @@
     "path": "root/Document/OLD/hot appetizer/list/Tuna/Text/!/Стейк з тунця",
     "text": "Стейк з тунця",
     "x": 4854,
-    "y": 17333
-  },
-  {
-    "path": "root/Document/OLD/hot appetizer/list/Tuna/Text/!/Акція!",
-    "text": " Акція!",
-    "x": 5071,
     "y": 17333
   },
   {
@@ -16458,12 +14814,6 @@
     "y": 17429
   },
   {
-    "path": "root/Document/OLD/pizza/list/5/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 930,
-    "y": 17429
-  },
-  {
     "path": "root/Document/OLD/pizza/list/5/price/200",
     "text": "200",
     "x": 1002,
@@ -16524,21 +14874,9 @@
     "y": 17461
   },
   {
-    "path": "root/Document/OLD/sushi/list/Yakudza /Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 1534,
-    "y": 17459
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Hiyashi/Text/!/Хіяши рол",
     "text": "Хіяши рол ",
     "x": 1534,
-    "y": 17454
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Hiyashi/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 1758,
     "y": 17454
   },
   {
@@ -16572,18 +14910,6 @@
     "y": 17456
   },
   {
-    "path": "root/Document/OLD/crisps/list/souses/Text/часниковий фірмовий кетчуп майонез томатний діабло цезар горіховий унагі солодкий чилі сирний BBQ",
-    "text": "часниковий\nфірмовий\nкетчуп\nмайонез\nтоматний\nдіабло\nцезар\nгоріховий\nунагі\nсолодкий чилі\nсирний\nBBQ",
-    "x": 5684,
-    "y": 17466
-  },
-  {
-    "path": "root/Document/OLD/NA Drinks/list/20/price/40",
-    "text": "40",
-    "x": 9302,
-    "y": 17454
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Hiyashi/Text/Лосось/ креветка/ тунець/ вугор",
     "text": "Лосось/ креветка/ тунець/ вугор",
     "x": 1534,
@@ -16594,6 +14920,18 @@
     "text": "Лаваш, м'ясо, салат айсберг, морква по корейськи, помідор, солоний огірок, соус фірмовий",
     "x": 4854,
     "y": 17474
+  },
+  {
+    "path": "root/Document/OLD/crisps/list/souses/Text/часниковий фірмовий кетчуп майонез томатний діабло цезар горіховий унагі солодкий чилі сирний BBQ",
+    "text": "часниковий\nфірмовий\nкетчуп\nмайонез\nтоматний\nдіабло\nцезар\nгоріховий\nунагі\nсолодкий чилі\nсирний\nBBQ",
+    "x": 5684,
+    "y": 17466
+  },
+  {
+    "path": "root/Document/OLD/NA Drinks/list/20/price/40",
+    "text": "40",
+    "x": 9302,
+    "y": 17454
   },
   {
     "path": "root/Document/OLD/crisps/list/souses/price/грн",
@@ -16635,12 +14973,6 @@
     "path": "root/Document/OLD/pizza/list/6/Text/!/4 сира з крем сиром",
     "text": "4 сира з крем сиром",
     "x": 704,
-    "y": 17530
-  },
-  {
-    "path": "root/Document/OLD/pizza/list/6/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 930,
     "y": 17530
   },
   {
@@ -16692,21 +15024,9 @@
     "y": 17563
   },
   {
-    "path": "root/Document/OLD/sushi/list/Hiyashi/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 1534,
-    "y": 17562
-  },
-  {
     "path": "root/Document/OLD/hot appetizer/list/Derunu scotish/Text/!/Деруни по-шотландськи",
     "text": "Деруни по-шотландськи ",
     "x": 4854,
-    "y": 17565
-  },
-  {
-    "path": "root/Document/OLD/hot appetizer/list/Derunu scotish/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 5081,
     "y": 17565
   },
   {
@@ -16725,18 +15045,6 @@
     "path": "root/Document/OLD/sushi/list/Philadelphia/Text/!/Філадельфія",
     "text": "Філадельфія",
     "x": 1534,
-    "y": 17595
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Philadelphia/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1690,
-    "y": 17595
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Philadelphia/Text/!/Акція!",
-    "text": " Акція!",
-    "x": 1751,
     "y": 17595
   },
   {
@@ -16800,12 +15108,6 @@
     "y": 17650
   },
   {
-    "path": "root/Document/OLD/pizza/list/7/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 930,
-    "y": 17650
-  },
-  {
     "path": "root/Document/OLD/pizza/list/7/price/280",
     "text": "280",
     "x": 1002,
@@ -16848,12 +15150,6 @@
     "y": 17685
   },
   {
-    "path": "root/Document/OLD/hot appetizer/list/Derunu 1/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 5081,
-    "y": 17685
-  },
-  {
     "path": "root/Document/OLD/hot appetizer/list/Derunu 1/price/200",
     "text": "200",
     "x": 5151,
@@ -16890,33 +15186,9 @@
     "y": 17738
   },
   {
-    "path": "root/Document/OLD/crisps/return/All button/Тицяй, щоб повернутись до переліку розділів",
-    "text": "Тицяй, щоб повернутись до переліку розділів",
-    "x": 5741,
-    "y": 17730
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Philadelphia/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 1534,
-    "y": 17749
-  },
-  {
     "path": "root/Document/OLD/sushi/list/California/Text/!/Каліфорнія",
     "text": "Каліфорнія",
     "x": 1534,
-    "y": 17736
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/California/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 1758,
-    "y": 17736
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/California/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1822,
     "y": 17736
   },
   {
@@ -16924,6 +15196,12 @@
     "text": "350",
     "x": 1832,
     "y": 17736
+  },
+  {
+    "path": "root/Document/OLD/crisps/return/All button/Тицяй, щоб повернутись до переліку розділів",
+    "text": "Тицяй, щоб повернутись до переліку розділів",
+    "x": 5741,
+    "y": 17730
   },
   {
     "path": "root/Document/OLD/hot appetizer/list/Derunu 1/Text/300 г",
@@ -16935,12 +15213,6 @@
     "path": "root/Document/OLD/pizza/list/8/Text/!/Гавайська",
     "text": "Гавайська",
     "x": 704,
-    "y": 17770
-  },
-  {
-    "path": "root/Document/OLD/pizza/list/8/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 930,
     "y": 17770
   },
   {
@@ -16977,12 +15249,6 @@
     "path": "root/Document/OLD/hot appetizer/list/Derunu 2/Text/!/Деруни з грибами ",
     "text": "Деруни з грибами ",
     "x": 4854,
-    "y": 17786
-  },
-  {
-    "path": "root/Document/OLD/hot appetizer/list/Derunu 2/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 5081,
     "y": 17786
   },
   {
@@ -17034,33 +15300,15 @@
     "y": 17871
   },
   {
-    "path": "root/Document/OLD/pizza/list/9/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 930,
-    "y": 17871
-  },
-  {
     "path": "root/Document/OLD/pizza/list/9/price/260",
     "text": "260",
     "x": 1002,
     "y": 17871
   },
   {
-    "path": "root/Document/OLD/sushi/list/California/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 1534,
-    "y": 17882
-  },
-  {
     "path": "root/Document/OLD/sushi/list/California/Text/!/Royal Рол",
     "text": "Royal Рол ",
     "x": 1534,
-    "y": 17877
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/California/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 1758,
     "y": 17877
   },
   {
@@ -17079,12 +15327,6 @@
     "path": "root/Document/OLD/hot appetizer/list/derunu/Text/!/Деруни зі сметаною",
     "text": "Деруни зі сметаною",
     "x": 4854,
-    "y": 17877
-  },
-  {
-    "path": "root/Document/OLD/hot appetizer/list/derunu/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 5081,
     "y": 17877
   },
   {
@@ -17118,12 +15360,6 @@
     "y": 17909
   },
   {
-    "path": "root/Document/OLD/hot appetizer/list/derunu/Text/Картопля, цибуля",
-    "text": "Картопля, цибуля",
-    "x": 4854,
-    "y": 17906
-  },
-  {
     "path": "root/Document/OLD/hot appetizer/list/derunu/Text/180 г",
     "text": "180 г",
     "x": 4854,
@@ -17154,45 +15390,15 @@
     "y": 17968
   },
   {
-    "path": "root/Document/OLD/hot appetizer/list/pelmeni/Text/Пельмені",
-    "text": "Пельмені",
-    "x": 4854,
-    "y": 17960
-  },
-  {
-    "path": "root/Document/OLD/hot appetizer/list/wings Buffalo/Text/Крильця “Баффало”",
-    "text": "Крильця “Баффало”",
-    "x": 4854,
-    "y": 17960
-  },
-  {
     "path": "root/Document/OLD/hot appetizer/list/sshahluk pork/price/250",
     "text": "250",
     "x": 5151,
     "y": 17968
   },
   {
-    "path": "root/Document/OLD/hot appetizer/list/pelmeni/price/130",
-    "text": "130",
-    "x": 5151,
-    "y": 17960
-  },
-  {
-    "path": "root/Document/OLD/hot appetizer/list/wings Buffalo/price/200",
-    "text": "200",
-    "x": 5151,
-    "y": 17960
-  },
-  {
     "path": "root/Document/OLD/pizza/list/10/Text/!/Американа",
     "text": "Американа",
     "x": 704,
-    "y": 17991
-  },
-  {
-    "path": "root/Document/OLD/pizza/list/10/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 930,
     "y": 17991
   },
   {
@@ -17214,34 +15420,10 @@
     "y": 17997
   },
   {
-    "path": "root/Document/OLD/hot appetizer/list/pelmeni/Text/400 г",
-    "text": "400 г",
-    "x": 4854,
-    "y": 17989
-  },
-  {
-    "path": "root/Document/OLD/hot appetizer/list/wings Buffalo/Text/Курячі крильця, соус томатний, спеції, кунжут",
-    "text": "Курячі крильця, соус томатний, спеції, кунжут",
-    "x": 4854,
-    "y": 17989
-  },
-  {
     "path": "root/Document/OLD/hot appetizer/list/sshahluk pork/price/грн",
     "text": "грн",
     "x": 5151,
     "y": 18000
-  },
-  {
-    "path": "root/Document/OLD/hot appetizer/list/pelmeni/price/грн",
-    "text": "грн",
-    "x": 5151,
-    "y": 17992
-  },
-  {
-    "path": "root/Document/OLD/hot appetizer/list/wings Buffalo/price/грн",
-    "text": "грн",
-    "x": 5151,
-    "y": 17992
   },
   {
     "path": "root/Document/OLD/pizza/list/10/Text/Салямі, курка, кукурудза, моцарелла, пармезан, сир чеддер, соус пасата",
@@ -17256,21 +15438,9 @@
     "y": 18023
   },
   {
-    "path": "root/Document/OLD/sushi/list/California/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 1534,
-    "y": 18023
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Kyiv/Text/!/Рол Київ",
     "text": "Рол Київ",
     "x": 1534,
-    "y": 18018
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Kyiv/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 1758,
     "y": 18018
   },
   {
@@ -17290,12 +15460,6 @@
     "text": "270 г",
     "x": 4854,
     "y": 18018
-  },
-  {
-    "path": "root/Document/OLD/hot appetizer/list/wings Buffalo/Text/400 г",
-    "text": "400 г",
-    "x": 4854,
-    "y": 18029
   },
   {
     "path": "root/Document/OLD/pizza/list/10/Text/800 г",
@@ -17340,22 +15504,10 @@
     "y": 18092
   },
   {
-    "path": "root/Document/OLD/pizza/list/11/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 930,
-    "y": 18092
-  },
-  {
     "path": "root/Document/OLD/pizza/list/11/price/260",
     "text": "260",
     "x": 1002,
     "y": 18092
-  },
-  {
-    "path": "root/Document/OLD/hot appetizer/list/rebra/Text/Ошийок свинний, лаваш",
-    "text": "Ошийок свинний, лаваш",
-    "x": 4854,
-    "y": 18088
   },
   {
     "path": "root/Document/OLD/hot appetizer/list/rebra/Text/300 г",
@@ -17388,27 +15540,9 @@
     "y": 18127
   },
   {
-    "path": "root/Document/OLD/sushi/list/Kyiv/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 1534,
-    "y": 18164
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Hot roll/Text/!/Гарячий рол",
     "text": "Гарячий рол",
     "x": 1534,
-    "y": 18159
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Hot roll/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 1758,
-    "y": 18159
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Hot roll/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1822,
     "y": 18159
   },
   {
@@ -17466,12 +15600,6 @@
     "y": 18212
   },
   {
-    "path": "root/Document/OLD/pizza/list/12/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 930,
-    "y": 18212
-  },
-  {
     "path": "root/Document/OLD/pizza/list/12/price/320",
     "text": "320",
     "x": 1002,
@@ -17502,21 +15630,9 @@
     "y": 18247
   },
   {
-    "path": "root/Document/OLD/sushi/list/Hot roll/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 1534,
-    "y": 18265
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Tom-yam/Text/!/ТОМ Ям рол",
     "text": "ТОМ Ям рол",
     "x": 1534,
-    "y": 18279
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Tom-yam/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 1758,
     "y": 18279
   },
   {
@@ -17562,12 +15678,6 @@
     "y": 18351
   },
   {
-    "path": "root/Document/OLD/pizza/list/13/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 930,
-    "y": 18351
-  },
-  {
     "path": "root/Document/OLD/pizza/list/13/price/280",
     "text": "280",
     "x": 1002,
@@ -17592,27 +15702,9 @@
     "y": 18386
   },
   {
-    "path": "root/Document/OLD/sushi/list/Tom-yam/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 1534,
-    "y": 18385
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Baked roll/Text/!/Запечений рол",
     "text": "Запечений рол",
     "x": 1534,
-    "y": 18418
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Baked roll/Text/!/Акція!",
-    "text": "Акція!",
-    "x": 1758,
-    "y": 18418
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Baked roll/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1761,
     "y": 18418
   },
   {
@@ -17658,58 +15750,16 @@
     "y": 18546
   },
   {
-    "path": "root/Document/OLD/sushi/list/Gounkans/Text/Гункани",
-    "text": "Гункани",
-    "x": 1534,
-    "y": 18545
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Gounkans/price/180",
-    "text": "180",
-    "x": 1832,
-    "y": 18545
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Baked roll/Text/+ подарунок кола або пиво 0.3",
-    "text": "+ подарунок кола або пиво 0.3",
-    "x": 1534,
-    "y": 18564
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Gounkans/Text/Лосось/ тунець/ вугор/ креветка/ хіяши вакаме/ авокадо",
-    "text": "Лосось/ тунець/ вугор/ креветка/ хіяши вакаме/ авокадо",
-    "x": 1534,
-    "y": 18574
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Sushi doner/Text/!/Суші шаурма",
     "text": "Суші шаурма",
     "x": 1534,
     "y": 18578
   },
   {
-    "path": "root/Document/OLD/sushi/list/Sushi doner/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1761,
-    "y": 18578
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Gounkans/price/грн",
-    "text": "грн",
-    "x": 1832,
-    "y": 18577
-  },
-  {
     "path": "root/Document/OLD/sushi/list/Sushi doner/price/250",
     "text": "250",
     "x": 1832,
     "y": 18578
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Gounkans/Text/норі, рис, крем сир, огірок, ікра тобіко",
-    "text": "норі, рис, крем сир, огірок, ікра тобіко",
-    "x": 1534,
-    "y": 18614
   },
   {
     "path": "root/Document/OLD/sushi/list/Sushi doner/Text/Лосось/ тунець/ креветка/ вугор",
@@ -17722,12 +15772,6 @@
     "text": "грн",
     "x": 1832,
     "y": 18610
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Gounkans/Text/150 г",
-    "text": "150 г",
-    "x": 1534,
-    "y": 18635
   },
   {
     "path": "root/Document/OLD/sushi/list/Sushi doner/Text/крем сир, огірок, салат айсберг, ікра тобіка, кунжут, норі, рис",
@@ -17758,12 +15802,6 @@
     "text": "Лосось/ тунець/ креветка/ вугор",
     "x": 1534,
     "y": 18729
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/Sushi burger/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1761,
-    "y": 18727
   },
   {
     "path": "root/Document/OLD/sushi/list/Sushi burger/price/грн",
@@ -17817,12 +15855,6 @@
     "path": "root/Document/OLD/sushi/list/MAKI avocado/Text/!/Макі хіяши вакаме",
     "text": "Макі хіяши вакаме",
     "x": 1534,
-    "y": 18942
-  },
-  {
-    "path": "root/Document/OLD/sushi/list/MAKI avocado/Text/!/Нове!",
-    "text": "Нове!",
-    "x": 1761,
     "y": 18942
   },
   {

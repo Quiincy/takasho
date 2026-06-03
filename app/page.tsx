@@ -28,7 +28,7 @@ export default async function HomePage() {
   const categories = (catRes.data as DbCategory[]) ?? [];
   const items = (itemRes.data as DbMenuItem[]) ?? [];
   const deliveryCategories = categories.filter(c => !c.id.startsWith('banquet-'));
-  const popularItems = items.filter(i => i.is_popular).slice(0, 4);
+  const popularItems = items.filter(i => i.is_popular);
 
   return (
     <AnimatedPage>

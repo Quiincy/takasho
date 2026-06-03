@@ -1,12 +1,15 @@
 const { createClient } = require('@supabase/supabase-js');
+const fs = require('fs');
+
+const env = fs.readFileSync('.env.local', 'utf8').split('\n');
+env.forEach(line => {
+  const match = line.match(/^([^=]+)=(.*)$/);
+  if (match) process.env[match[1]] = match[2];
+});
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-// Using ANON key since RLS might allow inserts or we might need service role.
-// Let's check if we have service role key.
-const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || supabaseKey;
-
-const supabase = createClient(supabaseUrl, serviceKey);
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const menuData = [
   {

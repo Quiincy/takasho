@@ -1,11 +1,14 @@
 const fs = require('fs');
 const https = require('https');
 
+const figmaToken = process.env.FIGMA_TOKEN || 'YOUR_FIGMA_TOKEN_HERE';
+const fileId = 'ALtUPVT1c28lA7N06nuwru';
+
 const options = {
   hostname: 'api.figma.com',
-  path: '/v1/files/ALtUPVT1c28lA7N06nuwru',
+  path: `/v1/files/${fileId}`,
   headers: {
-    'X-Figma-Token': 'YOUR_TOKEN_HERE'
+    'X-Figma-Token': figmaToken
   }
 };
 

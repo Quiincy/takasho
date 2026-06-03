@@ -167,7 +167,7 @@ export default function ContactsPage() {
                 @tak_a_sho_kiev
               </a>
               <a
-                href="https://t.me/enotsushi"
+                href="https://t.me/enot_kava"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

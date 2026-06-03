@@ -41,6 +41,23 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
     setCurrentPage(1);
   }, [activeCategory, subCategory, search]);
 
+  // Sync the URL with the active category so that returning from the cart preserves the state
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const newSearchParams = new URLSearchParams(window.location.search);
+      if (activeCategory === 'all') {
+        newSearchParams.delete('category');
+        newSearchParams.delete('categoryName');
+      } else {
+        newSearchParams.set('category', activeCategory);
+        newSearchParams.delete('categoryName');
+      }
+      const searchString = newSearchParams.toString();
+      const newUrl = searchString ? `${window.location.pathname}?${searchString}` : window.location.pathname;
+      window.history.replaceState(null, '', newUrl);
+    }
+  }, [activeCategory]);
+
   useEffect(() => {
     if (categoryParam || categoryNameParam) {
       setActiveCategory(initialCatId);
@@ -224,14 +241,12 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
           right: 0;
           top: 105px;
           z-index: 40;
-          writing-mode: vertical-rl;
-          text-orientation: upright;
           color: white;
-          padding: 16px 8px;
-          border-radius: 12px 0 0 12px;
+          padding: 24px 0;
+          width: 48px;
+          border-radius: 14px 0 0 14px;
           font-weight: 800;
-          font-size: 14px;
-          letter-spacing: 2px;
+          font-size: 18px;
           cursor: pointer;
           border: none;
           align-items: center;
@@ -239,16 +254,21 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
           overflow: hidden;
           background: var(--bg-card); /* Fallback */
           box-shadow: -4px 0 15px rgba(230, 57, 70, 0.3);
+          transform: translateZ(0);
+          backface-visibility: hidden;
         }
 
         .animated-menu-btn::before {
           content: '';
           position: absolute;
+          top: -50%;
+          left: -50%;
           width: 200%;
-          height: 100%;
-          background: conic-gradient(transparent, transparent 30%, #fff);
+          height: 200%;
+          background: conic-gradient(transparent 0%, transparent 30%, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
           animation: spin 3s linear infinite;
           z-index: 0;
+          will-change: transform;
         }
 
         .animated-menu-btn::after {
@@ -261,9 +281,15 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
           z-index: 1;
         }
 
-        .animated-menu-btn span {
+        .animated-menu-btn span.menu-text {
           position: relative;
           z-index: 2;
+          transform: translateZ(0);
+          backface-visibility: hidden;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 2px;
         }
 
         @keyframes spin {
@@ -332,19 +358,25 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
 
       {/* Mobile Vertical Menu Trigger */}
       <button
-        className="show-mobile animated-menu-btn"
+        className="animated-menu-btn"
+        style={{ display: 'flex' }}
         onClick={() => setIsFilterOpen(true)}
       >
-        <span>МЕНЮ</span>
+        <span className="menu-text">
+          <span>М</span>
+          <span>Е</span>
+          <span>Н</span>
+          <span>Ю</span>
+        </span>
       </button>
 
       {/* Mobile Filter Drawer */}
       {isFilterOpen && (
-        <div className="show-mobile" style={{
+        <div style={{
           position: 'fixed',
           inset: 0,
           zIndex: 1000,
-          display: 'none',
+          display: 'flex',
         }}>
           {/* Backdrop */}
           <div 

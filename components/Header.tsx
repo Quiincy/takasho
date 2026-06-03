@@ -188,12 +188,11 @@ export default function Header() {
             </button>
           </Link>
 
-          {/* Hamburger Menu - visible on mobile only via inline or media query class */}
+          {/* Hamburger Menu - visible on all screens */}
           <button
-            className="show-mobile"
             onClick={() => setIsMobileMenuOpen(true)}
             style={{
-              display: 'none', // Hidden by default, shown via media query .show-mobile
+              display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               background: 'transparent',
