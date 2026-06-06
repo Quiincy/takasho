@@ -27,8 +27,10 @@ export default async function HomePage() {
 
   const categories = (catRes.data as DbCategory[]) ?? [];
   const items = (itemRes.data as DbMenuItem[]) ?? [];
+  
   const deliveryCategories = categories.filter(c => !c.id.startsWith('banquet-'));
-  const popularItems = items.filter(i => i.is_popular);
+  const deliveryItems = items.filter(i => !i.category_id.startsWith('banquet-'));
+  const popularItems = deliveryItems.filter(i => i.is_popular);
 
   return (
     <AnimatedPage>
@@ -132,10 +134,9 @@ export default async function HomePage() {
         {/* ── Second marquee between features and menu ── */}
         <Marquee />
 
-        {/* ── Menu section ── */}
         <div>
           <Suspense fallback={<div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-muted)' }}>Завантаження меню...</div>}>
-            <MenuSection initialCategories={deliveryCategories} initialItems={items} />
+            <MenuSection initialCategories={deliveryCategories} initialItems={deliveryItems} />
           </Suspense>
         </div>
 
