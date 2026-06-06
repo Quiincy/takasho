@@ -11,10 +11,21 @@ export default function ProductView({ product }: { product: DbMenuItem }) {
   const { addItem, items, updateQuantity, removeItem } = useCart();
   const [added, setAdded] = useState(false);
   
-  const cartItem = items.find(i => i.id === product.id);
+  const isSauce = product.id === 'crisps-8';
+  const sauceOptions = isSauce ? product.description?.split('\n').map(s => s.trim()).filter(Boolean) || [] : [];
+  const [selectedSauce, setSelectedSauce] = useState(sauceOptions[0] || '');
+
+  const currentId = isSauce && selectedSauce ? `${product.id}-${selectedSauce}` : product.id;
+  const cartItem = items.find(i => i.id === currentId);
 
   const handleAdd = () => {
-    addItem(product);
+    const itemToAdd = isSauce && selectedSauce ? {
+      ...product,
+      id: currentId,
+      name: `${product.name} (${selectedSauce})`
+    } : product;
+
+    addItem(itemToAdd);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
 
@@ -29,10 +40,15 @@ export default function ProductView({ product }: { product: DbMenuItem }) {
     }
   };
 
+  let subCategoryParam = '';
+  if (product.category_id === 'sushi') {
+    subCategoryParam = product.name.toLowerCase().includes('сет') ? '&subCategory=sets' : '&subCategory=rolls';
+  }
+
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: '120px 20px 80px' }}>
       {/* Навігація назад */}
-      <Link href="/#menu" style={{
+      <Link href={`/?category=${product.category_id}${subCategoryParam}#menu`} style={{
         display: 'inline-flex',
         alignItems: 'center',
         gap: 8,
@@ -135,9 +151,37 @@ export default function ProductView({ product }: { product: DbMenuItem }) {
             lineHeight: 1.7,
             color: 'var(--text-secondary)',
             marginBottom: 32,
+            whiteSpace: 'pre-line',
           }}>
-            {product.description || 'Детальний опис для цієї страви ще не додано, але вона точно дуже смачна!'}
+            {isSauce ? 'Оберіть соус перед додаванням у кошик.' : (product.description || 'Детальний опис для цієї страви ще не додано, але вона точно дуже смачна!')}
           </p>
+
+          {isSauce && sauceOptions.length > 0 && (
+            <div style={{ marginBottom: 32 }}>
+              <label style={{ display: 'block', marginBottom: 8, fontSize: 14, color: 'var(--text-secondary)' }}>
+                Оберіть смак соусу:
+              </label>
+              <select
+                value={selectedSauce}
+                onChange={(e) => setSelectedSauce(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '14px',
+                  borderRadius: '16px',
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  color: 'white',
+                  fontSize: 16,
+                  outline: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                {sauceOptions.map(opt => (
+                  <option key={opt} value={opt} style={{ color: 'black' }}>{opt}</option>
+                ))}
+              </select>
+            </div>
+          )}
 
           <hr style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.08)', marginBottom: 32 }} />
 
@@ -155,26 +199,30 @@ export default function ProductView({ product }: { product: DbMenuItem }) {
               <span style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-primary)' }}>У кошику:</span>
               <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
                 <button
-                  onClick={() => removeItem(product.id)}
+                  onClick={() => removeItem(currentId)}
                   style={{
-                    width: 40, height: 40, borderRadius: 12,
-                    border: '1px solid rgba(230,57,70,0.2)',
+                    width: 44,
+                    height: 44,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: '12px',
                     background: 'rgba(230,57,70,0.1)',
                     color: 'var(--accent)',
+                    border: 'none',
                     cursor: 'pointer',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
                     transition: 'all 0.2s',
                   }}
-                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(230,57,70,0.2)'}
-                  onMouseLeave={e => e.currentTarget.style.background = 'rgba(230,57,70,0.1)'}
+                  onMouseEnter={e => (e.currentTarget.style.background = 'rgba(230,57,70,0.2)')}
+                  onMouseLeave={e => (e.currentTarget.style.background = 'rgba(230,57,70,0.1)')}
                 >
-                  <Minus size={18} />
+                  <Minus size={20} />
                 </button>
-                <span style={{ fontSize: 20, fontWeight: 800, color: 'white', minWidth: 24, textAlign: 'center' }}>
+                <span style={{ fontSize: 20, fontWeight: 800, width: 40, textAlign: 'center', color: 'white' }}>
                   {cartItem.quantity}
                 </span>
                 <button
-                  onClick={() => updateQuantity(product.id, cartItem.quantity + 1)}
+                  onClick={() => updateQuantity(currentId, cartItem.quantity + 1)}
                   style={{
                     width: 40, height: 40, borderRadius: 12,
                     border: '1px solid rgba(72,199,116,0.3)',

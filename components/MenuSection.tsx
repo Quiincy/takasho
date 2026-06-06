@@ -2,7 +2,7 @@
 
 import MenuCard from '@/components/MenuCard';
 import CategoryFilter from '@/components/CategoryFilter';
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { Search, X } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { DbCategory, DbMenuItem } from '@/lib/supabase';
@@ -16,6 +16,7 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get('category');
   const categoryNameParam = searchParams.get('categoryName');
+  const subCategoryParam = searchParams.get('subCategory') as 'all' | 'rolls' | 'sets' | null;
 
   const initialCatId = useMemo(() => {
     if (categoryParam) return categoryParam;
@@ -27,13 +28,20 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
   }, [categoryParam, categoryNameParam, initialCategories]);
 
   const [activeCategory, setActiveCategory] = useState(initialCatId);
-  const [subCategory, setSubCategory] = useState<'all' | 'rolls' | 'sets'>('all');
+  const [subCategory, setSubCategory] = useState<string>(subCategoryParam || 'all');
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const itemsPerPage = 12;
 
+  // Track initial render to avoid resetting subCategory
+  const isFirstMount = useRef(true);
+
   useEffect(() => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
     setSubCategory('all');
   }, [activeCategory]);
 
@@ -48,9 +56,15 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
       if (activeCategory === 'all') {
         newSearchParams.delete('category');
         newSearchParams.delete('categoryName');
+        newSearchParams.delete('subCategory');
       } else {
         newSearchParams.set('category', activeCategory);
         newSearchParams.delete('categoryName');
+        if (activeCategory === 'sushi' && subCategory !== 'all') {
+          newSearchParams.set('subCategory', subCategory);
+        } else {
+          newSearchParams.delete('subCategory');
+        }
       }
       const searchString = newSearchParams.toString();
       const newUrl = searchString ? `${window.location.pathname}?${searchString}` : window.location.pathname;
@@ -61,6 +75,7 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
   useEffect(() => {
     if (categoryParam || categoryNameParam) {
       setActiveCategory(initialCatId);
+      if (subCategoryParam) setSubCategory(subCategoryParam);
       // Optional: smooth scroll to menu if a category is selected via URL
       const el = document.getElementById('menu');
       if (el) {
@@ -78,9 +93,26 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
     // Subcategory filtering for sushi
     if (activeCategory === 'sushi' && subCategory !== 'all') {
       items = items.filter(i => {
-        const isSet = i.name.toLowerCase().includes('сет');
+        const name = i.name.toLowerCase();
+        const isSet = name.includes('сет');
+        const isPhila = name.includes('філадельфія');
+        const isCali = name.includes('каліфорнія');
+        const isShawarma = name.includes('шаурма');
+        const isBurger = name.includes('бургер');
+        const isMaki = name.includes('макі');
+        const isNigiri = name.includes('нігірі');
+        const isChef = !isSet && !isPhila && !isCali && !isShawarma && !isBurger && !isMaki && !isNigiri;
+        
         if (subCategory === 'sets') return isSet;
         if (subCategory === 'rolls') return !isSet;
+        if (subCategory === 'phila') return isPhila;
+        if (subCategory === 'cali') return isCali;
+        if (subCategory === 'shawarma') return isShawarma;
+        if (subCategory === 'burgers') return isBurger;
+        if (subCategory === 'chef') return isChef;
+        if (subCategory === 'maki') return isMaki;
+        if (subCategory === 'nigiri') return isNigiri;
+        
         return true;
       });
     }
@@ -326,8 +358,15 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
             `}</style>
             {[
               { id: 'all', label: 'Всі суші' },
-              { id: 'rolls', label: '🍣 Роли' },
+              { id: 'rolls', label: '🍣 Всі роли' },
               { id: 'sets', label: '🍱 Сети' },
+              { id: 'phila', label: '🧀 Філадельфія' },
+              { id: 'cali', label: '🦀 Каліфорнія' },
+              { id: 'shawarma', label: '🌯 Суші шаурма' },
+              { id: 'burgers', label: '🍔 Суші бургери' },
+              { id: 'chef', label: '👨‍🍳 Роли від шефа' },
+              { id: 'maki', label: '🥒 Макі' },
+              { id: 'nigiri', label: '🍣 Нігірі' },
             ].map((sub) => (
               <button
                 key={sub.id}

@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Trash2, Plus, Minus, ArrowLeft, CreditCard, ShoppingBag, Phone, Info, CheckCircle } from 'lucide-react';
 
 const DeliveryMap = dynamic(() => import('@/components/DeliveryMap'), {
@@ -30,6 +30,9 @@ const DeliveryMap = dynamic(() => import('@/components/DeliveryMap'), {
 export default function CartPage() {
   const { items, updateQuantity, removeItem, clearCart, totalPrice } = useCart();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const paymentSuccess = searchParams?.get('payment') === 'success';
+  const paymentError = searchParams?.get('payment') === 'error';
   const [address, setAddress] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -82,7 +85,28 @@ export default function CartPage() {
           currency: 'UAH',
         });
       }
-      setShowMonoInfo(true);
+
+      if (data.liqpayData && data.liqpaySignature) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'https://www.liqpay.ua/api/3/checkout';
+        form.style.display = 'none';
+
+        const dataInput = document.createElement('input');
+        dataInput.name = 'data';
+        dataInput.value = data.liqpayData;
+        form.appendChild(dataInput);
+
+        const sigInput = document.createElement('input');
+        sigInput.name = 'signature';
+        sigInput.value = data.liqpaySignature;
+        form.appendChild(sigInput);
+
+        document.body.appendChild(form);
+        form.submit();
+      } else {
+        setShowMonoInfo(true);
+      }
     } catch (err: any) {
       setSubmitError(err.message || 'Щось пішло не так. Спробуйте ще раз.');
     } finally {
@@ -90,8 +114,8 @@ export default function CartPage() {
     }
   };
 
-  // Empty cart state
-  if (items.length === 0 && !showMonoInfo) {
+  // Empty cart state (only if not returning from payment result)
+  if (items.length === 0 && !showMonoInfo && !paymentSuccess && !paymentError) {
     return (
       <main style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
         <Header />
@@ -106,7 +130,7 @@ export default function CartPage() {
           <p style={{ color: 'var(--text-secondary)', marginBottom: 28, lineHeight: 1.7, fontSize: 15 }}>
             Додайте страви з меню, щоб оформити замовлення
           </p>
-          <button onClick={() => router.back()} className="btn-primary" style={{ fontSize: 15, padding: '13px 28px', display: 'flex', alignItems: 'center', gap: 8, margin: '0 auto', border: 'none', cursor: 'pointer' }}>
+          <button onClick={() => router.push('/#menu')} className="btn-primary" style={{ fontSize: 15, padding: '13px 28px', display: 'flex', alignItems: 'center', gap: 8, margin: '0 auto', border: 'none', cursor: 'pointer' }}>
             <ArrowLeft size={16} />
             До меню
           </button>
@@ -115,8 +139,58 @@ export default function CartPage() {
     );
   }
 
+  // Error state (payment failed)
+  if (paymentError) {
+    return (
+      <main style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
+        <Header />
+        <div style={{ maxWidth: 600, margin: '0 auto', padding: '120px 16px 60px' }}>
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(230,57,70,0.08), rgba(20,20,20,0.5))',
+            border: '1px solid rgba(230,57,70,0.3)',
+            borderRadius: 20,
+            padding: 'clamp(24px, 5vw, 40px)',
+            textAlign: 'center',
+          }}>
+            <div style={{ fontSize: 56, marginBottom: 16 }}>⚠️</div>
+            <h2 style={{ fontSize: 'clamp(20px, 4vw, 26px)', fontWeight: 800, marginBottom: 6 }}>
+              Оплата не пройшла
+            </h2>
+            <div style={{
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border)',
+              borderRadius: 14,
+              padding: 20,
+              textAlign: 'center',
+              marginBottom: 20,
+              lineHeight: 1.8,
+            }}>
+              <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>
+                Під час оплати сталася помилка, або ви скасували платіж.
+                Ваше замовлення збережено в системі, але не оплачено.
+              </p>
+            </div>
+            <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <a href="tel:+380957972943">
+                <button className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '13px 24px', fontSize: 15 }}>
+                  <Phone size={16} />
+                  Зв'язатись з нами
+                </button>
+              </a>
+              <Link href="/#menu">
+                <button className="btn-ghost" style={{ padding: '13px 24px', fontSize: 15 }}>
+                  До меню
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   // Success state
-  if (showMonoInfo) {
+  if (showMonoInfo || paymentSuccess) {
     return (
       <main style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
         <Header />
@@ -130,7 +204,7 @@ export default function CartPage() {
           }}>
             <div style={{ fontSize: 56, marginBottom: 16 }}>🎉</div>
             <h2 style={{ fontSize: 'clamp(20px, 4vw, 26px)', fontWeight: 800, marginBottom: 6 }}>
-              Замовлення прийнято!
+              Замовлення {paymentSuccess ? 'оплачено!' : 'прийнято!'}
             </h2>
             {orderId && (
               <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 20 }}>
@@ -150,26 +224,10 @@ export default function CartPage() {
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 700, fontSize: 15, marginBottom: 10, color: '#48c774' }}>
                 <CheckCircle size={18} />
-                Замовлення збережено в системі
+                Замовлення успішно збережено та {paymentSuccess ? 'сплачено' : 'очікує обробки'}
               </div>
-              <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>
-                Реквізити для оплати:
-              </p>
-              <div style={{ fontSize: 14, color: 'var(--text-primary)', margin: '10px 0', lineHeight: 1.6, background: 'rgba(0,0,0,0.2)', padding: '12px', borderRadius: '8px' }}>
-                Отримувач: <strong>ГУЛАК ДМИТРО СЕРГІЙОВИЧ</strong><br/>
-                IBAN: <strong>UA493052990000026001046240837</strong><br/>
-                РНОКПП: <strong>3139607532</strong><br/>
-                Призначення платежу: <strong>Поповнення рахунку</strong>
-              </div>
-              <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>
-                <strong style={{ color: 'var(--text-primary)' }}>Сума:</strong>{' '}
-                {confirmedTotal} ₴
-                {deliveryInfo && deliveryInfo.cost > 0 && (
-                  <span style={{ color: 'var(--text-muted)', fontSize: 13 }}> (доставка {deliveryInfo.cost} ₴)</span>
-                )}
-              </p>
-              <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>
-                <strong style={{ color: 'var(--text-primary)' }}>Адреса:</strong> {address}
+              <p style={{ color: 'var(--text-secondary)', fontSize: 14, marginTop: 10 }}>
+                Дякуємо за ваше замовлення! Ми вже почали його готувати. Очікуйте на доставку найближчим часом.
               </p>
             </div>
             <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -179,7 +237,7 @@ export default function CartPage() {
                   Зателефонувати
                 </button>
               </a>
-              <Link href="/">
+              <Link href="/#menu">
                 <button className="btn-ghost" style={{ padding: '13px 24px', fontSize: 15 }}>
                   До меню
                 </button>
@@ -200,7 +258,12 @@ export default function CartPage() {
         padding: 'clamp(100px, 15vw, 130px) 16px 60px',
       }}>
         {/* Back */}
-        <button onClick={() => router.back()} style={{
+        <button onClick={() => {
+          const targetUrl = items.length > 0 
+            ? `/?category=${items[items.length - 1].category_id}#menu` 
+            : '/#menu';
+          router.push(targetUrl);
+        }} style={{
           display: 'inline-flex', alignItems: 'center', gap: 6,
           color: 'var(--text-muted)', textDecoration: 'none',
           background: 'transparent', border: 'none', cursor: 'pointer', padding: 0,
@@ -533,7 +596,7 @@ export default function CartPage() {
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 gap: 6, marginTop: 12, fontSize: 12, color: 'var(--text-muted)',
               }}>
-                🔒 Оплата на рахунок ФОП
+                🔒 Безпечна оплата через LiqPay
               </div>
             </div>
           </div>

@@ -16,12 +16,26 @@ export default function MenuCard({ item, index = 0 }: Props) {
   const { addItem, items } = useCart();
   const [added, setAdded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const cartItem = items.find(i => i.id === item.id);
+  
+  const isSauce = item.id === 'crisps-8';
+  const sauceOptions = isSauce ? item.description?.split('\n').map(s => s.trim()).filter(Boolean) || [] : [];
+  const [selectedSauce, setSelectedSauce] = useState(sauceOptions[0] || '');
+
+  const totalQuantity = isSauce 
+    ? items.filter(i => i.id.startsWith(item.id)).reduce((sum, i) => sum + i.quantity, 0)
+    : items.find(i => i.id === item.id)?.quantity || 0;
 
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    addItem(item);
+    
+    const itemToAdd = isSauce && selectedSauce ? {
+      ...item,
+      id: `${item.id}-${selectedSauce}`,
+      name: `${item.name} (${selectedSauce})`
+    } : item;
+
+    addItem(itemToAdd);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
 
@@ -112,7 +126,7 @@ export default function MenuCard({ item, index = 0 }: Props) {
         }} />
 
         {/* Cart quantity badge */}
-        {cartItem && (
+        {totalQuantity > 0 && (
           <div style={{
             position: 'absolute',
             top: 16,
@@ -131,7 +145,7 @@ export default function MenuCard({ item, index = 0 }: Props) {
             zIndex: 2,
           }}>
             <ShoppingCart size={14} style={{ marginRight: 6 }} />
-            {cartItem.quantity}
+            {totalQuantity}
           </div>
         )}
 
@@ -202,14 +216,39 @@ export default function MenuCard({ item, index = 0 }: Props) {
             lineHeight: 1.5,
             flex: 1,
             display: '-webkit-box',
-            WebkitLineClamp: 2,
+            WebkitLineClamp: isSauce ? undefined : 2,
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden',
-            marginBottom: 20,
+            marginBottom: isSauce ? 12 : 20,
           }}
         >
-          {item.description}
+          {isSauce ? 'Оберіть соус перед додаванням у кошик.' : item.description}
         </p>
+
+        {isSauce && sauceOptions.length > 0 && (
+          <div style={{ marginBottom: 16 }}>
+            <select
+              value={selectedSauce}
+              onChange={(e) => setSelectedSauce(e.target.value)}
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+              style={{
+                width: '100%',
+                padding: '10px 14px',
+                borderRadius: '12px',
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                color: 'white',
+                fontSize: 14,
+                outline: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              {sauceOptions.map(opt => (
+                <option key={opt} value={opt} style={{ color: 'black' }}>{opt}</option>
+              ))}
+            </select>
+          </div>
+        )}
 
         {/* Add button */}
         <button
