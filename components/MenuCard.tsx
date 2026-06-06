@@ -18,10 +18,16 @@ export default function MenuCard({ item, index = 0 }: Props) {
   const [isHovered, setIsHovered] = useState(false);
   
   const isSauce = item.id === 'crisps-8';
-  const sauceOptions = isSauce ? item.description?.split('\n').map(s => s.trim()).filter(Boolean) || [] : [];
-  const [selectedSauce, setSelectedSauce] = useState(sauceOptions[0] || '');
+  const isWater = item.id === 'drink-2';
+  const hasOptions = isSauce || isWater;
+  
+  const options = isSauce 
+    ? (item.description?.split('\n').map(s => s.trim()).filter(Boolean) || []) 
+    : (isWater ? ['Газована', 'Негазована'] : []);
+    
+  const [selectedOption, setSelectedOption] = useState(options[0] || '');
 
-  const totalQuantity = isSauce 
+  const totalQuantity = hasOptions 
     ? items.filter(i => i.id.startsWith(item.id)).reduce((sum, i) => sum + i.quantity, 0)
     : items.find(i => i.id === item.id)?.quantity || 0;
 
@@ -29,10 +35,10 @@ export default function MenuCard({ item, index = 0 }: Props) {
     e.preventDefault();
     e.stopPropagation();
     
-    const itemToAdd = isSauce && selectedSauce ? {
+    const itemToAdd = hasOptions && selectedOption ? {
       ...item,
-      id: `${item.id}-${selectedSauce}`,
-      name: `${item.name} (${selectedSauce})`
+      id: `${item.id}-${selectedOption}`,
+      name: `${item.name} (${selectedOption})`
     } : item;
 
     addItem(itemToAdd);
@@ -219,17 +225,17 @@ export default function MenuCard({ item, index = 0 }: Props) {
             WebkitLineClamp: isSauce ? undefined : 2,
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden',
-            marginBottom: isSauce ? 12 : 20,
+            marginBottom: hasOptions ? 12 : 20,
           }}
         >
           {isSauce ? 'Оберіть соус перед додаванням у кошик.' : item.description}
         </p>
 
-        {isSauce && sauceOptions.length > 0 && (
+        {hasOptions && options.length > 0 && (
           <div style={{ marginBottom: 16 }}>
             <select
-              value={selectedSauce}
-              onChange={(e) => setSelectedSauce(e.target.value)}
+              value={selectedOption}
+              onChange={(e) => setSelectedOption(e.target.value)}
               onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
               style={{
                 width: '100%',
@@ -243,7 +249,7 @@ export default function MenuCard({ item, index = 0 }: Props) {
                 cursor: 'pointer',
               }}
             >
-              {sauceOptions.map(opt => (
+              {options.map(opt => (
                 <option key={opt} value={opt} style={{ color: 'black' }}>{opt}</option>
               ))}
             </select>
