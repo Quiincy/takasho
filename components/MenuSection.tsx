@@ -16,7 +16,7 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get('category');
   const categoryNameParam = searchParams.get('categoryName');
-  const subCategoryParam = searchParams.get('subCategory') as 'all' | 'rolls' | 'sets' | null;
+  const subCategoryParam = searchParams.get('subCategory');
 
   const initialCatId = useMemo(() => {
     if (categoryParam) return categoryParam;
@@ -60,7 +60,7 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
       } else {
         newSearchParams.set('category', activeCategory);
         newSearchParams.delete('categoryName');
-        if (activeCategory === 'sushi' && subCategory !== 'all') {
+        if ((activeCategory === 'sushi' || activeCategory === 'drinks') && subCategory !== 'all') {
           newSearchParams.set('subCategory', subCategory);
         } else {
           newSearchParams.delete('subCategory');
@@ -90,7 +90,8 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
       items = items.filter(i => i.category_id === activeCategory);
     }
     
-    // Subcategory filtering for sushi
+    
+    // Subcategory filtering
     if (activeCategory === 'sushi' && subCategory !== 'all') {
       items = items.filter(i => {
         const name = i.name.toLowerCase();
@@ -112,6 +113,29 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
         if (subCategory === 'chef') return isChef;
         if (subCategory === 'maki') return isMaki;
         if (subCategory === 'nigiri') return isNigiri;
+        
+        return true;
+      });
+    }
+
+    if (activeCategory === 'drinks' && subCategory !== 'all') {
+      items = items.filter(i => {
+        const name = i.name.toLowerCase();
+        const isWater = name.includes('вода') || name.includes('bonaqua');
+        const isSoda = name.includes('кока-кола') || name.includes('фанта') || name.includes('спрайт') || name.includes('лимонад') || name.includes('швепс');
+        const isJuice = name.includes('сік') || name.includes('rich') || name.includes('садочок');
+        const isCoffee = name.includes('кава') || name.includes('еспресо') || name.includes('американо') || name.includes('капучіно') || name.includes('латте') || name.includes('флет уайт') || name.includes('какао') || name.includes('шоколад');
+        const isTea = name.includes('чай') || name.includes('матча');
+        const isWine = name.includes('вино');
+        const isCocktail = name.includes('коктейль') || name.includes('коктель') || name.includes('мохіто') || name.includes('сангрія') || name.includes('піна колада') || name.includes('bubble tea');
+        
+        if (subCategory === 'water') return isWater && !isSoda;
+        if (subCategory === 'soda') return isSoda;
+        if (subCategory === 'juice') return isJuice;
+        if (subCategory === 'coffee') return isCoffee;
+        if (subCategory === 'tea') return isTea;
+        if (subCategory === 'wine') return isWine;
+        if (subCategory === 'cocktails') return isCocktail;
         
         return true;
       });
@@ -393,6 +417,61 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
             ))}
           </div>
         )}
+
+        {/* Subcategories for Drinks */}
+        {activeCategory === 'drinks' && (
+          <div className="drinks-sub-filter" style={{
+            display: 'flex',
+            gap: 8,
+            marginTop: 8,
+            overflowX: 'auto',
+            paddingBottom: 2,
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+          }}>
+            <style>{`
+              .drinks-sub-filter::-webkit-scrollbar { display: none; }
+            `}</style>
+            {[
+              { id: 'all', label: 'Всі напої' },
+              { id: 'water', label: '💧 Вода' },
+              { id: 'soda', label: '🥤 Солодка вода' },
+              { id: 'juice', label: '🧃 Соки' },
+              { id: 'coffee', label: '☕ Кава' },
+              { id: 'tea', label: '🍵 Чай' },
+              { id: 'cocktails', label: '🍹 Коктейлі' },
+              { id: 'wine', label: '🍷 Вино' },
+            ].map((sub) => (
+              <button
+                key={sub.id}
+                onClick={() => {
+                  setSubCategory(sub.id);
+                  scrollToGrid();
+                }}
+                style={{
+                  padding: '4px 12px',
+                  borderRadius: 100,
+                  fontSize: 13,
+                  fontWeight: 600,
+                  whiteSpace: 'nowrap',
+                  border: '1px solid',
+                  borderColor: subCategory === sub.id ? 'var(--accent)' : 'rgba(255,255,255,0.1)',
+                  background: subCategory === sub.id ? 'var(--accent)' : 'transparent',
+                  color: subCategory === sub.id ? 'white' : 'var(--text-secondary)',
+                  transition: 'all 0.2s',
+                  cursor: 'pointer'
+                }}
+              >
+                {sub.label}
+              </button>
+            ))}
+          </div>
+        )}
+
+
+
+
       </div>
 
       {/* Mobile Vertical Menu Trigger */}
@@ -511,6 +590,45 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
                           key={sub.id}
                           onClick={() => {
                             setSubCategory(sub.id as any);
+                            setIsFilterOpen(false);
+                            scrollToGrid();
+                          }}
+                          style={{
+                            padding: '10px 16px',
+                            borderRadius: 12,
+                            fontSize: 14,
+                            fontWeight: 600,
+                            textAlign: 'left',
+                            border: '1px solid',
+                            borderColor: subCategory === sub.id ? 'var(--accent)' : 'rgba(255,255,255,0.08)',
+                            background: subCategory === sub.id ? 'rgba(230,57,70,0.1)' : 'rgba(255,255,255,0.03)',
+                            color: subCategory === sub.id ? 'var(--accent)' : 'var(--text-secondary)',
+                            transition: 'all 0.2s',
+                          }}
+                        >
+                          {sub.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Nested Subcategories for Drinks */}
+                  {cat.id === 'drinks' && activeCategory === 'drinks' && (
+                    <div style={{ paddingLeft: 16, display: 'flex', flexDirection: 'column', gap: 8, marginTop: 4, marginBottom: 8 }}>
+                      {[
+                        { id: 'all', label: 'Всі напої' },
+                        { id: 'water', label: '💧 Вода' },
+                        { id: 'soda', label: '🥤 Солодка вода' },
+                        { id: 'juice', label: '🧃 Соки' },
+                        { id: 'coffee', label: '☕ Кава' },
+                        { id: 'tea', label: '🍵 Чай' },
+                        { id: 'cocktails', label: '🍹 Коктейлі' },
+                        { id: 'wine', label: '🍷 Вино' },
+                      ].map((sub) => (
+                        <button
+                          key={sub.id}
+                          onClick={() => {
+                            setSubCategory(sub.id);
                             setIsFilterOpen(false);
                             scrollToGrid();
                           }}
