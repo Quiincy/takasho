@@ -1,7 +1,7 @@
 'use client';
 
 import { useCart } from '@/lib/cart-context';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/Header';
@@ -27,7 +27,7 @@ const DeliveryMap = dynamic(() => import('@/components/DeliveryMap'), {
   ),
 });
 
-export default function CartPage() {
+function CartContent() {
   const { items, updateQuantity, removeItem, clearCart, totalPrice } = useCart();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -603,5 +603,13 @@ export default function CartPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function CartPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: '100px 20px', textAlign: 'center' }}>Завантаження кошика...</div>}>
+      <CartContent />
+    </Suspense>
   );
 }
