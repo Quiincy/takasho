@@ -34,13 +34,14 @@ export default function Footer() {
           zIndex: 1,
           maxWidth: 1280,
           margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: 40,
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          gap: 'clamp(40px, 8vw, 100px)',
         }}
       >
         {/* Brand */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 12, flex: '1 1 280px', maxWidth: 320 }}>
           <div style={{ fontSize: 26, fontWeight: 800, letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: 10 }}>
             <span style={{ fontSize: 32 }}>🍣</span> 
             <span style={{ background: 'linear-gradient(90deg, #fff, #ffe5e5)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
@@ -53,9 +54,9 @@ export default function Footer() {
         </div>
 
         {/* Contacts */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 16, flex: '1 1 280px', maxWidth: 320 }}>
           <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Контакти</h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
             <a href={`tel:${contact_phone.replace(/[^0-9+]/g, '')}`} style={{ 
               display: 'inline-flex', alignItems: 'center', gap: 10,
               color: 'white', textDecoration: 'none', fontSize: 18, fontWeight: 700,
@@ -67,19 +68,19 @@ export default function Footer() {
             >
               📞 {contact_phone}
             </a>
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5 }}>
-              <span style={{ fontSize: 16 }}>📍</span> {contact_address}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5 }}>
+              <span style={{ fontSize: 16 }}>📍</span> <span>{contact_address}</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14 }}>
-              <span style={{ fontSize: 16 }}>🕐</span> {contact_schedule}
+              <span style={{ fontSize: 16 }}>🕐</span> <span>{contact_schedule}</span>
             </div>
           </div>
         </div>
 
         {/* Links */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 16, flex: '1 1 280px', maxWidth: 320 }}>
           <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Клієнтам</h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
             <Link href="/delivery" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>🚴 Доставка та оплата</Link>
             <Link href="/contacts" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>📍 Контакти</Link>
             <Link href="/banquet" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>🥂 Банкетне меню</Link>
@@ -88,9 +89,9 @@ export default function Footer() {
         </div>
       </div>
 
-      <div style={{ maxWidth: 1280, margin: '40px auto 0', paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 20, position: 'relative', zIndex: 1 }}>
-        <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>© 2026 Enot Sushi. Всі права захищено.</div>
-        <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>
+      <div style={{ maxWidth: 1280, margin: '60px auto 0', paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', textAlign: 'center', gap: 16, position: 'relative', zIndex: 1 }}>
+        <div style={{ color: 'var(--text-muted)', fontSize: 13, width: '100%' }}>© 2026 Enot Sushi. Всі права захищено.</div>
+        <div style={{ color: 'var(--text-muted)', fontSize: 13, width: '100%' }}>
           Створено <a href="https://t.me/Quincyy" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>Quincy</a> з ❤️ в Україні.
         </div>
       </div>
