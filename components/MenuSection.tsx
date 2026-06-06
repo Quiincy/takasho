@@ -497,8 +497,15 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
                     <div style={{ paddingLeft: 16, display: 'flex', flexDirection: 'column', gap: 8, marginTop: 4, marginBottom: 8 }}>
                       {[
                         { id: 'all', label: 'Всі суші' },
-                        { id: 'rolls', label: '🍣 Роли' },
+                        { id: 'rolls', label: '🍣 Всі роли' },
                         { id: 'sets', label: '🍱 Сети' },
+                        { id: 'phila', label: '🧀 Філадельфія' },
+                        { id: 'cali', label: '🦀 Каліфорнія' },
+                        { id: 'shawarma', label: '🌯 Суші шаурма' },
+                        { id: 'burgers', label: '🍔 Суші бургери' },
+                        { id: 'chef', label: '👨‍🍳 Роли від шефа' },
+                        { id: 'maki', label: '🥒 Макі' },
+                        { id: 'nigiri', label: '🍣 Нігірі' },
                       ].map((sub) => (
                         <button
                           key={sub.id}
