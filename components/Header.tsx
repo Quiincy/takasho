@@ -108,7 +108,7 @@ export default function Header() {
         {/* Center nav links — hidden on mobile */}
         <nav className="header-center-info" style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1, justifyContent: 'center' }}>
           {[
-            { href: '/', label: 'Меню' },
+            { href: '/', label: 'Головна' },
             { href: '/banquet', label: 'Банкетне меню' },
             { href: '/delivery', label: 'Доставка' },
             { href: '/contacts', label: 'Контакти' },

@@ -343,8 +343,24 @@ body {
 @media (max-width: 600px) {
   .footer-inner {
     flex-direction: column !important;
+    align-items: center !important;
     text-align: center;
-    gap: 20px !important;
+    gap: 16px !important;
+  }
+  .footer-col {
+    gap: 8px !important;
+    width: 100%;
+  }
+  .footer-col:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: 24px;
+    margin-bottom: 8px;
+  }
+  .footer-col > div {
+    gap: 8px !important;
+  }
+  footer {
+    padding: 30px 16px 20px !important;
   }
 }
 

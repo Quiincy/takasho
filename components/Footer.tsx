@@ -42,7 +42,7 @@ export default function Footer() {
         }}
       >
         {/* Brand */}
-        <div className="footer-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 12, flex: '1 1 280px', maxWidth: 320 }}>
+        <div className="footer-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 12, flex: '1 1 auto', minWidth: 260, maxWidth: 320 }}>
           <div style={{ fontSize: 26, fontWeight: 800, letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
             <Image 
               src="/logo_red.png" 
@@ -65,7 +65,7 @@ export default function Footer() {
         </div>
 
         {/* Contacts */}
-        <div className="footer-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 'clamp(12px, 3vw, 16px)', flex: '1 1 280px', maxWidth: 320 }}>
+        <div className="footer-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 'clamp(12px, 3vw, 16px)', flex: '1 1 auto', minWidth: 260, maxWidth: 320 }}>
           <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Контакти</h3>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
             <a href={`tel:${contact_phone.replace(/[^0-9+]/g, '')}`} style={{ 
@@ -89,7 +89,7 @@ export default function Footer() {
         </div>
 
         {/* Links */}
-        <div className="footer-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 'clamp(12px, 3vw, 16px)', flex: '1 1 280px', maxWidth: 320 }}>
+        <div className="footer-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 'clamp(12px, 3vw, 16px)', flex: '1 1 auto', minWidth: 260, maxWidth: 320 }}>
           <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Клієнтам</h3>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
             <Link href="/delivery" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>🚴 Доставка та оплата</Link>
