@@ -547,7 +547,7 @@ export default function MenuSection({ initialCategories, initialItems }: Props) 
                 <div key={cat.id} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   <button
                     onClick={() => {
-                      if (cat.id === 'sushi' && activeCategory !== 'sushi') {
+                      if ((cat.id === 'sushi' || cat.id === 'drinks') && activeCategory !== cat.id) {
                         setActiveCategory(cat.id);
                       } else {
                         handleCategorySelect(cat.id);
