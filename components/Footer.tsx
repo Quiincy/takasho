@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSiteSettings } from '@/lib/settings-context';
 
 export default function Footer() {
@@ -42,8 +43,18 @@ export default function Footer() {
       >
         {/* Brand */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 12, flex: '1 1 280px', maxWidth: 320 }}>
-          <div style={{ fontSize: 26, fontWeight: 800, letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 32 }}>🍣</span> 
+          <div style={{ fontSize: 26, fontWeight: 800, letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
+            <Image 
+              src="/logo_red.png" 
+              alt="Enot Sushi Logo" 
+              width={40} 
+              height={40} 
+              style={{ 
+                borderRadius: 10, 
+                objectFit: 'cover',
+                boxShadow: '0 4px 12px rgba(230,57,70,0.3)',
+              }} 
+            />
             <span style={{ background: 'linear-gradient(90deg, #fff, #ffe5e5)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
               ENOT SUSHI
             </span>
