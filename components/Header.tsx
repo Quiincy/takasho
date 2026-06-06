@@ -7,6 +7,7 @@ import { Menu, ShoppingCart, Phone } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
 import { useState, useEffect } from 'react';
 import MobileMenu from './MobileMenu';
+import { useSiteSettings } from '@/lib/settings-context';
 
 export default function Header() {
   const { totalItems, totalPrice } = useCart();
@@ -14,6 +15,7 @@ export default function Header() {
   const [cartAnimated, setCartAnimated] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { contact_phone } = useSiteSettings();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -126,7 +128,7 @@ export default function Header() {
 
         {/* Right: Phone + Cart */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
-          <a href="tel:+380957972943" style={{
+          <a href={`tel:${contact_phone.replace(/[^0-9+]/g, '')}`} style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',

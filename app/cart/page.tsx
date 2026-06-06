@@ -7,7 +7,9 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import dynamic from 'next/dynamic';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Trash2, Plus, Minus, ArrowLeft, CreditCard, ShoppingBag, Phone, Info, CheckCircle } from 'lucide-react';
+import { Trash2, Plus, Minus, ArrowLeft, CreditCard, ShoppingBag, Phone, Info, CheckCircle, MapPin } from 'lucide-react';
+import Footer from '@/components/Footer';
+import { useSiteSettings } from '@/lib/settings-context';
 
 const DeliveryMap = dynamic(() => import('@/components/DeliveryMap'), {
   ssr: false,
@@ -31,6 +33,7 @@ function CartContent() {
   const { items, updateQuantity, removeItem, clearCart, totalPrice } = useCart();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { contact_phone, contact_address } = useSiteSettings();
   const paymentSuccess = searchParams?.get('payment') === 'success';
   const paymentError = searchParams?.get('payment') === 'error';
   const [address, setAddress] = useState('');
@@ -49,7 +52,8 @@ function CartContent() {
     setDeliveryInfo({ km, cost });
   }, []);
 
-  const finalTotal = totalPrice + (deliveryMethod === 'delivery' ? (deliveryInfo?.cost ?? 0) : 0);
+  const actualDeliveryCost = (deliveryInfo?.cost === -1) ? 0 : (deliveryInfo?.cost ?? 0);
+  const finalTotal = totalPrice + (deliveryMethod === 'delivery' ? actualDeliveryCost : 0);
   const isReady = name.trim() && phone.trim() && (deliveryMethod === 'pickup' || (address.trim() && totalPrice >= 500)) && items.length > 0;
 
   const handleOrder = async () => {
@@ -66,7 +70,7 @@ function CartContent() {
           comment: comment.trim() || null,
           items: items.map(i => ({ id: i.id, name: i.name, quantity: i.quantity, price: i.price, weight: i.weight })),
           total_price: totalPrice,
-          delivery_cost: deliveryMethod === 'delivery' ? (deliveryInfo?.cost ?? 0) : 0,
+          delivery_cost: deliveryMethod === 'delivery' ? actualDeliveryCost : 0,
           distance_km: deliveryMethod === 'delivery' ? (deliveryInfo?.km ?? null) : null,
         }),
       });
@@ -135,6 +139,7 @@ function CartContent() {
             До меню
           </button>
         </div>
+        <Footer />
       </main>
     );
   }
@@ -171,7 +176,7 @@ function CartContent() {
               </p>
             </div>
             <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a href="tel:+380957972943">
+              <a href={`tel:${contact_phone.replace(/[^0-9+]/g, '')}`}>
                 <button className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '13px 24px', fontSize: 15 }}>
                   <Phone size={16} />
                   Зв'язатись з нами
@@ -185,6 +190,7 @@ function CartContent() {
             </div>
           </div>
         </div>
+        <Footer />
       </main>
     );
   }
@@ -231,7 +237,7 @@ function CartContent() {
               </p>
             </div>
             <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a href="tel:+380957972943">
+              <a href={`tel:${contact_phone.replace(/[^0-9+]/g, '')}`}>
                 <button className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '13px 24px', fontSize: 15 }}>
                   <Phone size={16} />
                   Зателефонувати
@@ -245,6 +251,7 @@ function CartContent() {
             </div>
           </div>
         </div>
+        <Footer />
       </main>
     );
   }
@@ -513,7 +520,7 @@ function CartContent() {
               }}>
                 <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 8 }}>📍 Де забирати?</h2>
                 <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 12 }}>
-                  Вул. Едуарда Вільде, 10Б (Дніпровський район, м. Київ)
+                  {contact_address}
                 </p>
                 <div style={{ height: 120, borderRadius: 12, background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
                   🏪
@@ -539,8 +546,8 @@ function CartContent() {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)', fontSize: 14 }}>
                   <span>Доставка</span>
-                  <span style={{ color: deliveryMethod === 'pickup' || deliveryInfo?.cost === 0 ? '#48c774' : 'var(--text-primary)', fontWeight: 600 }}>
-                    {deliveryMethod === 'pickup' ? 'САМОВИВІЗ' : (deliveryInfo === null ? '—' : deliveryInfo.cost === 0 ? 'БЕЗКОШТОВНО' : `${deliveryInfo.cost} ₴`)}
+                  <span style={{ color: deliveryMethod === 'pickup' || deliveryInfo?.cost === 0 ? '#48c774' : (deliveryInfo?.cost === -1 ? 'var(--accent-gold)' : 'var(--text-primary)'), fontWeight: 600, fontSize: deliveryInfo?.cost === -1 ? 13 : 14 }}>
+                    {deliveryMethod === 'pickup' ? 'САМОВИВІЗ' : (deliveryInfo === null ? '—' : deliveryInfo.cost === 0 ? 'БЕЗКОШТОВНО' : deliveryInfo.cost === -1 ? 'За тарифом таксі' : `${deliveryInfo.cost} ₴`)}
                   </span>
                 </div>
                 <div style={{
@@ -602,6 +609,7 @@ function CartContent() {
           </div>
         </div>
       </div>
+      <Footer />
     </main>
   );
 }

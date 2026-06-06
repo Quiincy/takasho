@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Inter, Montserrat } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/lib/cart-context';
+import { SiteSettingsProvider, SiteSettings } from '@/lib/settings-context';
+import { createClient } from '@supabase/supabase-js';
 import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'] });
@@ -44,11 +46,34 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      global: { fetch: (url, init) => fetch(url, { ...init, cache: 'no-store' }) }
+    }
+  );
+
+  let settings: Partial<SiteSettings> = {};
+  try {
+    const { data } = await supabase.from('site_settings').select('*');
+    if (data) {
+      const phone = data.find(s => s.key === 'contact_phone')?.value;
+      const address = data.find(s => s.key === 'contact_address')?.value;
+      const schedule = data.find(s => s.key === 'contact_schedule')?.value;
+      if (phone) settings.contact_phone = phone;
+      if (address) settings.contact_address = address;
+      if (schedule) settings.contact_schedule = schedule;
+    }
+  } catch (e) {
+    console.error("Failed to load settings in layout", e);
+  }
+
   return (
     <html lang="uk" data-scroll-behavior="smooth">
       <head>
@@ -92,9 +117,11 @@ export default function RootLayout({
             height="0" width="0" style={{ display: 'none', visibility: 'hidden' }} />
         </noscript>
         <div style={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-          <CartProvider>
-            {children}
-          </CartProvider>
+          <SiteSettingsProvider settings={settings}>
+            <CartProvider>
+              {children}
+            </CartProvider>
+          </SiteSettingsProvider>
         </div>
       </body>
     </html>

@@ -2,35 +2,65 @@ import Header from '@/components/Header';
 import ContactMap from '@/components/ContactMap';
 import { Metadata } from 'next';
 import { MapPin, Phone } from 'lucide-react';
+import Footer from '@/components/Footer';
+import { createClient } from '@supabase/supabase-js';
 
 export const metadata: Metadata = {
   title: 'Контакти — Enot Sushi | Доставка суші в Києві',
-  description: 'Адреса ресторану Enot Sushi: вул. Едуарда Вільде, 10Б, Дніпровський район, м. Київ. Телефон: +380 95 797 29 43. Працюємо щодня 10:00–21:00.',
+  description: 'Зв\'яжіться з нами для замовлення смачних суші, піци та бургерів.',
 };
 
-const INFO_CARDS = [
-  {
-    icon: '📍',
-    title: 'Адреса',
-    lines: ['вул. Едуарда Вільде, 10Б', 'Дніпровський район, м. Київ'],
-    accent: false,
-  },
-  {
-    icon: '📞',
-    title: 'Телефон',
-    lines: ['+380 95 797 29 43'],
-    link: 'tel:+380957972943',
-    accent: true,
-  },
-  {
-    icon: '🕐',
-    title: 'Графік роботи',
-    lines: ['Пн – Нд: 11:00 – 23:00', 'Без вихідних'],
-    accent: false,
-  },
-];
+export const dynamic = 'force-dynamic';
 
-export default function ContactsPage() {
+export default async function ContactsPage() {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      global: { fetch: (url, init) => fetch(url, { ...init, cache: 'no-store' }) }
+    }
+  );
+
+  let contactPhone = '+380 95 797 29 43';
+  let contactAddress = 'вул. Едуарда Вільде, 10Б, Дніпровський район, м. Київ';
+  let contactSchedule = 'Пн-Нд: 10:00 – 21:00';
+
+  try {
+    const { data } = await supabase.from('site_settings').select('*');
+    if (data) {
+      const p = data.find(s => s.key === 'contact_phone')?.value;
+      const a = data.find(s => s.key === 'contact_address')?.value;
+      const s = data.find(s => s.key === 'contact_schedule')?.value;
+      if (p) contactPhone = p;
+      if (a) contactAddress = a;
+      if (s) contactSchedule = s;
+    }
+  } catch (e) {
+    console.error("Failed to load settings in contacts", e);
+  }
+
+  const INFO_CARDS = [
+    {
+      icon: '📍',
+      title: 'Адреса',
+      lines: [contactAddress],
+      accent: false,
+    },
+    {
+      icon: '📞',
+      title: 'Телефон',
+      lines: [contactPhone],
+      link: `tel:${contactPhone.replace(/[^0-9+]/g, '')}`,
+      accent: true,
+    },
+    {
+      icon: '🕐',
+      title: 'Графік роботи',
+      lines: [contactSchedule],
+      accent: false,
+    },
+  ];
+
   return (
     <main style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
       <Header />
@@ -216,7 +246,7 @@ export default function ContactsPage() {
               </p>
             </div>
             <a
-              href="tel:+380957972943"
+              href={`tel:${contactPhone.replace(/[^0-9+]/g, '')}`}
               className="btn-primary"
               style={{
                 display: 'inline-flex',
@@ -259,35 +289,13 @@ export default function ContactsPage() {
             }}
           >
             <MapPin size={16} style={{ color: 'var(--accent)' }} />
-            вул. Едуарда Вільде, 10Б, Дніпровський район, м. Київ
+            {contactAddress}
           </div>
           <ContactMap />
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border)', padding: '40px 20px' }}>
-        <div
-          className="footer-inner"
-          style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: 32, justifyContent: 'space-between', alignItems: 'center' }}
-        >
-          <div>
-            <div style={{ fontSize: 22, fontWeight: 800, marginBottom: 6 }}>🍣 ENOT SUSHI</div>
-            <p style={{ fontSize: 14, color: 'var(--text-muted)' }}>Доставка їжі в Києві • Суші, Піца, Бургери</p>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            <a href="tel:+380957972943" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, fontWeight: 600 }}>📞 +380 95 797 29 43</a>
-            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>📍 вул. Едуарда Вільде, 10Б, Дніпровський район, м. Київ</span>
-            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>🕐 Пн-Нд: 10:00 – 21:00</span>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>© 2026 Enot Sushi. Всі права захищено.</div>
-            <div style={{ color: 'var(--text-muted)', fontSize: 12 }}>
-              Створено <a href="https://t.me/Quincyy" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', textDecoration: 'none' }}>Quincy</a> з ❤️ в Україні.
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }

@@ -4,8 +4,8 @@ import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 import { MapPin, Bike, AlertCircle } from 'lucide-react';
 
-const RESTAURANT_LAT = 50.5102;
-const RESTAURANT_LNG = 30.6368;
+const RESTAURANT_LAT = 50.488336;
+const RESTAURANT_LNG = 30.607121;
 const FREE_DELIVERY_KM = 1;
 const TAXI_RATE_PER_KM = 9; // UAH per km average
 
@@ -23,8 +23,7 @@ function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: numbe
 
 export function calcDeliveryCost(distanceKm: number): number {
   if (distanceKm <= FREE_DELIVERY_KM) return 0;
-  const extra = distanceKm - FREE_DELIVERY_KM;
-  return Math.round(extra * TAXI_RATE_PER_KM * 0.5);
+  return -1;
 }
 
 interface Props {
@@ -36,6 +35,7 @@ export default function DeliveryMap({ onDistanceChange, address }: Props) {
   const mapRef = useRef<any>(null);
   const markerRef = useRef<any>(null);
   const circleRef = useRef<any>(null);
+  const routeRef = useRef<any>(null);
   const [ready, setReady] = useState(false);
   const [distance, setDistance] = useState<number | null>(null);
   const [geocoding, setGeocoding] = useState(false);
@@ -137,6 +137,18 @@ export default function DeliveryMap({ onDistanceChange, address }: Props) {
         setDistance(dist);
         onDistanceChange(dist, cost);
 
+        // Fetch route from OSRM
+        let routeGeoJSON = null;
+        try {
+          const osrmRes = await fetch(`https://router.project-osrm.org/route/v1/driving/${RESTAURANT_LNG},${RESTAURANT_LAT};${userLng},${userLat}?overview=full&geometries=geojson`);
+          const osrmData = await osrmRes.json();
+          if (osrmData.routes && osrmData.routes.length > 0) {
+            routeGeoJSON = osrmData.routes[0].geometry;
+          }
+        } catch (e) {
+          console.error("OSRM fetch error", e);
+        }
+
         import('leaflet').then((L) => {
           const map = mapRef.current;
           if (!map) return;
@@ -164,6 +176,21 @@ export default function DeliveryMap({ onDistanceChange, address }: Props) {
             .addTo(map)
             .bindPopup(`<b>Ваша адреса</b><br>${data[0].display_name.split(',').slice(0, 2).join(',')}`)
             .openPopup();
+
+          if (routeRef.current) {
+            routeRef.current.remove();
+          }
+
+          if (routeGeoJSON) {
+            routeRef.current = L.geoJSON(routeGeoJSON, {
+              style: {
+                color: dist <= FREE_DELIVERY_KM ? '#48c774' : '#f4a261',
+                weight: 4,
+                opacity: 0.8,
+                dashArray: '8, 8'
+              }
+            }).addTo(map);
+          }
 
           map.fitBounds([
             [RESTAURANT_LAT, RESTAURANT_LNG],
@@ -252,10 +279,10 @@ export default function DeliveryMap({ onDistanceChange, address }: Props) {
               <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 2 }}>Доставка</div>
               <div style={{
                 fontWeight: 700,
-                fontSize: 16,
+                fontSize: 14,
                 color: isFree ? '#48c774' : '#f4a261',
               }}>
-                {isFree ? 'БЕЗКОШТОВНО 🎉' : `${deliveryCost} ₴`}
+                {isFree ? 'БЕЗКОШТОВНО 🎉' : 'За тарифом таксі'}
               </div>
             </div>
           </div>

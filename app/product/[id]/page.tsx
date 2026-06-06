@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import AnimatedPage from '@/components/AnimatedPage';
 import ProductView from './ProductView';
 import { Metadata } from 'next';
+import Footer from '@/components/Footer';
 
 export const revalidate = 60; // ISR revalidation
 
@@ -56,6 +57,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         <div className="reveal">
           <ProductView product={product} />
         </div>
+        <Footer />
       </main>
     </AnimatedPage>
   );

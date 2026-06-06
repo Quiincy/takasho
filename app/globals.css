@@ -513,3 +513,18 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* FAQ Accordion Icon */
+.faq-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+.faq-icon::after {
+  content: '+';
+}
+details[open] .faq-icon::after {
+  content: '−';
+}

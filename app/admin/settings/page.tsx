@@ -6,6 +6,9 @@ import { supabase } from '@/lib/supabase';
 export default function SettingsPage() {
   const [botToken, setBotToken] = useState('');
   const [chatId, setChatId] = useState('');
+  const [contactPhone, setContactPhone] = useState('');
+  const [contactAddress, setContactAddress] = useState('');
+  const [contactSchedule, setContactSchedule] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [testing, setTesting] = useState(false);
@@ -30,8 +33,15 @@ export default function SettingsPage() {
         if (data) {
           const tokenSetting = data.find(s => s.key === 'telegram_bot_token');
           const chatSetting = data.find(s => s.key === 'telegram_chat_id');
+          const phoneSetting = data.find(s => s.key === 'contact_phone');
+          const addressSetting = data.find(s => s.key === 'contact_address');
+          const scheduleSetting = data.find(s => s.key === 'contact_schedule');
+          
           if (tokenSetting) setBotToken(tokenSetting.value);
           if (chatSetting) setChatId(chatSetting.value);
+          if (phoneSetting) setContactPhone(phoneSetting.value);
+          if (addressSetting) setContactAddress(addressSetting.value);
+          if (scheduleSetting) setContactSchedule(scheduleSetting.value);
         }
       } catch (err: any) {
         console.error('Error loading settings:', err);
@@ -51,7 +61,10 @@ export default function SettingsPage() {
     try {
       const updates = [
         { key: 'telegram_bot_token', value: botToken, updated_at: new Date().toISOString() },
-        { key: 'telegram_chat_id', value: chatId, updated_at: new Date().toISOString() }
+        { key: 'telegram_chat_id', value: chatId, updated_at: new Date().toISOString() },
+        { key: 'contact_phone', value: contactPhone, updated_at: new Date().toISOString() },
+        { key: 'contact_address', value: contactAddress, updated_at: new Date().toISOString() },
+        { key: 'contact_schedule', value: contactSchedule, updated_at: new Date().toISOString() }
       ];
 
       const { error } = await supabase
@@ -140,11 +153,13 @@ export default function SettingsPage() {
           </div>
         )}
 
-        <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <div>
-            <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 8 }}>
-              Telegram Bot Token
-            </label>
+        <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
+          {/* Telegram Settings */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <div>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 8 }}>
+                Telegram Bot Token
+              </label>
             <input
               type="text"
               value={botToken}
@@ -186,6 +201,83 @@ export default function SettingsPage() {
             <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 8 }}>
               Щоб дізнатися Chat ID, додайте бота в групу (або напишіть йому) і використайте бота <b>@getmyid_bot</b>.
             </p>
+          </div>
+          </div>
+
+          <hr style={{ border: 'none', borderTop: '1px solid var(--border)' }} />
+          
+          {/* Contact Settings */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <h2 style={{ fontSize: 18, fontWeight: 600 }}>Контактна інформація</h2>
+            <p style={{ color: 'var(--text-muted)', fontSize: 14, marginBottom: 8, lineHeight: 1.5 }}>
+              Ці дані відображатимуться у футері, хедері та на сторінці контактів.
+            </p>
+
+            <div>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 8 }}>
+                Номер телефону
+              </label>
+              <input
+                type="text"
+                value={contactPhone}
+                onChange={e => setContactPhone(e.target.value)}
+                placeholder="+380 95 797 29 43"
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  background: 'var(--bg-primary)',
+                  border: '1px solid var(--border)',
+                  borderRadius: 8,
+                  color: 'var(--text-primary)',
+                  fontSize: 14,
+                  outline: 'none',
+                }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 8 }}>
+                Адреса закладу
+              </label>
+              <input
+                type="text"
+                value={contactAddress}
+                onChange={e => setContactAddress(e.target.value)}
+                placeholder="вул. Едуарда Вільде, 10Б, Дніпровський район, м. Київ"
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  background: 'var(--bg-primary)',
+                  border: '1px solid var(--border)',
+                  borderRadius: 8,
+                  color: 'var(--text-primary)',
+                  fontSize: 14,
+                  outline: 'none',
+                }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 8 }}>
+                Графік роботи
+              </label>
+              <input
+                type="text"
+                value={contactSchedule}
+                onChange={e => setContactSchedule(e.target.value)}
+                placeholder="Пн-Нд: 10:00 – 21:00"
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  background: 'var(--bg-primary)',
+                  border: '1px solid var(--border)',
+                  borderRadius: 8,
+                  color: 'var(--text-primary)',
+                  fontSize: 14,
+                  outline: 'none',
+                }}
+              />
+            </div>
           </div>
 
           <div style={{ display: 'flex', gap: 12, marginTop: 10, flexWrap: 'wrap' }}>

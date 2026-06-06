@@ -1,31 +1,61 @@
 import Header from '@/components/Header';
 import { Metadata } from 'next';
 import { CheckCircle, MapPin, CreditCard, Banknote, Clock, AlertCircle } from 'lucide-react';
+import Footer from '@/components/Footer';
+import { createClient } from '@supabase/supabase-js';
 
 export const metadata: Metadata = {
-  title: 'Доставка та оплата — Enot Sushi | Безкоштовна доставка суші',
-  description: 'Умови доставки Enot Sushi: безкоштовно в радіусі 5 км, онлайн оплата Monobank, готівка. Доставка від 1 години. Мінімальне замовлення 250 грн.',
+  title: 'Доставка та оплата — Enot Sushi | Безкоштовна доставка їжі в Києві',
+  description: 'Умови доставки Enot Sushi в Києві: безкоштовно в радіусі 1 км, онлайн оплата через LiqPay, готівка. Доставка від 1 години. Мінімальне замовлення 500 грн.',
 };
 
-const DELIVERY_ZONES = [
-  { zone: 'До 1 км (від 1000 грн)', price: 'Безкоштовно 🎉', color: '#48c774', bg: 'rgba(72,199,116,0.08)', border: 'rgba(72,199,116,0.25)' },
-  { zone: 'Інші замовлення', price: 'За тарифом', color: 'var(--accent-gold)', bg: 'rgba(244,162,97,0.08)', border: 'rgba(244,162,97,0.25)' },
-  { zone: 'Самовивіз', price: 'Безкоштовно', color: 'var(--text-secondary)', bg: 'var(--bg-card)', border: 'var(--border)' },
-];
+export const dynamic = 'force-dynamic';
+
+export default async function DeliveryPage() {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      global: { fetch: (url, init) => fetch(url, { ...init, cache: 'no-store' }) }
+    }
+  );
+
+  let contactPhone = '+380 95 797 29 43';
+  let contactAddress = 'вул. Едуарда Вільде, 10Б, Дніпровський район, м. Київ';
+
+  try {
+    const { data } = await supabase.from('site_settings').select('*');
+    if (data) {
+      const p = data.find(s => s.key === 'contact_phone')?.value;
+      const a = data.find(s => s.key === 'contact_address')?.value;
+      if (p) contactPhone = p;
+      if (a) contactAddress = a;
+    }
+  } catch (e) {
+    console.error("Failed to load settings in delivery", e);
+  }
+
+  const shortAddress = contactAddress.split(',')[0]; // Extract just the street part for short display
+
+  const DELIVERY_ZONES = [
+    { zone: 'До 1 км (від 1000 грн)', price: 'Безкоштовно 🎉', color: '#48c774', bg: 'rgba(72,199,116,0.08)', border: 'rgba(72,199,116,0.25)' },
+    { zone: 'Більше 1 км', price: 'За тарифом таксі', color: 'var(--accent-gold)', bg: 'rgba(244,162,97,0.08)', border: 'rgba(244,162,97,0.25)' },
+    { zone: `Самовивіз (${shortAddress})`, price: 'Безкоштовно', color: 'var(--text-secondary)', bg: 'var(--bg-card)', border: 'var(--border)' },
+  ];
 
 const PAYMENT_METHODS = [
   {
     icon: '💳',
-    title: 'Оплата банк / ФОП',
-    desc: <>Отримувач: ГУЛАК ДМИТРО СЕРГІЙОВИЧ<br/>IBAN: UA493052990000026001046240837<br/>РНОКПП: 3139607532<br/>Призначення: Поповнення рахунку</>,
+    title: 'Онлайн оплата (LiqPay)',
+    desc: 'Швидка та безпечна оплата замовлення онлайн карткою Visa або Mastercard через платіжну систему LiqPay.',
     badge: 'Рекомендовано',
     badgeColor: '#48c774',
     badgeBg: 'rgba(72,199,116,0.15)',
   },
   {
     icon: '💵',
-    title: 'Готівка',
-    desc: 'Оплата готівкою при отриманні замовлення кур\'єру',
+    title: 'Готівкою при отриманні',
+    desc: 'Оплата готівкою кур\'єру при отриманні замовлення. Будь ласка, попередьте нас, якщо потрібна решта з великої купюри.',
     badge: null,
     badgeColor: '',
     badgeBg: '',
@@ -34,28 +64,27 @@ const PAYMENT_METHODS = [
 
 const FAQ = [
   {
-    q: 'Яке мінімальне замовлення?',
-    a: 'Мінімальна сума замовлення для доставки — 500 грн.',
+    q: 'Яке мінімальне замовлення для доставки?',
+    a: 'Мінімальна сума замовлення для доставки по Києву — 500 грн. Для самовивозу мінімальної суми немає.',
   },
   {
     q: 'Скільки часу займає доставка?',
-    a: 'Зазвичай від 1 години з моменту підтвердження замовлення. У години пік може бути довше.',
+    a: 'Зазвичай доставка займає від 1 години з моменту підтвердження замовлення. Ми починаємо готувати страви (суші, піцу, бургери) тільки після підтвердження, щоб вони були максимально свіжими. У години пік час доставки може бути трохи збільшено.',
   },
   {
-    q: 'Які умови доставки?',
-    a: 'Безкоштовна доставка доступна в радіусі до 1 км при замовленні від 1000 грн. В інших випадках вартість розраховується за тарифом таксі.',
+    q: 'Які умови безкоштовної доставки?',
+    a: 'Ми надаємо безкоштовну доставку в радіусі до 1 км від нашого закладу при замовленні від 1000 грн. В інших випадках доставка здійснюється за тарифом служби таксі.',
   },
   {
     q: 'Чи можна змінити або скасувати замовлення?',
-    a: 'Так, якщо замовлення ще не передано в готовку. Зателефонуйте нам якомога швидше.',
+    a: `Так, ви можете змінити або скасувати замовлення, якщо воно ще не передано на кухню для приготування. Будь ласка, зателефонуйте нам якомога швидше за номером ${contactPhone}.`,
   },
   {
-    q: 'Чи привезете здачу?',
-    a: 'Так, кур\'єр приїжджає зі здачею. Але просимо по можливості готувати точну суму або оплачувати онлайн.',
+    q: 'Чи привезе кур\'єр решту?',
+    a: 'Так, наші кур\'єри завжди мають решту. Але щоб пришвидшити процес, просимо по можливості готувати точну суму або оплачувати онлайн через LiqPay.',
   },
 ];
 
-export default function DeliveryPage() {
   return (
     <main style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
       <Header />
@@ -77,8 +106,8 @@ export default function DeliveryPage() {
         <h1 className="section-title" style={{ marginBottom: 16 }}>
           Доставка та оплата
         </h1>
-        <p style={{ fontSize: 16, color: 'var(--text-secondary)', maxWidth: 520, margin: '0 auto' }}>
-          Безкоштовна доставка до 1 км при замовленні від 1000 грн. Мінімальна сума доставки — 500 грн.
+        <p style={{ fontSize: 16, color: 'var(--text-secondary)', maxWidth: 600, margin: '0 auto' }}>
+          Ми знаходимось за адресою <strong>{shortAddress}</strong>. Безкоштовна доставка діє в радіусі до 1 км при замовленні від 1000 грн. Мінімальна сума замовлення для доставки — 500 грн.
         </p>
       </section>
 
@@ -197,10 +226,10 @@ export default function DeliveryPage() {
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {[
-              { n: '1', text: 'Оберіть страви з меню та додайте до кошика' },
-              { n: '2', text: 'Перейдіть до оформлення, вкажіть адресу доставки' },
-              { n: '3', text: 'Оберіть спосіб оплати та підтвердіть замовлення' },
-              { n: '4', text: 'Очікуйте — ми зателефонуємо для підтвердження та привеземо замовлення' },
+              { n: '1', text: 'Оберіть улюблені страви з нашого меню (суші, піца, бургери) та додайте їх до кошика' },
+              { n: '2', text: 'Перейдіть до кошика, вкажіть контактні дані та точну адресу доставки по Києву' },
+              { n: '3', text: 'Оберіть зручний спосіб оплати: онлайн через LiqPay або готівкою при отриманні' },
+              { n: '4', text: 'Наш менеджер зв\'яжеться з вами для підтвердження, а кур\'єр доставить все гарячим та свіжим!' },
             ].map((step) => (
               <div
                 key={step.n}
@@ -258,7 +287,7 @@ export default function DeliveryPage() {
                   }}
                 >
                   {item.q}
-                  <span style={{ color: 'var(--accent)', fontSize: 20, lineHeight: 1, marginLeft: 12, flexShrink: 0 }}>+</span>
+                  <span className="faq-icon" style={{ color: 'var(--accent)', fontSize: 24, lineHeight: 1, marginLeft: 12, flexShrink: 0 }}></span>
                 </summary>
                 <div style={{ padding: '0 20px 16px', fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7 }}>
                   {item.a}
@@ -269,26 +298,7 @@ export default function DeliveryPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border)', padding: '40px 20px' }}>
-        <div className="footer-inner" style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: 32, justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <div style={{ fontSize: 22, fontWeight: 800, marginBottom: 6 }}>🍣 ENOT SUSHI</div>
-            <p style={{ fontSize: 14, color: 'var(--text-muted)' }}>Доставка їжі в Києві • Суші, Піца, Бургери</p>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            <a href="tel:+380957972943" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, fontWeight: 600 }}>📞 +380 95 797 29 43</a>
-            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>📍 вул. Едуарда Вільде, 10Б, Дніпровський район, м. Київ</span>
-            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>🕐 Пн-Нд: 10:00 – 21:00</span>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>© 2026 Enot Sushi. Всі права захищено.</div>
-            <div style={{ color: 'var(--text-muted)', fontSize: 12 }}>
-              Створено <a href="https://t.me/Quincyy" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', textDecoration: 'none' }}>Quincy</a> з ❤️ в Україні.
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }

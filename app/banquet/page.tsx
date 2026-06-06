@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 import ImageGallery from '@/components/ImageGallery';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'Банкетне меню | Enot Sushi',
@@ -158,6 +159,7 @@ export default async function BanquetPage() {
           </div>
         </div>
         <ScrollToTop />
+        <Footer />
         <style>{`
           .banquet-row:hover { background: rgba(255,255,255,0.04) !important; }
           .banquet-btn:hover {
