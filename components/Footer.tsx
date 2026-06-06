@@ -11,7 +11,7 @@ export default function Footer() {
       position: 'relative',
       background: 'linear-gradient(to bottom, var(--bg-secondary) 0%, #0a0a0a 100%)',
       borderTop: '1px solid rgba(230,57,70,0.2)',
-      padding: '60px 20px 40px',
+      padding: 'clamp(40px, 8vw, 60px) 20px clamp(30px, 6vw, 40px)',
       overflow: 'hidden',
     }}>
       {/* Decorative background glow */}
@@ -38,11 +38,11 @@ export default function Footer() {
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'center',
-          gap: 'clamp(40px, 8vw, 100px)',
+          gap: 'clamp(32px, 6vw, 100px)',
         }}
       >
         {/* Brand */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 12, flex: '1 1 280px', maxWidth: 320 }}>
+        <div className="footer-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 12, flex: '1 1 280px', maxWidth: 320 }}>
           <div style={{ fontSize: 26, fontWeight: 800, letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
             <Image 
               src="/logo_red.png" 
@@ -65,7 +65,7 @@ export default function Footer() {
         </div>
 
         {/* Contacts */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 16, flex: '1 1 280px', maxWidth: 320 }}>
+        <div className="footer-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 'clamp(12px, 3vw, 16px)', flex: '1 1 280px', maxWidth: 320 }}>
           <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Контакти</h3>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
             <a href={`tel:${contact_phone.replace(/[^0-9+]/g, '')}`} style={{ 
@@ -89,7 +89,7 @@ export default function Footer() {
         </div>
 
         {/* Links */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 16, flex: '1 1 280px', maxWidth: 320 }}>
+        <div className="footer-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 'clamp(12px, 3vw, 16px)', flex: '1 1 280px', maxWidth: 320 }}>
           <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Клієнтам</h3>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
             <Link href="/delivery" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>🚴 Доставка та оплата</Link>
@@ -100,7 +100,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div style={{ maxWidth: 1280, margin: '60px auto 0', paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', textAlign: 'center', gap: 16, position: 'relative', zIndex: 1 }}>
+      <div style={{ maxWidth: 1280, margin: 'clamp(32px, 6vw, 60px) auto 0', paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', textAlign: 'center', gap: 12, position: 'relative', zIndex: 1 }}>
         <div style={{ color: 'var(--text-muted)', fontSize: 13, width: '100%' }}>© 2026 Enot Sushi. Всі права захищено.</div>
         <div style={{ color: 'var(--text-muted)', fontSize: 13, width: '100%' }}>
           Створено <a href="https://t.me/Quincyy" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>Quincy</a> з ❤️ в Україні.
