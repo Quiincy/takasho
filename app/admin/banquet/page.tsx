@@ -36,66 +36,6 @@ function Field({ label, value, onChange, placeholder, type = 'text' }: {
   );
 }
 
-/* ── image upload field ── */
-function ImageUploadField({ value, onChange }: { value: string; onChange: (v: string) => void }) {
-  const [uploading, setUploading] = useState(false);
-
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    try {
-      if (!e.target.files || e.target.files.length === 0) return;
-      const file = e.target.files[0];
-      setUploading(true);
-
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
-      const filePath = `${fileName}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from('menu_images')
-        .upload(filePath, file, { upsert: true });
-
-      if (uploadError) throw uploadError;
-
-      const { data } = supabase.storage.from('menu_images').getPublicUrl(filePath);
-      onChange(data.publicUrl);
-    } catch (error: any) {
-      alert('Помилка завантаження зображення: ' + error.message);
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-      <label style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 600 }}>Зображення</label>
-      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-        <input
-          type="text"
-          value={value}
-          onChange={e => onChange(e.target.value)}
-          placeholder="/pizza.png або URL"
-          style={{
-            flex: 1, padding: '9px 13px', background: 'var(--bg-secondary)', border: '1px solid var(--border)',
-            borderRadius: 9, color: 'var(--text-primary)', fontSize: 14, outline: 'none', minWidth: 0,
-            boxSizing: 'border-box'
-          }}
-          onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
-          onBlur={e => (e.target.style.borderColor = 'var(--border)')}
-        />
-        <label style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          width: 38, height: 38, background: 'var(--bg-card)', border: '1px solid var(--border)',
-          borderRadius: 9, cursor: uploading ? 'not-allowed' : 'pointer', flexShrink: 0,
-          color: uploading ? 'var(--text-muted)' : 'var(--text-primary)'
-        }} title="Завантажити з пристрою">
-          {uploading ? <Loader2 size={16} className="animate-spin" style={{ animation: 'spin 1s linear infinite' }} /> : <Paperclip size={16} />}
-          <input type="file" accept="image/*" onChange={handleUpload} disabled={uploading} style={{ display: 'none' }} />
-        </label>
-      </div>
-      <style>{`@keyframes spin { 100% { transform: rotate(360deg); } }`}</style>
-    </div>
-  );
-}
 
 /* ══════════════════ MAIN PAGE ══════════════════ */
 export default function AdminBanquetEditorPage() {
@@ -289,13 +229,7 @@ export default function AdminBanquetEditorPage() {
             <Field label="Назва *" value={newItem.name} onChange={v => setNewItem(p => ({ ...p, name: v }))} placeholder="Піца Маргарита" />
             <Field label="Ціна (₴) *" type="number" value={newItem.price} onChange={v => setNewItem(p => ({ ...p, price: v }))} placeholder="280" />
             <Field label="Вага/обсяг" value={newItem.weight} onChange={v => setNewItem(p => ({ ...p, weight: v }))} placeholder="450 г" />
-            <ImageUploadField value={newItem.image} onChange={v => setNewItem(p => ({ ...p, image: v }))} />
           </div>
-          <Field label="Опис" value={newItem.description} onChange={v => setNewItem(p => ({ ...p, description: v }))} placeholder="Томатний соус, моцарела..." />
-          <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', marginTop: 10, color: 'var(--text-primary)' }}>
-            <input type="checkbox" checked={newItem.is_popular} onChange={e => setNewItem(p => ({ ...p, is_popular: e.target.checked }))} />
-            Популярна страва (показувати на головній)
-          </label>
           <div style={{ display: 'flex', gap: 8, marginTop: 14 }}>
             <button onClick={() => addItem(newItem.category_id || categories[0]?.id)} disabled={savingItem} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '9px 18px', background: 'var(--accent)', border: 'none', borderRadius: 8, color: 'white', fontWeight: 700, fontSize: 14, cursor: 'pointer' }}>
               <Plus size={16} /> {savingItem ? '⏳' : 'Додати страву'}
@@ -383,7 +317,6 @@ export default function AdminBanquetEditorPage() {
                               border: editingItem?.id === item.id ? '1px solid var(--accent)' : '1px solid var(--border)',
                               boxShadow: editingItem?.id === item.id ? '0 0 0 1px var(--accent)' : 'none'
                             }}>
-                              <img src={item.image} alt={item.name} style={{ width: 44, height: 44, borderRadius: 8, objectFit: 'cover', flexShrink: 0 }} onError={e => { (e.target as HTMLImageElement).src = '/pizza.png'; }} />
                               <div style={{ flex: 1, minWidth: 0 }}>
                                 <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 1 }}>{item.name} {item.is_popular && <span title="Популярна страва" style={{ marginLeft: 4 }}>🔥</span>}</div>
                                 <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{item.weight && `${item.weight} · `}{item.price} ₴</div>
@@ -407,13 +340,7 @@ export default function AdminBanquetEditorPage() {
                                   <Field label="Назва *" value={editingItem.name} onChange={v => setEditingItem(p => p ? { ...p, name: v } : p)} />
                                   <Field label="Ціна (₴) *" type="number" value={editingItem.price} onChange={v => setEditingItem(p => p ? { ...p, price: Number(v) } : p)} />
                                   <Field label="Вага/обсяг" value={editingItem.weight} onChange={v => setEditingItem(p => p ? { ...p, weight: v } : p)} placeholder="450 г" />
-                                  <ImageUploadField value={editingItem.image} onChange={v => setEditingItem(p => p ? { ...p, image: v } : p)} />
                                 </div>
-                                <Field label="Опис" value={editingItem.description ?? ''} onChange={v => setEditingItem(p => p ? { ...p, description: v } : p)} placeholder="Короткий опис страви..." />
-                                <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', marginTop: 10, color: 'var(--text-primary)' }}>
-                                  <input type="checkbox" checked={editingItem.is_popular ?? false} onChange={e => setEditingItem(p => p ? { ...p, is_popular: e.target.checked } : p)} />
-                                  Популярна страва (показувати на головній)
-                                </label>
                                 <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
                                   <button onClick={saveEdit} disabled={savingEdit} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', background: '#48c774', border: 'none', borderRadius: 7, color: 'white', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
                                     <Check size={14} /> Зберегти
@@ -435,13 +362,7 @@ export default function AdminBanquetEditorPage() {
                           <Field label="Назва *" value={newItem.name} onChange={v => setNewItem(p => ({ ...p, name: v }))} placeholder="Піца Маргарита" />
                           <Field label="Ціна (₴) *" type="number" value={newItem.price} onChange={v => setNewItem(p => ({ ...p, price: v }))} placeholder="280" />
                           <Field label="Вага/обсяг" value={newItem.weight} onChange={v => setNewItem(p => ({ ...p, weight: v }))} placeholder="450 г" />
-                          <ImageUploadField value={newItem.image} onChange={v => setNewItem(p => ({ ...p, image: v }))} />
                         </div>
-                        <Field label="Опис" value={newItem.description} onChange={v => setNewItem(p => ({ ...p, description: v }))} placeholder="Томатний соус, моцарела..." />
-                        <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', marginTop: 10, color: 'var(--text-primary)' }}>
-                          <input type="checkbox" checked={newItem.is_popular} onChange={e => setNewItem(p => ({ ...p, is_popular: e.target.checked }))} />
-                          Популярна страва (показувати на головній)
-                        </label>
                         <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
                           <button onClick={() => addItem(cat.id)} disabled={savingItem} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', background: 'var(--accent)', border: 'none', borderRadius: 7, color: 'white', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
                             <Plus size={14} /> {savingItem ? '⏳' : 'Додати страву'}
