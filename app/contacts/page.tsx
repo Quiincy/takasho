@@ -59,6 +59,13 @@ export default async function ContactsPage() {
       lines: [contactSchedule],
       accent: false,
     },
+    {
+      icon: '✉️',
+      title: 'Email',
+      lines: ['hello@enotsushi.com.ua'],
+      link: 'mailto:hello@enotsushi.com.ua',
+      accent: false,
+    },
   ];
 
   return (
@@ -139,6 +146,23 @@ export default async function ContactsPage() {
               )}
             </div>
           ))}
+        </div>
+
+        {/* FOP Details */}
+        <div style={{
+          marginTop: 20,
+          padding: '20px 24px',
+          borderRadius: 'var(--radius-sm)',
+          background: 'rgba(255,255,255,0.02)',
+          border: '1px solid var(--border)',
+          fontSize: 14,
+          color: 'var(--text-secondary)',
+          lineHeight: 1.6,
+          textAlign: 'center',
+        }}>
+          <p style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4 }}>Юридична інформація</p>
+          <p>ФОП Гулак Дмитро Сергійович</p>
+          <p>ІПН / РНОКПП: 3139607532</p>
         </div>
 
         {/* Divider */}

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useSiteSettings } from '@/lib/settings-context';
 
 export default function Footer() {
-  const { contact_phone, contact_address, contact_schedule } = useSiteSettings();
+  const { contact_phone, contact_address, contact_schedule, contact_email, fop_name } = useSiteSettings();
   return (
     <footer style={{
       position: 'relative',
@@ -85,6 +85,9 @@ export default function Footer() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14 }}>
               <span style={{ fontSize: 16 }}>🕐</span> <span>{contact_schedule}</span>
             </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14 }}>
+              <span style={{ fontSize: 16 }}>✉️</span> <a href={`mailto:${contact_email}`} style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>{contact_email}</a>
+            </div>
           </div>
         </div>
 
@@ -116,7 +119,7 @@ export default function Footer() {
       </div>
 
       <div style={{ maxWidth: 1280, margin: 'clamp(32px, 6vw, 60px) auto 0', paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', textAlign: 'center', gap: 12, position: 'relative', zIndex: 1 }}>
-        <div style={{ color: 'var(--text-muted)', fontSize: 13, width: '100%' }}>© 2026 Enot Sushi. Всі права захищено.</div>
+        <div style={{ color: 'var(--text-muted)', fontSize: 13, width: '100%' }}>© 2026 Enot Sushi. {fop_name}. Всі права захищено.</div>
         <div style={{ color: 'var(--text-muted)', fontSize: 13, width: '100%' }}>
           Створено <a href="https://t.me/Quincyy" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>Quincy</a> з ❤️ в Україні.
         </div>
