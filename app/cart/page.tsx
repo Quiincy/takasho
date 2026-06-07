@@ -1,7 +1,7 @@
 'use client';
 
 import { useCart } from '@/lib/cart-context';
-import { useCallback, useState, Suspense } from 'react';
+import { useCallback, useState, Suspense, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/Header';
@@ -47,6 +47,38 @@ function CartContent() {
   const [orderId, setOrderId] = useState<string | null>(null);
   const [showMonoInfo, setShowMonoInfo] = useState(false);
   const [confirmedTotal, setConfirmedTotal] = useState<number>(0);
+
+  // Load saved form data from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedName = localStorage.getItem('cart_name');
+      const savedPhone = localStorage.getItem('cart_phone');
+      const savedAddress = localStorage.getItem('cart_address');
+      if (savedName) setName(savedName);
+      if (savedPhone) setPhone(savedPhone);
+      if (savedAddress) setAddress(savedAddress);
+    }
+  }, []);
+
+  // Save form data to localStorage when it changes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cart_name', name);
+    }
+  }, [name]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cart_phone', phone);
+    }
+  }, [phone]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cart_address', address);
+    }
+  }, [address]);
+
 
   const handleDistanceChange = useCallback((km: number, cost: number) => {
     setDeliveryInfo({ km, cost });
