@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSiteSettings } from '@/lib/settings-context';
+import { Phone, MapPin, Clock, Mail } from 'lucide-react';
 
 export default function Footer() {
   const { contact_phone, contact_address, contact_schedule, contact_email, fop_name } = useSiteSettings();
@@ -77,16 +78,16 @@ export default function Footer() {
             onMouseEnter={e => { e.currentTarget.style.background = 'rgba(230,57,70,0.2)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
             onMouseLeave={e => { e.currentTarget.style.background = 'rgba(230,57,70,0.1)'; e.currentTarget.style.transform = 'translateY(0)'; }}
             >
-              📞 {contact_phone}
+              <Phone size={18} /> {contact_phone}
             </a>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5 }}>
-              <span style={{ fontSize: 16, flexShrink: 0 }}>📍</span> <span>{contact_address}</span>
+              <MapPin size={16} style={{ flexShrink: 0 }} /> <span>{contact_address}</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5 }}>
-              <span style={{ fontSize: 16, flexShrink: 0 }}>🕐</span> <span>{contact_schedule}</span>
+              <Clock size={16} style={{ flexShrink: 0 }} /> <span>{contact_schedule}</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5 }}>
-              <span style={{ fontSize: 16, flexShrink: 0 }}>✉️</span> <a href={`mailto:${contact_email}`} style={{ color: 'var(--text-secondary)', textDecoration: 'none', wordBreak: 'break-word' }}>{contact_email}</a>
+              <Mail size={16} style={{ flexShrink: 0 }} /> <a href={`mailto:${contact_email}`} style={{ color: 'var(--text-secondary)', textDecoration: 'none', wordBreak: 'break-word' }}>{contact_email}</a>
             </div>
           </div>
         </div>
