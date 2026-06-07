@@ -79,14 +79,14 @@ export default function Footer() {
             >
               📞 {contact_phone}
             </a>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5 }}>
-              <span style={{ fontSize: 16 }}>📍</span> <span>{contact_address}</span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5 }}>
+              <span style={{ fontSize: 16, flexShrink: 0 }}>📍</span> <span>{contact_address}</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14 }}>
-              <span style={{ fontSize: 16 }}>🕐</span> <span>{contact_schedule}</span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5 }}>
+              <span style={{ fontSize: 16, flexShrink: 0 }}>🕐</span> <span>{contact_schedule}</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14 }}>
-              <span style={{ fontSize: 16 }}>✉️</span> <a href={`mailto:${contact_email}`} style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>{contact_email}</a>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5 }}>
+              <span style={{ fontSize: 16, flexShrink: 0 }}>✉️</span> <a href={`mailto:${contact_email}`} style={{ color: 'var(--text-secondary)', textDecoration: 'none', wordBreak: 'break-word' }}>{contact_email}</a>
             </div>
           </div>
         </div>
