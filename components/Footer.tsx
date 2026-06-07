@@ -80,14 +80,14 @@ export default function Footer() {
             >
               <Phone size={18} /> {contact_phone}
             </a>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5 }}>
-              <MapPin size={16} style={{ flexShrink: 0 }} /> <span>{contact_address}</span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5, whiteSpace: 'nowrap' }}>
+              <MapPin size={16} style={{ flexShrink: 0 }} /> <span style={{ whiteSpace: 'normal', display: 'inline-block', textAlign: 'left' }}>{contact_address}</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5, whiteSpace: 'nowrap' }}>
               <Clock size={16} style={{ flexShrink: 0 }} /> <span>{contact_schedule}</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5 }}>
-              <Mail size={16} style={{ flexShrink: 0 }} /> <a href={`mailto:${contact_email}`} style={{ color: 'var(--text-secondary)', textDecoration: 'none', wordBreak: 'break-word' }}>{contact_email}</a>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5, whiteSpace: 'nowrap' }}>
+              <Mail size={16} style={{ flexShrink: 0 }} /> <a href={`mailto:${contact_email}`} style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>{contact_email}</a>
             </div>
           </div>
         </div>
