@@ -100,6 +100,21 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Payment Logos */}
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 24, marginTop: 40, position: 'relative', zIndex: 1 }}>
+        <img src="https://api.iconify.design/logos:mastercard.svg" alt="Mastercard" style={{ height: 32, opacity: 0.8, filter: 'grayscale(100%)', transition: 'all 0.3s' }} onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.filter = 'none'; }} onMouseLeave={e => { e.currentTarget.style.opacity = '0.8'; e.currentTarget.style.filter = 'grayscale(100%)'; }} />
+        <img src="https://api.iconify.design/logos:visa.svg" alt="Visa" style={{ height: 24, opacity: 0.8, filter: 'grayscale(100%)', transition: 'all 0.3s' }} onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.filter = 'none'; }} onMouseLeave={e => { e.currentTarget.style.opacity = '0.8'; e.currentTarget.style.filter = 'grayscale(100%)'; }} />
+        <div 
+          style={{ 
+            fontSize: 22, fontWeight: 900, letterSpacing: '-0.05em', opacity: 0.8, filter: 'grayscale(100%)', transition: 'all 0.3s', cursor: 'default', display: 'flex', alignItems: 'center' 
+          }}
+          onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.filter = 'none'; }} 
+          onMouseLeave={e => { e.currentTarget.style.opacity = '0.8'; e.currentTarget.style.filter = 'grayscale(100%)'; }}
+        >
+          <span style={{ color: '#fff' }}>Liq</span><span style={{ color: '#7ab12c' }}>Pay</span>
+        </div>
+      </div>
+
       <div style={{ maxWidth: 1280, margin: 'clamp(32px, 6vw, 60px) auto 0', paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', textAlign: 'center', gap: 12, position: 'relative', zIndex: 1 }}>
         <div style={{ color: 'var(--text-muted)', fontSize: 13, width: '100%' }}>© 2026 Enot Sushi. Всі права захищено.</div>
         <div style={{ color: 'var(--text-muted)', fontSize: 13, width: '100%' }}>
