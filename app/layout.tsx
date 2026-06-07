@@ -111,6 +111,16 @@ export default async function RootLayout({
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','GTM-XXXXXXX');`
         }} />
+        {/* Next.js Dev Indicator Fix */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            try {
+              localStorage.removeItem('__next_hide_dev_indicator__');
+              localStorage.removeItem('__next_build_indicator__');
+              sessionStorage.removeItem('__next_hide_dev_indicator__');
+            } catch(e) {}
+          `
+        }} />
         {/* GTM noscript */}
         <noscript>
           <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"

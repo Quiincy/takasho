@@ -3,8 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSiteSettings } from '@/lib/settings-context';
-import { Phone, MapPin, Clock, Mail } from 'lucide-react';
-
+import { Phone, MapPin, Clock, Mail, Truck, Utensils, FileText } from 'lucide-react';
 export default function Footer() {
   const { contact_phone, contact_address, contact_schedule, contact_email, fop_name } = useSiteSettings();
   return (
@@ -87,9 +86,10 @@ export default function Footer() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5, whiteSpace: 'nowrap' }}>
                 <Clock size={16} style={{ flexShrink: 0 }} /> <span>{contact_schedule}</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5, whiteSpace: 'nowrap' }}>
-                <Mail size={16} style={{ flexShrink: 0 }} /> <a href={`mailto:${contact_email}`} style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>{contact_email}</a>
-              </div>
+              <a href={`mailto:${contact_email}`} style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5, whiteSpace: 'nowrap', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>
+                <Mail size={16} style={{ flexShrink: 0, transform: 'translateY(-1px)' }} />
+                <span>{contact_email}</span>
+              </a>
             </div>
           </div>
         </div>
@@ -97,25 +97,31 @@ export default function Footer() {
         {/* Links */}
         <div className="footer-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 'clamp(12px, 3vw, 16px)', flex: '1 1 auto', minWidth: 260, maxWidth: 320 }}>
           <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Клієнтам</h3>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-            <Link href="/delivery" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>🚴 Доставка та оплата</Link>
-            <Link href="/contacts" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>📍 Контакти</Link>
-            <Link href="/banquet" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>🥂 Банкетне меню</Link>
-            <Link href="/privacy-policy" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>📋 Публічна оферта</Link>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 12 }}>
+            <Link href="/delivery" style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>
+              <Truck size={16} /> Доставка та оплата
+            </Link>
+            <Link href="/contacts" style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>
+              <MapPin size={16} /> Контакти
+            </Link>
+            <Link href="/banquet" style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>
+              <Utensils size={16} /> Банкетне меню
+            </Link>
+            <Link href="/privacy-policy" style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 15, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>
+              <FileText size={16} /> Публічна оферта
+            </Link>
           </div>
         </div>
       </div>
 
       {/* Payment Logos */}
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 24, marginTop: 40, position: 'relative', zIndex: 1 }}>
-        <img src="https://api.iconify.design/logos:mastercard.svg" alt="Mastercard" style={{ height: 32, opacity: 0.8, filter: 'grayscale(100%)', transition: 'all 0.3s' }} onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.filter = 'none'; }} onMouseLeave={e => { e.currentTarget.style.opacity = '0.8'; e.currentTarget.style.filter = 'grayscale(100%)'; }} />
-        <img src="https://api.iconify.design/logos:visa.svg" alt="Visa" style={{ height: 24, opacity: 0.8, filter: 'grayscale(100%)', transition: 'all 0.3s' }} onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.filter = 'none'; }} onMouseLeave={e => { e.currentTarget.style.opacity = '0.8'; e.currentTarget.style.filter = 'grayscale(100%)'; }} />
+        <img src="https://api.iconify.design/logos:mastercard.svg" alt="Mastercard" style={{ height: 32 }} />
+        <img src="https://api.iconify.design/logos:visa.svg" alt="Visa" style={{ height: 24 }} />
         <div 
           style={{ 
-            fontSize: 22, fontWeight: 900, letterSpacing: '-0.05em', opacity: 0.8, filter: 'grayscale(100%)', transition: 'all 0.3s', cursor: 'default', display: 'flex', alignItems: 'center' 
+            fontSize: 22, fontWeight: 900, letterSpacing: '-0.05em', cursor: 'default', display: 'flex', alignItems: 'center' 
           }}
-          onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.filter = 'none'; }} 
-          onMouseLeave={e => { e.currentTarget.style.opacity = '0.8'; e.currentTarget.style.filter = 'grayscale(100%)'; }}
         >
           <span style={{ color: '#fff' }}>Liq</span><span style={{ color: '#7ab12c' }}>Pay</span>
         </div>
