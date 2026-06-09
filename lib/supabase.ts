@@ -45,7 +45,14 @@ export interface DbCategory {
   name: string;
   emoji: string;
   sort_order: number;
-  created_at: string;
+}
+
+export interface DbSubcategory {
+  id: string;
+  category_id: string;
+  name: string;
+  emoji: string;
+  sort_order: number;
 }
 
 export interface DbMenuItem {
@@ -58,8 +65,11 @@ export interface DbMenuItem {
   image: string;
   is_available: boolean;
   is_popular?: boolean;
-  sort_order: number;
-  created_at: string;
+  subcategory_ids?: string[];
+}
+
+export interface CartItem extends DbMenuItem {
+  d_at: string;
 }
 
 export interface DbSiteSetting {

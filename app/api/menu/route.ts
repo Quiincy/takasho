@@ -8,15 +8,17 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-// GET /api/menu — all categories + items
+// GET /api/menu — all categories + items + subcategories
 export async function GET() {
-  const [catRes, itemRes] = await Promise.all([
+  const [catRes, itemRes, subcatRes] = await Promise.all([
     supabase.from('menu_categories').select('*').order('sort_order'),
     supabase.from('menu_items').select('*').order('sort_order'),
+    supabase.from('menu_subcategories').select('*').order('sort_order'),
   ]);
   return NextResponse.json({
     categories: catRes.data ?? [],
     items: itemRes.data ?? [],
+    subcategories: subcatRes.data ?? [],
   });
 }
 
@@ -37,6 +39,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
+  if (type === 'subcategory') {
+    const { error } = await supabase.from('menu_subcategories').insert({
+      category_id: data.category_id,
+      name: data.name,
+      emoji: data.emoji || '',
+      sort_order: data.sort_order ?? 0,
+    });
+    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+    return NextResponse.json({ ok: true });
+  }
+
   if (type === 'item') {
     const id = `item_${Date.now()}`;
     const { error } = await supabase.from('menu_items').insert({
@@ -50,6 +63,7 @@ export async function POST(req: NextRequest) {
       is_available: true,
       is_popular: data.is_popular || false,
       sort_order: data.sort_order ?? 0,
+      subcategory_ids: data.subcategory_ids || [],
     });
     if (error) return NextResponse.json({ error: error.message }, { status: 400 });
     return NextResponse.json({ ok: true });
@@ -63,7 +77,7 @@ export async function PUT(req: NextRequest) {
   const body = await req.json();
   const { type, id, ...data } = body;
 
-  const table = type === 'category' ? 'menu_categories' : 'menu_items';
+  const table = type === 'category' ? 'menu_categories' : type === 'subcategory' ? 'menu_subcategories' : 'menu_items';
   const { error } = await supabase.from(table).update(data).eq('id', id);
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
   return NextResponse.json({ ok: true });
@@ -72,7 +86,7 @@ export async function PUT(req: NextRequest) {
 // DELETE /api/menu — delete category or item
 export async function DELETE(req: NextRequest) {
   const { type, id } = await req.json();
-  const table = type === 'category' ? 'menu_categories' : 'menu_items';
+  const table = type === 'category' ? 'menu_categories' : type === 'subcategory' ? 'menu_subcategories' : 'menu_items';
   const { error } = await supabase.from(table).delete().eq('id', id);
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
   return NextResponse.json({ ok: true });

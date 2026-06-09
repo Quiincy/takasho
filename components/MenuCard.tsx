@@ -10,9 +10,11 @@ import { useState } from 'react';
 interface Props {
   item: DbMenuItem;
   index?: number;
+  activeCategory?: string;
+  activeSubCategory?: string;
 }
 
-export default function MenuCard({ item, index = 0 }: Props) {
+export default function MenuCard({ item, index = 0, activeCategory, activeSubCategory }: Props) {
   const { addItem, items } = useCart();
   const [added, setAdded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -56,8 +58,17 @@ export default function MenuCard({ item, index = 0 }: Props) {
     }
   };
 
+  let productHref = `/product/${item.id}`;
+  const params = new URLSearchParams();
+  if (activeCategory && activeCategory !== 'all') params.set('category', activeCategory);
+  if (activeSubCategory && activeSubCategory !== 'all') params.set('subCategory', activeSubCategory);
+  
+  if (params.toString()) {
+    productHref += `?${params.toString()}`;
+  }
+
   return (
-    <Link href={`/product/${item.id}`} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+    <Link href={productHref} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
       <article
       className="premium-card"
       onMouseEnter={() => setIsHovered(true)}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { Plus, Trash2, Edit2, Check, X, ChevronDown, ChevronUp, Paperclip, Loader2 } from 'lucide-react';
-import { supabase, type DbCategory, type DbMenuItem } from '@/lib/supabase';
+import { supabase, type DbCategory, type DbMenuItem, type DbSubcategory } from '@/lib/supabase';
 
 /* ── helpers ── */
 const EMOJI_LIST = ['🍕','🍣','🍔','🌭','🥗','🍲','🔥','⚡','🥩','🍤','🍱','🌮','🍜','🥘'];
@@ -101,19 +101,27 @@ function ImageUploadField({ value, onChange }: { value: string; onChange: (v: st
 export default function AdminMenuEditorPage() {
   const [categories, setCategories] = useState<DbCategory[]>([]);
   const [items, setItems] = useState<DbMenuItem[]>([]);
+  const [subcategories, setSubcategories] = useState<DbSubcategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   // which category is expanded
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [subCategory, setSubCategory] = useState<string>('all');
+  
   // add category form
   const [showAddCat, setShowAddCat] = useState(false);
   const [newCat, setNewCat] = useState({ name: '', emoji: '🍽️' });
   const [savingCat, setSavingCat] = useState(false);
 
+  // add subcategory form
+  const [showAddSubFor, setShowAddSubFor] = useState<string | null>(null);
+  const [newSub, setNewSub] = useState({ name: '', emoji: '🍽️' });
+  const [savingSub, setSavingSub] = useState(false);
+
   // add item form
   const [addItemFor, setAddItemFor] = useState<string | null>(null);
-  const [newItem, setNewItem] = useState({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false });
+  const [newItem, setNewItem] = useState({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false, subcategory_ids: [] as string[] });
   const [savingItem, setSavingItem] = useState(false);
 
   // edit item
@@ -126,6 +134,7 @@ export default function AdminMenuEditorPage() {
     const data = await res.json();
     setCategories((data.categories ?? []).filter((c: DbCategory) => !c.id.startsWith('banquet-')));
     setItems(data.items ?? []);
+    setSubcategories(data.subcategories ?? []);
     setLoading(false);
   }, []);
 
@@ -170,6 +179,42 @@ export default function AdminMenuEditorPage() {
     }
   };
 
+  /* ─── Subcategory actions ─── */
+  const handleAddSubcategory = async (categoryId: string) => {
+    if (!newSub.name.trim()) return;
+    setSavingSub(true);
+    try {
+      const res = await fetch('/api/menu', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'subcategory', category_id: categoryId, name: newSub.name.trim(), emoji: newSub.emoji }),
+      });
+      if (!res.ok) throw new Error('Помилка додавання');
+      setShowAddSubFor(null);
+      setNewSub({ name: '', emoji: '🍽️' });
+      await load();
+    } catch (err: any) {
+      setError(`Мережева помилка: ${err.message}`);
+    }
+    setSavingSub(false);
+  };
+
+  const deleteSubcategory = async (id: string) => {
+    if (!confirm('Видалити підкатегорію? (Страви залишаться, але без цієї мітки)')) return;
+    try {
+      const res = await fetch('/api/menu', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'subcategory', id }),
+      });
+      if (!res.ok) throw new Error('Failed to delete');
+      if (subCategory === id) setSubCategory('all');
+      await load();
+    } catch (err: any) {
+      setError(`Мережева помилка: ${err.message}`);
+    }
+  };
+
   /* ─── Item actions ─── */
   const addItem = async (categoryId: string) => {
     if (!newItem.name.trim() || !newItem.price) return;
@@ -187,10 +232,11 @@ export default function AdminMenuEditorPage() {
           description: newItem.description.trim() || null,
           image: newItem.image.trim() || '/pizza.png',
           is_popular: newItem.is_popular,
+          subcategory_ids: newItem.subcategory_ids,
         }),
       });
       if (res.ok) {
-        setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false });
+        setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false, subcategory_ids: [] });
         setAddItemFor(null);
         await load();
       } else {
@@ -227,6 +273,27 @@ export default function AdminMenuEditorPage() {
     await load();
   };
 
+  /* ── reusable subcategory selector ── */
+  const SubcategorySelector = ({ categoryId, selectedIds, onChange }: { categoryId: string, selectedIds: string[], onChange: (ids: string[]) => void }) => {
+    const subs = subcategories.filter(s => s.category_id === categoryId);
+    if (subs.length === 0) return null;
+    return (
+        <div style={{ marginTop: 10, marginBottom: 10 }}>
+            <label style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 600, display: 'block', marginBottom: 6 }}>Підкатегорії (опціонально)</label>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {subs.map(s => {
+                    const isSelected = selectedIds.includes(s.id);
+                    return (
+                        <button key={s.id} type="button" onClick={() => onChange(isSelected ? selectedIds.filter(id => id !== s.id) : [...selectedIds, s.id])} style={{ padding: '4px 10px', borderRadius: 8, border: '1px solid', borderColor: isSelected ? 'var(--accent)' : 'var(--border)', background: isSelected ? 'rgba(230,57,70,.1)' : 'var(--bg-secondary)', color: isSelected ? 'var(--accent)' : 'var(--text-primary)', fontSize: 12, cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                            {s.emoji} {s.name}
+                        </button>
+                    );
+                })}
+            </div>
+        </div>
+    );
+  };
+
   /* ── render ── */
   if (loading) return <div style={{ padding: 40, textAlign: 'center', color: 'var(--text-muted)' }}>⏳ Завантаження...</div>;
 
@@ -251,7 +318,7 @@ export default function AdminMenuEditorPage() {
           </button>
           {categories.length > 0 && (
             <button
-              onClick={() => { setAddItemFor('global'); setShowAddCat(false); setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false }); }}
+              onClick={() => { setAddItemFor('global'); setShowAddCat(false); setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false, subcategory_ids: [] }); }}
               style={{
                 display: 'flex', alignItems: 'center', gap: 6,
                 padding: '10px 16px', background: 'var(--accent)', color: 'white',
@@ -279,7 +346,7 @@ export default function AdminMenuEditorPage() {
             <label style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 600, display: 'block', marginBottom: 6 }}>Категорія *</label>
             <select
               value={newItem.category_id || categories[0]?.id}
-              onChange={e => setNewItem(p => ({ ...p, category_id: e.target.value }))}
+              onChange={e => setNewItem(p => ({ ...p, category_id: e.target.value, subcategory_ids: [] }))}
               style={{ width: '100%', padding: '10px 14px', background: 'var(--bg-secondary)', border: '1px solid var(--border)', borderRadius: 9, color: 'var(--text-primary)', fontSize: 14, outline: 'none' }}
             >
               {categories.map(c => <option key={c.id} value={c.id}>{c.emoji} {c.name}</option>)}
@@ -292,6 +359,7 @@ export default function AdminMenuEditorPage() {
             <ImageUploadField value={newItem.image} onChange={v => setNewItem(p => ({ ...p, image: v }))} />
           </div>
           <Field label="Опис" value={newItem.description} onChange={v => setNewItem(p => ({ ...p, description: v }))} placeholder="Томатний соус, моцарела..." />
+          <SubcategorySelector categoryId={newItem.category_id || categories[0]?.id} selectedIds={newItem.subcategory_ids} onChange={ids => setNewItem(p => ({ ...p, subcategory_ids: ids }))} />
           <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', marginTop: 10, color: 'var(--text-primary)' }}>
             <input type="checkbox" checked={newItem.is_popular} onChange={e => setNewItem(p => ({ ...p, is_popular: e.target.checked }))} />
             Популярна страва (показувати на головній)
@@ -348,7 +416,7 @@ export default function AdminMenuEditorPage() {
                 {/* Category header */}
                 <div
                   style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '16px 20px', cursor: 'pointer', userSelect: 'none' }}
-                  onClick={() => setExpanded(isOpen ? null : cat.id)}
+                  onClick={() => { setExpanded(isOpen ? null : cat.id); setSubCategory('all'); }}
                 >
                   <span style={{ fontSize: 24 }}>{cat.emoji}</span>
                   <div style={{ flex: 1 }}>
@@ -368,12 +436,66 @@ export default function AdminMenuEditorPage() {
                 {/* Expanded: items list + add form */}
                 {isOpen && (
                   <div style={{ borderTop: '1px solid var(--border)', padding: '14px 20px' }}>
+                    
+                    {/* Subcategory Filters */}
+                    {(() => {
+                      const catSubs = subcategories.filter(s => s.category_id === cat.id);
+                      return (
+                        <div style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 10, marginBottom: 10, alignItems: 'center' }}>
+                          <button onClick={() => setSubCategory('all')} style={{ padding: '6px 12px', borderRadius: 100, border: '1px solid', borderColor: subCategory === 'all' ? 'var(--accent)' : 'var(--border)', background: subCategory === 'all' ? 'var(--accent)' : 'var(--bg-secondary)', color: subCategory === 'all' ? 'white' : 'var(--text-secondary)', fontSize: 13, whiteSpace: 'nowrap', cursor: 'pointer', flexShrink: 0 }}>Всі</button>
+                          {catSubs.map(sub => (
+                            <div key={sub.id} style={{ display: 'flex', alignItems: 'center', background: subCategory === sub.id ? 'var(--accent)' : 'var(--bg-secondary)', border: '1px solid', borderColor: subCategory === sub.id ? 'var(--accent)' : 'var(--border)', borderRadius: 100, overflow: 'hidden', flexShrink: 0 }}>
+                                <button onClick={() => setSubCategory(sub.id)} style={{ padding: '6px 10px', background: 'none', border: 'none', color: subCategory === sub.id ? 'white' : 'var(--text-secondary)', fontSize: 13, whiteSpace: 'nowrap', cursor: 'pointer' }}>
+                                    {sub.emoji} {sub.name}
+                                </button>
+                                <button onClick={() => deleteSubcategory(sub.id)} style={{ padding: '6px 8px', background: 'none', border: 'none', color: subCategory === sub.id ? 'rgba(255,255,255,0.7)' : 'var(--text-muted)', fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }} title="Видалити підкатегорію"><Trash2 size={14} /></button>
+                            </div>
+                          ))}
+                          <button onClick={() => {
+                              setShowAddSubFor(cat.id);
+                              setNewSub({ name: '', emoji: '🍽️' });
+                          }} style={{ padding: '6px 12px', borderRadius: 100, border: '1px dashed var(--border)', background: 'none', color: 'var(--text-muted)', fontSize: 13, whiteSpace: 'nowrap', cursor: 'pointer', flexShrink: 0 }}>+ Додати</button>
+                        </div>
+                      );
+                    })()}
+
+                    {/* Inline Add Subcategory Form */}
+                    {showAddSubFor === cat.id && (
+                      <div style={{ background: 'rgba(230,57,70,.05)', border: '1px solid rgba(230,57,70,.2)', borderRadius: 10, padding: 14, marginBottom: 14, display: 'flex', gap: 10, alignItems: 'flex-end', flexWrap: 'wrap' }}>
+                        <div style={{ flex: 1, minWidth: 200 }}>
+                          <Field label="Назва підкатегорії *" value={newSub.name} onChange={v => setNewSub(p => ({ ...p, name: v }))} placeholder="Гарячі роли" />
+                        </div>
+                        <div>
+                          <label style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 600, display: 'block', marginBottom: 4 }}>Іконка</label>
+                          <select
+                            value={newSub.emoji}
+                            onChange={e => setNewSub(p => ({ ...p, emoji: e.target.value }))}
+                            style={{ padding: '9px 12px', background: 'var(--bg-secondary)', border: '1px solid var(--border)', borderRadius: 9, color: 'var(--text-primary)', fontSize: 18, cursor: 'pointer' }}
+                          >
+                            {EMOJI_LIST.map(e => <option key={e} value={e}>{e}</option>)}
+                          </select>
+                        </div>
+                        <div style={{ display: 'flex', gap: 8 }}>
+                          <button onClick={() => handleAddSubcategory(cat.id)} disabled={savingSub} style={{ padding: '9px 16px', background: 'var(--accent)', color: 'white', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 14, cursor: 'pointer' }}>
+                            {savingSub ? '⏳' : 'Зберегти'}
+                          </button>
+                          <button onClick={() => setShowAddSubFor(null)} style={{ padding: '9px 12px', background: 'none', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text-muted)', fontSize: 14, cursor: 'pointer' }}>✕</button>
+                        </div>
+                      </div>
+                    )}
+
                     {/* Items */}
-                    {catItems.length === 0 ? (
-                      <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 14 }}>Страв немає. Додайте першу!</p>
-                    ) : (
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 14 }}>
-                        {catItems.map(item => (
+                    {(() => {
+                      let filteredCatItems = catItems;
+                      if (subCategory !== 'all') {
+                        filteredCatItems = filteredCatItems.filter(i => i.subcategory_ids?.includes(subCategory));
+                      }
+                      
+                      return filteredCatItems.length === 0 ? (
+                        <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 14 }}>Страв немає. Додайте першу!</p>
+                      ) : (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 14 }}>
+                          {filteredCatItems.map(item => (
                           <div key={item.id}>
                             {/* Item row */}
                             <div style={{ 
@@ -410,6 +532,7 @@ export default function AdminMenuEditorPage() {
                                   <ImageUploadField value={editingItem.image} onChange={v => setEditingItem(p => p ? { ...p, image: v } : p)} />
                                 </div>
                                 <Field label="Опис" value={editingItem.description ?? ''} onChange={v => setEditingItem(p => p ? { ...p, description: v } : p)} placeholder="Короткий опис страви..." />
+                                <SubcategorySelector categoryId={editingItem.category_id} selectedIds={editingItem.subcategory_ids || []} onChange={ids => setEditingItem(p => p ? { ...p, subcategory_ids: ids } : p)} />
                                 <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', marginTop: 10, color: 'var(--text-primary)' }}>
                                   <input type="checkbox" checked={editingItem.is_popular ?? false} onChange={e => setEditingItem(p => p ? { ...p, is_popular: e.target.checked } : p)} />
                                   Популярна страва (показувати на головній)
@@ -424,8 +547,9 @@ export default function AdminMenuEditorPage() {
                             )}
                           </div>
                         ))}
-                      </div>
-                    )}
+                        </div>
+                      );
+                    })()}
 
                     {/* Add item */}
                     {addItemFor === cat.id ? (
@@ -438,6 +562,7 @@ export default function AdminMenuEditorPage() {
                           <ImageUploadField value={newItem.image} onChange={v => setNewItem(p => ({ ...p, image: v }))} />
                         </div>
                         <Field label="Опис" value={newItem.description} onChange={v => setNewItem(p => ({ ...p, description: v }))} placeholder="Томатний соус, моцарела..." />
+                        <SubcategorySelector categoryId={cat.id} selectedIds={newItem.subcategory_ids} onChange={ids => setNewItem(p => ({ ...p, subcategory_ids: ids }))} />
                         <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', marginTop: 10, color: 'var(--text-primary)' }}>
                           <input type="checkbox" checked={newItem.is_popular} onChange={e => setNewItem(p => ({ ...p, is_popular: e.target.checked }))} />
                           Популярна страва (показувати на головній)
@@ -451,7 +576,7 @@ export default function AdminMenuEditorPage() {
                       </div>
                     ) : (
                       <button
-                        onClick={() => { setAddItemFor(cat.id); setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false }); }}
+                        onClick={() => { setAddItemFor(cat.id); setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false, subcategory_ids: [] }); }}
                         style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 14px', background: 'none', border: '1px dashed var(--border)', borderRadius: 8, color: 'var(--text-muted)', fontSize: 13, cursor: 'pointer', width: '100%', justifyContent: 'center' }}
       >
                         <Plus size={14} /> Додати страву до «{cat.name}»

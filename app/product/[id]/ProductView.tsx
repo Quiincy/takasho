@@ -6,6 +6,7 @@ import { ArrowLeft, Check, Minus, Plus, ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 export default function ProductView({ product }: { product: DbMenuItem }) {
   const { addItem, items, updateQuantity, removeItem } = useCart();
@@ -40,15 +41,24 @@ export default function ProductView({ product }: { product: DbMenuItem }) {
     }
   };
 
-  let subCategoryParam = '';
-  if (product.category_id === 'sushi') {
-    subCategoryParam = product.name.toLowerCase().includes('сет') ? '&subCategory=sets' : '&subCategory=rolls';
+  const searchParams = useSearchParams();
+  const catParam = searchParams.get('category');
+  const subCatParam = searchParams.get('subCategory');
+
+  let backHref = `/?category=${product.category_id}#menu`;
+  if (catParam) {
+    backHref = `/?category=${catParam}`;
+    if (subCatParam) backHref += `&subCategory=${subCatParam}`;
+    backHref += '#menu';
+  } else if (subCatParam) {
+    // just in case they arrived with subCategory but no category
+    backHref = `/?category=${product.category_id}&subCategory=${subCatParam}#menu`;
   }
 
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: '120px 20px 80px' }}>
       {/* Навігація назад */}
-      <Link href={`/?category=${product.category_id}${subCategoryParam}#menu`} style={{
+      <Link href={backHref} style={{
         display: 'inline-flex',
         alignItems: 'center',
         gap: 8,

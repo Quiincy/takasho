@@ -7,7 +7,7 @@ import AnimatedPage, { Marquee, ScrollToTop } from '@/components/AnimatedPage';
 import ImageGallery from '@/components/ImageGallery';
 import Footer from '@/components/Footer';
 import { createClient } from '@supabase/supabase-js';
-import { DbCategory, DbMenuItem } from '@/lib/supabase';
+import { DbCategory, DbMenuItem, DbSubcategory } from '@/lib/supabase';
 
 // export const revalidate = 60; // ISR revalidation every 60 seconds
 export const dynamic = 'force-dynamic';
@@ -21,13 +21,15 @@ export default async function HomePage() {
     }
   );
 
-  const [catRes, itemRes] = await Promise.all([
+  const [catRes, itemRes, subcatRes] = await Promise.all([
     supabase.from('menu_categories').select('*').order('sort_order'),
     supabase.from('menu_items').select('*').eq('is_available', true).order('sort_order'),
+    supabase.from('menu_subcategories').select('*').order('sort_order'),
   ]);
 
   const categories = (catRes.data as DbCategory[]) ?? [];
   const items = (itemRes.data as DbMenuItem[]) ?? [];
+  const subcategories = (subcatRes.data as DbSubcategory[]) ?? [];
   
   const deliveryCategories = categories.filter(c => !c.id.startsWith('banquet-'));
   const deliveryItems = items.filter(i => !i.category_id.startsWith('banquet-'));
@@ -137,7 +139,7 @@ export default async function HomePage() {
 
         <div>
           <Suspense fallback={<div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-muted)' }}>Завантаження меню...</div>}>
-            <MenuSection initialCategories={deliveryCategories} initialItems={deliveryItems} />
+            <MenuSection initialCategories={deliveryCategories} initialItems={deliveryItems} initialSubcategories={subcategories} />
           </Suspense>
         </div>
 

@@ -298,9 +298,21 @@ function CartContent() {
       }}>
         {/* Back */}
         <button onClick={() => {
-          const targetUrl = items.length > 0 
-            ? `/?category=${items[items.length - 1].category_id}#menu` 
-            : '/#menu';
+          let targetUrl = '/#menu';
+          const lastCategory = localStorage.getItem('lastMenuCategory');
+          const lastSubCategory = localStorage.getItem('lastMenuSubCategory');
+          
+          if (lastCategory && lastCategory !== 'all') {
+            targetUrl = `/?category=${lastCategory}`;
+            if (lastSubCategory && lastSubCategory !== 'all') {
+              targetUrl += `&subCategory=${lastSubCategory}`;
+            }
+            targetUrl += '#menu';
+          } else if (items.length > 0) {
+            // Fallback
+            const lastItem = items[items.length - 1];
+            targetUrl = `/?category=${lastItem.category_id}#menu`;
+          }
           router.push(targetUrl);
         }} style={{
           display: 'inline-flex', alignItems: 'center', gap: 6,
