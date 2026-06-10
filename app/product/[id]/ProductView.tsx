@@ -118,22 +118,6 @@ export default function ProductView({ product }: { product: DbMenuItem }) {
           padding: 'clamp(24px, 5vw, 40px)',
           boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
         }}>
-          <div style={{
-            display: 'inline-block',
-            background: 'rgba(230,57,70,0.1)',
-            border: '1px solid rgba(230,57,70,0.2)',
-            color: 'var(--accent)',
-            padding: '6px 14px',
-            borderRadius: 100,
-            fontSize: 13,
-            fontWeight: 700,
-            marginBottom: 16,
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-          }}>
-            {product.weight}
-          </div>
-
           <h1 style={{
             fontSize: 'clamp(32px, 5vw, 48px)',
             fontWeight: 900,
@@ -145,6 +129,24 @@ export default function ProductView({ product }: { product: DbMenuItem }) {
           }}>
             {product.name}
           </h1>
+
+          {product.weight && product.weight.trim() && (
+            <div style={{
+              display: 'inline-block',
+              background: 'rgba(230,57,70,0.1)',
+              border: '1px solid rgba(230,57,70,0.2)',
+              color: 'var(--accent)',
+              padding: '6px 14px',
+              borderRadius: 100,
+              fontSize: 13,
+              fontWeight: 700,
+              marginBottom: 16,
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+            }}>
+              {product.weight}
+            </div>
+          )}
 
           <div style={{
             fontSize: 'clamp(28px, 4vw, 36px)',

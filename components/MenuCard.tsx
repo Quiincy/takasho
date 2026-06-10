@@ -167,22 +167,24 @@ export default function MenuCard({ item, index = 0, activeCategory, activeSubCat
         )}
 
         {/* Weight Badge */}
-        <div style={{
-          position: 'absolute',
-          top: 16,
-          left: 16,
-          background: 'rgba(0,0,0,0.5)',
-          backdropFilter: 'blur(8px)',
-          border: '1px solid rgba(255,255,255,0.1)',
-          color: 'var(--text-secondary)',
-          borderRadius: '100px',
-          padding: '4px 10px',
-          fontSize: 12,
-          fontWeight: 600,
-          zIndex: 2,
-        }}>
-          {item.weight}
-        </div>
+        {item.weight && item.weight.trim() && (
+          <div style={{
+            position: 'absolute',
+            top: 16,
+            left: 16,
+            background: 'rgba(0,0,0,0.5)',
+            backdropFilter: 'blur(8px)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            color: 'var(--text-secondary)',
+            borderRadius: '100px',
+            padding: '4px 10px',
+            fontSize: 12,
+            fontWeight: 600,
+            zIndex: 2,
+          }}>
+            {item.weight}
+          </div>
+        )}
       </div>
 
       {/* Content */}
