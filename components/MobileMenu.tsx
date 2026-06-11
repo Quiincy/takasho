@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { X, ChevronRight } from 'lucide-react';
-import { createClient } from '@supabase/supabase-js';
+
 import { DbCategory } from '@/lib/supabase';
 import { usePathname } from 'next/navigation';
 
@@ -18,16 +18,21 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
 
   useEffect(() => {
     if (isOpen && categories.length === 0) {
-      const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-      );
-      supabase.from('menu_categories').select('*').order('sort_order').then(({ data }) => {
-        if (data) {
-          const filtered = (data as DbCategory[]).filter(c => !c.id.startsWith('banquet-'));
+      const url = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/menu_categories?select=*&order=sort_order.asc`;
+      fetch(url, {
+        headers: {
+          apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!}`
+        }
+      })
+      .then(res => res.json())
+      .then((data: DbCategory[]) => {
+        if (data && Array.isArray(data)) {
+          const filtered = data.filter(c => !c.id.startsWith('banquet-'));
           setCategories(filtered);
         }
-      });
+      })
+      .catch(err => console.error("Error fetching categories:", err));
     }
   }, [isOpen, categories.length]);
 
