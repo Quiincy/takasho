@@ -10,8 +10,8 @@ import Footer from '@/components/Footer';
 import { createClient } from '@supabase/supabase-js';
 import { DbCategory, DbMenuItem, DbSubcategory } from '@/lib/supabase';
 
-// export const revalidate = 60; // ISR revalidation every 60 seconds
-export const dynamic = 'force-dynamic';
+export const revalidate = 60; // ISR revalidation every 60 seconds
+// export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
   const supabase = createClient(

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 import { createClient } from '@supabase/supabase-js';
 import { DbCategory, DbMenuItem } from '@/lib/supabase';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export default async function BanquetPage() {
   const supabase = createClient(
