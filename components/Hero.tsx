@@ -164,7 +164,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
         minHeight: '100vh',
       }}>
         {/* Left: text */}
-        <div style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(28px)', transition: 'all .7s cubic-bezier(.16,1,.3,1)' }}>
+        <div>
           {/* badge */}
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(230,57,70,.12)', border: '1px solid rgba(230,57,70,.3)', borderRadius: 100, padding: '7px 18px', marginBottom: 28 }}>
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#48c774', boxShadow: '0 0 6px #48c774', animation: 'pulse 2s ease-in-out infinite', display: 'block' }} />
@@ -207,7 +207,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
         </div>
 
         {/* Right: slideshow */}
-        <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)', transition: 'all .8s cubic-bezier(.16,1,.3,1) .15s' }}>
+        <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           {/* Desktop left arrow */}
           <button 
             aria-label="Попередній слайд"
@@ -346,7 +346,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
         </div>
 
         {/* Middle: text */}
-        <div style={{ padding: '20px 20px 0', textAlign: 'center', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(20px)', transition: 'all .6s ease .1s' }}>
+        <div style={{ padding: '20px 20px 0', textAlign: 'center' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(230,57,70,.12)', border: '1px solid rgba(230,57,70,.25)', borderRadius: 100, padding: '5px 14px', marginBottom: 14 }}>
             <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#48c774', boxShadow: '0 0 5px #48c774', display: 'block', animation: 'pulse 2s ease-in-out infinite' }} />
             <span style={{ fontSize: 12, color: 'var(--accent-light)', fontWeight: 600 }}>Доставка • Вул. Едуарда Вільде, 10Б, Дніпровський р-н</span>
