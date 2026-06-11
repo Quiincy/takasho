@@ -57,6 +57,7 @@ export default function ImageGallery({ images, altPrefix = 'Фото' }: ImageGa
       onClick={() => setSelectedIndex(null)}
     >
       <button 
+        aria-label="Закрити"
         style={{ 
           position: 'absolute', 
           top: 'max(20px, env(safe-area-inset-top))', 
@@ -82,6 +83,7 @@ export default function ImageGallery({ images, altPrefix = 'Фото' }: ImageGa
       </button>
       
       <button 
+        aria-label="Попереднє зображення"
         style={{ 
           position: 'absolute', 
           left: 'max(10px, env(safe-area-inset-left))', 
@@ -115,6 +117,7 @@ export default function ImageGallery({ images, altPrefix = 'Фото' }: ImageGa
       </div>
 
       <button 
+        aria-label="Наступне зображення"
         style={{ 
           position: 'absolute', 
           right: 'max(10px, env(safe-area-inset-right))', 

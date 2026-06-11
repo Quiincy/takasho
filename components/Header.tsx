@@ -68,6 +68,7 @@ export default function Header() {
         fontWeight: 600,
         letterSpacing: '0.02em',
         width: '100%',
+        color: '#ffffff',
       }}>
         🚀 Безкоштовна доставка до 1 км (від 1000 грн) <span className="hide-mobile">&nbsp;|&nbsp;
           <span style={{ opacity: 0.9 }}>Понад 1 км — за тарифами таксі</span></span>
@@ -128,7 +129,7 @@ export default function Header() {
 
         {/* Right: Phone + Cart */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
-          <a href={`tel:${contact_phone.replace(/[^0-9+]/g, '')}`} style={{
+          <a href={`tel:${contact_phone.replace(/[^0-9+]/g, '')}`} aria-label="Зателефонувати" style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -138,8 +139,8 @@ export default function Header() {
             fontSize: 14,
             fontWeight: 500,
             transition: 'color 0.2s',
-            minWidth: 40,
-            minHeight: 40,
+            minWidth: 48,
+            minHeight: 48,
           }}
             onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent)')}
             onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-secondary)')}
@@ -167,7 +168,7 @@ export default function Header() {
                 transition: 'all 0.3s ease',
                 animation: cartAnimated ? 'cartBounce 0.3s ease' : 'none',
                 color: totalItems > 0 ? 'white' : 'var(--text-secondary)',
-                minHeight: 40,
+                minHeight: 48,
                 whiteSpace: 'nowrap',
               }}
             >
@@ -192,6 +193,7 @@ export default function Header() {
 
           {/* Hamburger Menu - visible on all screens */}
           <button
+            aria-label="Відкрити меню"
             onClick={() => setIsMobileMenuOpen(true)}
             style={{
               display: 'flex',
@@ -201,7 +203,7 @@ export default function Header() {
               border: 'none',
               color: 'var(--text-primary)',
               cursor: 'pointer',
-              padding: '8px',
+              padding: '12px',
               marginLeft: '4px',
             }}
           >

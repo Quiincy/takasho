@@ -72,12 +72,12 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
         <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
           Меню
         </div>
-        <button onClick={onClose} style={{
+        <button aria-label="Закрити меню" onClick={onClose} style={{
           background: 'rgba(255,255,255,0.1)',
           border: 'none',
           borderRadius: '50%',
-          width: 40,
-          height: 40,
+          width: 48,
+          height: 48,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

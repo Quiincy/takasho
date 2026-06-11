@@ -441,7 +441,7 @@ export default function MenuSection({ initialCategories, initialItems, initialSu
           }}>
             <div style={{ padding: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border)' }}>
               <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-primary)' }}>Фільтр меню</h3>
-              <button onClick={() => setIsFilterOpen(false)} style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex', padding: 4 }}>
+              <button aria-label="Закрити фільтр" onClick={() => setIsFilterOpen(false)} style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex', padding: 12 }}>
                 <X size={24} />
               </button>
             </div>

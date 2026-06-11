@@ -8,9 +8,10 @@
   --accent: #e63946;
   --accent-hover: #c1121f;
   --accent-gold: #f4a261;
-  --text-primary: #f5f5f5;
-  --text-secondary: #a0a0a0;
-  --text-muted: #666666;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --text-muted: #999999;
+  --accent-light: #ff7a85;
   --border: #2a2a2a;
   --border-accent: rgba(230, 57, 70, 0.3);
   --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
@@ -199,9 +200,9 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
-.badge-hit { background: rgba(230, 57, 70, 0.15); color: #e63946; border: 1px solid rgba(230, 57, 70, 0.3); }
-.badge-new { background: rgba(72, 199, 116, 0.15); color: #48c774; border: 1px solid rgba(72, 199, 116, 0.3); }
-.badge-special { background: rgba(244, 162, 97, 0.15); color: #f4a261; border: 1px solid rgba(244, 162, 97, 0.3); }
+.badge-hit { background: rgba(230, 57, 70, 0.15); color: var(--accent-light); border: 1px solid rgba(230, 57, 70, 0.3); }
+.badge-new { background: rgba(72, 199, 116, 0.15); color: #68de91; border: 1px solid rgba(72, 199, 116, 0.3); }
+.badge-special { background: rgba(244, 162, 97, 0.15); color: #ffb880; border: 1px solid rgba(244, 162, 97, 0.3); }
 
 /* Section titles */
 .section-title {

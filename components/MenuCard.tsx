@@ -126,7 +126,7 @@ export default function MenuCard({ item, index = 0, activeCategory, activeSubCat
           src={item.image}
           alt={`${item.name} — замовити з доставкою в Києві`}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 380px) 100vw, (max-width: 640px) 50vw, (max-width: 1024px) 33vw, 320px"
           style={{
             objectFit: 'cover',
             transform: isHovered ? 'scale(1.08) rotate(1deg)' : 'scale(1)',

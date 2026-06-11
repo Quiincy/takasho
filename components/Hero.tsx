@@ -168,7 +168,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
           {/* badge */}
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(230,57,70,.12)', border: '1px solid rgba(230,57,70,.3)', borderRadius: 100, padding: '7px 18px', marginBottom: 28 }}>
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#48c774', boxShadow: '0 0 6px #48c774', animation: 'pulse 2s ease-in-out infinite', display: 'block' }} />
-            <span style={{ fontSize: 13, color: 'var(--accent)', fontWeight: 600 }}>Доставка їжі в Києві • Вул. Едуарда Вільде, 10Б, Дніпровський р-н</span>
+            <span style={{ fontSize: 13, color: 'var(--accent-light)', fontWeight: 600 }}>Доставка їжі в Києві • Вул. Едуарда Вільде, 10Б, Дніпровський р-н</span>
           </div>
 
           <h1 style={{ fontSize: 'clamp(38px,5.5vw,70px)', fontWeight: 900, lineHeight: 1.04, letterSpacing: '-.03em', marginBottom: 22, color: 'var(--text-primary)' }}>
@@ -210,6 +210,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
         <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)', transition: 'all .8s cubic-bezier(.16,1,.3,1) .15s' }}>
           {/* Desktop left arrow */}
           <button 
+            aria-label="Попередній слайд"
             className="hide-mobile"
             onClick={(e) => {
                e.stopPropagation();
@@ -234,12 +235,16 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
             </div>
             {actualSlides.map((s, i) => (
               <button key={i} onClick={() => handleSlideClick(s)} style={{ position: 'absolute', inset: 0, opacity: i === active ? 1 : 0, transform: i === active ? 'scale(1)' : 'scale(1.04)', transition: 'opacity .7s ease, transform .7s ease', border: 'none', background: 'transparent', padding: 0, cursor: i === active ? 'pointer' : 'default', display: 'block', width: '100%', height: '100%', pointerEvents: i === active ? 'auto' : 'none', zIndex: i === active ? 2 : 1 }}>
-                <Image src={s.src} alt={s.label} fill sizes="(max-width: 768px) 0vw, 520px" priority={i === 0} style={{ objectFit: 'cover' }} />
+                {i === 0 ? (
+                  <img src={s.src} alt={s.label} fetchPriority="high" loading="eager" style={{ objectFit: 'cover', width: '100%', height: '100%', position: 'absolute', inset: 0 }} />
+                ) : (
+                  <Image src={s.src} alt={s.label} fill sizes="(max-width: 768px) 0vw, 520px" style={{ objectFit: 'cover' }} />
+                )}
               </button>
             ))}
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 50%)', pointerEvents: 'none', zIndex: 10 }} />
             <div style={{ position: 'absolute', bottom: 20, left: 20, pointerEvents: 'none', zIndex: 10 }}>
-              <span style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', display: 'block', marginBottom: 4 }}>{actualSlides[active].cat}</span>
+              <span style={{ fontSize: 11, color: 'var(--accent-light)', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', display: 'block', marginBottom: 4 }}>{actualSlides[active].cat}</span>
               <span style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 <span style={{ fontSize: 24, fontWeight: 800, color: 'white', letterSpacing: '-.02em' }}>{actualSlides[active].label}</span>
                 <span style={{ background: 'rgba(230,57,70,.95)', backdropFilter: 'blur(10px)', borderRadius: 8, padding: '4px 10px', color: 'white', fontWeight: 800, fontSize: 16 }}>{actualSlides[active].price}</span>
@@ -247,7 +252,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
             </div>
             <div style={{ position: 'absolute', top: 14, right: 14, left: 14, display: 'flex', gap: 5, zIndex: 10, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
               {actualSlides.map((_, i) => (
-                <button key={i} onClick={() => setActive(i)} style={{ width: i === active ? 20 : 8, height: 8, borderRadius: 100, background: i === active ? 'var(--accent)' : 'rgba(255,255,255,.3)', border: 'none', cursor: 'pointer', padding: 0, transition: 'all .35s ease' }} />
+                <button key={i} aria-label={`Перейти до слайду ${i + 1}`} onClick={() => setActive(i)} style={{ width: i === active ? 20 : 8, height: 8, borderRadius: 100, background: i === active ? 'var(--accent)' : 'rgba(255,255,255,.3)', border: 'none', cursor: 'pointer', padding: 0, transition: 'all .35s ease' }} />
               ))}
             </div>
           </div>
@@ -261,6 +266,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
 
           {/* Desktop right arrow */}
           <button 
+            aria-label="Наступний слайд"
             className="hide-mobile"
             onClick={(e) => {
                e.stopPropagation();
@@ -307,7 +313,11 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
               }}
               aria-label={`Перейти до меню — ${s.label}`}
             >
-              <Image src={s.src} alt={s.label} fill sizes="(max-width: 768px) 100vw, 50vw" priority={i === 0} style={{ objectFit: 'cover' }} />
+              {i === 0 ? (
+                <img src={s.src} alt={s.label} fetchPriority="high" loading="eager" style={{ objectFit: 'cover', width: '100%', height: '100%', position: 'absolute', inset: 0 }} />
+              ) : (
+                <Image src={s.src} alt={s.label} fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+              )}
             </button>
           ))}
           {/* dark gradient bottom */}
@@ -322,7 +332,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
 
           {/* active slide label */}
           <div style={{ position: 'absolute', bottom: 34, left: 18, pointerEvents: 'none', zIndex: 10 }}>
-            <span style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, letterSpacing: '.07em', display: 'block', marginBottom: 2 }}>{actualSlides[active].cat}</span>
+            <span style={{ fontSize: 11, color: 'var(--accent-light)', fontWeight: 700, letterSpacing: '.07em', display: 'block', marginBottom: 2 }}>{actualSlides[active].cat}</span>
             <span style={{ fontSize: 20, fontWeight: 800, color: 'white' }}>{actualSlides[active].label}</span>
           </div>
           <div style={{ position: 'absolute', bottom: 38, right: 16, background: 'rgba(230,57,70,.95)', borderRadius: 10, padding: '6px 14px', color: 'white', fontWeight: 800, fontSize: 16, pointerEvents: 'none', zIndex: 10 }}>
@@ -339,7 +349,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
         <div style={{ padding: '20px 20px 0', textAlign: 'center', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(20px)', transition: 'all .6s ease .1s' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(230,57,70,.12)', border: '1px solid rgba(230,57,70,.25)', borderRadius: 100, padding: '5px 14px', marginBottom: 14 }}>
             <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#48c774', boxShadow: '0 0 5px #48c774', display: 'block', animation: 'pulse 2s ease-in-out infinite' }} />
-            <span style={{ fontSize: 12, color: 'var(--accent)', fontWeight: 600 }}>Доставка • Вул. Едуарда Вільде, 10Б, Дніпровський р-н</span>
+            <span style={{ fontSize: 12, color: 'var(--accent-light)', fontWeight: 600 }}>Доставка • Вул. Едуарда Вільде, 10Б, Дніпровський р-н</span>
           </div>
 
           <h1 style={{ fontSize: 'clamp(28px,8vw,40px)', fontWeight: 900, lineHeight: 1.08, letterSpacing: '-.03em', marginBottom: 10, color: 'var(--text-primary)' }}>

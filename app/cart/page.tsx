@@ -368,7 +368,7 @@ function CartContent() {
                   style={{
                     fontSize: 12, color: 'var(--text-muted)',
                     background: 'none', border: 'none', cursor: 'pointer',
-                    display: 'flex', alignItems: 'center', gap: 4, padding: '6px 8px',
+                    display: 'flex', alignItems: 'center', gap: 4, padding: '12px 16px',
                   }}
                   onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent)')}
                   onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}
@@ -409,7 +409,7 @@ function CartContent() {
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
                         style={{
-                          width: 32, height: 32, borderRadius: 10,
+                          width: 44, height: 44, borderRadius: 12,
                           border: '1px solid rgba(255,255,255,0.08)',
                           background: 'rgba(255,255,255,0.03)',
                           backdropFilter: 'blur(10px)',
@@ -424,7 +424,7 @@ function CartContent() {
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
                         style={{
-                          width: 32, height: 32, borderRadius: 10,
+                          width: 44, height: 44, borderRadius: 12,
                           border: '1px solid rgba(255,255,255,0.08)',
                           background: 'rgba(255,255,255,0.03)',
                           backdropFilter: 'blur(10px)',
@@ -438,7 +438,7 @@ function CartContent() {
                       <button
                         onClick={() => removeItem(item.id)}
                         style={{
-                          width: 32, height: 32, borderRadius: 10,
+                          width: 44, height: 44, borderRadius: 12,
                           border: '1px solid rgba(230,57,70,0.2)',
                           background: 'rgba(230,57,70,0.06)',
                           color: 'var(--accent)',

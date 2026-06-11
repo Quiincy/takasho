@@ -3,7 +3,8 @@ import AnimatedPage, { ScrollToTop } from '@/components/AnimatedPage';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
-import ImageGallery from '@/components/ImageGallery';
+import nextDynamic from 'next/dynamic';
+const ImageGallery = nextDynamic(() => import('@/components/ImageGallery'));
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
