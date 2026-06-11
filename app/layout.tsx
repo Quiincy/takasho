@@ -103,7 +103,7 @@ export default async function RootLayout({
         }} />
       </head>
       <body className={`${inter.className} ${montserrat.variable}`}>
-        {/* Google Tag Manager */}
+        {/* Google Tag Manager (Disabled until real ID is provided)
         <Script id="gtm-script" strategy="afterInteractive" dangerouslySetInnerHTML={{
           __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -111,6 +111,7 @@ export default async function RootLayout({
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','GTM-XXXXXXX');`
         }} />
+        */}
         {/* Next.js Dev Indicator Fix */}
         <script dangerouslySetInnerHTML={{
           __html: `
@@ -121,11 +122,12 @@ export default async function RootLayout({
             } catch(e) {}
           `
         }} />
-        {/* GTM noscript */}
+        {/* GTM noscript
         <noscript>
           <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
             height="0" width="0" style={{ display: 'none', visibility: 'hidden' }} />
         </noscript>
+        */}
         <div style={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
           <SiteSettingsProvider settings={settings}>
             <CartProvider>
