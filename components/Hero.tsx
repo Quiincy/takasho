@@ -236,7 +236,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
             {actualSlides.map((s, i) => (
               <button key={i} onClick={() => handleSlideClick(s)} style={{ position: 'absolute', inset: 0, opacity: i === active ? 1 : 0, transform: i === active ? 'scale(1)' : 'scale(1.04)', transition: 'opacity .7s ease, transform .7s ease', border: 'none', background: 'transparent', padding: 0, cursor: i === active ? 'pointer' : 'default', display: 'block', width: '100%', height: '100%', pointerEvents: i === active ? 'auto' : 'none', zIndex: i === active ? 2 : 1 }}>
                 {i === 0 ? (
-                  <img src={s.src} alt={s.label} fetchPriority="high" loading="eager" style={{ objectFit: 'cover', width: '100%', height: '100%', position: 'absolute', inset: 0 }} />
+                  <Image src={s.src} alt={s.label} fill priority={i === 0} sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
                 ) : (
                   <Image src={s.src} alt={s.label} fill sizes="(max-width: 768px) 0vw, 520px" style={{ objectFit: 'cover' }} />
                 )}
@@ -314,7 +314,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
               aria-label={`Перейти до меню — ${s.label}`}
             >
               {i === 0 ? (
-                <img src={s.src} alt={s.label} fetchPriority="high" loading="eager" style={{ objectFit: 'cover', width: '100%', height: '100%', position: 'absolute', inset: 0 }} />
+                <Image src={s.src} alt={s.label} fill priority={i === 0} sizes="100vw" style={{ objectFit: 'cover' }} />
               ) : (
                 <Image src={s.src} alt={s.label} fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
               )}
