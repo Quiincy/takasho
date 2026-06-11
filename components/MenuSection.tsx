@@ -659,12 +659,12 @@ export default function MenuSection({ initialCategories, initialItems, initialSu
         background: 'rgba(255, 255, 255, 0.03)',
         borderRadius: 16,
         border: '1px dashed rgba(255, 255, 255, 0.1)',
-        color: 'var(--text-secondary)',
+        color: 'rgba(255,255,255,0.85)',
         fontSize: 14,
         maxWidth: 800,
         margin: '40px auto 0'
       }}>
-        <span style={{ color: 'var(--accent)', fontWeight: 600, marginRight: 6 }}>⚠️ Зверніть увагу:</span>
+        <span style={{ color: 'var(--accent-light)', fontWeight: 600, marginRight: 6 }}>⚠️ Зверніть увагу:</span>
         фотографії їжі в меню можуть дещо відрізнятися від приготованих страв у нашому ресторані.
       </div>
     </section>
