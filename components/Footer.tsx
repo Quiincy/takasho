@@ -116,8 +116,8 @@ export default function Footer() {
 
       {/* Payment Logos */}
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 24, marginTop: 40, position: 'relative', zIndex: 1 }}>
-        <img src="https://api.iconify.design/logos:mastercard.svg" alt="Mastercard" style={{ height: 32 }} />
-        <img src="https://api.iconify.design/logos:visa.svg" alt="Visa" style={{ height: 24 }} />
+        <img src="/mastercard.svg" alt="Mastercard" style={{ height: 32 }} />
+        <img src="/visa.svg" alt="Visa" style={{ height: 24 }} />
         <div 
           style={{ 
             fontSize: 22, fontWeight: 900, letterSpacing: '-0.05em', cursor: 'default', display: 'flex', alignItems: 'center' 
