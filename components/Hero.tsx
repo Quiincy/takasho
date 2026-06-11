@@ -7,10 +7,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/lib/cart-context';
 
-const customLoader = ({ src, width, quality }: any) => {
-  return `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality || 60}`;
-};
-
 /* ─── Data ──────────────────────────────────────────────────────────── */
 
 const SLIDES = [
@@ -240,9 +236,9 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
             {actualSlides.map((s, i) => (
               <button key={i} onClick={() => handleSlideClick(s)} style={{ position: 'absolute', inset: 0, opacity: i === active ? 1 : 0, transform: i === active ? 'scale(1)' : 'scale(1.04)', transition: 'opacity .7s ease, transform .7s ease', border: 'none', background: 'transparent', padding: 0, cursor: i === active ? 'pointer' : 'default', display: 'block', width: '100%', height: '100%', pointerEvents: i === active ? 'auto' : 'none', zIndex: i === active ? 2 : 1 }}>
                 {i === 0 ? (
-                  <Image loader={customLoader} src={s.src} alt={s.label} fill quality={60} priority={i === 0} fetchPriority={i === 0 ? 'high' : 'auto'} sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+                  <Image src={s.src} alt={s.label} fill quality={60} priority={i === 0} fetchPriority={i === 0 ? 'high' : 'auto'} sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
                 ) : (
-                  <Image loader={customLoader} src={s.src} alt={s.label} fill quality={60} sizes="(max-width: 768px) 0vw, 520px" style={{ objectFit: 'cover' }} />
+                  <Image src={s.src} alt={s.label} fill quality={60} sizes="(max-width: 768px) 0vw, 520px" style={{ objectFit: 'cover' }} />
                 )}
               </button>
             ))}
@@ -318,9 +314,9 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
               aria-label={`Перейти до меню — ${s.label}`}
             >
               {i === 0 ? (
-                <Image loader={customLoader} src={s.src} alt={s.label} fill quality={60} priority={i === 0} fetchPriority={i === 0 ? 'high' : 'auto'} sizes="100vw" style={{ objectFit: 'cover' }} />
+                <Image src={s.src} alt={s.label} fill quality={60} priority={i === 0} fetchPriority={i === 0 ? 'high' : 'auto'} sizes="100vw" style={{ objectFit: 'cover' }} />
               ) : (
-                <Image loader={customLoader} src={s.src} alt={s.label} fill quality={60} sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+                <Image src={s.src} alt={s.label} fill quality={60} sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
               )}
             </button>
           ))}
