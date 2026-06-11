@@ -7,6 +7,10 @@ import { DbMenuItem } from '@/lib/supabase';
 import { useCart } from '@/lib/cart-context';
 import { useState } from 'react';
 
+const customLoader = ({ src, width, quality }: any) => {
+  return `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality || 60}`;
+};
+
 interface Props {
   item: DbMenuItem;
   index?: number;
@@ -123,6 +127,7 @@ export default function MenuCard({ item, index = 0, activeCategory, activeSubCat
         zIndex: 1,
       }}>
         <Image
+          loader={customLoader}
           src={item.image}
           alt={`${item.name} — замовити з доставкою в Києві`}
           fill
