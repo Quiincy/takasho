@@ -149,46 +149,47 @@ export default function Header() {
           </a>
 
           {/* Cart Button */}
-          <Link href="/cart" style={{ textDecoration: 'none' }}>
-            <button
-              id="cart-button"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                background: totalItems > 0
-                  ? 'linear-gradient(135deg, var(--accent) 0%, #c1121f 100%)'
-                  : 'rgba(255,255,255,0.03)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid',
-                borderColor: totalItems > 0 ? 'transparent' : 'rgba(255,255,255,0.08)',
-                borderRadius: 10,
-                padding: '8px 14px',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                animation: cartAnimated ? 'cartBounce 0.3s ease' : 'none',
-                color: totalItems > 0 ? 'white' : 'var(--text-secondary)',
-                minHeight: 48,
-                whiteSpace: 'nowrap',
-              }}
-            >
-              <ShoppingCart size={18} />
-              {totalItems > 0 && (
-                <>
-                  <span style={{ fontWeight: 700, fontSize: 14 }}>{totalPrice} ₴</span>
-                  <span style={{
-                    background: 'rgba(255,255,255,0.25)',
-                    borderRadius: 100,
-                    padding: '1px 6px',
-                    fontSize: 12,
-                    fontWeight: 700,
-                  }}>{totalItems}</span>
-                </>
-              )}
-              {totalItems === 0 && (
-                <span className="hide-mobile" style={{ fontSize: 13, fontWeight: 500 }}>Кошик</span>
-              )}
-            </button>
+          <Link
+            href="/cart"
+            id="cart-button"
+            aria-label="Перейти до кошика"
+            style={{
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              background: totalItems > 0
+                ? 'linear-gradient(135deg, var(--accent) 0%, #c1121f 100%)'
+                : 'rgba(255,255,255,0.03)',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid',
+              borderColor: totalItems > 0 ? 'transparent' : 'rgba(255,255,255,0.08)',
+              borderRadius: 10,
+              padding: '8px 14px',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              animation: cartAnimated ? 'cartBounce 0.3s ease' : 'none',
+              color: totalItems > 0 ? 'white' : 'var(--text-secondary)',
+              minHeight: 48,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            <ShoppingCart size={18} />
+            {totalItems > 0 && (
+              <>
+                <span style={{ fontWeight: 700, fontSize: 14 }}>{totalPrice} ₴</span>
+                <span style={{
+                  background: 'rgba(255,255,255,0.25)',
+                  borderRadius: 100,
+                  padding: '1px 6px',
+                  fontSize: 12,
+                  fontWeight: 700,
+                }}>{totalItems}</span>
+              </>
+            )}
+            {totalItems === 0 && (
+              <span className="hide-mobile" style={{ fontSize: 13, fontWeight: 500 }}>Кошик</span>
+            )}
           </Link>
 
           {/* Hamburger Menu - visible on all screens */}
