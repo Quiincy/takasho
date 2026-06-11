@@ -271,6 +271,7 @@ export default function MenuCard({ item, index = 0, activeCategory, activeSubCat
 
         {/* Add button */}
         <button
+          aria-label={`Додати ${item.name} в кошик`}
           id={`add-${item.id}`}
           className="menu-card-add-btn"
           onClick={handleAdd}

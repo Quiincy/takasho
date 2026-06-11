@@ -200,8 +200,8 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
             <button id="hero-order-btn" className="btn-primary" onClick={scrollToMenu} style={{ fontSize: 16, padding: '15px 32px', display: 'flex', alignItems: 'center', gap: 8, borderRadius: 12 }}>
               Замовити зараз <ArrowRight size={18} />
             </button>
-            <a href="tel:+380957972943" style={{ textDecoration: 'none' }}>
-              <button id="hero-call-btn" className="btn-ghost" style={{ fontSize: 16, padding: '15px 28px', borderRadius: 12 }}>📞 Зателефонувати</button>
+            <a id="hero-call-btn" href="tel:+380957972943" className="btn-ghost" style={{ textDecoration: 'none', fontSize: 16, padding: '15px 28px', borderRadius: 12, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+              📞 Зателефонувати
             </a>
           </div>
         </div>
@@ -380,8 +380,8 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
             <button className="btn-primary" onClick={scrollToMenu} style={{ fontSize: 16, padding: '15px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, borderRadius: 14 }}>
               Замовити зараз <ArrowRight size={18} />
             </button>
-            <a href="tel:+380957972943" style={{ textDecoration: 'none', width: '100%' }}>
-              <button className="btn-ghost" style={{ fontSize: 15, padding: '14px', width: '100%', borderRadius: 14 }}>📞 Зателефонувати</button>
+            <a href="tel:+380957972943" className="btn-ghost" style={{ textDecoration: 'none', width: '100%', fontSize: 15, padding: '14px', borderRadius: 14, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+              📞 Зателефонувати
             </a>
           </div>
         </div>
