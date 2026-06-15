@@ -15,8 +15,8 @@ export const revalidate = 60; // ISR revalidation every 60 seconds
 
 export default async function HomePage() {
   const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    (process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co'),
+    (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder'),
     {
       global: { fetch: (url, init) => fetch(url, { ...init, cache: 'no-store' }) }
     }
