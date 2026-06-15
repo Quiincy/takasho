@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin/', '/api/'], // Забороняємо ботам індексувати адмінку та API
     },
-    sitemap: 'https://enotsushi.com.ua/sitemap.xml',
+    sitemap: 'https://enotsushi.kyiv.ua/sitemap.xml',
   };
 }

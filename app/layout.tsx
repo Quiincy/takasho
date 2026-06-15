@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   alternates: {
-    canonical: 'https://enotsushi.com.ua',
+    canonical: 'https://enotsushi.kyiv.ua',
   },
   other: {
     'google-site-verification': 'your-google-verification-code',
@@ -83,9 +83,9 @@ export default async function RootLayout({
             "@context": "https://schema.org",
             "@type": "Restaurant",
             "name": "Enot Sushi",
-            "image": "https://enotsushi.com.ua/hero.png",
+            "image": "https://enotsushi.kyiv.ua/hero.png",
             "description": "Ресторан доставки їжі: суші, піца, бургери в Києві",
-            "url": "https://enotsushi.com.ua",
+            "url": "https://enotsushi.kyiv.ua",
             "telephone": "+380957972943",
             "address": {
               "@type": "PostalAddress",
