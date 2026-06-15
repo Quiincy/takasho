@@ -4,8 +4,8 @@ import { NextRequest, NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
 
 const supabase = createClient(
-  (process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co'),
-  (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder')
+  (process.env['NEXT_PUBLIC_SUPABASE_URL'] || 'https://placeholder.supabase.co'),
+  (process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'] || 'placeholder')
 );
 
 // GET /api/menu — all categories + items + subcategories

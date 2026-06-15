@@ -19,8 +19,8 @@ export const revalidate = 60;
 
 export default async function BanquetPage() {
   const supabase = createClient(
-    (process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co'),
-    (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder'),
+    (process.env['NEXT_PUBLIC_SUPABASE_URL'] || 'https://placeholder.supabase.co'),
+    (process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'] || 'placeholder'),
     {
       global: { fetch: (url, init) => fetch(url, { ...init, cache: 'no-store' }) }
     }

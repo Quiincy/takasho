@@ -18,17 +18,11 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
 
   useEffect(() => {
     if (isOpen && categories.length === 0) {
-      const url = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/menu_categories?select=*&order=sort_order.asc`;
-      fetch(url, {
-        headers: {
-          apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!}`
-        }
-      })
+      fetch('/api/menu')
       .then(res => res.json())
-      .then((data: DbCategory[]) => {
-        if (data && Array.isArray(data)) {
-          const filtered = data.filter(c => !c.id.startsWith('banquet-'));
+      .then((data: any) => {
+        if (data && Array.isArray(data.categories)) {
+          const filtered = data.categories.filter((c: DbCategory) => !c.id.startsWith('banquet-'));
           setCategories(filtered);
         }
       })
