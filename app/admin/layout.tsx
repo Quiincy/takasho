@@ -1,19 +1,15 @@
 'use client';
 
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { ShoppingBag, LayoutGrid, LogOut, ChevronRight, BookOpen, Settings } from 'lucide-react';
-import { createClient } from '@/utils/supabase/client';
+import { logout } from './actions';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
   const pathname = usePathname();
-  const supabase = createClient();
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push('/admin');
-    router.refresh();
+    await logout();
   };
 
   // On login page — just render children

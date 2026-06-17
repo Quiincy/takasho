@@ -1,9 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Lock, Eye, EyeOff, ShieldCheck, Mail } from 'lucide-react';
-import { createClient } from '@/utils/supabase/client';
+import { login } from './actions';
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
@@ -11,27 +10,23 @@ export default function AdminLoginPage() {
   const [show, setShow] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const supabase = createClient();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
 
-    if (signInError) {
-      setError('Невірний email або пароль');
+    const res = await login(formData);
+    if (res?.error) {
+      setError(res.error);
       setLoading(false);
-    } else {
-      router.push('/admin/orders');
-      router.refresh();
     }
   };
+
 
   return (
     <div style={{
