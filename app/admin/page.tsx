@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Lock, Eye, EyeOff, ShieldCheck, Mail } from 'lucide-react';
-import { login } from './actions';
+import { login, resetPassword } from './actions';
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
@@ -10,14 +10,29 @@ export default function AdminLoginPage() {
   const [show, setShow] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isResetMode, setIsResetMode] = useState(false);
+  const [successMsg, setSuccessMsg] = useState('');
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLoginOrReset = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    setSuccessMsg('');
 
     const formData = new FormData();
     formData.append('email', email);
+
+    if (isResetMode) {
+      const res = await resetPassword(formData);
+      if (res?.error) {
+        setError(res.error);
+      } else {
+        setSuccessMsg('Лист для відновлення надіслано на вашу пошту!');
+      }
+      setLoading(false);
+      return;
+    }
+
     formData.append('password', password);
 
     const res = await login(formData);
@@ -67,7 +82,7 @@ export default function AdminLoginPage() {
           </p>
         </div>
 
-        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <form onSubmit={handleLoginOrReset} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
             <label htmlFor="admin-email" style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8, display: 'block', fontWeight: 500 }}>
               Email
@@ -101,7 +116,9 @@ export default function AdminLoginPage() {
               />
             </div>
 
-            <label htmlFor="admin-password" style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8, display: 'block', fontWeight: 500 }}>
+            {!isResetMode && (
+              <>
+                <label htmlFor="admin-password" style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8, display: 'block', fontWeight: 500 }}>
               Пароль
             </label>
             <div style={{ position: 'relative' }}>
@@ -141,7 +158,30 @@ export default function AdminLoginPage() {
               >
                 {show ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
-            </div>
+              </div>
+              <div style={{ textAlign: 'right', marginTop: 8 }}>
+                <button
+                  type="button"
+                  onClick={() => { setIsResetMode(true); setError(''); setSuccessMsg(''); }}
+                  style={{ background: 'none', border: 'none', color: 'var(--accent)', fontSize: 13, cursor: 'pointer', fontWeight: 500 }}
+                >
+                  Забули пароль?
+                </button>
+              </div>
+              </>
+            )}
+
+            {isResetMode && (
+              <div style={{ textAlign: 'center', marginTop: 8 }}>
+                <button
+                  type="button"
+                  onClick={() => { setIsResetMode(false); setError(''); setSuccessMsg(''); }}
+                  style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 13, cursor: 'pointer', fontWeight: 500 }}
+                >
+                  ← Повернутися до входу
+                </button>
+              </div>
+            )}
           </div>
 
           {error && (
@@ -156,20 +196,33 @@ export default function AdminLoginPage() {
               ❌ {error}
             </div>
           )}
+          
+          {successMsg && (
+            <div style={{
+              padding: '10px 14px',
+              background: 'rgba(34, 197, 94, 0.1)',
+              border: '1px solid rgba(34, 197, 94, 0.3)',
+              borderRadius: 8,
+              color: '#22c55e',
+              fontSize: 14,
+            }}>
+              ✅ {successMsg}
+            </div>
+          )}
 
           <button
             id="admin-login-btn"
             type="submit"
-            disabled={loading || !password || !email}
+            disabled={loading || !email || (!isResetMode && !password)}
             className="btn-primary"
             style={{
               padding: '14px',
               fontSize: 15,
-              opacity: (!password || !email) ? 0.5 : 1,
-              cursor: (!password || !email) ? 'not-allowed' : 'pointer',
+              opacity: (!email || (!isResetMode && !password)) ? 0.5 : 1,
+              cursor: (!email || (!isResetMode && !password)) ? 'not-allowed' : 'pointer',
             }}
           >
-            {loading ? '⏳ Перевірка...' : '🔓 Увійти'}
+            {loading ? '⏳ Зачекайте...' : (isResetMode ? '📩 Надіслати лист' : '🔓 Увійти')}
           </button>
         </form>
       </div>
