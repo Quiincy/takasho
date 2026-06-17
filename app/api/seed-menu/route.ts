@@ -1,13 +1,10 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
 
 // ONE-TIME seed route — removes itself after use
 // Call: POST /api/seed-menu
 export async function POST() {
-  const supabase = createClient(
-    (process.env['NEXT_PUBLIC_SUPABASE_URL'] || 'https://placeholder.supabase.co'),
-    (process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'] || 'placeholder')
-  );
+  const supabase = await createClient();
 
   const categories = [
     { id: 'pizza',   name: 'Піца',              emoji: '🍕', sort_order: 1 },

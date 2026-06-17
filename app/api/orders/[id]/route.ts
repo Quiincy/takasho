@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/server';
 import { NextRequest } from 'next/server';
 import { OrderStatus } from '@/lib/supabase';
 
@@ -7,6 +7,7 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const supabase = await createClient();
     const { id } = await params;
     const { status } = await request.json() as { status: OrderStatus };
 

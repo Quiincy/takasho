@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/server';
 import { NextRequest } from 'next/server';
 import crypto from 'crypto';
 
@@ -6,6 +6,7 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   try {
+    const supabase = await createClient();
     const body = await request.json();
 
     const { customer_name, customer_phone, delivery_address, comment, items, total_price, delivery_cost, distance_km } = body;

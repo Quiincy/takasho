@@ -1,15 +1,11 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@/utils/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
-const supabase = createClient(
-  (process.env['NEXT_PUBLIC_SUPABASE_URL'] || 'https://placeholder.supabase.co'),
-  (process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'] || 'placeholder')
-);
-
 // GET /api/menu — all categories + items + subcategories
 export async function GET() {
+  const supabase = await createClient();
   const [catRes, itemRes, subcatRes] = await Promise.all([
     supabase.from('menu_categories').select('*').order('sort_order'),
     supabase.from('menu_items').select('*').order('sort_order'),
@@ -24,6 +20,7 @@ export async function GET() {
 
 // POST /api/menu — create category or item
 export async function POST(req: NextRequest) {
+  const supabase = await createClient();
   const body = await req.json();
   const { type, ...data } = body;
 
@@ -74,6 +71,7 @@ export async function POST(req: NextRequest) {
 
 // PUT /api/menu — update category or item
 export async function PUT(req: NextRequest) {
+  const supabase = await createClient();
   const body = await req.json();
   const { type, id, ...data } = body;
 
@@ -85,6 +83,7 @@ export async function PUT(req: NextRequest) {
 
 // DELETE /api/menu — delete category or item
 export async function DELETE(req: NextRequest) {
+  const supabase = await createClient();
   const { type, id } = await req.json();
   const table = type === 'category' ? 'menu_categories' : type === 'subcategory' ? 'menu_subcategories' : 'menu_items';
   const { error } = await supabase.from(table).delete().eq('id', id);
