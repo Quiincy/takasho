@@ -62,8 +62,8 @@ export default async function ContactsPage() {
     {
       icon: '✉️',
       title: 'Email',
-      lines: ['hello@enotsushi.com.ua'],
-      link: 'mailto:hello@enotsushi.com.ua',
+      lines: ['hello@enotsushi.kyiv.ua'],
+      link: 'mailto:hello@enotsushi.kyiv.ua',
       accent: false,
     },
   ];
