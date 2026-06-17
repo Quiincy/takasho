@@ -7,12 +7,10 @@ export async function GET(request: NextRequest) {
   const type = searchParams.get('type')
   const next = searchParams.get('next') ?? '/admin/update-password'
 
-  // Допоміжна функція для правильного редіректу (враховує Cloud Run проксі)
+  // Допоміжна функція для правильного редіректу
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://enotsushi.kyiv.ua'
   const getRedirectUrl = (path: string) => {
-    const url = request.nextUrl.clone()
-    url.pathname = path
-    url.search = '' // очищаємо старі параметри
-    return url
+    return `${siteUrl}${path}`
   }
 
   // Перевірка через OTP (Invite або Recovery)
