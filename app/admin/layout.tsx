@@ -1,27 +1,19 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { ShoppingBag, LayoutGrid, LogOut, ChevronRight, BookOpen, Settings } from 'lucide-react';
+import { createClient } from '@/utils/supabase/client';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [checked, setChecked] = useState(false);
+  const supabase = createClient();
 
-  useEffect(() => {
-    const token = localStorage.getItem('tks_admin');
-    if (!token && pathname !== '/admin') {
-      router.replace('/admin');
-    } else {
-      setChecked(true);
-    }
-  }, [pathname, router]);
-
-  const handleLogout = () => {
-    localStorage.removeItem('tks_admin');
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     router.push('/admin');
+    router.refresh();
   };
 
   // On login page — just render children
@@ -29,20 +21,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     return <>{children}</>;
   }
 
-  if (!checked) {
-    return (
-      <div style={{
-        minHeight: '100vh',
-        background: 'var(--bg-primary)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'var(--text-muted)',
-      }}>
-        Перевірка доступу...
-      </div>
-    );
-  }
+
 
   const navItems = [
     { href: '/admin/orders',  label: 'Замовлення',    icon: <ShoppingBag size={18} /> },

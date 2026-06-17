@@ -40,7 +40,6 @@
    ```env
    NEXT_PUBLIC_SUPABASE_URL=ваша_адреса_supabase
    NEXT_PUBLIC_SUPABASE_ANON_KEY=ваш_anon_key_supabase
-   NEXT_PUBLIC_ADMIN_PASSWORD=пароль_для_адмінки
    ```
 
 4. Запустіть сервер для розробки:

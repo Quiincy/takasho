@@ -2,29 +2,34 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Lock, Eye, EyeOff, ShieldCheck } from 'lucide-react';
+import { Lock, Eye, EyeOff, ShieldCheck, Mail } from 'lucide-react';
+import { createClient } from '@/utils/supabase/client';
 
 export default function AdminLoginPage() {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const supabase = createClient();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
-    await new Promise(r => setTimeout(r, 400)); // UX delay
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-    const correct = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ?? 'enotsushi2024';
-    if (password === correct) {
-      localStorage.setItem('tks_admin', btoa(password + Date.now()));
-      router.push('/admin/orders');
-    } else {
-      setError('Невірний пароль');
+    if (signInError) {
+      setError('Невірний email або пароль');
       setLoading(false);
+    } else {
+      router.push('/admin/orders');
+      router.refresh();
     }
   };
 
@@ -69,6 +74,38 @@ export default function AdminLoginPage() {
 
         <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
+            <label htmlFor="admin-email" style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8, display: 'block', fontWeight: 500 }}>
+              Email
+            </label>
+            <div style={{ position: 'relative', marginBottom: 16 }}>
+              <Mail size={16} style={{
+                position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)',
+                color: 'var(--text-muted)',
+              }} />
+              <input
+                id="admin-email"
+                type="email"
+                value={email}
+                onChange={e => { setEmail(e.target.value); setError(''); }}
+                placeholder="admin@enotsushi.kyiv.ua"
+                autoFocus
+                style={{
+                  width: '100%',
+                  padding: '13px 14px 13px 42px',
+                  background: 'var(--bg-secondary)',
+                  border: '1px solid',
+                  borderColor: error ? 'var(--accent)' : 'var(--border)',
+                  borderRadius: 10,
+                  color: 'var(--text-primary)',
+                  fontSize: 15,
+                  outline: 'none',
+                  transition: 'border-color 0.2s',
+                }}
+                onFocus={e => { if (!error) e.target.style.borderColor = 'rgba(230,57,70,0.5)'; }}
+                onBlur={e => { if (!error) e.target.style.borderColor = 'var(--border)'; }}
+              />
+            </div>
+
             <label htmlFor="admin-password" style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8, display: 'block', fontWeight: 500 }}>
               Пароль
             </label>
@@ -83,7 +120,6 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={e => { setPassword(e.target.value); setError(''); }}
                 placeholder="Введіть пароль..."
-                autoFocus
                 style={{
                   width: '100%',
                   padding: '13px 44px 13px 42px',
@@ -129,13 +165,13 @@ export default function AdminLoginPage() {
           <button
             id="admin-login-btn"
             type="submit"
-            disabled={loading || !password}
+            disabled={loading || !password || !email}
             className="btn-primary"
             style={{
               padding: '14px',
               fontSize: 15,
-              opacity: !password ? 0.5 : 1,
-              cursor: !password ? 'not-allowed' : 'pointer',
+              opacity: (!password || !email) ? 0.5 : 1,
+              cursor: (!password || !email) ? 'not-allowed' : 'pointer',
             }}
           >
             {loading ? '⏳ Перевірка...' : '🔓 Увійти'}
