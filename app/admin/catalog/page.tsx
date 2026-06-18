@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { Plus, Trash2, Edit2, Check, X, ChevronDown, ChevronUp, Paperclip, Loader2 } from 'lucide-react';
+import { Plus, Trash2, Edit2, Check, X, ChevronDown, ChevronUp, Paperclip, Loader2, Eye, EyeOff } from 'lucide-react';
 import { supabase, type DbCategory, type DbMenuItem, type DbSubcategory } from '@/lib/supabase';
 
 /* ── helpers ── */
@@ -121,7 +121,7 @@ export default function AdminMenuEditorPage() {
 
   // add item form
   const [addItemFor, setAddItemFor] = useState<string | null>(null);
-  const [newItem, setNewItem] = useState({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false, subcategory_ids: [] as string[] });
+  const [newItem, setNewItem] = useState({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false, is_available: true, subcategory_ids: [] as string[] });
   const [savingItem, setSavingItem] = useState(false);
 
   // edit item
@@ -232,11 +232,12 @@ export default function AdminMenuEditorPage() {
           description: newItem.description.trim() || null,
           image: newItem.image.trim() || '/pizza.png',
           is_popular: newItem.is_popular,
+          is_available: newItem.is_available,
           subcategory_ids: newItem.subcategory_ids,
         }),
       });
       if (res.ok) {
-        setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false, subcategory_ids: [] });
+        setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false, is_available: true, subcategory_ids: [] });
         setAddItemFor(null);
         await load();
       } else {
@@ -257,6 +258,23 @@ export default function AdminMenuEditorPage() {
       body: JSON.stringify({ type: 'item', id }),
     });
     await load();
+  };
+
+  const toggleAvailability = async (item: DbMenuItem, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const newAvail = !item.is_available;
+    // Optimistic update
+    setItems(prev => prev.map(i => i.id === item.id ? { ...i, is_available: newAvail } : i));
+    try {
+      const res = await fetch('/api/menu', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'item', id: item.id, is_available: newAvail }),
+      });
+      if (!res.ok) throw new Error('Failed');
+    } catch (err) {
+      await load(); // Revert on failure
+    }
   };
 
   const saveEdit = async () => {
@@ -318,7 +336,7 @@ export default function AdminMenuEditorPage() {
           </button>
           {categories.length > 0 && (
             <button
-              onClick={() => { setAddItemFor('global'); setShowAddCat(false); setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false, subcategory_ids: [] }); }}
+              onClick={() => { setAddItemFor('global'); setShowAddCat(false); setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false, is_available: true, subcategory_ids: [] }); }}
               style={{
                 display: 'flex', alignItems: 'center', gap: 6,
                 padding: '10px 16px', background: 'var(--accent)', color: 'white',
@@ -360,10 +378,16 @@ export default function AdminMenuEditorPage() {
           </div>
           <Field label="Опис" value={newItem.description} onChange={v => setNewItem(p => ({ ...p, description: v }))} placeholder="Томатний соус, моцарела..." />
           <SubcategorySelector categoryId={newItem.category_id || categories[0]?.id} selectedIds={newItem.subcategory_ids} onChange={ids => setNewItem(p => ({ ...p, subcategory_ids: ids }))} />
-          <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', marginTop: 10, color: 'var(--text-primary)' }}>
-            <input type="checkbox" checked={newItem.is_popular} onChange={e => setNewItem(p => ({ ...p, is_popular: e.target.checked }))} />
-            Популярна страва (показувати на головній)
-          </label>
+          <div style={{ display: 'flex', gap: 16, marginTop: 10, flexWrap: 'wrap' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', color: 'var(--text-primary)' }}>
+              <input type="checkbox" checked={newItem.is_available} onChange={e => setNewItem(p => ({ ...p, is_available: e.target.checked }))} />
+              В наявності (не в стоп-листі)
+            </label>
+            <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', color: 'var(--text-primary)' }}>
+              <input type="checkbox" checked={newItem.is_popular} onChange={e => setNewItem(p => ({ ...p, is_popular: e.target.checked }))} />
+              Популярна страва (показувати на головній)
+            </label>
+          </div>
           <div style={{ display: 'flex', gap: 8, marginTop: 14 }}>
             <button onClick={() => addItem(newItem.category_id || categories[0]?.id)} disabled={savingItem} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '9px 18px', background: 'var(--accent)', border: 'none', borderRadius: 8, color: 'white', fontWeight: 700, fontSize: 14, cursor: 'pointer' }}>
               <Plus size={16} /> {savingItem ? '⏳' : 'Додати страву'}
@@ -508,12 +532,15 @@ export default function AdminMenuEditorPage() {
                               <img src={item.image} alt={item.name} style={{ width: 44, height: 44, borderRadius: 8, objectFit: 'cover', flexShrink: 0 }} onError={e => { (e.target as HTMLImageElement).src = '/pizza.png'; }} />
                               <div style={{ flex: 1, minWidth: 0 }}>
                                 <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 1 }}>{item.name} {item.is_popular && <span title="Популярна страва" style={{ marginLeft: 4 }}>🔥</span>}</div>
-                                <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{item.weight && `${item.weight} · `}{item.price} ₴</div>
+                                <div style={{ fontSize: 12, color: item.is_available ? 'var(--text-muted)' : 'var(--accent)' }}>{item.weight && `${item.weight} · `}{item.price} ₴ {item.is_available ? '' : ' (В стоп-листі)'}</div>
                               </div>
-                              <button onClick={() => setEditingItem(item)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: editingItem?.id === item.id ? 'var(--accent)' : 'var(--text-muted)', padding: 6, borderRadius: 6, display: 'flex' }}>
+                              <button onClick={(e) => toggleAvailability(item, e)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: item.is_available ? 'var(--text-muted)' : 'var(--accent)', padding: 6, borderRadius: 6, display: 'flex' }} title={item.is_available ? 'Сховати (в стоп-лист)' : 'Показати (в наявності)'}>
+                                {item.is_available ? <Eye size={16} /> : <EyeOff size={16} />}
+                              </button>
+                              <button onClick={() => setEditingItem(item)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: editingItem?.id === item.id ? 'var(--accent)' : 'var(--text-muted)', padding: 6, borderRadius: 6, display: 'flex' }} title="Редагувати">
                                 <Edit2 size={14} />
                               </button>
-                              <button onClick={() => deleteItem(item.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 6, borderRadius: 6, display: 'flex' }}>
+                              <button onClick={() => deleteItem(item.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 6, borderRadius: 6, display: 'flex' }} title="Видалити">
                                 <Trash2 size={14} />
                               </button>
                             </div>
@@ -533,10 +560,16 @@ export default function AdminMenuEditorPage() {
                                 </div>
                                 <Field label="Опис" value={editingItem.description ?? ''} onChange={v => setEditingItem(p => p ? { ...p, description: v } : p)} placeholder="Короткий опис страви..." />
                                 <SubcategorySelector categoryId={editingItem.category_id} selectedIds={editingItem.subcategory_ids || []} onChange={ids => setEditingItem(p => p ? { ...p, subcategory_ids: ids } : p)} />
-                                <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', marginTop: 10, color: 'var(--text-primary)' }}>
-                                  <input type="checkbox" checked={editingItem.is_popular ?? false} onChange={e => setEditingItem(p => p ? { ...p, is_popular: e.target.checked } : p)} />
-                                  Популярна страва (показувати на головній)
-                                </label>
+                                <div style={{ display: 'flex', gap: 16, marginTop: 10, flexWrap: 'wrap' }}>
+                                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', color: 'var(--text-primary)' }}>
+                                    <input type="checkbox" checked={editingItem.is_available ?? true} onChange={e => setEditingItem(p => p ? { ...p, is_available: e.target.checked } : p)} />
+                                    В наявності (не в стоп-листі)
+                                  </label>
+                                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', color: 'var(--text-primary)' }}>
+                                    <input type="checkbox" checked={editingItem.is_popular ?? false} onChange={e => setEditingItem(p => p ? { ...p, is_popular: e.target.checked } : p)} />
+                                    Популярна страва (показувати на головній)
+                                  </label>
+                                </div>
                                 <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
                                   <button onClick={saveEdit} disabled={savingEdit} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', background: '#48c774', border: 'none', borderRadius: 7, color: 'white', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
                                     <Check size={14} /> Зберегти
@@ -563,10 +596,16 @@ export default function AdminMenuEditorPage() {
                         </div>
                         <Field label="Опис" value={newItem.description} onChange={v => setNewItem(p => ({ ...p, description: v }))} placeholder="Томатний соус, моцарела..." />
                         <SubcategorySelector categoryId={cat.id} selectedIds={newItem.subcategory_ids} onChange={ids => setNewItem(p => ({ ...p, subcategory_ids: ids }))} />
-                        <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', marginTop: 10, color: 'var(--text-primary)' }}>
-                          <input type="checkbox" checked={newItem.is_popular} onChange={e => setNewItem(p => ({ ...p, is_popular: e.target.checked }))} />
-                          Популярна страва (показувати на головній)
-                        </label>
+                        <div style={{ display: 'flex', gap: 16, marginTop: 10, flexWrap: 'wrap' }}>
+                          <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', color: 'var(--text-primary)' }}>
+                            <input type="checkbox" checked={newItem.is_available} onChange={e => setNewItem(p => ({ ...p, is_available: e.target.checked }))} />
+                            В наявності (не в стоп-листі)
+                          </label>
+                          <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', color: 'var(--text-primary)' }}>
+                            <input type="checkbox" checked={newItem.is_popular} onChange={e => setNewItem(p => ({ ...p, is_popular: e.target.checked }))} />
+                            Популярна страва (показувати на головній)
+                          </label>
+                        </div>
                         <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
                           <button onClick={() => addItem(cat.id)} disabled={savingItem} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', background: 'var(--accent)', border: 'none', borderRadius: 7, color: 'white', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
                             <Plus size={14} /> {savingItem ? '⏳' : 'Додати страву'}
@@ -576,7 +615,7 @@ export default function AdminMenuEditorPage() {
                       </div>
                     ) : (
                       <button
-                        onClick={() => { setAddItemFor(cat.id); setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false, subcategory_ids: [] }); }}
+                        onClick={() => { setAddItemFor(cat.id); setNewItem({ name: '', price: '', weight: '', description: '', image: '', category_id: '', is_popular: false, is_available: true, subcategory_ids: [] }); }}
                         style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 14px', background: 'none', border: '1px dashed var(--border)', borderRadius: 8, color: 'var(--text-muted)', fontSize: 13, cursor: 'pointer', width: '100%', justifyContent: 'center' }}
       >
                         <Plus size={14} /> Додати страву до «{cat.name}»
