@@ -42,7 +42,7 @@ export async function resetPassword(formData: FormData) {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://enotsushi.kyiv.ua'
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${siteUrl}/auth/callback?next=/admin/update-password`,
+    redirectTo: new URL('/auth/callback?next=/admin/update-password', siteUrl).href,
   })
 
   if (error) return { error: error.message }

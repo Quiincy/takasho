@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   // Допоміжна функція для правильного редіректу
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://enotsushi.kyiv.ua'
   const getRedirectUrl = (path: string) => {
-    return `${siteUrl}${path}`
+    return new URL(path, siteUrl).href
   }
 
   // Перевірка через OTP (Invite або Recovery)
