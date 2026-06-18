@@ -352,11 +352,11 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
             <span style={{ fontSize: 12, color: 'var(--accent-light)', fontWeight: 600 }}>Доставка • Вул. Едуарда Вільде, 10Б, Дніпровський р-н</span>
           </div>
 
-          <h1 style={{ fontSize: 'clamp(28px,8vw,40px)', fontWeight: 900, lineHeight: 1.08, letterSpacing: '-.03em', marginBottom: 10, color: 'var(--text-primary)' }}>
+          <div aria-hidden="true" style={{ fontSize: 'clamp(28px,8vw,40px)', fontWeight: 900, lineHeight: 1.08, letterSpacing: '-.03em', marginBottom: 10, color: 'var(--text-primary)' }}>
             Суші. Піца.<br />
             <span style={{ background: 'linear-gradient(135deg,#e63946,#f4a261)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Бургери.</span><br />
             Вже у вас вдома.
-          </h1>
+          </div>
 
           <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: 18 }}>
             Безкоштовна доставка до 1 км. Від 1 години.
