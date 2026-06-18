@@ -4,9 +4,10 @@ import { updateSession } from '@/utils/supabase/supabase-middleware'
 export async function middleware(request: NextRequest) {
   const host = request.headers.get('host') || '';
   if (host.startsWith('www.')) {
-    const redirectUrl = new URL(request.url);
-    redirectUrl.hostname = redirectUrl.hostname.replace('www.', '');
-    return NextResponse.redirect(redirectUrl, 301);
+    const newHost = host.replace('www.', '');
+    const protocol = request.headers.get('x-forwarded-proto') || 'https';
+    const newUrl = `${protocol}://${newHost}${request.nextUrl.pathname}${request.nextUrl.search}`;
+    return NextResponse.redirect(newUrl, 301);
   }
 
   return await updateSession(request)
