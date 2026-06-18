@@ -12,8 +12,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     await logout();
   };
 
-  // On login page — just render children
-  if (pathname === '/admin') {
+  // On login and auth pages — just render children
+  if (pathname === '/admin' || pathname === '/admin/update-password') {
     return <>{children}</>;
   }
 
