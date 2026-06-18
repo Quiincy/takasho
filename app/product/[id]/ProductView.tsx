@@ -211,7 +211,7 @@ export default function ProductView({ product }: { product: DbMenuItem }) {
               <span style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-primary)' }}>У кошику:</span>
               <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
                 <button
-                  onClick={() => removeItem(currentId)}
+                  onClick={() => updateQuantity(currentId, cartItem.quantity - 1)}
                   style={{
                     width: 44,
                     height: 44,
