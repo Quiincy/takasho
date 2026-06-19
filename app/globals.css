@@ -290,6 +290,26 @@ body {
   }
 }
 
+.checkout-grid-2, .checkout-grid-3, .checkout-grid-3-equal {
+  display: grid;
+  gap: 12px;
+}
+.checkout-grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+.checkout-grid-3 {
+  grid-template-columns: 1.5fr 1fr 1fr;
+}
+.checkout-grid-3-equal {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media (max-width: 600px) {
+  .checkout-grid-2, .checkout-grid-3, .checkout-grid-3-equal {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 /* Hero buttons full width on small screens */
 @media (max-width: 480px) {
   .hero-buttons {

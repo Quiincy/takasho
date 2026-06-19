@@ -467,7 +467,7 @@ function CartContent() {
               {/* Receiver Data */}
               <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
                 <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Дані одержувача</h2>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                <div className="checkout-grid-2">
                   <input
                     type="text"
                     value={name}
@@ -502,12 +502,12 @@ function CartContent() {
                     <h2 style={{ fontSize: 18, fontWeight: 700 }}>Адреса</h2>
                     <span style={{ fontSize: 14, color: 'var(--accent)', fontWeight: 600 }}>м. Київ</span>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr', gap: 12, marginBottom: 12 }}>
+                  <div className="checkout-grid-3" style={{ marginBottom: 12 }}>
                     <input type="text" value={addressStreet} onChange={e => setAddressStreet(e.target.value)} placeholder="Вулиця *" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
                     <input type="text" value={addressBuilding} onChange={e => setAddressBuilding(e.target.value)} placeholder="Будинок *" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
                     <input type="text" value={addressApt} onChange={e => setAddressApt(e.target.value)} placeholder="Квартира" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+                  <div className="checkout-grid-3-equal">
                     <input type="text" value={addressFloor} onChange={e => setAddressFloor(e.target.value)} placeholder="Поверх" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
                     <input type="text" value={addressEntrance} onChange={e => setAddressEntrance(e.target.value)} placeholder="Під'їзд" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
                     <input type="text" value={addressIntercom} onChange={e => setAddressIntercom(e.target.value)} placeholder="Домофон" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
