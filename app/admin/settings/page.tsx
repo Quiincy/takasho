@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
+import { loadSettingsAction, saveSettingsAction, testTelegramBotAction } from './actions';
 
 export default function SettingsPage() {
   const [botToken, setBotToken] = useState('');
@@ -17,25 +17,23 @@ export default function SettingsPage() {
   useEffect(() => {
     async function loadSettings() {
       try {
-        const { data, error } = await supabase
-          .from('site_settings')
-          .select('*');
+        const res = await loadSettingsAction();
 
-        if (error) {
-          // If the table doesn't exist yet, PostgREST returns PGRST205
-          if (error.code === '42P01' || error.code === 'PGRST205') {
+        if (res.error) {
+          if (res.error === 'TABLE_MISSING') {
             setMessage({ type: 'error', text: '⚠️ Таблиця site_settings ще не створена в Supabase. Виконайте SQL-скрипт з інструкції.' });
             return;
           }
-          throw error;
+          throw new Error(res.error);
         }
 
-        if (data) {
-          const tokenSetting = data.find(s => s.key === 'telegram_bot_token');
-          const chatSetting = data.find(s => s.key === 'telegram_chat_id');
-          const phoneSetting = data.find(s => s.key === 'contact_phone');
-          const addressSetting = data.find(s => s.key === 'contact_address');
-          const scheduleSetting = data.find(s => s.key === 'contact_schedule');
+        if (res.data) {
+          const data = res.data;
+          const tokenSetting = data.find((s: any) => s.key === 'telegram_bot_token');
+          const chatSetting = data.find((s: any) => s.key === 'telegram_chat_id');
+          const phoneSetting = data.find((s: any) => s.key === 'contact_phone');
+          const addressSetting = data.find((s: any) => s.key === 'contact_address');
+          const scheduleSetting = data.find((s: any) => s.key === 'contact_schedule');
           
           if (tokenSetting) setBotToken(tokenSetting.value);
           if (chatSetting) setChatId(chatSetting.value);
@@ -67,11 +65,8 @@ export default function SettingsPage() {
         { key: 'contact_schedule', value: contactSchedule, updated_at: new Date().toISOString() }
       ];
 
-      const { error } = await supabase
-        .from('site_settings')
-        .upsert(updates);
-
-      if (error) throw error;
+      const res = await saveSettingsAction(updates);
+      if (res.error) throw new Error(res.error);
 
       setMessage({ type: 'success', text: 'Налаштування успішно збережено!' });
     } catch (err: any) {
@@ -92,23 +87,8 @@ export default function SettingsPage() {
     setMessage({ type: '', text: '' });
 
     try {
-      const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: '✅ Це тестове повідомлення з адмін-панелі Enot Sushi!\nІнтеграція працює чудово.',
-          parse_mode: 'HTML'
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.description || 'Помилка відправки в Telegram');
-      }
+      const res = await testTelegramBotAction(botToken, chatId);
+      if (res.error) throw new Error(res.error);
 
       setMessage({ type: 'success', text: 'Тестове повідомлення успішно відправлено!' });
     } catch (err: any) {
