@@ -45,12 +45,15 @@ export async function POST(request: NextRequest) {
           
           const itemsList = items.map((item: any) => `• ${escapeHtml(item.name)} x${item.quantity} — ${item.price * item.quantity} ₴`).join('\n');
           const message = `
-🟢 <b>Нове замовлення #${data.id.split('-')[0]}</b> (Очікує оплати LiqPay)
+🟢 <b>Нове замовлення #${data.id.split('-')[0]}</b>
 
 👤 <b>Клієнт:</b> ${escapeHtml(customer_name)}
 📞 <b>Телефон:</b> ${escapeHtml(customer_phone)}
 📍 <b>Адреса:</b> ${escapeHtml(delivery_address)}
-${comment ? `💬 <b>Коментар:</b> ${escapeHtml(comment)}\n` : ''}
+
+📝 <b>Деталі замовлення:</b>
+${escapeHtml(comment || 'Немає додаткових деталей')}
+
 🛒 <b>Кошик:</b>
 ${itemsList}
 
@@ -79,30 +82,7 @@ ${itemsList}
       console.error('Failed to process telegram notification:', telegramErr);
     }
 
-    // Generate LiqPay signature
-    const liqpayPublicKey = process.env.LIQPAY_PUBLIC_KEY || 'sandbox_public_key';
-    const liqpayPrivateKey = process.env.LIQPAY_PRIVATE_KEY || 'sandbox_private_key';
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || request.headers.get('origin') || 'http://localhost:3000';
-    const amount = total_price + (delivery_cost ?? 0);
-
-    const liqpayPayload = {
-      version: 3,
-      public_key: liqpayPublicKey,
-      action: 'pay',
-      amount: amount,
-      currency: 'UAH',
-      description: `Оплата замовлення #${data.id.split('-')[0]}`,
-      order_id: data.id,
-      server_url: `${baseUrl}/api/payment/callback`,
-      result_url: `${baseUrl}/api/payment/redirect`,
-      sandbox: 1, // Тестовий режим
-    };
-
-    const liqpayData = Buffer.from(JSON.stringify(liqpayPayload)).toString('base64');
-    const signString = liqpayPrivateKey + liqpayData + liqpayPrivateKey;
-    const liqpaySignature = crypto.createHash('sha1').update(signString).digest('base64');
-
-    return Response.json({ success: true, order: data, liqpayData, liqpaySignature }, { status: 201 });
+    return Response.json({ success: true, order: data }, { status: 201 });
   } catch (err: any) {
     console.error('Order creation error:', err);
     return Response.json({ error: err?.message ?? 'Помилка сервера' }, { status: 500 });

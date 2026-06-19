@@ -36,49 +36,69 @@ function CartContent() {
   const { contact_phone, contact_address } = useSiteSettings();
   const paymentSuccess = searchParams?.get('payment') === 'success';
   const paymentError = searchParams?.get('payment') === 'error';
-  const [address, setAddress] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [comment, setComment] = useState('');
   const [deliveryMethod, setDeliveryMethod] = useState<'delivery' | 'pickup'>('delivery');
+  
+  // Detailed address
+  const [addressStreet, setAddressStreet] = useState('');
+  const [addressBuilding, setAddressBuilding] = useState('');
+  const [addressApt, setAddressApt] = useState('');
+  const [addressFloor, setAddressFloor] = useState('');
+  const [addressEntrance, setAddressEntrance] = useState('');
+  const [addressIntercom, setAddressIntercom] = useState('');
+  const [address, setAddress] = useState(''); // Combined address for map
+  
+  // Delivery time
+  const [deliveryTime, setDeliveryTime] = useState<'asap' | 'specific'>('asap');
+  const [specificTime, setSpecificTime] = useState('');
+
+  // Payment
+  const [paymentMethod, setPaymentMethod] = useState<'cash' | 'terminal'>('cash');
+  const [changeFrom, setChangeFrom] = useState('');
+
+  // Other
+  const [comment, setComment] = useState('');
+  const [persons, setPersons] = useState(1);
+
   const [deliveryInfo, setDeliveryInfo] = useState<{ km: number; cost: number } | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [orderId, setOrderId] = useState<string | null>(null);
-  const [showMonoInfo, setShowMonoInfo] = useState(false);
+  const [showSuccessInfo, setShowSuccessInfo] = useState(false);
   const [confirmedTotal, setConfirmedTotal] = useState<number>(0);
 
   // Load saved form data from localStorage on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const savedName = localStorage.getItem('cart_name');
-      const savedPhone = localStorage.getItem('cart_phone');
-      const savedAddress = localStorage.getItem('cart_address');
-      if (savedName) setName(savedName);
-      if (savedPhone) setPhone(savedPhone);
-      if (savedAddress) setAddress(savedAddress);
+      setName(localStorage.getItem('cart_name') || '');
+      setPhone(localStorage.getItem('cart_phone') || '');
+      setAddressStreet(localStorage.getItem('cart_street') || '');
+      setAddressBuilding(localStorage.getItem('cart_bld') || '');
+      setAddressApt(localStorage.getItem('cart_apt') || '');
+      setAddressEntrance(localStorage.getItem('cart_ent') || '');
+      setAddressFloor(localStorage.getItem('cart_flr') || '');
+      setAddressIntercom(localStorage.getItem('cart_int') || '');
     }
   }, []);
 
-  // Save form data to localStorage when it changes
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('cart_name', name);
-    }
-  }, [name]);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
       localStorage.setItem('cart_phone', phone);
+      localStorage.setItem('cart_street', addressStreet);
+      localStorage.setItem('cart_bld', addressBuilding);
+      localStorage.setItem('cart_apt', addressApt);
+      localStorage.setItem('cart_ent', addressEntrance);
+      localStorage.setItem('cart_flr', addressFloor);
+      localStorage.setItem('cart_int', addressIntercom);
     }
-  }, [phone]);
+  }, [name, phone, addressStreet, addressBuilding, addressApt, addressEntrance, addressFloor, addressIntercom]);
 
+  // Update map address automatically when street or building changes
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('cart_address', address);
-    }
-  }, [address]);
-
+    setAddress(`${addressStreet} ${addressBuilding}`.trim());
+  }, [addressStreet, addressBuilding]);
 
   const handleDistanceChange = useCallback((km: number, cost: number) => {
     setDeliveryInfo({ km, cost });
@@ -86,26 +106,50 @@ function CartContent() {
 
   const actualDeliveryCost = (deliveryInfo?.cost === -1) ? 0 : (deliveryInfo?.cost ?? 0);
   const finalTotal = totalPrice + (deliveryMethod === 'delivery' ? actualDeliveryCost : 0);
-  const isReady = name.trim() && phone.trim() && (deliveryMethod === 'pickup' || (address.trim() && totalPrice >= 500)) && items.length > 0;
+  
+  const isAddressValid = addressStreet.trim() && addressBuilding.trim();
+  const isReady = name.trim() && phone.trim() && (deliveryMethod === 'pickup' || (isAddressValid && totalPrice >= 500)) && items.length > 0;
 
   const handleOrder = async () => {
     setSubmitting(true);
     setSubmitError('');
     try {
+      let finalDeliveryAddress = 'Самовивіз';
+      if (deliveryMethod === 'delivery') {
+        const parts = [
+          `вул. ${addressStreet}`,
+          `буд. ${addressBuilding}`,
+          addressApt && `кв. ${addressApt}`,
+          addressFloor && `пов. ${addressFloor}`,
+          addressEntrance && `під. ${addressEntrance}`,
+          addressIntercom && `дом. ${addressIntercom}`
+        ].filter(Boolean);
+        finalDeliveryAddress = parts.join(', ');
+      }
+
+      const finalComment = `
+Тип доставки: ${deliveryMethod === 'pickup' ? 'Самовивіз' : "Доставка кур'єром"}
+Час: ${deliveryTime === 'asap' ? 'Якомога швидше' : `На ${specificTime}`}
+Оплата: ${paymentMethod === 'cash' ? `Готівкою${changeFrom ? ` (решта з ${changeFrom} ₴)` : ''}` : 'Термінал'}
+Персон: ${persons}
+Коментар клієнта: ${comment || '-'}
+      `.trim();
+
       const res = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           customer_name: name.trim(),
           customer_phone: phone.trim(),
-          delivery_address: deliveryMethod === 'pickup' ? 'Самовивіз' : address.trim(),
-          comment: comment.trim() || null,
+          delivery_address: finalDeliveryAddress,
+          comment: finalComment,
           items: items.map(i => ({ id: i.id, name: i.name, quantity: i.quantity, price: i.price, weight: i.weight })),
           total_price: totalPrice,
           delivery_cost: deliveryMethod === 'delivery' ? actualDeliveryCost : 0,
           distance_km: deliveryMethod === 'delivery' ? (deliveryInfo?.km ?? null) : null,
         }),
       });
+      
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? 'Помилка');
 
@@ -122,27 +166,7 @@ function CartContent() {
         });
       }
 
-      if (data.liqpayData && data.liqpaySignature) {
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = 'https://www.liqpay.ua/api/3/checkout';
-        form.style.display = 'none';
-
-        const dataInput = document.createElement('input');
-        dataInput.name = 'data';
-        dataInput.value = data.liqpayData;
-        form.appendChild(dataInput);
-
-        const sigInput = document.createElement('input');
-        sigInput.name = 'signature';
-        sigInput.value = data.liqpaySignature;
-        form.appendChild(sigInput);
-
-        document.body.appendChild(form);
-        form.submit();
-      } else {
-        setShowMonoInfo(true);
-      }
+      setShowSuccessInfo(true);
     } catch (err: any) {
       setSubmitError(err.message || 'Щось пішло не так. Спробуйте ще раз.');
     } finally {
@@ -150,8 +174,8 @@ function CartContent() {
     }
   };
 
-  // Empty cart state (only if not returning from payment result)
-  if (items.length === 0 && !showMonoInfo && !paymentSuccess && !paymentError) {
+  // Empty cart state
+  if (items.length === 0 && !showSuccessInfo) {
     return (
       <main style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
         <Header />
@@ -176,59 +200,8 @@ function CartContent() {
     );
   }
 
-  // Error state (payment failed)
-  if (paymentError) {
-    return (
-      <main style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
-        <Header />
-        <div style={{ maxWidth: 600, margin: '0 auto', padding: '120px 16px 60px' }}>
-          <div style={{
-            background: 'linear-gradient(135deg, rgba(230,57,70,0.08), rgba(20,20,20,0.5))',
-            border: '1px solid rgba(230,57,70,0.3)',
-            borderRadius: 20,
-            padding: 'clamp(24px, 5vw, 40px)',
-            textAlign: 'center',
-          }}>
-            <div style={{ fontSize: 56, marginBottom: 16 }}>⚠️</div>
-            <h2 style={{ fontSize: 'clamp(20px, 4vw, 26px)', fontWeight: 800, marginBottom: 6 }}>
-              Оплата не пройшла
-            </h2>
-            <div style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border)',
-              borderRadius: 14,
-              padding: 20,
-              textAlign: 'center',
-              marginBottom: 20,
-              lineHeight: 1.8,
-            }}>
-              <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>
-                Під час оплати сталася помилка, або ви скасували платіж.
-                Ваше замовлення збережено в системі, але не оплачено.
-              </p>
-            </div>
-            <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a href={`tel:${contact_phone.replace(/[^0-9+]/g, '')}`}>
-                <button className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '13px 24px', fontSize: 15 }}>
-                  <Phone size={16} />
-                  Зв'язатись з нами
-                </button>
-              </a>
-              <Link href="/#menu">
-                <button className="btn-ghost" style={{ padding: '13px 24px', fontSize: 15 }}>
-                  До меню
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-        <Footer />
-      </main>
-    );
-  }
-
   // Success state
-  if (showMonoInfo || paymentSuccess) {
+  if (showSuccessInfo) {
     return (
       <main style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
         <Header />
@@ -242,7 +215,7 @@ function CartContent() {
           }}>
             <div style={{ fontSize: 56, marginBottom: 16 }}>🎉</div>
             <h2 style={{ fontSize: 'clamp(20px, 4vw, 26px)', fontWeight: 800, marginBottom: 6 }}>
-              Замовлення {paymentSuccess ? 'оплачено!' : 'прийнято!'}
+              Замовлення прийнято!
             </h2>
             {orderId && (
               <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 20 }}>
@@ -262,7 +235,7 @@ function CartContent() {
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 700, fontSize: 15, marginBottom: 10, color: '#48c774' }}>
                 <CheckCircle size={18} />
-                Замовлення успішно збережено та {paymentSuccess ? 'сплачено' : 'очікує обробки'}
+                Замовлення успішно збережено та очікує обробки
               </div>
               <p style={{ color: 'var(--text-secondary)', fontSize: 14, marginTop: 10 }}>
                 Дякуємо за ваше замовлення! Ми вже почали його готувати. Очікуйте на доставку найближчим часом.
@@ -454,89 +427,149 @@ function CartContent() {
               ))}
             </div>
 
-            {/* Delivery form */}
-            <div style={{
-              background: 'linear-gradient(145deg, rgba(30, 30, 30, 0.4) 0%, rgba(20, 20, 20, 0.7) 100%)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.05)',
-              borderRadius: 24,
-              boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
-              padding: 20,
-            }}>
-              <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>📦 Деталі замовлення</h2>
-              
-              <div style={{
-                display: 'flex', gap: 6, marginBottom: 18,
-                background: 'rgba(0,0,0,0.3)', padding: 6, borderRadius: 16, border: '1px solid rgba(255,255,255,0.05)',
-              }}>
-                <button
-                  type="button"
-                  onClick={() => setDeliveryMethod('delivery')}
-                  style={{
-                    flex: 1, padding: '10px', fontSize: 14, fontWeight: 600,
-                    borderRadius: 10, border: 'none', cursor: 'pointer',
-                    background: deliveryMethod === 'delivery' ? 'var(--accent)' : 'transparent',
-                    color: deliveryMethod === 'delivery' ? 'white' : 'var(--text-muted)',
-                    boxShadow: deliveryMethod === 'delivery' ? '0 4px 15px rgba(230,57,70,0.4)' : 'none',
-                    transition: 'all 0.2s'
-                  }}
-                >
-                  🚚 Доставка
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setDeliveryMethod('pickup')}
-                  style={{
-                    flex: 1, padding: '10px', fontSize: 14, fontWeight: 600,
-                    borderRadius: 10, border: 'none', cursor: 'pointer',
-                    background: deliveryMethod === 'pickup' ? 'var(--accent)' : 'transparent',
-                    color: deliveryMethod === 'pickup' ? 'white' : 'var(--text-muted)',
-                    boxShadow: deliveryMethod === 'pickup' ? '0 4px 15px rgba(230,57,70,0.4)' : 'none',
-                    transition: 'all 0.2s'
-                  }}
-                >
-                  🏃 Самовивіз
-                </button>
+            {/* Delivery form detailed blocks */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {/* Delivery type */}
+              <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
+                <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Робимо замовлення</h2>
+                <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                  <button
+                    type="button"
+                    onClick={() => setDeliveryMethod('delivery')}
+                    style={{
+                      flex: 1, padding: '20px', borderRadius: 16, border: '1px solid rgba(255,255,255,0.05)',
+                      textAlign: 'left', cursor: 'pointer', transition: 'all 0.2s', minWidth: 200,
+                      background: deliveryMethod === 'delivery' ? 'var(--accent)' : 'rgba(0,0,0,0.25)',
+                      color: deliveryMethod === 'delivery' ? 'white' : 'var(--text-primary)',
+                      boxShadow: deliveryMethod === 'delivery' ? '0 4px 15px rgba(230,57,70,0.4)' : 'none',
+                    }}
+                  >
+                    <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 4 }}>Доставка кур'єром</div>
+                    <div style={{ fontSize: 13, opacity: deliveryMethod === 'delivery' ? 0.9 : 0.5 }}>Замовлення прибуде на вибрану адресу</div>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDeliveryMethod('pickup')}
+                    style={{
+                      flex: 1, padding: '20px', borderRadius: 16, border: '1px solid rgba(255,255,255,0.05)',
+                      textAlign: 'left', cursor: 'pointer', transition: 'all 0.2s', minWidth: 200,
+                      background: deliveryMethod === 'pickup' ? 'var(--accent)' : 'rgba(0,0,0,0.25)',
+                      color: deliveryMethod === 'pickup' ? 'white' : 'var(--text-primary)',
+                      boxShadow: deliveryMethod === 'pickup' ? '0 4px 15px rgba(230,57,70,0.4)' : 'none',
+                    }}
+                  >
+                    <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 4 }}>Самовивіз</div>
+                    <div style={{ fontSize: 13, opacity: deliveryMethod === 'pickup' ? 0.9 : 0.5 }}>Забрати із ресторану</div>
+                  </button>
+                </div>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {[
-                  { id: 'delivery-name', label: "Ваше ім'я *", value: name, setter: setName, placeholder: 'Олексій', type: 'text' },
-                  { id: 'delivery-phone', label: 'Телефон *', value: phone, setter: setPhone, placeholder: '+380 XX XXX XX XX', type: 'tel' },
-                  ...(deliveryMethod === 'delivery' ? [{ id: 'delivery-address', label: 'Вулиця та будинок *', value: address, setter: setAddress, placeholder: 'вул. Героїв Дніпра, 12', type: 'text' }] : []),
-                  { id: 'delivery-comment', label: 'Коментар (необов&apos;язково)', value: comment, setter: setComment, placeholder: 'Квартира, домофон...', type: 'text' },
-                ].map(field => (
-                  <div key={field.id}>
-                    <label
-                      htmlFor={field.id}
-                      style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 5, display: 'block', fontWeight: 500 }}
-                      dangerouslySetInnerHTML={{ __html: field.label }}
-                    />
-                    <input
-                      id={field.id}
-                      type={field.type}
-                      value={field.value}
-                      onChange={e => field.setter(e.target.value)}
-                      placeholder={field.placeholder}
-                      style={{
-                        width: '100%',
-                        padding: '12px 14px',
-                        background: 'rgba(0,0,0,0.25)',
-                        border: '1px solid rgba(255,255,255,0.08)',
-                        borderRadius: 14,
-                        boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
-                        color: 'var(--text-primary)',
-                        fontSize: 16,
-                        outline: 'none',
-                        transition: 'border-color 0.2s',
-                        boxSizing: 'border-box',
-                      }}
-                      onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
-                      onBlur={e => (e.target.style.borderColor = 'var(--border)')}
-                    />
+              {/* Receiver Data */}
+              <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
+                <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Дані одержувача</h2>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    placeholder="Ваше ім'я *"
+                    style={{
+                      width: '100%', padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)',
+                      borderRadius: 14, color: 'white', fontSize: 15, outline: 'none', transition: 'border-color 0.2s', boxSizing: 'border-box'
+                    }}
+                    onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
+                    onBlur={e => (e.target.style.borderColor = 'var(--border)')}
+                  />
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={e => setPhone(e.target.value)}
+                    placeholder="Номер телефону *"
+                    style={{
+                      width: '100%', padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)',
+                      borderRadius: 14, color: 'white', fontSize: 15, outline: 'none', transition: 'border-color 0.2s', boxSizing: 'border-box'
+                    }}
+                    onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
+                    onBlur={e => (e.target.style.borderColor = 'var(--border)')}
+                  />
+                </div>
+              </div>
+
+              {/* Address */}
+              {deliveryMethod === 'delivery' && (
+                <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                    <h2 style={{ fontSize: 18, fontWeight: 700 }}>Адреса</h2>
+                    <span style={{ fontSize: 14, color: 'var(--accent)', fontWeight: 600 }}>м. Київ</span>
                   </div>
-                ))}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr', gap: 12, marginBottom: 12 }}>
+                    <input type="text" value={addressStreet} onChange={e => setAddressStreet(e.target.value)} placeholder="Вулиця *" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
+                    <input type="text" value={addressBuilding} onChange={e => setAddressBuilding(e.target.value)} placeholder="Будинок *" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
+                    <input type="text" value={addressApt} onChange={e => setAddressApt(e.target.value)} placeholder="Квартира" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+                    <input type="text" value={addressFloor} onChange={e => setAddressFloor(e.target.value)} placeholder="Поверх" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
+                    <input type="text" value={addressEntrance} onChange={e => setAddressEntrance(e.target.value)} placeholder="Під'їзд" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
+                    <input type="text" value={addressIntercom} onChange={e => setAddressIntercom(e.target.value)} placeholder="Домофон" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
+                  </div>
+                </div>
+              )}
+
+              {/* Delivery Terms */}
+              <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
+                <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Умови доставки</h2>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', fontSize: 16, fontWeight: 600 }}>
+                    <input type="radio" checked={deliveryTime === 'asap'} onChange={() => setDeliveryTime('asap')} style={{ accentColor: 'var(--accent)', width: 20, height: 20 }} />
+                    Якомога швидше
+                  </label>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', fontSize: 16, color: deliveryTime === 'specific' ? 'white' : 'var(--text-muted)' }}>
+                      <input type="radio" checked={deliveryTime === 'specific'} onChange={() => setDeliveryTime('specific')} style={{ accentColor: 'var(--accent)', width: 20, height: 20 }} />
+                      До певного часу
+                    </label>
+                    {deliveryTime === 'specific' && (
+                      <input type="time" value={specificTime} onChange={e => setSpecificTime(e.target.value)} style={{ padding: '8px 12px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 8, color: 'white', fontSize: 15, outline: 'none' }} />
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Payment Terms */}
+              <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
+                <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Умови платежу</h2>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', fontSize: 16, fontWeight: 600 }}>
+                      <input type="radio" checked={paymentMethod === 'cash'} onChange={() => setPaymentMethod('cash')} style={{ accentColor: 'var(--accent)', width: 20, height: 20 }} />
+                      Оплата готівкою
+                    </label>
+                    {paymentMethod === 'cash' && (
+                      <input type="text" value={changeFrom} onChange={e => setChangeFrom(e.target.value)} placeholder="Решта з" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none', marginLeft: 32 }} />
+                    )}
+                  </div>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', fontSize: 16, color: paymentMethod === 'terminal' ? 'white' : 'var(--text-muted)' }}>
+                    <input type="radio" checked={paymentMethod === 'terminal'} onChange={() => setPaymentMethod('terminal')} style={{ accentColor: 'var(--accent)', width: 20, height: 20 }} />
+                    Оплата термінал
+                  </label>
+                </div>
+              </div>
+
+              {/* Other */}
+              <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
+                <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Крім того</h2>
+                <input type="text" value={comment} onChange={e => setComment(e.target.value)} placeholder="Коментар (необов'язково)" style={{ width: '100%', padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none', marginBottom: 20, boxSizing: 'border-box' }} />
+                
+                <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12 }}>Кількість персон</h3>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 16, background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, padding: '6px 12px' }}>
+                  <button type="button" onClick={() => setPersons(Math.max(1, persons - 1))} style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(255,255,255,0.05)', border: 'none', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                    <Minus size={16} />
+                  </button>
+                  <span style={{ fontSize: 18, fontWeight: 700, minWidth: 20, textAlign: 'center' }}>{persons}</span>
+                  <button type="button" onClick={() => setPersons(persons + 1)} style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(255,255,255,0.05)', border: 'none', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                    <Plus size={16} />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -639,16 +672,9 @@ function CartContent() {
                 <p style={{ fontSize: 12, color: 'var(--accent)', textAlign: 'center', marginTop: 8 }}>
                   {deliveryMethod === 'delivery' && totalPrice < 500 
                     ? 'Мінімальна сума для доставки — 500 грн'
-                    : <span style={{color: 'var(--text-muted)'}}>Заповніть ім&apos;я, телефон та адресу</span>}
+                    : <span style={{color: 'var(--text-muted)'}}>Заповніть ім'я, телефон та адресу</span>}
                 </p>
               )}
-
-              <div style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                gap: 6, marginTop: 12, fontSize: 12, color: 'var(--text-muted)',
-              }}>
-                🔒 Безпечна оплата через LiqPay
-              </div>
             </div>
           </div>
         </div>
