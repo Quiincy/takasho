@@ -151,6 +151,13 @@ function CartContent() {
     setSubmitting(true);
     setSubmitError('');
     try {
+      // Validate phone number for Ukraine
+      const cleanedPhone = phone.replace(/[-()\s]/g, '');
+      const phoneRegex = /^(?:\+?38)?0(39|50|63|66|67|68|73|89|91|92|93|94|95|96|97|98|99)\d{7}$/;
+      if (!phoneRegex.test(cleanedPhone)) {
+        throw new Error('Будь ласка, введіть коректний український номер мобільного телефону (наприклад, 050 123 4567)');
+      }
+
       if (deliveryTime === 'specific') {
         const endStr = work_time_end || '21:00';
         if (!specificTime || specificTime < nextAvailableTime || specificTime > endStr) {
@@ -528,7 +535,7 @@ function CartContent() {
                     type="tel"
                     value={phone}
                     onChange={e => setPhone(e.target.value)}
-                    placeholder="Номер телефону *"
+                    placeholder="Номер телефону (напр. 050 123 45 67) *"
                     style={{
                       width: '100%', padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)',
                       borderRadius: 14, color: 'white', fontSize: 15, outline: 'none', transition: 'border-color 0.2s', boxSizing: 'border-box'
