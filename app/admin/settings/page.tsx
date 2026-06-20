@@ -9,6 +9,8 @@ export default function SettingsPage() {
   const [contactPhone, setContactPhone] = useState('');
   const [contactAddress, setContactAddress] = useState('');
   const [contactSchedule, setContactSchedule] = useState('');
+  const [workTimeStart, setWorkTimeStart] = useState('10:00');
+  const [workTimeEnd, setWorkTimeEnd] = useState('21:00');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [testing, setTesting] = useState(false);
@@ -34,12 +36,16 @@ export default function SettingsPage() {
           const phoneSetting = data.find((s: any) => s.key === 'contact_phone');
           const addressSetting = data.find((s: any) => s.key === 'contact_address');
           const scheduleSetting = data.find((s: any) => s.key === 'contact_schedule');
+          const workStartSetting = data.find((s: any) => s.key === 'work_time_start');
+          const workEndSetting = data.find((s: any) => s.key === 'work_time_end');
           
           if (tokenSetting) setBotToken(tokenSetting.value);
           if (chatSetting) setChatId(chatSetting.value);
           if (phoneSetting) setContactPhone(phoneSetting.value);
           if (addressSetting) setContactAddress(addressSetting.value);
           if (scheduleSetting) setContactSchedule(scheduleSetting.value);
+          if (workStartSetting) setWorkTimeStart(workStartSetting.value);
+          if (workEndSetting) setWorkTimeEnd(workEndSetting.value);
         }
       } catch (err: any) {
         console.error('Error loading settings:', err);
@@ -62,7 +68,9 @@ export default function SettingsPage() {
         { key: 'telegram_chat_id', value: chatId, updated_at: new Date().toISOString() },
         { key: 'contact_phone', value: contactPhone, updated_at: new Date().toISOString() },
         { key: 'contact_address', value: contactAddress, updated_at: new Date().toISOString() },
-        { key: 'contact_schedule', value: contactSchedule, updated_at: new Date().toISOString() }
+        { key: 'contact_schedule', value: contactSchedule, updated_at: new Date().toISOString() },
+        { key: 'work_time_start', value: workTimeStart, updated_at: new Date().toISOString() },
+        { key: 'work_time_end', value: workTimeEnd, updated_at: new Date().toISOString() }
       ];
 
       const res = await saveSettingsAction(updates);
@@ -239,7 +247,7 @@ export default function SettingsPage() {
 
             <div>
               <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 8 }}>
-                Графік роботи
+                Графік роботи (текст для футера)
               </label>
               <input
                 type="text"
@@ -257,6 +265,49 @@ export default function SettingsPage() {
                   outline: 'none',
                 }}
               />
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <div>
+                <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 8 }}>
+                  Час відкриття (фактичний)
+                </label>
+                <input
+                  type="time"
+                  value={workTimeStart}
+                  onChange={e => setWorkTimeStart(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    background: 'var(--bg-primary)',
+                    border: '1px solid var(--border)',
+                    borderRadius: 8,
+                    color: 'var(--text-primary)',
+                    fontSize: 14,
+                    outline: 'none',
+                  }}
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 8 }}>
+                  Час закриття (фактичний)
+                </label>
+                <input
+                  type="time"
+                  value={workTimeEnd}
+                  onChange={e => setWorkTimeEnd(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    background: 'var(--bg-primary)',
+                    border: '1px solid var(--border)',
+                    borderRadius: 8,
+                    color: 'var(--text-primary)',
+                    fontSize: 14,
+                    outline: 'none',
+                  }}
+                />
+              </div>
             </div>
           </div>
 

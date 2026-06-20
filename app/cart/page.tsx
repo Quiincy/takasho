@@ -33,7 +33,7 @@ function CartContent() {
   const { items, updateQuantity, removeItem, clearCart, totalPrice } = useCart();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { contact_phone, contact_address } = useSiteSettings();
+  const { contact_phone, contact_address, work_time_start, work_time_end } = useSiteSettings();
   const paymentSuccess = searchParams?.get('payment') === 'success';
   const paymentError = searchParams?.get('payment') === 'error';
   const [name, setName] = useState('');
@@ -67,6 +67,33 @@ function CartContent() {
   const [orderId, setOrderId] = useState<string | null>(null);
   const [showSuccessInfo, setShowSuccessInfo] = useState(false);
   const [confirmedTotal, setConfirmedTotal] = useState<number>(0);
+
+  const [isClosed, setIsClosed] = useState(false);
+  const [nextAvailableTime, setNextAvailableTime] = useState('');
+
+  // Check working hours
+  useEffect(() => {
+    const now = new Date();
+    const kyivTimeStr = now.toLocaleString("en-US", {timeZone: "Europe/Kyiv", hour12: false, hour: '2-digit', minute: '2-digit'});
+    
+    const startStr = work_time_start || '10:00';
+    const endStr = work_time_end || '21:00';
+    
+    if (kyivTimeStr < startStr || kyivTimeStr >= endStr) {
+      setIsClosed(true);
+      setDeliveryTime('specific');
+      
+      const [sh, sm] = startStr.split(':').map(Number);
+      const nextH = (sh + 1).toString().padStart(2, '0');
+      const nextM = sm.toString().padStart(2, '0');
+      const nextTime = `${nextH}:${nextM}`;
+      
+      setNextAvailableTime(nextTime);
+      setSpecificTime(prev => prev || nextTime);
+    } else {
+      setIsClosed(false);
+    }
+  }, [work_time_start, work_time_end]);
 
   // Load saved form data from localStorage on mount
   useEffect(() => {
@@ -129,7 +156,7 @@ function CartContent() {
 
       const finalComment = `
 Тип доставки: ${deliveryMethod === 'pickup' ? 'Самовивіз' : "Доставка кур'єром"}
-Час: ${deliveryTime === 'asap' ? 'Якомога швидше' : `На ${specificTime}`}
+Час: ${isClosed ? `На завтра: ${specificTime}` : (deliveryTime === 'asap' ? 'Якомога швидше' : `На ${specificTime}`)}
 Оплата: ${paymentMethod === 'cash' ? `Готівкою${changeFrom ? ` (решта з ${changeFrom} ₴)` : ''}` : 'Термінал'}
 Персон: ${persons}
 Коментар клієнта: ${comment || '-'}
@@ -518,15 +545,24 @@ function CartContent() {
               {/* Delivery Terms */}
               <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
                 <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Умови доставки</h2>
+                
+                {isClosed && (
+                  <div style={{ marginBottom: 16, padding: '12px 16px', background: 'rgba(244, 162, 97, 0.1)', border: '1px solid rgba(244, 162, 97, 0.2)', borderRadius: 12, color: 'var(--accent-gold)', fontSize: 14, lineHeight: 1.5 }}>
+                    ⚠️ <b>Ресторан наразі зачинено.</b> Ми працюємо з {work_time_start || '10:00'} до {work_time_end || '21:00'}. Ви можете оформити попереднє замовлення на завтра (найближчий час доставки — {nextAvailableTime}).
+                  </div>
+                )}
+
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', fontSize: 16, fontWeight: 600 }}>
-                    <input type="radio" checked={deliveryTime === 'asap'} onChange={() => setDeliveryTime('asap')} style={{ accentColor: 'var(--accent)', width: 20, height: 20 }} />
-                    Якомога швидше
-                  </label>
+                  {!isClosed && (
+                    <label style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', fontSize: 16, fontWeight: 600 }}>
+                      <input type="radio" checked={deliveryTime === 'asap'} onChange={() => setDeliveryTime('asap')} style={{ accentColor: 'var(--accent)', width: 20, height: 20 }} />
+                      Якомога швидше
+                    </label>
+                  )}
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', fontSize: 16, color: deliveryTime === 'specific' ? 'white' : 'var(--text-muted)' }}>
-                      <input type="radio" checked={deliveryTime === 'specific'} onChange={() => setDeliveryTime('specific')} style={{ accentColor: 'var(--accent)', width: 20, height: 20 }} />
-                      До певного часу
+                    <label style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: isClosed ? 'default' : 'pointer', fontSize: 16, color: deliveryTime === 'specific' ? 'white' : 'var(--text-muted)' }}>
+                      <input type="radio" checked={deliveryTime === 'specific'} onChange={() => !isClosed && setDeliveryTime('specific')} style={{ accentColor: 'var(--accent)', width: 20, height: 20 }} />
+                      {isClosed ? `Завтра о:` : `До певного часу`}
                     </label>
                     {deliveryTime === 'specific' && (
                       <input type="time" value={specificTime} onChange={e => setSpecificTime(e.target.value)} style={{ padding: '8px 12px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 8, color: 'white', fontSize: 15, outline: 'none' }} />

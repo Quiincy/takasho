@@ -9,6 +9,8 @@ export interface SiteSettings {
   contact_email: string;
   fop_name: string;
   fop_itn: string;
+  work_time_start: string;
+  work_time_end: string;
 }
 
 const defaultSettings: SiteSettings = {
@@ -18,6 +20,8 @@ const defaultSettings: SiteSettings = {
   contact_email: 'hello@enotsushi.kyiv.ua',
   fop_name: 'ФОП Гулак Дмитро Сергійович',
   fop_itn: '3139607532',
+  work_time_start: '10:00',
+  work_time_end: '21:00',
 };
 
 const SiteSettingsContext = createContext<SiteSettings>(defaultSettings);
