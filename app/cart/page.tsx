@@ -92,6 +92,16 @@ function CartContent() {
       setSpecificTime(prev => prev || nextTime);
     } else {
       setIsClosed(false);
+
+      const [ch, cm] = kyivTimeStr.split(':').map(Number);
+      const nextH = (ch + 1).toString().padStart(2, '0');
+      const nextM = cm.toString().padStart(2, '0');
+      let minTodayTime = `${nextH}:${nextM}`;
+      
+      if (minTodayTime > endStr) {
+        minTodayTime = endStr;
+      }
+      setNextAvailableTime(minTodayTime);
     }
   }, [work_time_start, work_time_end]);
 
@@ -141,6 +151,13 @@ function CartContent() {
     setSubmitting(true);
     setSubmitError('');
     try {
+      if (deliveryTime === 'specific') {
+        const endStr = work_time_end || '21:00';
+        if (!specificTime || specificTime < nextAvailableTime || specificTime > endStr) {
+          throw new Error(`Будь ласка, оберіть дійсний час між ${nextAvailableTime} та ${endStr}`);
+        }
+      }
+
       let finalDeliveryAddress = 'Самовивіз';
       if (deliveryMethod === 'delivery') {
         const parts = [
@@ -565,7 +582,7 @@ function CartContent() {
                       {isClosed ? `Завтра о:` : `До певного часу`}
                     </label>
                     {deliveryTime === 'specific' && (
-                      <input type="time" value={specificTime} onChange={e => setSpecificTime(e.target.value)} style={{ padding: '8px 12px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 8, color: 'white', fontSize: 15, outline: 'none' }} />
+                      <input type="time" min={nextAvailableTime} max={work_time_end || '21:00'} value={specificTime} onChange={e => setSpecificTime(e.target.value)} style={{ padding: '8px 12px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 8, color: 'white', fontSize: 15, outline: 'none' }} />
                     )}
                   </div>
                 </div>
