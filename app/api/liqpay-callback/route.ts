@@ -76,11 +76,34 @@ export async function POST(request: NextRequest) {
       try {
         const { data: settings } = await supabase.from('site_settings').select('*');
         if (settings) {
-          const botToken = settings.find(s => s.key === 'telegram_bot_token')?.value?.trim();
-          const chatId = settings.find(s => s.key === 'telegram_chat_id')?.value?.trim();
+          const botToken = settings.find((s: any) => s.key === 'telegram_bot_token')?.value?.trim();
+          const chatId = settings.find((s: any) => s.key === 'telegram_chat_id')?.value?.trim();
 
           if (botToken && chatId) {
-            const message = `✅ <b>Оплата успішна!</b>\nЗамовлення #${order_id.split('-')[0]} успішно оплачено через LiqPay на суму ${amount} ${currency}.`;
+            const escapeHtml = (text: string) => text ? text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+            
+            // Handle order.items whether it's parsed JSON array or string
+            const parsedItems = typeof order.items === 'string' ? JSON.parse(order.items) : order.items;
+            const itemsList = parsedItems.map((item: any) => `• ${escapeHtml(item.name)} x${item.quantity} — ${item.price * item.quantity} ₴`).join('\n');
+            
+            const message = `
+🟢 <b>Нове замовлення #${order.id.split('-')[0]}</b>
+✅ <b>ОПЛАЧЕНО (LiqPay)</b>
+
+👤 <b>Клієнт:</b> ${escapeHtml(order.customer_name)}
+📞 <b>Телефон:</b> ${escapeHtml(order.customer_phone)}
+📍 <b>Адреса:</b> ${escapeHtml(order.delivery_address)}
+
+📝 <b>Деталі замовлення:</b>
+${escapeHtml(order.comment || 'Немає додаткових деталей')}
+
+🛒 <b>Кошик:</b>
+${itemsList}
+
+💰 <b>Товари:</b> ${order.total_price} ₴
+🛵 <b>Доставка:</b> ${order.delivery_cost} ₴
+💵 <b>Разом:</b> ${order.total_price + order.delivery_cost} ₴
+            `.trim();
 
             await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
               method: 'POST',
