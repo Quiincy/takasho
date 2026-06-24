@@ -21,17 +21,18 @@ function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: numbe
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-export function calcDeliveryCost(distanceKm: number): number {
-  if (distanceKm <= FREE_DELIVERY_KM) return 0;
+export function calcDeliveryCost(distanceKm: number, cartTotal: number): number {
+  if (distanceKm <= FREE_DELIVERY_KM && cartTotal >= 1000) return 0;
   return -1;
 }
 
 interface Props {
   onDistanceChange: (km: number, cost: number) => void;
   address: string;
+  cartTotal: number;
 }
 
-export default function DeliveryMap({ onDistanceChange, address }: Props) {
+export default function DeliveryMap({ onDistanceChange, address, cartTotal }: Props) {
   const mapRef = useRef<any>(null);
   const markerRef = useRef<any>(null);
   const circleRef = useRef<any>(null);
@@ -132,10 +133,8 @@ export default function DeliveryMap({ onDistanceChange, address }: Props) {
         const userLat = parseFloat(lat);
         const userLng = parseFloat(lon);
         const dist = haversineDistance(RESTAURANT_LAT, RESTAURANT_LNG, userLat, userLng);
-        const cost = calcDeliveryCost(dist);
 
         setDistance(dist);
-        onDistanceChange(dist, cost);
 
         // Fetch route from OSRM
         let routeGeoJSON = null;
@@ -205,10 +204,17 @@ export default function DeliveryMap({ onDistanceChange, address }: Props) {
     }, 800);
 
     return () => clearTimeout(timeout);
-  }, [address, ready, onDistanceChange]);
+  }, [address, ready]);
 
-  const deliveryCost = distance !== null ? calcDeliveryCost(distance) : null;
-  const isFree = distance !== null && distance <= FREE_DELIVERY_KM;
+  useEffect(() => {
+    if (distance !== null) {
+      const cost = calcDeliveryCost(distance, cartTotal);
+      onDistanceChange(distance, cost);
+    }
+  }, [distance, cartTotal, onDistanceChange]);
+
+  const deliveryCost = distance !== null ? calcDeliveryCost(distance, cartTotal) : null;
+  const isFree = distance !== null && distance <= FREE_DELIVERY_KM && cartTotal >= 1000;
 
   return (
     <div>
