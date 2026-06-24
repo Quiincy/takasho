@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient();
     const body = await request.json();
 
-    const { customer_name, customer_phone, delivery_address, comment, items, total_price, delivery_cost, distance_km } = body;
+    const { customer_name, customer_phone, delivery_address, comment, items, total_price, delivery_cost, distance_km, payment_method } = body;
 
     if (!customer_name || !customer_phone || !delivery_address || !items?.length) {
       return Response.json({ error: 'Заповніть всі обов\'язкові поля' }, { status: 400 });
@@ -53,6 +53,7 @@ export async function POST(request: NextRequest) {
 
 📝 <b>Деталі замовлення:</b>
 ${escapeHtml(comment || 'Немає додаткових деталей')}
+${payment_method === 'liqpay' ? '\n⏳ <b>Оплата:</b> Очікує онлайн-оплату (LiqPay)' : ''}
 
 🛒 <b>Кошик:</b>
 ${itemsList}
@@ -82,7 +83,41 @@ ${itemsList}
       console.error('Failed to process telegram notification:', telegramErr);
     }
 
-    return Response.json({ success: true, order: data }, { status: 201 });
+    let liqpayData = null;
+    if (payment_method === 'liqpay') {
+      const LIQPAY_PUBLIC_KEY = process.env.LIQPAY_PUBLIC_KEY;
+      const LIQPAY_PRIVATE_KEY = process.env.LIQPAY_PRIVATE_KEY;
+      
+      if (LIQPAY_PUBLIC_KEY && LIQPAY_PRIVATE_KEY) {
+        const host = request.headers.get('host') || 'enotsushi.kyiv.ua';
+        const protocol = host.includes('localhost') ? 'http' : 'https';
+        const baseUrl = `${protocol}://${host}`;
+        
+        const jsonString = JSON.stringify({
+          public_key: LIQPAY_PUBLIC_KEY,
+          version: '3',
+          action: 'pay',
+          amount: total_price + (delivery_cost ?? 0),
+          currency: 'UAH',
+          description: `Оплата замовлення Enot Sushi #${data.id.split('-')[0]}`,
+          order_id: data.id,
+          result_url: `${baseUrl}/cart?payment=success`,
+          server_url: `${baseUrl}/api/liqpay-callback`,
+        });
+        
+        const dataBase64 = Buffer.from(jsonString).toString('base64');
+        const signature = crypto.createHash('sha1').update(LIQPAY_PRIVATE_KEY + dataBase64 + LIQPAY_PRIVATE_KEY).digest('base64');
+        
+        liqpayData = {
+          data: dataBase64,
+          signature
+        };
+      } else {
+        console.warn('LiqPay keys are not configured');
+      }
+    }
+
+    return Response.json({ success: true, order: data, liqpay: liqpayData }, { status: 201 });
   } catch (err: any) {
     console.error('Order creation error:', err);
     return Response.json({ error: err?.message ?? 'Помилка сервера' }, { status: 500 });

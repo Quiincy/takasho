@@ -54,7 +54,7 @@ function CartContent() {
   const [specificTime, setSpecificTime] = useState('');
 
   // Payment
-  const [paymentMethod, setPaymentMethod] = useState<'cash' | 'terminal'>('cash');
+  const [paymentMethod, setPaymentMethod] = useState<'cash' | 'liqpay'>('cash');
   const [changeFrom, setChangeFrom] = useState('');
 
   // Other
@@ -137,6 +137,15 @@ function CartContent() {
     setAddress(`${addressStreet} ${addressBuilding}`.trim());
   }, [addressStreet, addressBuilding]);
 
+  // Force LiqPay if taxi delivery (> 1km)
+  useEffect(() => {
+    if (deliveryMethod === 'delivery' && deliveryInfo && deliveryInfo.km > 1) {
+      if (paymentMethod !== 'liqpay') {
+        setPaymentMethod('liqpay');
+      }
+    }
+  }, [deliveryMethod, deliveryInfo, paymentMethod]);
+
   const handleDistanceChange = useCallback((km: number, cost: number) => {
     setDeliveryInfo({ km, cost });
   }, []);
@@ -181,7 +190,7 @@ function CartContent() {
       const finalComment = `
 Тип доставки: ${deliveryMethod === 'pickup' ? 'Самовивіз' : "Доставка кур'єром"}
 Час: ${isClosed ? `На завтра: ${specificTime}` : (deliveryTime === 'asap' ? 'Якомога швидше' : `На ${specificTime}`)}
-Оплата: ${paymentMethod === 'cash' ? `Готівкою${changeFrom ? ` (решта з ${changeFrom} ₴)` : ''}` : 'Термінал'}
+Оплата: ${paymentMethod === 'cash' ? `Готівкою${changeFrom ? ` (решта з ${changeFrom} ₴)` : ''}` : 'Онлайн оплата LiqPay'}
 Персон: ${persons}
 Коментар клієнта: ${comment || '-'}
       `.trim();
@@ -198,6 +207,7 @@ function CartContent() {
           total_price: totalPrice,
           delivery_cost: deliveryMethod === 'delivery' ? actualDeliveryCost : 0,
           distance_km: deliveryMethod === 'delivery' ? (deliveryInfo?.km ?? null) : null,
+          payment_method: paymentMethod,
         }),
       });
       
@@ -215,6 +225,29 @@ function CartContent() {
           value: finalTotal,
           currency: 'UAH',
         });
+      }
+
+      if (data.liqpay) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'https://www.liqpay.ua/api/3/checkout';
+        form.style.display = 'none';
+
+        const dataInput = document.createElement('input');
+        dataInput.type = 'hidden';
+        dataInput.name = 'data';
+        dataInput.value = data.liqpay.data;
+
+        const signatureInput = document.createElement('input');
+        signatureInput.type = 'hidden';
+        signatureInput.name = 'signature';
+        signatureInput.value = data.liqpay.signature;
+
+        form.appendChild(dataInput);
+        form.appendChild(signatureInput);
+        document.body.appendChild(form);
+        form.submit();
+        return;
       }
 
       setShowSuccessInfo(true);
@@ -599,19 +632,26 @@ function CartContent() {
               <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
                 <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Умови платежу</h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', fontSize: 16, fontWeight: 600 }}>
-                      <input type="radio" checked={paymentMethod === 'cash'} onChange={() => setPaymentMethod('cash')} style={{ accentColor: 'var(--accent)', width: 20, height: 20 }} />
-                      Оплата готівкою
-                    </label>
-                    {paymentMethod === 'cash' && (
-                      <input type="text" value={changeFrom} onChange={e => setChangeFrom(e.target.value)} placeholder="Решта з" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none', marginLeft: 32 }} />
-                    )}
-                  </div>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', fontSize: 16, color: paymentMethod === 'terminal' ? 'white' : 'var(--text-muted)' }}>
-                    <input type="radio" checked={paymentMethod === 'terminal'} onChange={() => setPaymentMethod('terminal')} style={{ accentColor: 'var(--accent)', width: 20, height: 20 }} />
-                    Оплата термінал
+                  {!(deliveryMethod === 'delivery' && deliveryInfo && deliveryInfo.km > 1) && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', fontSize: 16, fontWeight: 600 }}>
+                        <input type="radio" checked={paymentMethod === 'cash'} onChange={() => setPaymentMethod('cash')} style={{ accentColor: 'var(--accent)', width: 20, height: 20 }} />
+                        Оплата готівкою
+                      </label>
+                      {paymentMethod === 'cash' && (
+                        <input type="text" value={changeFrom} onChange={e => setChangeFrom(e.target.value)} placeholder="Решта з" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none', marginLeft: 32 }} />
+                      )}
+                    </div>
+                  )}
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', fontSize: 16, color: paymentMethod === 'liqpay' ? 'white' : 'var(--text-muted)' }}>
+                    <input type="radio" checked={paymentMethod === 'liqpay'} onChange={() => setPaymentMethod('liqpay')} style={{ accentColor: 'var(--accent)', width: 20, height: 20 }} />
+                    Онлайн оплата LiqPay
                   </label>
+                  {(deliveryMethod === 'delivery' && deliveryInfo && deliveryInfo.km > 1) && (
+                    <div style={{ fontSize: 13, color: 'var(--accent-gold)', marginTop: -8 }}>
+                      ⚠️ Для доставки на відстань понад 1 км (службою таксі) доступна лише онлайн оплата.
+                    </div>
+                  )}
                 </div>
               </div>
 
