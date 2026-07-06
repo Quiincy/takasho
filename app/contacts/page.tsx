@@ -8,6 +8,9 @@ import { createClient } from '@supabase/supabase-js';
 export const metadata: Metadata = {
   title: 'Контакти — Enot Sushi | Доставка суші в Києві',
   description: 'Зв\'яжіться з нами для замовлення смачних суші, піци та бургерів.',
+  alternates: {
+    canonical: '/contacts',
+  },
 };
 
 export const dynamic = 'force-dynamic';

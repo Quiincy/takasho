@@ -7,6 +7,9 @@ import { createClient } from '@supabase/supabase-js';
 export const metadata: Metadata = {
   title: 'Доставка та оплата — Enot Sushi | Безкоштовна доставка їжі в Києві',
   description: 'Умови доставки Enot Sushi в Києві: безкоштовно в радіусі 1 км, онлайн оплата через LiqPay. Доставка від 1 години. Мінімальне замовлення 500 грн.',
+  alternates: {
+    canonical: '/delivery',
+  },
 };
 
 export const dynamic = 'force-dynamic';

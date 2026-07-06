@@ -14,7 +14,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://enot-six.vercel.app'),
+  metadataBase: new URL('https://enotsushi.kyiv.ua'),
   title: 'Enot Sushi — Доставка суші в Києві | Суші, Піца, Бургери',
   description: 'Замовляйте найсмачніші суші, піцу, бургери та інші страви. Швидка доставка, приємні ціни та зручна онлайн оплата.',
   keywords: 'доставка їжі Київ, замовити суші Київ, піца доставка Київ, бургери доставка, Enot Sushi, ресторан Вільде, доставка Дніпровський',
@@ -37,9 +37,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true },
-  },
-  alternates: {
-    canonical: 'https://enotsushi.kyiv.ua',
   },
   other: {
     'google-site-verification': 'your-google-verification-code',

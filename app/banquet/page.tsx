@@ -10,6 +10,9 @@ import Footer from '@/components/Footer';
 export const metadata: Metadata = {
   title: 'Банкетне меню | Enot Sushi',
   description: 'Банкетне меню від Enot Sushi для ваших свят та заходів.',
+  alternates: {
+    canonical: '/banquet',
+  },
 };
 
 import { createClient } from '@supabase/supabase-js';
