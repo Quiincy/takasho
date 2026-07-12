@@ -454,6 +454,8 @@ export default function EventOrderButton() {
                   name="customerPhone"
                   placeholder="+380 (__) ___ __ __"
                   value={formData.customerPhone}
+                  inputMode="tel"
+                  type="tel"
                   onAccept={(value) => setFormData(prev => ({ ...prev, customerPhone: value }))}
                   required
                   style={{

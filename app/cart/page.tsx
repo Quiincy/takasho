@@ -607,6 +607,8 @@ function CartContent() {
                     value={phone}
                     onAccept={(value) => setPhone(value)}
                     placeholder="+380 (__) ___ __ __"
+                    inputMode="tel"
+                    type="tel"
                     style={{
                       width: '100%', padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)',
                       borderRadius: 14, color: 'white', fontSize: 15, outline: 'none', transition: 'border-color 0.2s', boxSizing: 'border-box'
