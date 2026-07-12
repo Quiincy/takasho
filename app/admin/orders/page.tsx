@@ -265,7 +265,7 @@ export default function AdminOrdersPage() {
                         <MapPin size={13} />
                         {order.delivery_address}
                         {order.distance_km && (
-                          <span style={{ color: 'var(--text-muted)', fontSize: 12 }}>({order.distance_km.toFixed(1)} км)</span>
+                          <span style={{ color: 'var(--text-muted)', fontSize: 12 }}>({Number(order.distance_km).toFixed(1)} км)</span>
                         )}
                       </span>
                     </div>
