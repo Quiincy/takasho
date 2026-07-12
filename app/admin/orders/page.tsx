@@ -62,6 +62,7 @@ function timeSince(iso: string) {
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [filter, setFilter] = useState<OrderStatus | 'all'>('all');
+  const [selectedDate, setSelectedDate] = useState(() => new Date().toISOString().split('T')[0]);
   const [loading, setLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
   const [newCount, setNewCount] = useState(0);
@@ -126,18 +127,20 @@ export default function AdminOrdersPage() {
     setUpdatingId(null);
   };
 
-  const filtered = filter === 'all' ? orders : orders.filter(o => o.status === filter);
+  const ordersForDate = orders.filter(o => {
+    const d = new Date(o.created_at);
+    const dateStr = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    return dateStr === selectedDate;
+  });
+
+  const filtered = filter === 'all' ? ordersForDate : ordersForDate.filter(o => o.status === filter);
 
   const stats = {
-    new: orders.filter(o => o.status === 'new').length,
-    preparing: orders.filter(o => o.status === 'preparing').length,
-    delivering: orders.filter(o => o.status === 'delivering').length,
-    todayRevenue: orders
-      .filter(o => {
-        const d = new Date(o.created_at);
-        const today = new Date();
-        return d.toDateString() === today.toDateString() && o.status !== 'cancelled';
-      })
+    new: ordersForDate.filter(o => o.status === 'new').length,
+    preparing: ordersForDate.filter(o => o.status === 'preparing').length,
+    delivering: ordersForDate.filter(o => o.status === 'delivering').length,
+    todayRevenue: ordersForDate
+      .filter(o => o.status !== 'cancelled')
       .reduce((s, o) => s + o.total_price + o.delivery_cost, 0),
   };
 
@@ -159,17 +162,29 @@ export default function AdminOrdersPage() {
           </h1>
           <p style={{ color: 'var(--text-muted)', fontSize: 14 }}>Оновлюється в реальному часі</p>
         </div>
-        <button
-          onClick={loadOrders}
-          style={{
-            display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px',
-            background: 'var(--bg-card)', border: '1px solid var(--border)',
-            borderRadius: 10, color: 'var(--text-secondary)', fontSize: 14, cursor: 'pointer',
-          }}
-        >
-          <RefreshCw size={15} style={{ animation: loading ? 'spin 1s linear infinite' : 'none' }} />
-          Оновити
-        </button>
+        <div style={{ display: 'flex', gap: 10 }}>
+          <input 
+            type="date" 
+            value={selectedDate}
+            onChange={e => setSelectedDate(e.target.value)}
+            style={{
+              background: 'var(--bg-card)', border: '1px solid var(--border)',
+              borderRadius: 10, color: 'var(--text-secondary)', fontSize: 14, padding: '0 12px',
+              cursor: 'pointer', outline: 'none'
+            }}
+          />
+          <button
+            onClick={loadOrders}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px',
+              background: 'var(--bg-card)', border: '1px solid var(--border)',
+              borderRadius: 10, color: 'var(--text-secondary)', fontSize: 14, cursor: 'pointer',
+            }}
+          >
+            <RefreshCw size={15} style={{ animation: loading ? 'spin 1s linear infinite' : 'none' }} />
+            Оновити
+          </button>
+        </div>
       </div>
 
       {/* Stats row */}
@@ -178,7 +193,7 @@ export default function AdminOrdersPage() {
           { label: 'Нових', value: stats.new, color: '#e63946', icon: '🔴' },
           { label: 'Готується', value: stats.preparing, color: '#f4a261', icon: '🟡' },
           { label: 'В дорозі', value: stats.delivering, color: '#4ea8de', icon: '🔵' },
-          { label: 'Виручка сьогодні', value: `${stats.todayRevenue} ₴`, color: '#48c774', icon: '💰' },
+          { label: 'Виручка за день', value: `${stats.todayRevenue} ₴`, color: '#48c774', icon: '💰' },
         ].map(s => (
           <div key={s.label} style={{
             background: 'var(--bg-card)', border: '1px solid var(--border)',
@@ -247,6 +262,15 @@ export default function AdminOrdersPage() {
                       }}>
                         {cfg.label}
                       </span>
+                      {order.comment?.includes('[УСПІШНО ОПЛАЧЕНО ОНЛАЙН]') ? (
+                        <span style={{ padding: '3px 12px', borderRadius: 100, fontSize: 12, fontWeight: 700, background: 'rgba(72,199,116,0.15)', color: '#48c774' }}>
+                          ✅ Оплачено
+                        </span>
+                      ) : (
+                        <span style={{ padding: '3px 12px', borderRadius: 100, fontSize: 12, fontWeight: 700, background: 'rgba(244,162,97,0.15)', color: '#f4a261' }}>
+                          ⏳ Не оплачено
+                        </span>
+                      )}
                       <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>
                         <Clock size={11} style={{ display: 'inline', marginRight: 4 }} />
                         {formatTime(order.created_at)} · {timeSince(order.created_at)}
