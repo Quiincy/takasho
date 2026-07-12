@@ -47,7 +47,9 @@ export default async function ContactsPage() {
       icon: '📍',
       title: 'Адреса',
       lines: [contactAddress],
+      link: 'https://maps.app.goo.gl/oDPUVY7F9SPcrfr97',
       accent: false,
+      wide: false,
     },
     {
       icon: '📞',
@@ -55,12 +57,14 @@ export default async function ContactsPage() {
       lines: [contactPhone],
       link: `tel:${contactPhone.replace(/[^0-9+]/g, '')}`,
       accent: true,
+      wide: false,
     },
     {
       icon: '🕐',
       title: 'Графік роботи',
       lines: [contactSchedule],
       accent: false,
+      wide: false,
     },
     {
       icon: '✉️',
@@ -68,11 +72,26 @@ export default async function ContactsPage() {
       lines: ['hello@enotsushi.kyiv.ua'],
       link: 'mailto:hello@enotsushi.kyiv.ua',
       accent: false,
+      wide: false,
+    },
+    {
+      icon: '🏢',
+      title: 'Юридична інформація',
+      lines: ['ФОП Гулак Дмитро Сергійович', 'ІПН / РНОКПП: 3139607532'],
+      accent: false,
+      wide: true,
     },
   ];
 
   return (
     <main style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
+      <style>{`
+        @media (min-width: 600px) {
+          .wide-card {
+            grid-column: span 2;
+          }
+        }
+      `}</style>
       <Header />
 
       {/* Hero */}
@@ -113,7 +132,7 @@ export default async function ContactsPage() {
           {INFO_CARDS.map((card) => (
             <div
               key={card.title}
-              className="card"
+              className={`card ${card.wide ? 'wide-card' : ''}`}
               style={{
                 padding: '28px 28px',
                 display: 'flex',
@@ -130,12 +149,14 @@ export default async function ContactsPage() {
               {card.link ? (
                 <a
                   href={card.link}
+                  target={card.link.startsWith('http') ? '_blank' : undefined}
+                  rel={card.link.startsWith('http') ? 'noopener noreferrer' : undefined}
                   style={{
-                    fontSize: 20,
-                    fontWeight: 700,
-                    color: 'var(--accent)',
+                    fontSize: card.accent ? 20 : 17,
+                    fontWeight: card.accent ? 700 : 600,
+                    color: card.accent ? 'var(--accent)' : 'var(--text-primary)',
                     textDecoration: 'none',
-                    transition: 'opacity 0.2s',
+                    transition: 'color 0.2s',
                   }}
                 >
                   {card.lines[0]}
@@ -151,22 +172,7 @@ export default async function ContactsPage() {
           ))}
         </div>
 
-        {/* FOP Details */}
-        <div style={{
-          marginTop: 20,
-          padding: '20px 24px',
-          borderRadius: 'var(--radius-sm)',
-          background: 'rgba(255,255,255,0.02)',
-          border: '1px solid var(--border)',
-          fontSize: 14,
-          color: 'var(--text-secondary)',
-          lineHeight: 1.6,
-          textAlign: 'center',
-        }}>
-          <p style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4 }}>Юридична інформація</p>
-          <p>ФОП Гулак Дмитро Сергійович</p>
-          <p>ІПН / РНОКПП: 3139607532</p>
-        </div>
+
 
         {/* Divider */}
         <div style={{ display: 'flex', gap: 20, marginBottom: 48, flexWrap: 'wrap' }}>
@@ -302,7 +308,10 @@ export default async function ContactsPage() {
             border: '1px solid var(--border)',
           }}
         >
-          <div
+          <a
+            href="https://maps.app.goo.gl/oDPUVY7F9SPcrfr97"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               padding: '16px 24px',
               background: 'var(--bg-secondary)',
@@ -313,11 +322,13 @@ export default async function ContactsPage() {
               fontSize: 14,
               color: 'var(--text-secondary)',
               fontWeight: 500,
+              textDecoration: 'none',
+              transition: 'color 0.2s',
             }}
           >
             <MapPin size={16} style={{ color: 'var(--accent)' }} />
             {contactAddress}
-          </div>
+          </a>
           <ContactMap />
         </div>
       </section>

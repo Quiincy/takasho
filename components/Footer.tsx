@@ -80,9 +80,9 @@ export default function Footer() {
               <Phone size={18} /> {contact_phone}
             </a>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5 }}>
+              <a href="https://maps.app.goo.gl/oDPUVY7F9SPcrfr97" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'flex-start', gap: 12, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5, textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>
                 <MapPin size={16} style={{ flexShrink: 0, marginTop: 3 }} /> <span style={{ textAlign: 'left' }}>{contact_address}</span>
-              </div>
+              </a>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1.5, whiteSpace: 'nowrap' }}>
                 <Clock size={16} style={{ flexShrink: 0 }} /> <span>{contact_schedule}</span>
               </div>

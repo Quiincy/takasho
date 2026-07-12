@@ -8,6 +8,7 @@ import nextDynamic from 'next/dynamic';
 const ImageGallery = nextDynamic(() => import('@/components/ImageGallery'));
 import Footer from '@/components/Footer';
 import { createClient } from '@supabase/supabase-js';
+import EventOrderButton from '@/components/EventOrderButton';
 import { DbCategory, DbMenuItem, DbSubcategory } from '@/lib/supabase';
 
 export const revalidate = 60; // ISR revalidation every 60 seconds
@@ -215,22 +216,7 @@ export default async function HomePage() {
               ))}
             </div>
 
-            <a href="tel:+380957972943" className="events-btn" style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 10,
-              background: 'linear-gradient(135deg, var(--accent) 0%, #c1121f 100%)',
-              color: 'white',
-              padding: '16px 32px',
-              borderRadius: 100,
-              textDecoration: 'none',
-              fontWeight: 700,
-              fontSize: 16,
-              boxShadow: '0 8px 25px rgba(230, 57, 70, 0.4)',
-              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-            }}>
-              📞 Замовити організацію
-            </a>
+            <EventOrderButton />
           </div>
           <style>{`
             .events-btn:hover {

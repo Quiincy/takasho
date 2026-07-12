@@ -7,9 +7,22 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import dynamic from 'next/dynamic';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Trash2, Plus, Minus, ArrowLeft, CreditCard, ShoppingBag, Phone, Info, CheckCircle, MapPin } from 'lucide-react';
+import { Trash2, Plus, Minus, ArrowLeft, CreditCard, ShoppingBag, Phone, Info, CheckCircle, MapPin, Clock } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { useSiteSettings } from '@/lib/settings-context';
+import { IMaskInput } from 'react-imask';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import { uk } from 'date-fns/locale/uk';
+import { setHours, setMinutes, format } from 'date-fns';
+import "react-datepicker/dist/react-datepicker.css";
+
+// Register Ukrainian locale for the calendar
+registerLocale('uk', uk);
+
+const parseTime = (timeStr: string, fallback: string = '10:00') => {
+  const [h, m] = (timeStr || fallback).split(':').map(Number);
+  return setHours(setMinutes(new Date(), m || 0), h || 0);
+};
 
 const DeliveryMap = dynamic(() => import('@/components/DeliveryMap'), {
   ssr: false,
@@ -150,7 +163,6 @@ function CartContent() {
     setSubmitting(true);
     setSubmitError('');
     try {
-      // Validate phone number for Ukraine
       const cleanedPhone = phone.replace(/[-()\s]/g, '');
       const phoneRegex = /^(?:\+?38)?0(39|50|63|66|67|68|73|89|91|92|93|94|95|96|97|98|99)\d{7}$/;
       if (!phoneRegex.test(cleanedPhone)) {
@@ -248,7 +260,6 @@ function CartContent() {
     }
   };
 
-  // Empty cart state
   if (items.length === 0 && !showSuccessInfo) {
     return (
       <main style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
@@ -274,7 +285,6 @@ function CartContent() {
     );
   }
 
-  // Success state
   if (showSuccessInfo) {
     return (
       <main style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
@@ -338,12 +348,57 @@ function CartContent() {
   return (
     <main style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
       <Header />
+      <style jsx global>{`
+        .react-datepicker-wrapper { display: inline-block; }
+        .react-datepicker {
+          font-family: inherit;
+          background-color: var(--bg-card);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 16px;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .react-datepicker__header {
+          background-color: var(--bg-secondary);
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+          border-radius: 16px 16px 0 0;
+          padding: 12px 0;
+          color: white !important;
+        }
+        .react-datepicker-time__header {
+          color: white !important;
+          font-weight: 600;
+        }
+        .react-datepicker__header--time {
+          color: white !important;
+        }
+        .react-datepicker__time-container {
+          border-left: 1px solid rgba(255,255,255,0.05) !important;
+        }
+        .react-datepicker__time {
+          background-color: var(--bg-card) !important;
+          color: var(--text-primary) !important;
+        }
+        .react-datepicker__time-list-item {
+          color: white !important;
+          background-color: var(--bg-card) !important;
+        }
+        .react-datepicker__time-list-item:hover {
+          background-color: rgba(230, 57, 70, 0.2) !important;
+          color: var(--accent) !important;
+        }
+        .react-datepicker__time-list-item--selected {
+          background-color: var(--accent) !important;
+          color: white !important;
+        }
+        .react-datepicker__time-list-item--disabled {
+          display: none !important;
+        }
+      `}</style>
       <div style={{
         maxWidth: 1280,
         margin: '0 auto',
         padding: 'clamp(100px, 15vw, 130px) 16px 60px',
       }}>
-        {/* Back */}
         <button onClick={() => {
           let targetUrl = '/#menu';
           const lastCategory = localStorage.getItem('lastMenuCategory');
@@ -356,7 +411,6 @@ function CartContent() {
             }
             targetUrl += '#menu';
           } else if (items.length > 0) {
-            // Fallback
             const lastItem = items[items.length - 1];
             targetUrl = `/?category=${lastItem.category_id}#menu`;
           }
@@ -378,7 +432,6 @@ function CartContent() {
           <span style={{ color: 'var(--accent)' }}>🛒</span> Ваше замовлення
         </h1>
 
-        {/* Layout */}
         <div className="cart-layout" style={{
           display: 'grid',
           gridTemplateColumns: 'minmax(0, 1.3fr) minmax(0, 1fr)',
@@ -386,10 +439,7 @@ function CartContent() {
           alignItems: 'start',
         }}>
 
-          {/* LEFT col */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-
-            {/* Cart items */}
             <div style={{
               background: 'linear-gradient(145deg, rgba(30, 30, 30, 0.4) 0%, rgba(20, 20, 20, 0.7) 100%)',
               backdropFilter: 'blur(20px)',
@@ -434,12 +484,10 @@ function CartContent() {
                   borderBottom: idx < items.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
                   alignItems: 'center',
                 }}>
-                  {/* Image */}
                   <div style={{ position: 'relative', width: 60, height: 60, borderRadius: 10, overflow: 'hidden', flexShrink: 0 }}>
                     <Image src={item.image} alt={item.name} fill sizes="60px" style={{ objectFit: 'cover' }} />
                   </div>
 
-                  {/* Name + weight */}
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 3, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {item.name}
@@ -447,7 +495,6 @@ function CartContent() {
                     <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{item.weight}</div>
                   </div>
 
-                  {/* Controls — on mobile they wrap below */}
                   <div className="cart-item-controls" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6, flexShrink: 0 }}>
                     <div style={{ fontWeight: 700, color: 'var(--accent)', fontSize: 15 }}>
                       {item.price * item.quantity} ₴
@@ -501,9 +548,7 @@ function CartContent() {
               ))}
             </div>
 
-            {/* Delivery form detailed blocks */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              {/* Delivery type */}
               <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
                 <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Робимо замовлення</h2>
                 <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
@@ -538,7 +583,6 @@ function CartContent() {
                 </div>
               </div>
 
-              {/* Receiver Data */}
               <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
                 <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Дані одержувача</h2>
                 <div className="checkout-grid-2">
@@ -551,25 +595,21 @@ function CartContent() {
                       width: '100%', padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)',
                       borderRadius: 14, color: 'white', fontSize: 15, outline: 'none', transition: 'border-color 0.2s', boxSizing: 'border-box'
                     }}
-                    onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
-                    onBlur={e => (e.target.style.borderColor = 'var(--border)')}
                   />
-                  <input
-                    type="tel"
+                  <IMaskInput
+                    mask="+38\0 (00) 000 00 00"
+                    lazy={false}
                     value={phone}
-                    onChange={e => setPhone(e.target.value)}
-                    placeholder="Номер телефону (напр. 050 123 45 67) *"
+                    onAccept={(value) => setPhone(value)}
+                    placeholder="+380 (__) ___ __ __"
                     style={{
                       width: '100%', padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)',
                       borderRadius: 14, color: 'white', fontSize: 15, outline: 'none', transition: 'border-color 0.2s', boxSizing: 'border-box'
                     }}
-                    onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
-                    onBlur={e => (e.target.style.borderColor = 'var(--border)')}
                   />
                 </div>
               </div>
 
-              {/* Address */}
               {deliveryMethod === 'delivery' && (
                 <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
@@ -589,7 +629,6 @@ function CartContent() {
                 </div>
               )}
 
-              {/* Delivery Terms */}
               <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
                 <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Умови доставки</h2>
                 
@@ -612,13 +651,33 @@ function CartContent() {
                       {isClosed ? `Завтра о:` : `До певного часу`}
                     </label>
                     {deliveryTime === 'specific' && (
-                      <input type="time" min={nextAvailableTime} max={work_time_end || '21:00'} value={specificTime} onChange={e => setSpecificTime(e.target.value)} style={{ padding: '8px 12px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 8, color: 'white', fontSize: 15, outline: 'none' }} />
+                      <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                        <Clock size={16} style={{ position: 'absolute', left: 12, color: 'var(--text-muted)', zIndex: 2, pointerEvents: 'none' }} />
+                        <DatePicker
+                          selected={specificTime ? parseTime(specificTime) : null}
+                          onChange={(date: Date | null) => {
+                            if (date) setSpecificTime(format(date, 'HH:mm'));
+                          }}
+                          showTimeSelect
+                          showTimeSelectOnly
+                          timeIntervals={5}
+                          timeCaption="Час"
+                          dateFormat="HH:mm"
+                          timeFormat="HH:mm"
+                          minTime={parseTime(nextAvailableTime || work_time_start)}
+                          maxTime={parseTime(work_time_end || '21:00')}
+                          locale="uk"
+                          placeholderText="00:00"
+                          customInput={
+                            <input style={{ padding: '10px 12px 10px 36px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 8, color: 'white', fontSize: 15, outline: 'none', cursor: 'pointer', width: 90 }} />
+                          }
+                        />
+                      </div>
                     )}
                   </div>
                 </div>
               </div>
 
-              {/* Payment Terms */}
               <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
                 <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Умови платежу</h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -632,7 +691,6 @@ function CartContent() {
                 </div>
               </div>
 
-              {/* Other */}
               <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
                 <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Крім того</h2>
                 <input type="text" value={comment} onChange={e => setComment(e.target.value)} placeholder="Коментар (необов'язково)" style={{ width: '100%', padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none', marginBottom: 20, boxSizing: 'border-box' }} />
