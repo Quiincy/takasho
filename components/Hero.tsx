@@ -250,9 +250,31 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
                 <span style={{ background: 'rgba(230,57,70,.95)', backdropFilter: 'blur(10px)', borderRadius: 8, padding: '4px 10px', color: 'white', fontWeight: 800, fontSize: 16 }}>{actualSlides[active].price}</span>
               </span>
             </div>
-            <div style={{ position: 'absolute', top: 14, right: 14, left: 14, display: 'flex', gap: 5, zIndex: 10, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+            <div style={{ position: 'absolute', top: 0, right: 4, display: 'flex', zIndex: 10, flexWrap: 'wrap', justifyContent: 'flex-end', padding: '4px' }}>
               {actualSlides.map((_, i) => (
-                <button key={i} aria-label={`Перейти до слайду ${i + 1}`} onClick={() => setActive(i)} style={{ width: i === active ? 20 : 8, height: 8, borderRadius: 100, background: i === active ? 'var(--accent)' : 'rgba(255,255,255,.3)', border: 'none', cursor: 'pointer', padding: 0, transition: 'all .35s ease' }} />
+                <button 
+                  key={i} 
+                  aria-label={`Перейти до слайду ${i + 1}`} 
+                  onClick={() => setActive(i)} 
+                  style={{ 
+                    padding: '16px 8px', 
+                    background: 'transparent', 
+                    border: 'none', 
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    touchAction: 'manipulation'
+                  }} 
+                >
+                  <div style={{ 
+                    width: i === active ? 20 : 8, 
+                    height: 8, 
+                    borderRadius: 100, 
+                    background: i === active ? 'var(--accent)' : 'rgba(255,255,255,.3)', 
+                    transition: 'all .35s ease' 
+                  }} />
+                </button>
               ))}
             </div>
           </div>
