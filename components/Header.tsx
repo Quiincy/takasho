@@ -70,8 +70,8 @@ export default function Header() {
         width: '100%',
         color: '#ffffff',
       }}>
-        🚕 Доставка за тарифом таксі <span className="hide-mobile">&nbsp;|&nbsp;
-          <span style={{ opacity: 0.9 }}>Від 1000 грн — 50% оплачуємо ми 🎉</span></span>
+        🚕 Вартість доставки <span className="hide-mobile">&nbsp;|&nbsp;
+          <span style={{ opacity: 0.9 }}>до 2 км — 70 грн, більше 2 км — 120 грн 🎉</span></span>
       </div>
 
       <div style={{

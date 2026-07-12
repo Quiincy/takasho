@@ -178,7 +178,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
           </h1>
 
           <p style={{ fontSize: 'clamp(15px,1.8vw,18px)', color: 'var(--text-secondary)', lineHeight: 1.75, marginBottom: 36, maxWidth: 480 }}>
-            Свіжо, гаряче, смачно. Доставка 50/50 при замовленні від 1000 грн.
+            Свіжо, гаряче, смачно. Вартість доставки — від 70 грн.
             Оплата на банківський рахунок або картку ФОП. Від 1 години до дверей.
           </p>
 
@@ -187,7 +187,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
             {[
               { icon: <Star size={14} />, text: '60+ страв' },
               { icon: <Clock size={14} />, text: 'Від 1 год' },
-              { icon: <Bike size={14} />, text: '50/50 від 1000 грн' },
+              { icon: <Bike size={14} />, text: 'Від 70 грн' },
             ].map(s => (
               <div key={s.text} style={{ display: 'flex', alignItems: 'center', gap: 7, background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 100, padding: '7px 14px', color: 'var(--text-secondary)', fontSize: 13, fontWeight: 500 }}>
                 <span style={{ color: 'var(--accent)' }}>{s.icon}</span>{s.text}
@@ -260,7 +260,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
           {/* floating badges — desktop only */}
           <div className="hide-mobile" style={{ position: 'absolute', bottom: -16, right: -20, zIndex: 20, background: 'rgba(26,26,26,.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 16, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10, boxShadow: '0 20px 40px rgba(0,0,0,.4)', animation: 'float 4s ease-in-out infinite 2s' }}>
             <div style={{ width: 42, height: 42, borderRadius: 12, background: 'linear-gradient(135deg,var(--accent),#c1121f)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0 }}>🚴</div>
-            <div><div style={{ fontSize: 13, fontWeight: 700 }}>Оплата доставки 50/50</div><div style={{ fontSize: 11, color: '#48c774', fontWeight: 600 }}>при замовленні від 1000 грн</div></div>
+            <div><div style={{ fontSize: 13, fontWeight: 700 }}>Доставка</div><div style={{ fontSize: 11, color: '#f4a261', fontWeight: 600 }}>до 2 км — 70 грн, більше — 120 грн</div></div>
           </div>
 
 
@@ -359,7 +359,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
           </div>
 
           <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: 18 }}>
-            Доставка за тарифом таксі. Від 1 години.
+            Вартість доставки — від 70 грн. Від 1 години.
           </p>
 
           {/* stats row */}
@@ -367,7 +367,7 @@ export default function Hero({ popularItems = [] }: { popularItems?: any[] }) {
             {[
               { icon: <Star size={12} />, text: '60+ страв' },
               { icon: <Clock size={12} />, text: 'Від 1 год' },
-              { icon: <Bike size={12} />, text: 'Від 1000 грн — 50/50' },
+              { icon: <Bike size={12} />, text: 'Від 70 грн' },
             ].map(s => (
               <div key={s.text} style={{ display: 'flex', alignItems: 'center', gap: 5, background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 100, padding: '5px 12px', color: 'var(--text-secondary)', fontSize: 12, fontWeight: 500 }}>
                 <span style={{ color: 'var(--accent)' }}>{s.icon}</span>{s.text}

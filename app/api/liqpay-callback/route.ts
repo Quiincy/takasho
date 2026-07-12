@@ -86,11 +86,10 @@ export async function POST(request: NextRequest) {
             const parsedItems = typeof order.items === 'string' ? JSON.parse(order.items) : order.items;
             const itemsList = parsedItems.map((item: any) => `• ${escapeHtml(item.name)} x${item.quantity} — ${item.price * item.quantity} ₴`).join('\n');
             
+            const distanceText = order.distance_km ? ` (${Number(order.distance_km).toFixed(1)} км)` : '';
             const deliveryText = order.delivery_cost === 0 
-              ? 'Самовивіз / Безкоштовно' 
-              : order.delivery_cost === -1 
-                ? (order.total_price >= 1000 ? 'Тариф таксі (50% оплачує заклад)' : 'За тарифом таксі')
-                : `${order.delivery_cost} ₴`;
+              ? 'Самовивіз' 
+              : `Доставка на таксі${distanceText}`;
             
             const totalToPay = order.total_price + (order.delivery_cost > 0 ? order.delivery_cost : 0);
 

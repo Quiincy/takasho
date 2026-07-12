@@ -22,7 +22,7 @@ function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: numbe
 }
 
 export function calcDeliveryCost(distanceKm: number, cartTotal: number): number {
-  return -1;
+  return distanceKm <= 2 ? 70 : 120;
 }
 
 interface Props {
@@ -212,7 +212,6 @@ export default function DeliveryMap({ onDistanceChange, address, cartTotal }: Pr
   }, [distance, cartTotal, onDistanceChange]);
 
   const deliveryCost = distance !== null ? calcDeliveryCost(distance, cartTotal) : null;
-  const isHalfPrice = cartTotal >= 1000;
 
   return (
     <div>
@@ -263,13 +262,12 @@ export default function DeliveryMap({ onDistanceChange, address, cartTotal }: Pr
           flexWrap: 'wrap',
           gap: 12,
           padding: '16px',
-          background: isHalfPrice ? 'rgba(72,199,116,0.08)' : 'rgba(244,162,97,0.08)',
-          border: '1px solid',
-          borderColor: isHalfPrice ? 'rgba(72,199,116,0.25)' : 'rgba(244,162,97,0.25)',
+          background: 'rgba(244,162,97,0.08)',
+          border: '1px solid rgba(244,162,97,0.25)',
           borderRadius: 'var(--radius-sm)',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1 }}>
-            <Bike size={18} style={{ color: isHalfPrice ? '#48c774' : '#f4a261' }} />
+            <Bike size={18} style={{ color: '#f4a261' }} />
             <div>
               <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 2 }}>Відстань</div>
               <div style={{ fontWeight: 700, fontSize: 16, color: 'var(--text-primary)' }}>
@@ -278,30 +276,18 @@ export default function DeliveryMap({ onDistanceChange, address, cartTotal }: Pr
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1 }}>
-            <MapPin size={18} style={{ color: isHalfPrice ? '#48c774' : '#f4a261' }} />
+            <MapPin size={18} style={{ color: '#f4a261' }} />
             <div>
               <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 2 }}>Доставка</div>
               <div style={{
                 fontWeight: 700,
                 fontSize: 14,
-                color: isHalfPrice ? '#48c774' : '#f4a261',
+                color: '#f4a261',
               }}>
-                {isHalfPrice ? 'За тарифом таксі (50% оплачуємо ми) 🎉' : 'За тарифом таксі'}
+                {deliveryCost} ₴
               </div>
             </div>
           </div>
-          {!isHalfPrice && (
-            <div style={{
-              width: '100%',
-              fontSize: 13,
-              color: 'var(--text-muted)',
-              borderTop: '1px solid var(--border)',
-              paddingTop: 10,
-              marginTop: 4,
-            }}>
-              💡 Сума замовлення менша за 1000 грн. Вартість розраховується за тарифом таксі (повна оплата).
-            </div>
-          )}
         </div>
       )}
 
