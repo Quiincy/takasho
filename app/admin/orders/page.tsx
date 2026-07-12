@@ -140,7 +140,7 @@ export default function AdminOrdersPage() {
     preparing: ordersForDate.filter(o => o.status === 'preparing').length,
     delivering: ordersForDate.filter(o => o.status === 'delivering').length,
     todayRevenue: ordersForDate
-      .filter(o => o.status !== 'cancelled')
+      .filter(o => o.status !== 'cancelled' && o.comment?.includes('[УСПІШНО ОПЛАЧЕНО ОНЛАЙН]'))
       .reduce((s, o) => s + o.total_price + o.delivery_cost, 0),
   };
 
