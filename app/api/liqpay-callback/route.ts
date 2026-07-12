@@ -86,6 +86,14 @@ export async function POST(request: NextRequest) {
             const parsedItems = typeof order.items === 'string' ? JSON.parse(order.items) : order.items;
             const itemsList = parsedItems.map((item: any) => `• ${escapeHtml(item.name)} x${item.quantity} — ${item.price * item.quantity} ₴`).join('\n');
             
+            const deliveryText = order.delivery_cost === 0 
+              ? 'Самовивіз / Безкоштовно' 
+              : order.delivery_cost === -1 
+                ? (order.total_price >= 1000 ? 'Тариф таксі (50% оплачує заклад)' : 'За тарифом таксі')
+                : `${order.delivery_cost} ₴`;
+            
+            const totalToPay = order.total_price + (order.delivery_cost > 0 ? order.delivery_cost : 0);
+
             const message = `
 🟢 <b>Нове замовлення #${order.id.split('-')[0]}</b>
 ✅ <b>ОПЛАЧЕНО (LiqPay)</b>
@@ -101,8 +109,8 @@ ${escapeHtml(order.comment || 'Немає додаткових деталей')}
 ${itemsList}
 
 💰 <b>Товари:</b> ${order.total_price} ₴
-🛵 <b>Доставка:</b> ${order.delivery_cost} ₴
-💵 <b>Разом:</b> ${order.total_price + order.delivery_cost} ₴
+🛵 <b>Доставка:</b> ${deliveryText}
+💵 <b>Оплачено:</b> ${totalToPay} ₴
             `.trim();
 
             await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {

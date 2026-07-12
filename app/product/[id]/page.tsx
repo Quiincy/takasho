@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
   return {
     title: `${product.name} — Замовити з доставкою | Enot Sushi`,
-    description: product.description || `Замовляйте ${product.name} з безкоштовною доставкою в Києві.`,
+    description: product.description || `Замовляйте ${product.name} з доставкою в Києві.`,
     openGraph: {
       images: [product.image],
     },

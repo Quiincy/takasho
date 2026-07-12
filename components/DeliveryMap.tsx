@@ -22,7 +22,6 @@ function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: numbe
 }
 
 export function calcDeliveryCost(distanceKm: number, cartTotal: number): number {
-  if (distanceKm <= FREE_DELIVERY_KM && cartTotal >= 1000) return 0;
   return -1;
 }
 
@@ -87,15 +86,14 @@ export default function DeliveryMap({ onDistanceChange, address, cartTotal }: Pr
         .addTo(map)
         .bindPopup('<b>Enot Sushi</b><br>вул. Едуарда Вільде, 10Б');
 
-      // 5km free delivery circle
-      circleRef.current = L.circle([RESTAURANT_LAT, RESTAURANT_LNG], {
-        radius: FREE_DELIVERY_KM * 1000,
-        color: '#e63946',
-        fillColor: '#e63946',
-        fillOpacity: 0.07,
-        weight: 2,
-        dashArray: '6,4',
-      }).addTo(map);
+      // circleRef.current = L.circle([RESTAURANT_LAT, RESTAURANT_LNG], {
+      //   radius: FREE_DELIVERY_KM * 1000,
+      //   color: '#e63946',
+      //   fillColor: '#e63946',
+      //   fillOpacity: 0.07,
+      //   weight: 2,
+      //   dashArray: '6,4',
+      // }).addTo(map);
 
       mapRef.current = map;
       setReady(true);
@@ -159,7 +157,7 @@ export default function DeliveryMap({ onDistanceChange, address, cartTotal }: Pr
           const userIcon = L.divIcon({
             html: `<div style="
               width:30px;height:30px;
-              background:${dist <= FREE_DELIVERY_KM ? '#48c774' : '#f4a261'};
+              background:'#f4a261';
               border-radius:50%;
               display:flex;align-items:center;justify-content:center;
               box-shadow:0 4px 15px rgba(0,0,0,0.4);
@@ -183,7 +181,7 @@ export default function DeliveryMap({ onDistanceChange, address, cartTotal }: Pr
           if (routeGeoJSON) {
             routeRef.current = L.geoJSON(routeGeoJSON, {
               style: {
-                color: dist <= FREE_DELIVERY_KM ? '#48c774' : '#f4a261',
+                color: '#f4a261',
                 weight: 4,
                 opacity: 0.8,
                 dashArray: '8, 8'
@@ -214,7 +212,7 @@ export default function DeliveryMap({ onDistanceChange, address, cartTotal }: Pr
   }, [distance, cartTotal, onDistanceChange]);
 
   const deliveryCost = distance !== null ? calcDeliveryCost(distance, cartTotal) : null;
-  const isFree = distance !== null && distance <= FREE_DELIVERY_KM && cartTotal >= 1000;
+  const isHalfPrice = cartTotal >= 1000;
 
   return (
     <div>
@@ -265,13 +263,13 @@ export default function DeliveryMap({ onDistanceChange, address, cartTotal }: Pr
           flexWrap: 'wrap',
           gap: 12,
           padding: '16px',
-          background: isFree ? 'rgba(72,199,116,0.08)' : 'rgba(244,162,97,0.08)',
+          background: isHalfPrice ? 'rgba(72,199,116,0.08)' : 'rgba(244,162,97,0.08)',
           border: '1px solid',
-          borderColor: isFree ? 'rgba(72,199,116,0.25)' : 'rgba(244,162,97,0.25)',
+          borderColor: isHalfPrice ? 'rgba(72,199,116,0.25)' : 'rgba(244,162,97,0.25)',
           borderRadius: 'var(--radius-sm)',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1 }}>
-            <Bike size={18} style={{ color: isFree ? '#48c774' : '#f4a261' }} />
+            <Bike size={18} style={{ color: isHalfPrice ? '#48c774' : '#f4a261' }} />
             <div>
               <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 2 }}>Відстань</div>
               <div style={{ fontWeight: 700, fontSize: 16, color: 'var(--text-primary)' }}>
@@ -280,19 +278,19 @@ export default function DeliveryMap({ onDistanceChange, address, cartTotal }: Pr
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1 }}>
-            <MapPin size={18} style={{ color: isFree ? '#48c774' : '#f4a261' }} />
+            <MapPin size={18} style={{ color: isHalfPrice ? '#48c774' : '#f4a261' }} />
             <div>
               <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 2 }}>Доставка</div>
               <div style={{
                 fontWeight: 700,
                 fontSize: 14,
-                color: isFree ? '#48c774' : '#f4a261',
+                color: isHalfPrice ? '#48c774' : '#f4a261',
               }}>
-                {isFree ? 'БЕЗКОШТОВНО 🎉' : 'За тарифом таксі'}
+                {isHalfPrice ? 'За тарифом таксі (50% оплачуємо ми) 🎉' : 'За тарифом таксі'}
               </div>
             </div>
           </div>
-          {!isFree && (
+          {!isHalfPrice && (
             <div style={{
               width: '100%',
               fontSize: 13,
@@ -301,7 +299,7 @@ export default function DeliveryMap({ onDistanceChange, address, cartTotal }: Pr
               paddingTop: 10,
               marginTop: 4,
             }}>
-              💡 Ви поза зоною безкоштовної доставки (1 км) або сума замовлення менша за 1000 грн. Вартість розраховується за тарифом таксі.
+              💡 Сума замовлення менша за 1000 грн. Вартість розраховується за тарифом таксі (повна оплата).
             </div>
           )}
         </div>
@@ -319,15 +317,11 @@ export default function DeliveryMap({ onDistanceChange, address, cartTotal }: Pr
         border: '1px solid var(--border)',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--text-muted)' }}>
-          <div style={{ width: 12, height: 12, borderRadius: 2, background: 'rgba(230,57,70,0.3)', border: '1px dashed #e63946' }} />
-          Зона безкоштовної доставки (1 км)
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--text-muted)' }}>
           <div style={{ width: 12, height: 12, borderRadius: 100, background: '#e63946' }} />
           Ресторан
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--text-muted)' }}>
-          <div style={{ width: 12, height: 12, borderRadius: 100, background: '#48c774' }} />
+          <div style={{ width: 12, height: 12, borderRadius: 100, background: '#f4a261' }} />
           Ваш будинок
         </div>
       </div>

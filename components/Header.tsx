@@ -70,8 +70,8 @@ export default function Header() {
         width: '100%',
         color: '#ffffff',
       }}>
-        🚀 Безкоштовна доставка до 1 км (від 1000 грн) <span className="hide-mobile">&nbsp;|&nbsp;
-          <span style={{ opacity: 0.9 }}>Понад 1 км — за тарифами таксі</span></span>
+        🚕 Доставка за тарифом таксі <span className="hide-mobile">&nbsp;|&nbsp;
+          <span style={{ opacity: 0.9 }}>Від 1000 грн — 50% оплачуємо ми 🎉</span></span>
       </div>
 
       <div style={{

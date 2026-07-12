@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 /* ─── Marquee ticker (like takasho.top background text) ─── */
-const TICKER_ITEMS = ['🍣 СУШІ', '🍕 ПІЦА', '🍔 БУРГЕРИ', '🔥 ДОСТАВКА', '⚡ ВІД 1 ГОД', '💳 ОПЛАТА ФОП', '🎉 БЕЗКОШТОВНА ДОСТАВКА В РАДІУСІ 1 КМ'];
+const TICKER_ITEMS = ['🍣 СУШІ', '🍕 ПІЦА', '🍔 БУРГЕРИ', '🔥 ДОСТАВКА', '⚡ ВІД 1 ГОД', '💳 ОПЛАТА ФОП', '🎉 ДОСТАВКА 50/50 ВІД 1000 ГРН'];
 
 export function Marquee() {
   const items = [...TICKER_ITEMS, ...TICKER_ITEMS]; // duplicate for seamless loop

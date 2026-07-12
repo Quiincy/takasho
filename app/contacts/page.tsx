@@ -266,10 +266,10 @@ export default async function ContactsPage() {
             <div style={{ fontSize: 32 }}>🛵</div>
             <div>
               <div style={{ fontWeight: 800, fontSize: 18, marginBottom: 8 }}>
-                Безкоштовна доставка
+                Доставка
               </div>
               <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                Безкоштовна доставка до 1 км при замовленні від 1000 грн. Мінімальна сума замовлення для доставки — 500 грн.
+                Доставка за тарифом таксі. При замовленні від 1000 грн — 50% вартості оплачуємо ми. Мінімальна сума замовлення — 500 грн.
               </p>
             </div>
             <a

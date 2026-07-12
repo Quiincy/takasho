@@ -701,7 +701,7 @@ function CartContent() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)', fontSize: 14 }}>
                   <span>Доставка</span>
                   <span style={{ color: deliveryMethod === 'pickup' || deliveryInfo?.cost === 0 ? '#48c774' : (deliveryInfo?.cost === -1 ? 'var(--accent-gold)' : 'var(--text-primary)'), fontWeight: 600, fontSize: deliveryInfo?.cost === -1 ? 13 : 14 }}>
-                    {deliveryMethod === 'pickup' ? 'САМОВИВІЗ' : (deliveryInfo === null ? '—' : deliveryInfo.cost === 0 ? 'БЕЗКОШТОВНО' : deliveryInfo.cost === -1 ? 'За тарифом таксі' : `${deliveryInfo.cost} ₴`)}
+                    {deliveryMethod === 'pickup' ? 'САМОВИВІЗ' : (deliveryInfo === null ? '—' : deliveryInfo.cost === -1 ? (totalPrice >= 1000 ? 'Тариф таксі (50% оплачуємо ми)' : 'За тарифом таксі') : `${deliveryInfo.cost} ₴`)}
                   </span>
                 </div>
                 <div style={{
