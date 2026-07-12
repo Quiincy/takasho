@@ -107,6 +107,12 @@ export default function EventOrderButton() {
       return;
     }
 
+    const digits = formData.customerPhone.replace(/\D/g, '');
+    if (digits.length < 12) {
+      setError('Номер телефону введено не повністю. Будь ласка, перевірте правильність.');
+      return;
+    }
+
     // Format local date correctly (YYYY-MM-DD) avoiding timezone shifts
     const offset = formData.eventDate.getTimezoneOffset() * 60000;
     const localDateStr = new Date(formData.eventDate.getTime() - offset).toISOString().split('T')[0];

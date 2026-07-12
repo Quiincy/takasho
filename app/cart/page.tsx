@@ -163,6 +163,11 @@ function CartContent() {
     setSubmitting(true);
     setSubmitError('');
     try {
+      const digits = phone.replace(/\D/g, '');
+      if (digits.length < 12) {
+        throw new Error('Номер телефону введено не повністю. Будь ласка, перевірте правильність.');
+      }
+
       const cleanedPhone = phone.replace(/[-()\s]/g, '');
       const phoneRegex = /^(?:\+?38)?0(39|50|63|66|67|68|73|89|91|92|93|94|95|96|97|98|99)\d{7}$/;
       if (!phoneRegex.test(cleanedPhone)) {
