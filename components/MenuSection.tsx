@@ -607,8 +607,15 @@ export default function MenuSection({ initialCategories, initialItems, initialSu
               gap: 20,
             }}
           >
-            {paginatedItems.map((item, idx) => (
-              <MenuCard key={item.id} item={item} index={idx} activeCategory={activeCategory} activeSubCategory={subCategory} />
+            {paginatedItems.map((item, index) => (
+              <MenuCard 
+                key={item.id}
+                item={item} 
+                index={index} 
+                priority={index < 4}
+                activeCategory={activeCategory} 
+                activeSubCategory={subCategory} 
+              />
             ))}
           </div>
 
