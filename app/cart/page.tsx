@@ -598,7 +598,7 @@ function CartContent() {
                     placeholder="Ваше ім'я *"
                     style={{
                       width: '100%', padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)',
-                      borderRadius: 14, color: 'white', fontSize: 15, outline: 'none', transition: 'border-color 0.2s', boxSizing: 'border-box'
+                      borderRadius: 14, color: 'white', fontSize: 16, outline: 'none', transition: 'border-color 0.2s', boxSizing: 'border-box'
                     }}
                   />
                   <IMaskInput
@@ -611,7 +611,7 @@ function CartContent() {
                     type="tel"
                     style={{
                       width: '100%', padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)',
-                      borderRadius: 14, color: 'white', fontSize: 15, outline: 'none', transition: 'border-color 0.2s', boxSizing: 'border-box'
+                      borderRadius: 14, color: 'white', fontSize: 16, outline: 'none', transition: 'border-color 0.2s', boxSizing: 'border-box'
                     }}
                   />
                 </div>
@@ -624,14 +624,14 @@ function CartContent() {
                     <span style={{ fontSize: 14, color: 'var(--accent)', fontWeight: 600 }}>м. Київ</span>
                   </div>
                   <div className="checkout-grid-3" style={{ marginBottom: 12 }}>
-                    <input type="text" value={addressStreet} onChange={e => setAddressStreet(e.target.value)} placeholder="Вулиця *" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
-                    <input type="text" value={addressBuilding} onChange={e => setAddressBuilding(e.target.value)} placeholder="Будинок *" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
-                    <input type="text" value={addressApt} onChange={e => setAddressApt(e.target.value)} placeholder="Квартира" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
+                    <input type="text" value={addressStreet} onChange={e => setAddressStreet(e.target.value)} placeholder="Вулиця *" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 16, outline: 'none' }} />
+                    <input type="text" value={addressBuilding} onChange={e => setAddressBuilding(e.target.value)} placeholder="Будинок *" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 16, outline: 'none' }} />
+                    <input type="text" value={addressApt} onChange={e => setAddressApt(e.target.value)} placeholder="Квартира" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 16, outline: 'none' }} />
                   </div>
                   <div className="checkout-grid-3-equal">
-                    <input type="text" value={addressFloor} onChange={e => setAddressFloor(e.target.value)} placeholder="Поверх" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
-                    <input type="text" value={addressEntrance} onChange={e => setAddressEntrance(e.target.value)} placeholder="Під'їзд" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
-                    <input type="text" value={addressIntercom} onChange={e => setAddressIntercom(e.target.value)} placeholder="Домофон" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none' }} />
+                    <input type="text" value={addressFloor} onChange={e => setAddressFloor(e.target.value)} placeholder="Поверх" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 16, outline: 'none' }} />
+                    <input type="text" value={addressEntrance} onChange={e => setAddressEntrance(e.target.value)} placeholder="Під'їзд" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 16, outline: 'none' }} />
+                    <input type="text" value={addressIntercom} onChange={e => setAddressIntercom(e.target.value)} placeholder="Домофон" style={{ padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 16, outline: 'none' }} />
                   </div>
                 </div>
               )}
@@ -676,7 +676,7 @@ function CartContent() {
                           locale="uk"
                           placeholderText="00:00"
                           customInput={
-                            <input style={{ padding: '10px 12px 10px 36px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 8, color: 'white', fontSize: 15, outline: 'none', cursor: 'pointer', width: 90 }} />
+                            <input style={{ padding: '10px 12px 10px 36px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 8, color: 'white', fontSize: 16, outline: 'none', cursor: 'pointer', width: 90 }} />
                           }
                         />
                       </div>
@@ -700,7 +700,7 @@ function CartContent() {
 
               <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
                 <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Крім того</h2>
-                <input type="text" value={comment} onChange={e => setComment(e.target.value)} placeholder="Коментар (необов'язково)" style={{ width: '100%', padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 15, outline: 'none', marginBottom: 20, boxSizing: 'border-box' }} />
+                <input type="text" value={comment} onChange={e => setComment(e.target.value)} placeholder="Коментар (необов'язково)" style={{ width: '100%', padding: '16px', background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, color: 'white', fontSize: 16, outline: 'none', marginBottom: 20, boxSizing: 'border-box' }} />
                 
                 <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12 }}>Кількість персон</h3>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 16, background: 'rgba(0,0,0,0.25)', border: '1px solid var(--border)', borderRadius: 14, padding: '6px 12px' }}>

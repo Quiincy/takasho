@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Montserrat } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/lib/cart-context';
@@ -41,6 +41,13 @@ export const metadata: Metadata = {
   other: {
     'google-site-verification': 'your-google-verification-code',
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default async function RootLayout({
