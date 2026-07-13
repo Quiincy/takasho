@@ -813,9 +813,7 @@ function CartContent() {
               {!isReady && !submitError && (
                 <p style={{ fontSize: 12, color: 'var(--accent)', textAlign: 'center', marginTop: 8 }}>
                   {deliveryMethod === 'delivery' && totalPrice < 500 
-                    ? (isPreOrder 
-                        ? 'Мінімальна сума передзамовлення — 500 грн (без урахування доставки)' 
-                        : 'Мінімальна сума замовлення — 500 грн (без урахування доставки)')
+                    ? 'Мінімальна сума замовлення — 500 грн (без урахування доставки)'
                     : <span style={{color: 'var(--text-muted)'}}>Заповніть ім'я, телефон та адресу</span>}
                 </p>
               )}
