@@ -49,13 +49,24 @@ export default function Header() {
         borderBottom: scrolled ? '1px solid var(--border)' : 'none',
       }}
     >
-      <style>{`
+        <style>{`
         @media (max-width: 768px) {
           .header-top, .header-scrolled {
             background: rgba(13,13,13,0.97) !important;
             backdrop-filter: blur(20px) !important;
             -webkit-backdrop-filter: blur(20px) !important;
             border-bottom: 1px solid var(--border) !important;
+          }
+          .header-right-container {
+            gap: 4px !important;
+          }
+          .burger-btn {
+            padding: 8px !important;
+            margin-left: 0 !important;
+          }
+          .header-promo-bar {
+            white-space: normal !important;
+            line-height: 1.4 !important;
           }
         }
       `}</style>
@@ -70,8 +81,7 @@ export default function Header() {
         width: '100%',
         color: '#ffffff',
       }}>
-        🚕 Вартість доставки <span className="hide-mobile">&nbsp;|&nbsp;
-          <span style={{ opacity: 0.9 }}>до 2 км — 70 грн, більше 2 км — 120 грн 🎉</span></span>
+        🚕 Вартість доставки: <span style={{ opacity: 0.9 }}>до 2 км — 70 грн, &gt; 2 км — 120 грн 🎉</span>
       </div>
 
       <div style={{
@@ -128,7 +138,7 @@ export default function Header() {
         </nav>
 
         {/* Right: Phone + Cart */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+        <div className="header-right-container" style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 1 }}>
           <a href={`tel:${contact_phone.replace(/[^0-9+]/g, '')}`} aria-label="Зателефонувати" style={{
             display: 'flex',
             alignItems: 'center',
@@ -194,6 +204,7 @@ export default function Header() {
 
           {/* Hamburger Menu - visible on all screens */}
           <button
+            className="burger-btn"
             aria-label="Відкрити меню"
             onClick={() => setIsMobileMenuOpen(true)}
             style={{
