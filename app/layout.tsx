@@ -57,7 +57,7 @@ export default async function RootLayout({
     (process.env['NEXT_PUBLIC_SUPABASE_URL'] || 'https://placeholder.supabase.co'),
     (process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'] || 'placeholder'),
     {
-      global: { fetch: (url, init) => fetch(url, { ...init, cache: 'no-store' }) }
+      global: { fetch: (url, init) => fetch(url, { ...init, next: { revalidate: 3600 } }) }
     }
   );
 
