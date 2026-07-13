@@ -21,7 +21,7 @@ const EVENT_TYPES = [
   '🚙 Виїзний фуршет'
 ];
 
-export default function EventOrderButton() {
+export default function EventOrderButton({ isMenuItem = false, onModalOpen }: { isMenuItem?: boolean, onModalOpen?: () => void } = {}) {
   const { work_time_start, work_time_end } = useSiteSettings();
 
   const parseTime = (timeStr: string) => {
@@ -86,6 +86,7 @@ export default function EventOrderButton() {
     setIsOpen(true);
     setSuccess(false);
     setError('');
+    if (onModalOpen) onModalOpen();
   };
 
   const handleClose = () => {
@@ -555,37 +556,62 @@ export default function EventOrderButton() {
 
   return (
     <>
-      <a 
-        href="#" 
-        onClick={handleOpen}
-        className="events-btn" 
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 10,
-          background: 'linear-gradient(135deg, var(--accent) 0%, #c1121f 100%)',
-          color: 'white',
-          padding: '16px 32px',
-          borderRadius: 100,
-          textDecoration: 'none',
-          fontWeight: 700,
-          fontSize: 16,
-          boxShadow: '0 8px 25px rgba(230, 57, 70, 0.4)',
-          transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-          cursor: 'pointer'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'translateY(-2px)';
-          e.currentTarget.style.boxShadow = '0 12px 30px rgba(230, 57, 70, 0.5)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'translateY(0)';
-          e.currentTarget.style.boxShadow = '0 8px 25px rgba(230, 57, 70, 0.4)';
-        }}
-      >
-        <Phone size={18} />
-        Замовити організацію
-      </a>
+      {isMenuItem ? (
+        <a 
+          href="#" 
+          onClick={handleOpen}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '12px 8px',
+            background: 'rgba(255,255,255,0.03)',
+            borderRadius: 16,
+            textDecoration: 'none',
+            color: 'var(--text-primary)',
+            fontWeight: 600,
+            border: '1px solid rgba(255,255,255,0.05)',
+            textAlign: 'center',
+            gap: 6,
+          }}
+        >
+          <span style={{ fontSize: 24 }}>🎉</span>
+          <span style={{ fontSize: 12, lineHeight: 1.1 }}>Замовити<br/>організацію</span>
+        </a>
+      ) : (
+        <a 
+          href="#" 
+          onClick={handleOpen}
+          className="events-btn" 
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 10,
+            background: 'linear-gradient(135deg, var(--accent) 0%, #c1121f 100%)',
+            color: 'white',
+            padding: '16px 32px',
+            borderRadius: 100,
+            textDecoration: 'none',
+            fontWeight: 700,
+            fontSize: 16,
+            boxShadow: '0 8px 25px rgba(230, 57, 70, 0.4)',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+            cursor: 'pointer'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 12px 30px rgba(230, 57, 70, 0.5)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 8px 25px rgba(230, 57, 70, 0.4)';
+          }}
+        >
+          <Phone size={18} />
+          Замовити організацію
+        </a>
+      )}
 
       {mounted && typeof document !== 'undefined' && createPortal(modalContent, document.body)}
     </>

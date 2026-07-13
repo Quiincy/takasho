@@ -58,15 +58,29 @@ export default function Header() {
             border-bottom: 1px solid var(--border) !important;
           }
           .header-right-container {
-            gap: 4px !important;
+            gap: 2px !important;
           }
           .burger-btn {
-            padding: 8px !important;
-            margin-left: 0 !important;
+            padding: 6px !important;
           }
           .header-promo-bar {
             white-space: normal !important;
             line-height: 1.4 !important;
+          }
+          .phone-btn {
+            min-width: 38px !important;
+            min-height: 38px !important;
+          }
+          .cart-btn {
+            min-height: 38px !important;
+            padding: 6px 10px !important;
+          }
+          .cart-btn-price {
+            font-size: 13px !important;
+          }
+          .header-inner {
+            padding: 10px 12px !important;
+            gap: 8px !important;
           }
         }
       `}</style>
@@ -84,7 +98,7 @@ export default function Header() {
         🚕 Вартість доставки: <span style={{ opacity: 0.9 }}>до 2 км — 70 грн, &gt; 2 км — 120 грн 🎉</span>
       </div>
 
-      <div style={{
+      <div className="header-inner" style={{
         maxWidth: 1280,
         margin: '0 auto',
         padding: '12px 16px',
@@ -139,7 +153,7 @@ export default function Header() {
 
         {/* Right: Phone + Cart */}
         <div className="header-right-container" style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 1 }}>
-          <a href={`tel:${contact_phone.replace(/[^0-9+]/g, '')}`} aria-label="Зателефонувати" style={{
+          <a href={`tel:${contact_phone.replace(/[^0-9+]/g, '')}`} aria-label="Зателефонувати" className="phone-btn" style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -162,6 +176,7 @@ export default function Header() {
           <Link
             href="/cart"
             id="cart-button"
+            className="cart-btn"
             aria-label="Перейти до кошика"
             style={{
               textDecoration: 'none',
@@ -187,7 +202,7 @@ export default function Header() {
             <ShoppingCart size={18} />
             {totalItems > 0 && (
               <>
-                <span style={{ fontWeight: 700, fontSize: 14 }}>{totalPrice} ₴</span>
+                <span className="cart-btn-price" style={{ fontWeight: 700, fontSize: 14 }}>{totalPrice} ₴</span>
                 <span style={{
                   background: 'rgba(255,255,255,0.25)',
                   borderRadius: 100,

@@ -6,6 +6,7 @@ import { X, ChevronRight } from 'lucide-react';
 
 import { DbCategory } from '@/lib/supabase';
 import { usePathname } from 'next/navigation';
+import EventOrderButton from './EventOrderButton';
 
 interface Props {
   isOpen: boolean;
@@ -50,8 +51,6 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  if (!isOpen) return null;
-
   return (
     <div style={{
       position: 'fixed',
@@ -60,66 +59,70 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
       width: '100%',
       height: '100vh',
       zIndex: 9999,
-      display: 'flex',
+      display: isOpen ? 'flex' : 'none',
       flexDirection: 'column',
       background: 'var(--bg-primary)',
-      animation: 'fadeIn 0.3s ease',
+      animation: isOpen ? 'fadeIn 0.3s ease' : 'none',
     }}>
       {/* Header of mobile menu */}
       <div style={{
-        padding: '16px 20px',
+        padding: '12px 16px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         borderBottom: '1px solid rgba(255,255,255,0.05)',
       }}>
-        <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+        <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
           Меню
         </div>
         <button aria-label="Закрити меню" onClick={onClose} style={{
           background: 'rgba(255,255,255,0.1)',
           border: 'none',
           borderRadius: '50%',
-          width: 48,
-          height: 48,
+          width: 40,
+          height: 40,
+          minWidth: 40,
+          minHeight: 40,
+          flexShrink: 0,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           color: 'white',
           cursor: 'pointer',
         }}>
-          <X size={20} />
+          <X size={18} />
         </button>
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: '24px 20px 40px' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '12px 16px 16px' }}>
         {/* Main Links */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 16 }}>
           {[
             { href: '/', label: 'Головна', icon: '🏠' },
-            { href: '/banquet', label: 'Банкетне меню', icon: '🥂' },
-            { href: '/delivery', label: 'Доставка та оплата', icon: '🚴' },
+            { href: '/banquet', label: 'Банкетне\nменю', icon: '🥂' },
+            { href: '/delivery', label: 'Доставка\nта оплата', icon: '🚴' },
             { href: '/contacts', label: 'Контакти', icon: '📍' },
           ].map(link => (
             <Link key={link.href} href={link.href} onClick={onClose} style={{
               display: 'flex',
+              flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '18px 20px',
+              justifyContent: 'center',
+              padding: '12px 8px',
               background: 'rgba(255,255,255,0.03)',
-              borderRadius: 20,
+              borderRadius: 16,
               textDecoration: 'none',
               color: 'var(--text-primary)',
               fontWeight: 600,
               border: '1px solid rgba(255,255,255,0.05)',
+              textAlign: 'center',
+              gap: 6,
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                <span style={{ fontSize: 22 }}>{link.icon}</span>
-                <span style={{ fontSize: 16 }}>{link.label}</span>
-              </div>
-              <ChevronRight size={20} style={{ color: 'var(--text-muted)' }} />
+              <span style={{ fontSize: 24 }}>{link.icon}</span>
+              <span style={{ fontSize: 12, lineHeight: 1.1, whiteSpace: 'pre-line' }}>{link.label}</span>
             </Link>
           ))}
+          <EventOrderButton isMenuItem={true} onModalOpen={onClose} />
         </div>
 
         <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-muted)', marginBottom: 16, textTransform: 'uppercase', letterSpacing: '0.08em', paddingLeft: 4 }}>
