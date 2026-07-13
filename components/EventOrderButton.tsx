@@ -52,6 +52,21 @@ export default function EventOrderButton() {
     setMinDate(new Date());
   }, []);
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, [isOpen]);
+
   useEffect(() => {
     if (isOpen && bookedDates.length === 0) {
       // Fetch booked dates when modal opens
@@ -158,10 +173,15 @@ export default function EventOrderButton() {
   const excludeDates = bookedDates.map(d => new Date(d));
 
   const modalContent = isOpen ? (
-    <div className="event-modal-backdrop" style={{
-      position: 'fixed',
-      top: 0, left: 0, right: 0, bottom: 0,
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    <div 
+      className="event-modal-backdrop" 
+      onClick={(e) => {
+        if (e.target === e.currentTarget) handleClose();
+      }}
+      style={{
+        position: 'fixed',
+        top: 0, left: 0, right: 0, bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
       zIndex: 9999,
       display: 'flex',
       alignItems: 'center',
@@ -186,19 +206,22 @@ export default function EventOrderButton() {
           box-shadow: 0 20px 40px rgba(0,0,0,0.5);
           max-height: 95vh;
           overflow-y: auto;
+          box-sizing: border-box;
         }
 
         @media (max-width: 768px) {
           .event-modal-backdrop {
             padding: 0 !important;
+            align-items: flex-start !important;
           }
           .event-modal-container {
             max-width: 100%;
-            max-height: 100vh;
-            height: 100vh;
+            max-height: 100%;
+            height: 100%;
             border-radius: 0;
             border: none;
             padding: 24px 20px;
+            box-sizing: border-box;
           }
         }
         .react-datepicker-wrapper { width: 100%; }
