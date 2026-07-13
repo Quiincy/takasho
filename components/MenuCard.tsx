@@ -129,7 +129,7 @@ export default function MenuCard({ item, index = 0, activeCategory, activeSubCat
           fill
           priority={priority}
           fetchPriority={priority ? 'high' : 'auto'}
-          quality={70}
+          quality={50}
           sizes="(max-width: 380px) 100vw, (max-width: 640px) 50vw, (max-width: 1024px) 33vw, 320px"
           style={{
             objectFit: 'cover',
