@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { DbMenuItem } from '@/lib/supabase';
 
 export interface CartItem extends DbMenuItem {
@@ -21,6 +21,25 @@ const CartContext = createContext<CartContextType | null>(null);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('enot_cart_items');
+      if (stored) {
+        setItems(JSON.parse(stored));
+      }
+    } catch (e) {
+      console.error('Failed to parse cart from local storage', e);
+    }
+    setIsLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem('enot_cart_items', JSON.stringify(items));
+    }
+  }, [items, isLoaded]);
 
   const addItem = useCallback((item: DbMenuItem) => {
     setItems(prev => {
