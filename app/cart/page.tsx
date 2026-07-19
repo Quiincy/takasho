@@ -46,7 +46,7 @@ function CartContent() {
   const { items, updateQuantity, removeItem, clearCart, totalPrice } = useCart();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { contact_phone, contact_address, work_time_start, work_time_end } = useSiteSettings();
+  const { contact_phone, contact_address, work_time_start, work_time_end, is_ordering_enabled } = useSiteSettings();
   const paymentSuccess = searchParams?.get('payment') === 'success';
   const paymentError = searchParams?.get('payment') === 'error';
   const [name, setName] = useState('');
@@ -157,7 +157,7 @@ function CartContent() {
   const finalTotal = totalPrice + (deliveryMethod === 'delivery' ? actualDeliveryCost : 0);
   
   const isAddressValid = addressStreet.trim() && addressBuilding.trim();
-  const isReady = name.trim() && phone.trim() && (deliveryMethod === 'pickup' || (isAddressValid && totalPrice >= 500)) && items.length > 0;
+  const isReady = name.trim() && phone.trim() && (deliveryMethod === 'pickup' || (isAddressValid && totalPrice >= 500)) && items.length > 0 && is_ordering_enabled;
 
   const handleOrder = async () => {
     setSubmitting(true);
@@ -554,6 +554,18 @@ function CartContent() {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {!is_ordering_enabled && (
+                <div style={{ padding: 24, background: 'rgba(230, 57, 70, 0.1)', border: '1px solid rgba(230, 57, 70, 0.3)', borderRadius: 24, color: 'var(--accent)' }}>
+                  <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Info size={20} />
+                    Прийом замовлень призупинено
+                  </h2>
+                  <p style={{ fontSize: 14, lineHeight: 1.5 }}>
+                    Наразі ресторан тимчасово не приймає онлайн-замовлення. Можливо, ми закрились трохи раніше або проводимо технічні роботи. Будь ласка, спробуйте пізніше або зателефонуйте нам.
+                  </p>
+                </div>
+              )}
+              
               <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 24, padding: 24 }}>
                 <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Робимо замовлення</h2>
                 <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
@@ -796,8 +808,8 @@ function CartContent() {
                   justifyContent: 'center',
                   gap: 8,
                   borderRadius: 12,
-                  opacity: (isReady && !submitting) ? 1 : 0.5,
-                  cursor: (isReady && !submitting) ? 'pointer' : 'not-allowed',
+                  opacity: (isReady && !submitting && is_ordering_enabled) ? 1 : 0.5,
+                  cursor: (isReady && !submitting && is_ordering_enabled) ? 'pointer' : 'not-allowed',
                 }}
               >
                 <CreditCard size={17} />

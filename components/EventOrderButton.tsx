@@ -21,7 +21,7 @@ const EVENT_TYPES = [
   '🚙 Виїзний фуршет'
 ];
 
-export default function EventOrderButton({ isMenuItem = false, onModalOpen }: { isMenuItem?: boolean, onModalOpen?: () => void } = {}) {
+export default function EventOrderButton({ isMenuItem = false, onModalOpen }: { isMenuItem?: boolean, onModalOpen?: () => void }) {
   const { work_time_start, work_time_end } = useSiteSettings();
 
   const parseTime = (timeStr: string) => {

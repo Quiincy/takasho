@@ -68,9 +68,15 @@ export default async function RootLayout({
       const phone = data.find(s => s.key === 'contact_phone')?.value;
       const address = data.find(s => s.key === 'contact_address')?.value;
       const schedule = data.find(s => s.key === 'contact_schedule')?.value;
+      const workTimeStart = data.find(s => s.key === 'work_time_start')?.value;
+      const workTimeEnd = data.find(s => s.key === 'work_time_end')?.value;
+      const isOrderingEnabled = data.find(s => s.key === 'is_ordering_enabled')?.value;
       if (phone) settings.contact_phone = phone;
       if (address) settings.contact_address = address;
       if (schedule) settings.contact_schedule = schedule;
+      if (workTimeStart) settings.work_time_start = workTimeStart;
+      if (workTimeEnd) settings.work_time_end = workTimeEnd;
+      if (isOrderingEnabled) settings.is_ordering_enabled = isOrderingEnabled !== 'false';
     }
   } catch (e) {
     console.error("Failed to load settings in layout", e);

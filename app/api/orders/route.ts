@@ -9,6 +9,14 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient();
     const body = await request.json();
 
+    const { data: settingsData } = await supabase.from('site_settings').select('*');
+    if (settingsData) {
+      const isOrderingEnabled = settingsData.find((s: any) => s.key === 'is_ordering_enabled')?.value;
+      if (isOrderingEnabled === 'false') {
+        return Response.json({ error: 'Прийом замовлень наразі призупинено.' }, { status: 400 });
+      }
+    }
+
     const { customer_name, customer_phone, delivery_address, comment, items, total_price, delivery_cost, distance_km, payment_method } = body;
 
     if (!customer_name || !customer_phone || !delivery_address || !items?.length) {

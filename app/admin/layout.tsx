@@ -2,8 +2,10 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { ShoppingBag, LayoutGrid, LogOut, ChevronRight, BookOpen, Settings } from 'lucide-react';
+import { ShoppingBag, LayoutGrid, LogOut, ChevronRight, BookOpen, Settings, Power } from 'lucide-react';
 import { logout } from './actions';
+import { useState, useEffect } from 'react';
+import { loadSettingsAction, saveSettingsAction } from './settings/actions';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -25,6 +27,29 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: '/admin/banquet', label: 'Банкетне меню', icon: <BookOpen size={18} /> },
     { href: '/admin/settings', label: 'Налаштування', icon: <Settings size={18} /> },
   ];
+
+  const [isOrderingEnabled, setIsOrderingEnabled] = useState(true);
+  const [loadingSetting, setLoadingSetting] = useState(true);
+
+  useEffect(() => {
+    async function fetchSettings() {
+      const res = await loadSettingsAction();
+      if (res?.data) {
+        const orderingSetting = res.data.find((s: any) => s.key === 'is_ordering_enabled');
+        if (orderingSetting) {
+          setIsOrderingEnabled(orderingSetting.value !== 'false');
+        }
+      }
+      setLoadingSetting(false);
+    }
+    fetchSettings();
+  }, []);
+
+  const handleToggleOrdering = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    setIsOrderingEnabled(checked);
+    await saveSettingsAction([{ key: 'is_ordering_enabled', value: checked ? 'true' : 'false', updated_at: new Date().toISOString() }]);
+  };
 
   return (
     <div className="admin-layout">
@@ -89,6 +114,30 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </Link>
             );
           })}
+          
+          <div style={{ marginTop: 'auto', marginBottom: 16 }}>
+            {!loadingSetting && (
+              <div style={{
+                background: isOrderingEnabled ? 'rgba(72,199,116,0.1)' : 'rgba(230,57,70,0.1)',
+                border: `1px solid ${isOrderingEnabled ? 'rgba(72,199,116,0.2)' : 'rgba(230,57,70,0.2)'}`,
+                borderRadius: 12, padding: '16px 14px', display: 'flex', flexDirection: 'column', gap: 12
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: isOrderingEnabled ? '#48c774' : 'var(--accent)', fontWeight: 600, fontSize: 13 }}>
+                  <Power size={16} />
+                  {isOrderingEnabled ? 'Замовлення УВІМК' : 'Замовлення ВИМК'}
+                </div>
+                <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 13, color: 'var(--text-primary)' }}>
+                  <input 
+                    type="checkbox" 
+                    checked={isOrderingEnabled}
+                    onChange={handleToggleOrdering}
+                    style={{ accentColor: isOrderingEnabled ? '#48c774' : 'var(--accent)', width: 16, height: 16 }}
+                  />
+                  <span>Приймати з сайту</span>
+                </label>
+              </div>
+            )}
+          </div>
         </nav>
 
         {/* Bottom (Desktop) */}
