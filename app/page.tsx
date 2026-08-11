@@ -10,8 +10,30 @@ import Footer from '@/components/Footer';
 import { createClient } from '@supabase/supabase-js';
 import EventOrderButton from '@/components/EventOrderButton';
 import { DbCategory, DbMenuItem, DbSubcategory } from '@/lib/supabase';
+import { Metadata } from 'next';
 
 export const revalidate = 60; // ISR revalidation every 60 seconds
+// export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }): Promise<Metadata> {
+  // Try to await searchParams for Next.js 15+ compatibility, fallback to object if not a promise
+  const resolvedParams = searchParams instanceof Promise ? await searchParams : searchParams;
+  const categoryId = resolvedParams?.category;
+  if (!categoryId || typeof categoryId !== 'string') return {};
+  
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co',
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder'
+  );
+  
+  const { data } = await supabase.from('menu_categories').select('seo_title, seo_description').eq('id', categoryId).single();
+  if (!data) return {};
+
+  return {
+    title: data.seo_title || undefined,
+    description: data.seo_description || undefined,
+  };
+}
 // export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {

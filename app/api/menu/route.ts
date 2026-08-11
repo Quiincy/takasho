@@ -31,6 +31,9 @@ export async function POST(req: NextRequest) {
       name: data.name,
       emoji: data.emoji || '🍽️',
       sort_order: data.sort_order ?? 0,
+      seo_title: data.seo_title || null,
+      seo_description: data.seo_description || null,
+      seo_h1: data.seo_h1 || null,
     });
     if (error) return NextResponse.json({ error: error.message }, { status: 400 });
     return NextResponse.json({ ok: true });

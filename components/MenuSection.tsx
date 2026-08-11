@@ -137,9 +137,12 @@ export default function MenuSection({ initialCategories, initialItems, initialSu
     }, 50);
   };
 
-  const catName = activeCategory === 'all'
-    ? 'Все меню'
-    : initialCategories.find(c => c.id === activeCategory)?.name ?? '';
+  const activeCategoryData = activeCategory === 'all'
+    ? null
+    : initialCategories.find(c => c.id === activeCategory);
+
+  const catName = activeCategoryData ? activeCategoryData.name : 'Все меню';
+  const catH1 = activeCategoryData?.seo_h1 || 'Замовляйте що завгодно';
 
   const handleCategorySelect = (id: string) => {
     setActiveCategory(id);
@@ -186,7 +189,7 @@ export default function MenuSection({ initialCategories, initialItems, initialSu
           WebkitTextFillColor: 'transparent',
           textShadow: '0 2px 20px rgba(255,255,255,0.1)'
         }}>
-          Замовляйте що завгодно
+          {catH1}
         </h2>
         <p style={{ color: 'var(--text-secondary)', fontSize: 16, maxWidth: 500, margin: '0 auto', lineHeight: 1.6 }}>
           {initialItems.length} страв на будь-який смак — суші, піца, бургери та більше

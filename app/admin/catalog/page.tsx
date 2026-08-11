@@ -111,8 +111,12 @@ export default function AdminMenuEditorPage() {
   
   // add category form
   const [showAddCat, setShowAddCat] = useState(false);
-  const [newCat, setNewCat] = useState({ name: '', emoji: '🍽️' });
+  const [newCat, setNewCat] = useState({ name: '', emoji: '🍽️', seo_title: '', seo_description: '', seo_h1: '' });
   const [savingCat, setSavingCat] = useState(false);
+
+  // edit category SEO
+  const [editingCatSEO, setEditingCatSEO] = useState<DbCategory | null>(null);
+  const [savingCatSEO, setSavingCatSEO] = useState(false);
 
   // add subcategory form
   const [showAddSubFor, setShowAddSubFor] = useState<string | null>(null);
@@ -148,10 +152,10 @@ export default function AdminMenuEditorPage() {
       const res = await fetch('/api/menu', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'category', name: newCat.name.trim(), emoji: newCat.emoji }),
+        body: JSON.stringify({ type: 'category', name: newCat.name.trim(), emoji: newCat.emoji, seo_title: newCat.seo_title, seo_description: newCat.seo_description, seo_h1: newCat.seo_h1 }),
       });
       if (res.ok) {
-        setNewCat({ name: '', emoji: '🍽️' });
+        setNewCat({ name: '', emoji: '🍽️', seo_title: '', seo_description: '', seo_h1: '' });
         setShowAddCat(false);
         await load();
       } else {
@@ -162,6 +166,25 @@ export default function AdminMenuEditorPage() {
       setError(`Мережева помилка: ${err.message}`);
     }
     setSavingCat(false);
+  };
+
+  const saveCatSEO = async () => {
+    if (!editingCatSEO) return;
+    setSavingCatSEO(true);
+    const { id, seo_title, seo_description, seo_h1 } = editingCatSEO;
+    try {
+      const res = await fetch('/api/menu', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'category', id, seo_title, seo_description, seo_h1 }),
+      });
+      if (!res.ok) throw new Error('Failed');
+      setEditingCatSEO(null);
+      await load();
+    } catch (err: any) {
+      setError(`Мережева помилка: ${err.message}`);
+    }
+    setSavingCatSEO(false);
   };
 
   const deleteCategory = async (id: string) => {
@@ -448,6 +471,13 @@ export default function AdminMenuEditorPage() {
                     <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{catItems.length} страв</div>
                   </div>
                   <button
+                    onClick={e => { e.stopPropagation(); setEditingCatSEO(editingCatSEO?.id === cat.id ? null : cat); }}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: editingCatSEO?.id === cat.id ? 'var(--accent)' : 'var(--text-muted)', padding: 6, borderRadius: 6, display: 'flex' }}
+                    title="Налаштування SEO"
+                  >
+                    ⚙️
+                  </button>
+                  <button
                     onClick={e => { e.stopPropagation(); deleteCategory(cat.id); }}
                     style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 6, borderRadius: 6, display: 'flex' }}
                     title="Видалити категорію"
@@ -456,6 +486,24 @@ export default function AdminMenuEditorPage() {
                   </button>
                   {isOpen ? <ChevronUp size={18} style={{ color: 'var(--text-muted)' }} /> : <ChevronDown size={18} style={{ color: 'var(--text-muted)' }} />}
                 </div>
+
+                {/* Edit Category SEO Form */}
+                {editingCatSEO?.id === cat.id && (
+                  <div style={{ padding: '16px 20px', borderTop: '1px solid var(--border)', background: 'var(--bg-secondary)' }} onClick={e => e.stopPropagation()}>
+                    <p style={{ fontSize: 14, fontWeight: 700, marginBottom: 12 }}>⚙️ Налаштування SEO для «{cat.name}»</p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 16 }}>
+                      <Field label="SEO Title (Meta Title)" value={editingCatSEO.seo_title || ''} onChange={v => setEditingCatSEO({ ...editingCatSEO, seo_title: v })} placeholder="Наприклад: Замовити суші в Києві" />
+                      <Field label="SEO Description (Meta Description)" value={editingCatSEO.seo_description || ''} onChange={v => setEditingCatSEO({ ...editingCatSEO, seo_description: v })} placeholder="Найсмачніші суші з безкоштовною доставкою..." />
+                      <Field label="SEO H1 (Заголовок сторінки)" value={editingCatSEO.seo_h1 || ''} onChange={v => setEditingCatSEO({ ...editingCatSEO, seo_h1: v })} placeholder="Доставка Суші" />
+                    </div>
+                    <div style={{ display: 'flex', gap: 8 }}>
+                      <button onClick={saveCatSEO} disabled={savingCatSEO} style={{ padding: '8px 16px', background: 'var(--accent)', color: 'white', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+                        {savingCatSEO ? '⏳' : 'Зберегти SEO'}
+                      </button>
+                      <button onClick={() => setEditingCatSEO(null)} style={{ padding: '8px 14px', background: 'none', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text-muted)', fontSize: 13, cursor: 'pointer' }}>Скасувати</button>
+                    </div>
+                  </div>
+                )}
 
                 {/* Expanded: items list + add form */}
                 {isOpen && (
