@@ -1,7 +1,16 @@
 import { MetadataRoute } from 'next';
+import { supabase } from '@/lib/supabase';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://enotsushi.kyiv.ua';
+
+  const { data: products } = await supabase.from('menu_items').select('id');
+  const productEntries: MetadataRoute.Sitemap = (products || []).map((p) => ({
+    url: `${baseUrl}/product/${p.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  }));
 
   return [
     {
@@ -28,5 +37,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.5,
     },
+    ...productEntries,
   ];
 }

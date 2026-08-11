@@ -52,6 +52,30 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
   return (
     <AnimatedPage>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org/',
+            '@type': 'Product',
+            name: product.name,
+            image: [product.image],
+            description: product.description || `Замовляйте ${product.name} з доставкою в Києві.`,
+            sku: product.id,
+            offers: {
+              '@type': 'Offer',
+              url: `https://enotsushi.kyiv.ua/product/${product.id}`,
+              priceCurrency: 'UAH',
+              price: product.price,
+              availability: 'https://schema.org/InStock',
+              seller: {
+                '@type': 'Organization',
+                name: 'Enot Sushi',
+              },
+            },
+          }),
+        }}
+      />
       <main style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
         <Header />
         <div className="reveal">

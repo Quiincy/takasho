@@ -11,6 +11,7 @@ export default function SettingsPage() {
   const [contactSchedule, setContactSchedule] = useState('');
   const [workTimeStart, setWorkTimeStart] = useState('10:00');
   const [workTimeEnd, setWorkTimeEnd] = useState('21:00');
+  const [gtmId, setGtmId] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [testing, setTesting] = useState(false);
@@ -38,6 +39,7 @@ export default function SettingsPage() {
           const scheduleSetting = data.find((s: any) => s.key === 'contact_schedule');
           const workStartSetting = data.find((s: any) => s.key === 'work_time_start');
           const workEndSetting = data.find((s: any) => s.key === 'work_time_end');
+          const gtmSetting = data.find((s: any) => s.key === 'gtm_id');
           
           if (tokenSetting) setBotToken(tokenSetting.value);
           if (chatSetting) setChatId(chatSetting.value);
@@ -46,6 +48,7 @@ export default function SettingsPage() {
           if (scheduleSetting) setContactSchedule(scheduleSetting.value);
           if (workStartSetting) setWorkTimeStart(workStartSetting.value);
           if (workEndSetting) setWorkTimeEnd(workEndSetting.value);
+          if (gtmSetting) setGtmId(gtmSetting.value);
         }
       } catch (err: any) {
         console.error('Error loading settings:', err);
@@ -70,7 +73,8 @@ export default function SettingsPage() {
         { key: 'contact_address', value: contactAddress, updated_at: new Date().toISOString() },
         { key: 'contact_schedule', value: contactSchedule, updated_at: new Date().toISOString() },
         { key: 'work_time_start', value: workTimeStart, updated_at: new Date().toISOString() },
-        { key: 'work_time_end', value: workTimeEnd, updated_at: new Date().toISOString() }
+        { key: 'work_time_end', value: workTimeEnd, updated_at: new Date().toISOString() },
+        { key: 'gtm_id', value: gtmId, updated_at: new Date().toISOString() }
       ];
 
       const res = await saveSettingsAction(updates);
@@ -308,6 +312,38 @@ export default function SettingsPage() {
                   }}
                 />
               </div>
+            </div>
+          </div>
+
+          <hr style={{ border: 'none', borderTop: '1px solid var(--border)' }} />
+          
+          {/* Analytics Settings */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <h2 style={{ fontSize: 18, fontWeight: 600 }}>Аналітика (Google Tag Manager)</h2>
+            <p style={{ color: 'var(--text-muted)', fontSize: 14, marginBottom: 8, lineHeight: 1.5 }}>
+              Вкажіть ваш GTM ID для відстеження подій на сайті (Google Analytics, Google Ads).
+            </p>
+
+            <div>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 8 }}>
+                GTM ID (наприклад: GTM-XXXXXXX)
+              </label>
+              <input
+                type="text"
+                value={gtmId}
+                onChange={e => setGtmId(e.target.value)}
+                placeholder="GTM-XXXXXXX"
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  background: 'var(--bg-primary)',
+                  border: '1px solid var(--border)',
+                  borderRadius: 8,
+                  color: 'var(--text-primary)',
+                  fontSize: 14,
+                  outline: 'none',
+                }}
+              />
             </div>
           </div>
 

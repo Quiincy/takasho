@@ -71,12 +71,14 @@ export default async function RootLayout({
       const workTimeStart = data.find(s => s.key === 'work_time_start')?.value;
       const workTimeEnd = data.find(s => s.key === 'work_time_end')?.value;
       const isOrderingEnabled = data.find(s => s.key === 'is_ordering_enabled')?.value;
+      const gtmId = data.find(s => s.key === 'gtm_id')?.value;
       if (phone) settings.contact_phone = phone;
       if (address) settings.contact_address = address;
       if (schedule) settings.contact_schedule = schedule;
       if (workTimeStart) settings.work_time_start = workTimeStart;
       if (workTimeEnd) settings.work_time_end = workTimeEnd;
       if (isOrderingEnabled) settings.is_ordering_enabled = isOrderingEnabled !== 'false';
+      if (gtmId) settings.gtm_id = gtmId;
     }
   } catch (e) {
     console.error("Failed to load settings in layout", e);
@@ -111,15 +113,15 @@ export default async function RootLayout({
         }} />
       </head>
       <body className={`${inter.className} ${montserrat.variable}`}>
-        {/* Google Tag Manager (Disabled until real ID is provided)
-        <Script id="gtm-script" strategy="afterInteractive" dangerouslySetInnerHTML={{
-          __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-XXXXXXX');`
-        }} />
-        */}
+        {(settings.gtm_id || process.env.NEXT_PUBLIC_GTM_ID) && (
+          <Script id="gtm-script" strategy="afterInteractive" dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${settings.gtm_id || process.env.NEXT_PUBLIC_GTM_ID}');`
+          }} />
+        )}
         {/* Next.js Dev Indicator Fix */}
         <script dangerouslySetInnerHTML={{
           __html: `
@@ -130,12 +132,12 @@ export default async function RootLayout({
             } catch(e) {}
           `
         }} />
-        {/* GTM noscript
-        <noscript>
-          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
-            height="0" width="0" style={{ display: 'none', visibility: 'hidden' }} />
-        </noscript>
-        */}
+        {(settings.gtm_id || process.env.NEXT_PUBLIC_GTM_ID) && (
+          <noscript>
+            <iframe src={`https://www.googletagmanager.com/ns.html?id=${settings.gtm_id || process.env.NEXT_PUBLIC_GTM_ID}`}
+              height="0" width="0" style={{ display: 'none', visibility: 'hidden' }} />
+          </noscript>
+        )}
         <div style={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
           <SiteSettingsProvider settings={settings}>
             <CartProvider>

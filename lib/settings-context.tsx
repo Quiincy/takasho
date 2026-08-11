@@ -12,6 +12,7 @@ export interface SiteSettings {
   work_time_start: string;
   work_time_end: string;
   is_ordering_enabled: boolean;
+  gtm_id: string;
 }
 
 const defaultSettings: SiteSettings = {
@@ -24,6 +25,7 @@ const defaultSettings: SiteSettings = {
   work_time_start: '10:00',
   work_time_end: '21:00',
   is_ordering_enabled: true,
+  gtm_id: '',
 };
 
 const SiteSettingsContext = createContext<SiteSettings>(defaultSettings);
